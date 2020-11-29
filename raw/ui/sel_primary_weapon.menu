@@ -1,0 +1,108 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define CHOICE_X_START			0
+#define CHOICE_Y_START			65
+
+#undef CHOICE_X_START
+#define CHOICE_X_START			30
+
+#undef CHOICE_Y_START
+#define CHOICE_Y_START			65
+
+#define CHOICE_SEP_OFFSET_Y		-2
+#define CHOICE_SEP_1			5
+
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#define ORIGIN_STATUS			390 64
+#define MENU_FONT_COLOR2		1 1 1 0.5
+#define LOCKED_BORDER_COLOR		1 1 1 0.5
+#define LOCAL_UNLOCK_COLOR 		0.31 0.31 0.33 0.55
+#define ORIGIN_DESCRIPTION		(CHOICE_X_START + 15) 320
+
+#define LOCKED_IMAGE_X			110
+#define LOCKED_IMAGE_Y			0
+
+#define LOCKED_TITLE_X			20
+#define LOCKED_TITLE_Y			(LOCKED_IMAGE_Y + 100)
+
+#define LOCKED_DESC_X			(LOCKED_TITLE_X)
+#define LOCKED_DESC_Y			(LOCKED_TITLE_Y + 20)
+
+#define LOCKED_WIDTH 			270
+#define LOCKED_ALIGN 			HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+
+#undef NEW_X_OFFSET			
+#define NEW_X_OFFSET			(-CHOICE_SIZE_Y)
+
+#ifdef PC
+	#define ORIGIN_LOCKED		((-(LOCKED_WIDTH - RIGHTITEM_OFFSET))-80) 38
+#else
+	#define ORIGIN_LOCKED		((-(LOCKED_WIDTH - RIGHTITEM_OFFSET))-10) 38
+#endif
+
+#include "ui_mp/stats_info.inc"
+#include "ui/overlaybg.inc"
+
+{
+	menudef
+	{
+		name			sel_primary_weapon
+		rect			0 0 640 470 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+		focuscolor		COLOR_FOCUSED
+		#ifdef PC_INGAME
+			style			WINDOW_STYLE_EMPTY
+		#else
+			style			WINDOW_STYLE_FILLED	
+			blurWorld		7.0
+		#endif
+		soundloop 		"music_mainmenu"
+		onOpen			
+		{ 
+			setdvar invite_visible "0"; 
+			setLocalVarBool ui_inOverlay "1";
+		}
+		onClose			
+		{ 
+			setLocalVarBool ui_inOverlay "0";
+		}
+		onEsc
+		{
+			execnow "uploadstats";
+			setdvar invite_visible "1";
+			close self;
+		}
+		BACKGROUND_BLACK_LETTERBOX_BLURWORLD_VIS( 0 , 0 )
+		OVERLAY_BACKGROUND_VIS( !menuisopen( "menu_xboxlive_barracks" ) )
+		CHOICE_OVERLAY_TITLE( "SELECT PRYMARY WEAPON" )	
+		
+		#include "ui_mp/cac_loadout.inc"
+		#include "ui/safearea.menu"
+		
+		#include "ui_mp/navcontrols.inc"
+		
+		#define SETUP_SEL_WEAPON( selected ) \
+			setdvar sel_pri_custom_weapons selected; \
+			close self;
+		
+		CHOICE_BUTTON_FOCUS_VIS( 1, "Thompson", SETUP_SEL_WEAPON("thompson"), setdvar ui_custom_class_highlighted "0"; setdvar ui_custom_name customclass1; setdvar ui_hide_desc "0"; setdvar ui_show_loadout 1, ;, 1 )
+		
+		CHOICE_BUTTON_FOCUS_VIS( 2, "MP40", SETUP_SEL_WEAPON("mp40"), setdvar ui_custom_class_highlighted "0"; setdvar ui_custom_name customclass1; setdvar ui_hide_desc "0"; setdvar ui_show_loadout 1, ;, 1 )
+		
+		CHOICE_BUTTON_FOCUS_VIS( 3, "PPSH", SETUP_SEL_WEAPON("ppsh"), setdvar ui_custom_class_highlighted "0"; setdvar ui_custom_name customclass1; setdvar ui_hide_desc "0"; setdvar ui_show_loadout 1, ;, 1 )
+		
+		CHOICE_BUTTON_FOCUS_VIS( 4, "STG44", SETUP_SEL_WEAPON("stg44"), setdvar ui_custom_class_highlighted "0"; setdvar ui_custom_name customclass1; setdvar ui_hide_desc "0"; setdvar ui_show_loadout 1, ;, 0 )
+		CHOICE_DBUTTON_VIS( 4, "STG44 (35)", when( stat(PRESTIGE) < 1 ) )
+		CHOICE_NEWICON_VIS( 4, "specialty_new", when( stat(1300) == 0 && stat(PRESTIGE) > 0 ) )
+		CHOICE_LOCKEDICON_VIS( 4, "specialty_locked", when( stat(PRESTIGE) < 1 ) )
+		
+		CHOICE_BUTTON_FOCUS_VIS( 5, "TYPE 100", SETUP_SEL_WEAPON("t100"), setdvar ui_custom_class_highlighted "0"; setdvar ui_custom_name customclass1; setdvar ui_hide_desc "0"; setdvar ui_show_loadout 1, ;, 0 )
+		CHOICE_DBUTTON_VIS( 5, "TYPE 100 (35)", when( stat(PRESTIGE) < 1 ) )
+		CHOICE_NEWICON_VIS( 5, "specialty_new", when( stat(1300) == 0 && stat(PRESTIGE) > 0 ) )
+		CHOICE_LOCKEDICON_VIS( 5, "specialty_locked", when( stat(PRESTIGE) < 1 ) )
+		
+		CHOICE_SEPARATOR( 6 )
+	}
+}
