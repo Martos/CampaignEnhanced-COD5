@@ -4,8 +4,8 @@
 // this script handles all major global gameskill considerations
 setSkill( reset, skill_override )
 {
-	self maps\_challenges_coop::createRankIconFixed();
-	self maps\_damagefeedback::init();
+
+	//self maps\_challenges_coop::createRankIconFixed();
 	if(getdvar("zombiemode") == "0") {
 		self maps\_arcademode::arcademode_dvar_init();
 	}

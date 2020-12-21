@@ -30,9 +30,6 @@ main()
  	precachestring( &"SCRIPT_AM_ROUND_BONUS" );	
 	
 	precacheShader( "damage_feedback" );
-	
-	iPrintLn("ARCADE MODE LOADED ");
-	println("arcade mode loaded");
  	  	
 	level.color_cool_green = ( 0.8, 2.0, 0.8 );
 	level.color_cool_green_glow = ( 0.3, 0.6, 0.3 );
@@ -607,7 +604,7 @@ arcademode_dvar_init()
 	
 	damage_adder = [];
 	damage_adder[ "melee" ] = 0;
-	damage_adder[ "pistol" ] = 20;
+	damage_adder[ "pistol" ] = 0;
 	damage_adder[ "rifle" ] = 0;
 	damage_adder[ "explosive" ] = 0;
 	damage_adder[ "fire" ] = 0;
@@ -769,6 +766,7 @@ player_points_kill_bonus( points, enemy, mod, hit_location )
 
 arcademode_death( mod, hit_location, hit_origin, player, enemy, uberKillingMachineStreak )
 {
+
 	if ( flag( "arcademode_complete" ) )
 		return;
 
@@ -790,15 +788,38 @@ arcademode_death( mod, hit_location, hit_origin, player, enemy, uberKillingMachi
 	
 	points = player player_points_kill_bonus( level.arcadeMode_killBase, enemy, mod, hit_location );
 
+	//iPrintLn("BONUS KILL XP: " + player player_points_kill_bonus( level.arcadeMode_killBase, enemy, mod, hit_location ));
+
 	if( player.score + points < 10000000 )
 	{			
 		points += level.arcademode_weaponAdded[ death_type ];
+
+		//iPrintLn("ARCADEMODE WEAPON ADDED: " + level.arcademode_weaponAdded[ death_type ]);
 		
 		//points += player player_add_points_cheats( "", mod, hit_location );
 		
 		points = round_up_to_ten( points );
 		
 		points *= player getScoreMultiplier() * uberKillingMachineStreak;
+
+		switch(getdvar("currentDifficulty")) {
+			case "easy": { 
+				points *= 0.5;
+				break;
+			}
+			case "normal": {
+				points *= 1;
+				break;
+			}
+			case "hardened": {
+				points *= 1.5;
+				break;
+			}
+			case "veteran": {
+				points *= 2;
+				break;
+			}
+		}
 		
 		player.score += points;
 				
@@ -993,7 +1014,7 @@ updatePlusScoreHUD( amount )
 }
 
 creatingScorePlus() {
-	if(zombieMode() == true) {
+	if(zombieMode()) {
 		return;
 	}
 

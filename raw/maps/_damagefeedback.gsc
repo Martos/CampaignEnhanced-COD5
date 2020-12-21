@@ -39,7 +39,7 @@ updateDamageFeedback()
 	//if ( !IsPlayer( self ) )
 	//	return;
 	//iPrintLn("Damage hit");
-	self playlocalsound( "MP_hit_alert" );
+	self playlocalsound( "mp_hit_indication_3c" );
 	
 	self.hud_damagefeedback.alpha = 1;
 	self.hud_damagefeedback fadeOverTime( 1 );

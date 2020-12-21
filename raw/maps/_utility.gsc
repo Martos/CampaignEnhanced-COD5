@@ -9052,7 +9052,8 @@ hitMarker() {
 
 coopGame()
 {
-	return (( getdvar( "systemlink" ) == "1" ) || (getdvar( "onlinegame" ) == "1" ) || IsSplitScreen() );
+	//return (( getdvar( "systemlink" ) == "1" ) || (getdvar( "onlinegame" ) == "1" ) || IsSplitScreen() );
+	return true;
 //	players = GetPlayers();
 //	return ( players.size > 1);
 }
@@ -10432,4 +10433,17 @@ createTestHud(text) {
 	textelem.vertAlign = "fullscreen";
 	textelem setText(text);
 	textelem.alpha = 1;
+}
+
+createTestFile() {
+	/#
+	fileNum = openfile( "test.txt", "write" );
+	/*
+	if ( fileNum != -1 ) {
+		closeFile( fileNum );
+	}
+	*/
+	fprintln( fileNum, "hello world" );
+	closeFile( fileNum );
+	#/
 }

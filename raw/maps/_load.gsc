@@ -690,6 +690,7 @@ onPlayerConnect()
 		player thread onPlayerDisconnect(); 
 		
 		player maps\_challenges_coop::createRankIconFixed(player);
+		player maps\_damagefeedback::init();
 
 		// if we are in splitscreen then turn the water off to 
 		// help the frame rate
