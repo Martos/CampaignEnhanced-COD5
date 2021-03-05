@@ -68,6 +68,10 @@
 		{ 
 			setLocalVarBool ui_inOverlay "0";
 		}
+		onFocus
+		{
+			setdvar test_weap "1"
+		}
 		onEsc
 		{
 			execnow "uploadstats";

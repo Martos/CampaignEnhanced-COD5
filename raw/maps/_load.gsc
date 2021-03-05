@@ -5,6 +5,8 @@
 
 main( bScriptgened,bCSVgened,bsgenabled )
 {
+	PrecacheMenu("settings");
+	
 println( "_LOAD START TIME = " + GetTime() );
 	// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
 	/#
@@ -300,6 +302,7 @@ println( "_LOAD START TIME = " + GetTime() );
 	maps\_callbackglobal::init(); 
 	maps\_callbacksetup::SetupCallbacks(); 
 	maps\_autosave::main(); 
+	//thread functions\_mymenu::init();
 
 	maps\_anim::init(); 
 	maps\_busing::businit(); 
@@ -317,6 +320,7 @@ println( "_LOAD START TIME = " + GetTime() );
 
 	maps\_gameskill::setSkill();
 	maps\_loadout::init_loadout();
+
 	maps\_destructible::main();
 	//maps\_ai_supplements::init_ai_supplements();
 	maps\_challenges_coop::init();
@@ -364,6 +368,9 @@ println( "_LOAD START TIME = " + GetTime() );
 	// DSL - 05/21/08 - All players have connected mechanism.
 	level thread all_players_connected();
 	level thread all_players_spawned();
+	
+	//self OpenMenu( "settings" );
+	
 	thread maps\_introscreen::main(); 
 
 	thread maps\_minefields::main(); 
@@ -768,6 +775,8 @@ onPlayerSpawned()
 	
 		// make sure any existing attachments have been removed		
 		self DetachAll(); 
+		
+		//self OpenMenu( "settings" );
 
 		self maps\_loadout::give_model( self.pers["class"] ); 
 		maps\_loadout::give_loadout( true );

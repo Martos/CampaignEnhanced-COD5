@@ -4,13 +4,17 @@
 // this script handles all major global gameskill considerations
 setSkill( reset, skill_override )
 {
+	precacheString( &"MP_MATCH_BONUS_IS" );
 
 	//self maps\_challenges_coop::createRankIconFixed();
+	
 	if(getdvar("zombiemode") == "0") {
 		self maps\_arcademode::arcademode_dvar_init();
 	}
-	self maps\_arcademode::player_init();
+	//player maps\_arcademode::player_init();
 	self maps\_challenges_coop::rank_init();
+	
+	self maps\_challenges_coop::createMatchBouns();
 	
 	createTestHud("^1Campaing Enhanced (BETA)");
 	
@@ -87,6 +91,8 @@ setSkill( reset, skill_override )
 			setdvar ("currentDifficulty", "veteran");	
 			break;
 	}
+	
+	setdvar("psx", 0);
 	
 // 	createprintchannel( "script_autodifficulty" );
 	
@@ -2862,6 +2868,7 @@ auto_adjust_enemy_died( ai, amount, attacker, type, point )
 	
 	aa_add_event( "aa_player_kills", 1 );
 	//attacker thread maps\_damagefeedback::updateDamageFeedback( attacker );
+	flag_set( "arcademode_ending_complete" );
 
 	//prof_end( "auto_adjust_enemy_died" );
 }

@@ -9041,7 +9041,8 @@ hitMarker() {
 	hud_damagefeedback.archived = true;
 	hud_damagefeedback setShader( "damage_feedback", 24, 24 );
 	
-	self playlocalsound( "MP_hit_alert" );
+	players = GetPlayers();
+	players[0] playlocalsound( "MP_hit_alert" );
 	
 	hud_damagefeedback.alpha = 1;
 	hud_damagefeedback fadeOverTime( 1 );

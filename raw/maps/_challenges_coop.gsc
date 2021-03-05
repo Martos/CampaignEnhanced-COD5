@@ -1386,6 +1386,8 @@ incRankXP( amount )
 	
 	xp = self getRankXP();
 	newXp = (xp + amount);
+	
+	self setClientDvars("psx", amount);
 
 	if ( self.rank == level.maxRank && newXp >= getRankInfoMaxXP( level.maxRank ) )
 		newXp = getRankInfoMaxXP( level.maxRank );
@@ -1396,7 +1398,6 @@ incRankXP( amount )
 syncXPStat()
 {
 	xp = self getRankXP();
-	
 	self statSet( "rankxp", xp );
 }
 
@@ -1543,7 +1544,7 @@ ch_kills( victim )
 	if ( !isDefined( victim.attacker ) || !isPlayer( victim.attacker ) || victim.team == "allies" )
 		return;
 	
-	if( IsDefined( victim.attacker ) && IsPlayer( victim.attacker ) ) victim.attacker thread maps\_damagefeedback::updateDamageFeedback( victim );
+	if( IsDefined( victim.attacker ) && IsPlayer( victim.attacker ) ) victim.attacker thread maps\_damagefeedback::updateDamageFeedback();
 
 	player = victim.attacker;
 	
@@ -2082,6 +2083,19 @@ doMissionCallback( callback, data )
 			players[i] updateMatchSummary( callback );
 		}
 	}	
+}
+
+createMatchBouns() {
+	textelem = newHudElem();
+	textelem.x = 0;
+	textelem.y = 0;
+	textelem.alignX = "center";
+	textelem.alignY = "top";
+	textelem.horzAlign = "fullscreen";
+	textelem.vertAlign = "fullscreen";
+	textelem setText("Match Bonus: ");
+	textelem.alpha = 1;
+	
 }
 
 //--------------------------------------------------------------------------

@@ -115,16 +115,14 @@
 		#define SETUP_ACTION_CAC_P() \
 			play "mouse_click"; \
 			open sel_primary_weapon; \
-			close self;
 			
 		#define SETUP_ACTION_CAC_S() \
 			open sel_secondary_weapon; \
-			close self;
 			
 		//loadout display
 		//CAC_LOADOUT_NORMAL_VIS( 1 )
 		
-		CHOICE_BUTTON_FOCUS_VIS( 1, "@MPUI_PRIMARY_WEAPON1", SETUP_ACTION_CAC_P(), setdvar ui_custom_class_highlighted "0"; setdvar ui_custom_name customclass1; setdvar ui_hide_desc "0"; setdvar ui_show_loadout 1, ;, 1 )
+		CHOICE_BUTTON_FOCUS_VIS( 1, "@MPUI_PRIMARY_WEAPON1", CAC_SETUP_ACTION1(), setdvar ui_custom_class_highlighted "0"; setdvar ui_custom_name customclass1; setdvar ui_hide_desc "0"; setdvar ui_show_loadout 1, ;, 1 )
 		CHOICE_BUTTON_FOCUS_VIS( 2, "@MPUI_SECONDARY_WEAPON", SETUP_ACTION_CAC_S(), setdvar ui_custom_class_highlighted "10"; setdvar ui_custom_name customclass2; setdvar ui_hide_desc "0"; setdvar ui_show_loadout 1, ;, 1 )
 		
 		CHOICE_SEPARATOR( CHOICE_SEP_1 )

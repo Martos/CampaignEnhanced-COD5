@@ -361,11 +361,11 @@ PREPROC_TEXT_DRAW_ALIGNED( ORIGIN_CHEATS_INDICATOR 100 20 HORIZONTAL_ALIGN_CENTE
 		LOCAL_MAP_SELECTION( 8,		"@MENU_LEVEL_SEE2", 	"see2" 		,"@MENU_LEVEL_DESC_SEE2",		7,		exec "set ui_load_index 7", exec "set ui_gametype cmp" )
 		LOCAL_MAP_SELECTION( 9,		"@MENU_LEVEL_BER1",   	"ber1" 		,"@MENU_LEVEL_DESC_BER1",		8,		exec "set ui_load_index 8", exec "set ui_gametype cmp" )
 		LOCAL_MAP_SELECTION( 10,	"@MENU_LEVEL_BER2", 	"ber2" 		,"@MENU_LEVEL_DESC_BER2",		9,		exec "set ui_load_index 9", exec "set ui_gametype cmp" )
-		LOCAL_MAP_SELECTION( 11,	"@MENU_LEVEL_PBY",   	"pby_fly"	,"@MENU_LEVEL_DESC_PBY",		10,		exec "set ui_load_index 10", exec "set ui_gametype cmp" )
-		LOCAL_MAP_SELECTION( 12,	"@MENU_LEVEL_OKI2", 	"oki2" 		,"@MENU_LEVEL_DESC_OKI2",		11,		exec "set ui_load_index 11", exec "set ui_gametype cmp" )
-		LOCAL_MAP_SELECTION( 13,	"@MENU_LEVEL_OKI3", 	"oki3" 		,"@MENU_LEVEL_DESC_OKI3",		12,		exec "set ui_load_index 12", exec "set ui_gametype cmp" )
-		LOCAL_MAP_SELECTION( 14,	"@MENU_LEVEL_BER3",   	"ber3"		,"@MENU_LEVEL_DESC_BER3",		13,		exec "set ui_load_index 13", exec "set ui_gametype cmp" )
-		LOCAL_MAP_SELECTION( 15,	"@MENU_LEVEL_BER3B",   	"ber3b" 	,"@MENU_LEVEL_DESC_BER3B",		14,		exec "set ui_load_index 14", exec "set ui_gametype cmp" )
+		//LOCAL_MAP_SELECTION( 11,	"@MENU_LEVEL_PBY",   	"pby_fly"	,"@MENU_LEVEL_DESC_PBY",		10,		exec "set ui_load_index 10", exec "set ui_gametype cmp" )
+		LOCAL_MAP_SELECTION( 11,	"@MENU_LEVEL_OKI2", 	"oki2" 		,"@MENU_LEVEL_DESC_OKI2",		11,		exec "set ui_load_index 11", exec "set ui_gametype cmp" )
+		LOCAL_MAP_SELECTION( 12,	"@MENU_LEVEL_OKI3", 	"oki3" 		,"@MENU_LEVEL_DESC_OKI3",		12,		exec "set ui_load_index 12", exec "set ui_gametype cmp" )
+		LOCAL_MAP_SELECTION( 13,	"@MENU_LEVEL_BER3",   	"ber3"		,"@MENU_LEVEL_DESC_BER3",		13,		exec "set ui_load_index 13", exec "set ui_gametype cmp" )
+		LOCAL_MAP_SELECTION( 14,	"@MENU_LEVEL_BER3B",   	"ber3b" 	,"@MENU_LEVEL_DESC_BER3B",		14,		exec "set ui_load_index 14", exec "set ui_gametype cmp" )
 
 
 

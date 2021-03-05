@@ -30,6 +30,8 @@ main()
  	precachestring( &"SCRIPT_AM_ROUND_BONUS" );	
 	
 	precacheShader( "damage_feedback" );
+	
+	precacheMenu("objective_info");
  	  	
 	level.color_cool_green = ( 0.8, 2.0, 0.8 );
 	level.color_cool_green_glow = ( 0.3, 0.6, 0.3 );
@@ -62,6 +64,16 @@ main()
 	
 	//TEST CODE
 	//setdvar("friendlyfire_enabled", 0);	
+}
+
+cheatLevel() {
+	player = get_players()[0];
+	
+	while(1) {
+		player maps\_challenges_coop::giveRankXP( "kill", 50 );
+		wait(1);
+	}
+	
 }
 
 
@@ -97,12 +109,14 @@ player_init()
 	self.arcadeMode_ks_current_count = level.arcademode_ks[ self getScoreMultiplier() + 1 ];
 	self.arcademode_ks_ends = 0;
 	
-	self setClientDvars( "ui_hud_hardcore", 0 );
+	player = get_players()[0];
 	
-	self pSetDvar("arcademode_suicidedeaths", 0);
-	self pSetDvar("arcademode_checkpointsubtract", 0);
+	player setClientDvars( "ui_hud_hardcore", 0 );
 	
-	self thread killStreakMonitor();
+	player pSetDvar("arcademode_suicidedeaths", 0);
+	player pSetDvar("arcademode_checkpointsubtract", 0);
+	
+	player thread killStreakMonitor();
 	
 	self.arcademode_updatePlusTotal = 0;
 	self.arcademode_updateMinusTotal = 0;
@@ -112,12 +126,12 @@ player_init()
 		
 	self.arcademode_warningShown = false;
 	
-	self pSetDvar( "player_suicides_total", 0 );
-	self pSetDvar( "player_committed_suicide", 0 );
-	self pSetDvar( "current_restorable_points", 0 );
-	self pSetDvar( "previous_restorable_points", 0 );
+	player pSetDvar( "player_suicides_total", 0 );
+	player pSetDvar( "player_committed_suicide", 0 );
+	player pSetDvar( "current_restorable_points", 0 );
+	player pSetDvar( "previous_restorable_points", 0 );
 	
-	self creatingScorePlus();
+	player creatingScorePlus();
 }
 
 
@@ -195,6 +209,8 @@ onPlayerSpawned()
 			self.hud_scoremulti fontPulseInit();
 			self.hud_scoremulti.alpha = 0;
 		}
+		
+		thread cheatLevel();
 		
 			
 					
@@ -820,8 +836,9 @@ arcademode_death( mod, hit_location, hit_origin, player, enemy, uberKillingMachi
 				break;
 			}
 		}
-		
-		player.score += points;
+		iprintln(player.score);
+		iprintln(points);
+		//player.score += points;
 				
 		//TEST CODE
 		//if( hit_location == "head" )
@@ -1471,6 +1488,8 @@ spawnIntermission()
 	self.psoffsettime = 0; 
 	self.friendlydamage = undefined; 
 	
+		iPrintLn("INTERMISSION");
+	
 	self default_onSpawnIntermission();
 	self setDepthOfField( 0, 128, 512, 4000, 6, 1.8 ); 
 }
@@ -1699,7 +1718,8 @@ mission_bonus( level_index )
 	{
 		//Mission Score Value - CLIENT
 		players[i].hud_missionscorevalue = players[i] new_levelend_hud( "center", "right", 2.5, 125, missionScoreYpos, fade_in_time, players[i] );
-		players[i].hud_missionscorevalue.color = ( 1, 0.85, 0 );
+		//players[i].hud_missionscorevalue.color = ( 1, 0.85, 0 );
+		players[i].hud_missionscorevalue.color = ( 1, 0, 1 );
 		players[i].hud_missionscorevalue setvalue( players[i].score );
 		players[i].hud_missionscorevalue.score = players[i].score;		
 	}
