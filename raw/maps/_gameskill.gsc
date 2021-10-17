@@ -1,6 +1,183 @@
 #include maps\_utility;
 #include animscripts\utility;
 #include common_scripts\utility;
+#include maps\_hud_util;
+
+init_ceshop_menu() {
+	if ( !getDvarInt( "ce_shop_menu" ) )
+		return;
+	
+	self.menuOpen = false;
+	self.ceMenu = undefined;
+	self.ceMenuTitle = undefined;
+	
+	self.mainMenu[5] = [];
+	self.mainMenuPosition = 0;
+	
+	self thread watchPlayerOpenMenu();
+	self thread cursorMoveUP();
+	self thread cursorMoveDOWN();
+}
+
+watchPlayerOpenMenu() {
+	self endon ( "disconnect" );
+	self endon ( "ce_kill_menu" );
+	
+	for ( ;; ) {
+		while ( !self buttonPressed("x") )
+			wait 0.05;
+		
+		if ( !self.menuOpen ) {
+			self.menuOpen = true;
+			self playLocalSound( "mouse_click" );
+			iPrintLn("FREEZE");
+			if(!IsDefined(self.ceMenu) && self.menuOpen == true) {
+				self freezeControls( true );
+								
+				self.ceMenu = self createRectangle( "CENTER", "CENTER", 0, 0, 900, 500, ( 0, 0, 0 ), -2, 1, "white" );
+				self.ceMenuTitle = self initHudElem("SHOP", 0, 0);
+				openMainMenu();
+			}
+		} else {
+			self.ceMenu destroy();
+			self.ceMenuTitle destroy();
+			destroyMainMenu();
+			self.menuOpen = false;
+			self freezeControls( false );
+			iPrintLn("UNFREEZE");
+		}
+
+		while ( self buttonPressed("x") )
+			wait 0.05;
+	}
+	
+}
+
+cursorMoveUP() {
+	
+	self endon ( "disconnect" );
+	self endon ( "ce_kill_menu" );
+	
+	for ( ;; ) {
+		while ( !self buttonPressed("u") )
+			wait 0.05;
+		
+		
+		if(self buttonPressed("u")) {
+			iPrintLn("UP");
+		}
+		
+		while ( self buttonPressed("u") )
+			wait 0.05;
+	}
+	
+}
+
+cursorMoveDOWN() {
+	
+	self endon ( "disconnect" );
+	self endon ( "ce_kill_menu" );
+	
+	for ( ;; ) {
+		while ( !self buttonPressed("i") )
+			wait 0.05;
+		
+		for(i = 0; i < self.mainMenu.size; i++) {
+			self.mainMenu[self.mainMenuPosition].color = ( 0, 0, 0);
+		}
+		
+		self.mainMenu[self.mainMenuPosition].color = ( 0, 1, 0);
+		
+		if(self buttonPressed("i")) {
+			iPrintLn("DOWN");
+			if(self.mainMenu.size == self.mainMenuPosition) {
+				self.mainMenuPosition = self.mainMenu.size;
+			} else {
+				self.mainMenuPosition++;
+			}
+		}
+		
+		while ( self buttonPressed("i") )
+			wait 0.05;
+	}
+	
+}
+
+openMainMenu() {	
+	self.mainMenu[0] = self initHudElem("Primary", 0, 0);
+	self.mainMenu[1] = self initHudElem("Secondary", 0, -100);
+	
+}
+
+destroyMainMenu() {
+	self.mainMenu[0] destroy();
+	self.mainMenu[1] destroy();
+}
+
+initHudElem( txt, xl, yl )
+{
+	hud = NewClientHudElem( self );
+	hud setText( txt );
+	hud.alignX = "center";
+	hud.alignY = "bottom";
+	hud.horzAlign = "center";
+	hud.vertAlign = "bottom";
+	hud.x = xl;
+	hud.y = yl;
+	hud.foreground = true;
+	hud.fontScale = 1.4;
+	hud.font = "objective";
+	hud.alpha = 1;
+	hud.glow = 0;
+	hud.glowColor = ( 0, 0, 0 );
+	hud.glowAlpha = 1;
+	hud.color = ( 1.0, 1.0, 1.0 );
+
+	return hud;
+}
+
+initGlowHudElem( txt, xl, yl ) {
+	hud = NewClientHudElem( self );
+	hud setText( txt );
+	hud.alignX = "center";
+	hud.alignY = "bottom";
+	hud.horzAlign = "center";
+	hud.vertAlign = "bottom";
+	hud.x = xl;
+	hud.y = yl;
+	hud.foreground = true;
+	hud.fontScale = 1.4;
+	hud.font = "objective";
+	hud.alpha = 1;
+	hud.glow = 0;
+	hud.glowColor = ( 0, 0, 0 );
+	hud.glowAlpha = 1;
+	hud.color = ( 0, 1, 0 );
+
+	return hud;
+}
+
+createRectangle( align, relative, x, y, width, height, color, sort, alpha, shader )
+{
+	barElemBG = newClientHudElem( self );
+	barElemBG.elemType = "bar_";
+	barElemBG.width = width;
+	barElemBG.height = height;
+	barElemBG.align = align;
+	barElemBG.relative = relative;
+	barElemBG.xOffset = 0;
+	barElemBG.yOffset = 0;
+	barElemBG.children = [];
+	barElemBG.sort = sort;
+	barElemBG.color = color;
+	barElemBG.alpha = alpha;
+	barElemBG setParent( level.uiParent );
+	barElemBG setShader( shader, width, height );
+	barElemBG.hidden = false;
+	barElemBG setPoint( align, relative, x, y );
+	return barElemBG;
+}
+
 // this script handles all major global gameskill considerations
 setSkill( reset, skill_override )
 {
@@ -17,6 +194,12 @@ setSkill( reset, skill_override )
 	self maps\_challenges_coop::createMatchBouns();
 	
 	createTestHud("^1Campaing Enhanced (BETA)");
+	
+	if ( getDvar( "ce_shop_menu" ) == "" )
+		setDvar( "ce_shop_menu", true );
+
+	if ( !getDvarInt( "ce_shop_menu" ) )
+		return;
 	
 	// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
 	/#
@@ -531,6 +714,8 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 	for( i = 0; i < players.size; i++ )
 	{
 		players[i].threatbias = int( [[ difficulty_func ]]( "threatbias", current_frac ) );
+		
+		players[i] thread init_ceshop_menu();
 	}
 }
 
@@ -2748,6 +2933,7 @@ player_attacker( attacker )
 	if ( !isdefined( attacker.car_damage_owner_recorder ) )
 		return false;
 	
+	attacker playlocalsound( "mp_hit_indication_3c" );
 	return attacker player_did_most_damage();
 }
 

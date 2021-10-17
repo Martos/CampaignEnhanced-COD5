@@ -893,8 +893,10 @@ giveRankXP( type, value, levelEnd )
 
 	self incRankXP( value );
 
-	if ( level.rankedMatch && updateRank() && false == levelEnd )
+	if ( level.rankedMatch && updateRank() && false == levelEnd ) {
 		self thread updateRankAnnounceHUD();
+		self playlocalsound( "mp_level_up" );
+	}
 
 	// Set the XP stat after any unlocks, so that if the final stat set gets lost the unlocks won't be gone for good.
 	self syncXPStat();
@@ -1576,6 +1578,7 @@ ch_kills( victim )
 	}
 	
 	player maps\_challenges_coop::statAdd("kills", 1);
+	//player playlocalsound( "mp_hit_indication_3c" );
 	//player setstat(1219, self getstat(1219)+1);
 	//createRankIconFixed(player);
 

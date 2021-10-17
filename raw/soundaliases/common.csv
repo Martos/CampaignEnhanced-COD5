@@ -1,0 +1,97 @@
+name,platform,file,sequence,vol_min,vol_max,dist_min,dist_max,limit_count,limit_type,entity_limit_count,entity_limit_type,bus,volume_min_falloff_curve,volumefalloffcurve,reverb_send,dist_reverb_max,reverb_min_falloff_curve,reverb_falloff_curve,pitch_min,pitch_max,randomize_type,spatialized,type,probability,loop,masterslave,loadspec,subtitle,compression,secondaryaliasname,chainaliasname,startdelay,speakermap,lfe percentage,center percentage,envelop_min,envelop_max,envelop percentage,occlusion_level,move_type,move_time,real_delay,distance_lpf,min_priority,max_priority,min_priority_threshold,max_priority_threshold
+# User Interface,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+#mission_unlock_cheat,,null.wav,,0.65,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+#game_save,,null.wav,,0.35,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+typewriter,,SFX/UI/type_##,,0.55,0.75,,,,,,,ui,,,,,,,0.9,1.25,,2d,,,,,,,,,,,,,,,,,,,,,,,,,
+#ui_text_type,,null.wav,,0.5,,,,,,,,,,,,,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,
+#ui_screen_trans_in,,null.wav,,0.001,,,,,,,,,,,,,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,
+#ui_screen_trans_out,,null.wav,,0.001,,,,,,,,,,,,,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,
+# ui_camera_whoosh_in,,null.wav,,0.4,,,,,,,,,,,,,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+# Credits music,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+#mx_credits,,Stream/Music/Menu/MX_Credits.wav,,1,1,,,,,,,music,,,,,,,,,,2d,streamed,,,,,,,,,,,,,,,,,,,,,,,,
+# New pulse text,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+ui_pulse_text_type,,SFX/UI/type_##,,0.55,0.75,0.33,,,,,,ui,,,,,,,0.75,1.1,,2d,,,,,,,,,,,,,,,,,,,,,,,,,
+ui_pulse_text_delete,,SFX/UI/type_##,,0.95,0.95,1.05,,,,,,ui,,,,,,,1.1,1.25,,2d,,,,,,,,,,,,,,,,,,,,,,,,,
+
+#Music (level),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+#menu_music,,null.wav,,0.85,,,,,,,,music,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+mx_zombie_splash_screen,,Stream\Music\Mission\zombie\mx_splash_screen.wav,,1,1,,,,,,,music,,,,,,,,,,2d,streamed,,,,,,,,,,wpn_all,,,,,,0,,,,,100,100,0.25,1
+#Collectables,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+collectable_loop,,SFX/UI/collectable_loop.wav,,1,1,10,400,,,,,ambience,,curve3,,800,,curve3,0.9,1.05,,3d,,,looping,,all_sp,,,,,,,,,,,,,,,no,no,50,90,0.5,1
+collectable_pickup,,SFX/UI/collectable_pickup.wav,,1,1,10,400,,,,,ambience,,,,,,,0.9,1.05,,3d,,,,,all_sp,,,,,,,,,,,,,,,,,,,,
+collectable_pickup_plr,,SFX/UI/collectable_pickup.wav,,1,1,10,400,,,,,ui,,,,,,,0.9,1.05,,2d,,,,,all_sp,,,,,,,,,,,,,,,no,no,50,90,0.5,1
+
+#Arcade Mode,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+arcademode_checkpoint,,SFX/UI/arcade/arcademode_checkpoint.wav,,1,1,,,,,,,ui,,,0,,,,0.9,1.05,,2d,,,,,all_sp,,,,,,wpn_all,,,,,,,,,,,,,,
+arcademode_extralife,,SFX/UI/arcade/arcademode_extralife.wav,,1,1,,,,,,,ui,,,0,,,,0.9,1.05,,2d,,,,,all_sp,,,,,,wpn_all,,,,,,,,,,,,,,
+arcademode_kill_streak_won,,SFX/UI/arcade/arcademode_kill_streak_won.wav,,1,1,,,,,,,ui,,,0,,,,1,1,,2d,,,,,all_sp,,,,,,wpn_all,,,,,,,,,,,100,100,0.25,1
+arcademode_kill_streak_lost,,SFX/UI/arcade/arcademode_kill_streak_lost.wav,,1,1,,,,,,,ui,,,0,,,,1,1,,2d,,,,,all_sp,,,,,,wpn_all,,,,,,,,,,,100,100,0.25,1
+
+score_tally_loop,,SFX\UI\coop_scores.wav,,1,1,,,,,,,ui,,,,,,,1,1,,2d,streamed,,looping,,all_sp,,,,,,wpn_all,,,,,,,,,,,100,100,0.25,1
+
+#EFFECTS,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+#PAIN,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+player_pain_small,,SFX/Character/player/pain_small_##,,0.65,1,,,,,1,reject,voice,,,,,,,0.95,1.05,,2d,,,,,all_sp all_mp,,,,,250
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+#Shellshock,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+player_shellshock_loop,!wii,SFX/Character/tinnitus/flareshock_eq.wav,,1,1,,,,,,,full_vol,,,,,,,1,1,,2d,,,looping,,,,,,,
+player_shellshock_silent,!wii,SFX/Character/tinnitus/flareshock_eq.wav,,0,0,,,,,,,full_vol,,,,,,,1,1,,2d,,,looping,,,,,,,
+player_shellshock_end,!wii,SFX/Character/tinnitus/flareshock_fade_eq.wav,,1,1,,,,,,,full_vol,,,,,,,1,1,,2d,,,,,,,,,,
+player_shellshock_abort,!wii,SFX/Character/tinnitus/flareshock_fade_eq.wav,,1,1,,,,,,,full_vol,,,,,,,1,1,,2d,,,,,,,,,,
+
+#Explosion Shellshock,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+player_explosion_loop,,SFX/Character/tinnitus/tinnitus_loop.wav,,0.5,0.5,,,,,,,full_vol,,,,,,,1,1,,2d,,,looping,,,,,,,
+player_explosion_silent,,SFX/Character/tinnitus/tinnitus_loop.wav,,0.25,0.25,,,,,,,full_vol,,,,,,,1,1,,2d,,,looping,,,,,,,
+player_explosion_end,,SFX/Character/tinnitus/tinnitus_end.wav,,0.5,0.5,,,,,,,full_vol,,,,,,,1,1,,2d,,,,,,,,,,
+player_explosion_abort,!wii,SFX/Character/tinnitus/tinnitus_abort.wav,,0.5,0.5,,,,,,,full_vol,,,,,,,1,1,,2d,,,,,,,,,,
+#Wii asset,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+player_explosion_abort,wii,SFX/Character/tinnitus/tinnitus_end.wav,,0.5,0.5,,,,,,,full_vol,,,,,,,1,1,,2d,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+#Tank Mantle Shellshock,,/,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+#player_tmantle_loop,,SFX/Character/tank_mantle/player_tmantle_loop.wav,,1,1,,,,,,,full_vol,,,,,,,1,1,,2d,,,looping,,,,,,,,,,,,,,,,,,,,,,
+#player_tmantle_silent,,SFX/Character/tank_mantle/player_tmantle_loop.wav,,0,0,,,,,,,full_vol,,,,,,,1,1,,2d,,,looping,,,,,,,,,,,,,,,,,,,,,,
+#player_tmantle_end,,SFX/Character/tank_mantle/player_tmantle_end.wav,,1,1,,,,,,,full_vol,,,,,,,1,1,,2d,,,,,,,,,,,,,,,,,,,,,,,,,
+#player_tmantle_abort,,SFX/Character/tank_mantle/player_tmantle_end.wav,,1,1,,,,,,,full_vol,,,,,,,1,1,,2d,,,,,,,,,,,,,,,,,,,,,,,,,
+
+
+#Death,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+player_death,,null.wav,,1,1,,,,,,,voice,,,,,,,1,1,,2d,streamed,,,,,,,,,,,,,,,,,,,,,,,,
+mx_death,,Stream/Music/death/mx_death_front_00.wav,,1,1,,,,,,,ui,,,,,,,1,1,,2d,primed,,,,,,,,,,wpn_fnt,,,,,,,,,,,100,100,0.25,1
+mx_death_rear,,Stream/Music/death/mx_death_rear_00.wav,,1,1,,,,,,,ui,,,,,,,1,1,,2d,primed,,,,,,,,,,wpn_rear,,,,,,,,,,,100,100,0.25,1
+
+# Sprint Breathing,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+sprint_gasp,,SFX/Character/breathing_hurt/b_hurt_##,,0.5,0.75,120,1200,,,1,reject,voice,,,,,,,0.95,1.05,,2d,,,,,all_sp all_mp,,,breathing_heartbeat,,,,,,,,,,,,,,80,80,0.25,1
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+# Hurt Breathing,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+breathing_hurt,,SFX/Character/breathing_hurt/b_hurt_##,,1,1,120,1200,,,,,voice,,,,,,,0.95,1.05,,2d,,,,,all_sp all_mp,,,breathing_heartbeat,,,,,,,,,,,,,,80,80,0.25,1
+breathing_better,,sfx/character/breathing_hurt/breathing_better.wav,,1,1,120,1200,,,,,voice,,,,,,,0.95,1.05,,2d,,,,,all_sp all_mp,,,,,,,,,,,,,,,,,80,80,0.25,1
+breathing_heartbeat,,SFX/Character/pain_heartbeat_##,,1,1,120,1200,,,,,voice,,,,,,,0.9,1.2,,2d,,,,,all_sp all_mp,,,,,,wpn_all,,,,,,,,,,,80,80,0.25,1
+breathing_hurt_start,,sfx/character/breathing_hurt/bhs_##,,1,1,120,1200,,,,,voice,,,,,,,1.05,1.15,,2d,,,,,all_sp all_mp,,,breathing_heartbeat,,,,,,,,,,,,,,80,80,0.25,1
+#breath_shock_loop,,sfx/character/breathing_hurt/breath_shock_loop_2.wav,,0.9,0.9,,,,,,,voice,,,,,,,1,1,,2d,,,looping,,all_mp,,,,,,,,,,,,,,,,,80,80,0.25,1
+#breath_shock_loop_silent,,sfx/character/breathing_hurt/breath_shock_loop_2.wav,,0.9,0.9,,,,,,,voice,,,,,,,1,1,,2d,,,looping,,all_mp,,,,,,,,,,,,,,,,,80,80,0.25,1
+#breath_shock_end,,sfx/character/breathing_hurt/breath_shock_end_2.wav,,0.9,0.9,,,1,oldest,1,oldest,voice,,,,,,,1,1,,2d,,,,,all_mp,,,,,,,,,,,,,,,,,80,80,0.25,1
+
+# Hurt in ADS,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+player_hit_while_ads,,SFX/Character/Foley/gear/gear_player_##,1,0.95,1,500000,,,,,,character,,,,,,,0.9,1.1,,2d,,,,,all_sp all_mp,,,bullet_small_player,,,,,,,,,,,,,,80,80,0.25,1
+player_hit_while_ads_hurt,,SFX/Character/Foley/gear/gear_player_##,1,0.95,1,120,1200,,,,,character,,,,,,,1.7,1.9,,2d,,,,,all_sp all_mp,,,,,,,,,,,,,,,,,80,80,0.25,1
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+#Bleed Out,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+heart_beat,!wii,SFX/UI/heart_beat.wav,,1,1,,,,,,,full_vol,,,,,,,1,1,,2d,,,,,all_sp all_mp,,,,,,,,,,,,,,,,,80,80,0.25,1
+
+heart_monitor,,SFX/UI/heart_monitor.wav,,1,1,,,,,,,full_vol,,,,,,,1,1,,2d,,,,,all_sp all_mp,,,,,,,,,,,,,,,,,80,80,0.25,1
+#Wii asset,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+heart_beat,wii,SFX/Character/pain_heartbeat/pain_heartbeat_00.wav,,1,1,,,,,,,full_vol,,,,,,,1,1,,2d,,,,,all_sp all_mp,,,,,,,,,,,,,,,,,80,80,0.25,1
+
+
+#Cheats,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+vampire_loop,,SFX/UI/vamipre.wav,,1,1,,,,,,,full_vol,,,,,,,1,1,,2d,streamed,,looping,,all_sp,,,,,,,,,,,,,,,,,80,80,0.25,1
+berzerker_loop,,SFX/UI/berzerker.wav,,1,1,,,,,,,full_vol,,,,,,,1,1,,2d,streamed,,looping,,all_sp,,,,,,,,,,,,,,,,,80,80,0.25,1
+
+#Objectives,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+snd_objective_updated,,sfx/ui/objective_updated.wav,,0.05,0.05,,,,,,,full_vol,,,,,,,1,1,,2d,streamed,,,,all_sp,,,,,,,,,,,,,,,,,80,80,0.25,1
+snd_objective_completed,,sfx/ui/objective_completed.wav,,0.05,0.05,,,,,,,full_vol,,,,,,,1,1,,2d,streamed,,,,all_sp,,,,,,,,,,,,,,,,,80,80,0.25,1
+
+#Hitmarker
+mp_hit_indication_3c,,SFX/mp/mp_hit_indication_3c.wav,,1,1,,,,,,,ui,,,0,,,,1,1,,2d,,,,,all_sp,,,,,,wpn_all,,,,,,,,,,,100,100,0.25,1
