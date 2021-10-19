@@ -1,1 +1,1 @@
-# Campaign Enhanced MOD
+# Campaign Enhanced (PC) MOD
