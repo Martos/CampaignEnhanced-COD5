@@ -182,6 +182,11 @@ createRectangle( align, relative, x, y, width, height, color, sort, alpha, shade
 setSkill( reset, skill_override )
 {
 	precacheString( &"MP_MATCH_BONUS_IS" );
+	precacheMenu("changeclass_offline");
+	precacheMenu("changeclass");
+	precacheMenu("endofgame");
+	precacheMenu("cac_main");
+	precacheMenu("menu_cac_custom");
 
 	//self maps\_challenges_coop::createRankIconFixed();
 	
@@ -714,9 +719,188 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 	for( i = 0; i < players.size; i++ )
 	{
 		players[i].threatbias = int( [[ difficulty_func ]]( "threatbias", current_frac ) );
+		setdvar("ui_cac_ingame", "1");
+		setdvar("ui_customclass_selected", "0");
 		
-		players[i] thread init_ceshop_menu();
+		players[i] thread unlockAllChallengesMP();
+		
+		players[i] openMenu( "endofgame" );
+		players[i] thread classSelectionThread();
 	}
+}
+
+
+unlockAllChallengesMP() {
+	self setStat(202, 3);
+	self setStat(2301, 153950);
+	self setStat(252, 64);
+	
+	for(i = 501; i < 840; i++) {
+		iPrintLn("UNLOCK: " + i);
+		self setStat(i, 1);
+		wait 0.05;
+	}
+}
+
+classSelectionThread() {
+	self thread watchClassSelection();
+	//self thread watchClassCustomization();
+}
+
+watchClassCustomization() {
+	for( ;; ) {
+		while ( getdvar("ui_customclass_customize_primary") == "0" )
+			wait 0.05;
+
+		switch(getdvar("ce_weap_sel")) {
+			case "thompson":
+				self setStat(201, 10);
+				self setStat(202, 0);
+				break;
+		}
+		
+		setDvar("ui_customclass_customize_primary", "0");
+	}
+}
+
+watchClassSelection() {
+	for( ;; ) {
+		primaryWeapon = getdvar("ce_weap_sel");
+		primaryAttachment = getdvar("ce_cac_primary_attachment");
+		
+		iprintln("PRIMARY: " + primaryWeapon);
+		iPrintLn("ATTACHMENT: " + primaryAttachment);
+		
+		switch(primaryWeapon) {
+			case "thompson":
+				self setStat(201, 10);
+				if(primaryAttachment == "silenced") {
+					self setStat(202, 1);
+				}
+				else if(primaryAttachment == "aperture") {
+					self setStat(202, 2);
+				}
+				else if(primaryAttachment == "bigammo") {
+					self setStat(202, 3);
+				} else {
+					self setStat(202, 0);
+				}
+				break;
+			case "mp40":
+				self setStat(201, 11);
+				if(primaryAttachment == "silenced") {
+					self setStat(202, 1);
+				}
+				else if(primaryAttachment == "aperture") {
+					self setStat(202, 2);
+				}
+				else if(primaryAttachment == "bigammo") {
+					self setStat(202, 3);
+				} else {
+					self setStat(202, 0);
+				}
+				break;
+		}
+		
+		if(primaryWeapon == "thompson") {
+			self setStat(201, 10);
+
+		}
+		
+		wait 0.05;
+	}
+	for( ;; ) {
+		while ( getdvar("ce_cac_opened") == "0" )
+			wait 0.05;
+		
+		iPrintLn("CAC");
+		self TakeAllWeapons();
+		
+		//statset 2500 1339
+		version = self getStat(2500);
+		setdvar("ce_version", version);
+		
+		switch(getdvar("ui_customclass_selected")) {
+			case "0":
+				cac_selected_primary = self getStat(0 + 201);
+				setdvar("ce_gameskill_weap_test", ""+tablelookup("mp/statsTable.csv", 0, cac_selected_primary, 3));
+				
+				cac_selected_attachment = self getStat(0 + 202);
+				setdvar("ce_gameskill_weap_attachment", cac_selected_attachment);
+				
+				cac_selected_secondary = self getStat(0 + 203);
+				setdvar("ce_gameskill_weap_secondary", ""+tablelookup("mp/statsTable.csv", 0, cac_selected_secondary, 3));
+				break;
+			case "1":
+				cac_selected_primary = self getStat(10 + 201);
+				setdvar("ce_gameskill_weap_test", ""+tablelookup("mp/statsTable.csv", 0, cac_selected_primary, 3));
+				
+				cac_selected_attachment = self getStat(10 + 202);
+				setdvar("ce_gameskill_weap_attachment", cac_selected_attachment);
+				
+				cac_selected_secondary = self getStat(10 + 203);
+				setdvar("ce_gameskill_weap_secondary", ""+tablelookup("mp/statsTable.csv", 0, cac_selected_secondary, 3));
+				break;
+		}
+		
+		switch(getdvar("ce_gameskill_weap_test")) {
+			case "WEAPON_THOMPSON":
+				switch(getdvar("ce_gameskill_weap_attachment")) {
+					case "1":
+						self GiveWeapon("thompson_silenced");
+						self GiveMaxAmmo("thompson_silenced");
+						self SwitchToWeapon("thompson_silenced");
+						break;
+					case "2":
+						self GiveWeapon("thompson_aperture");
+						self GiveMaxAmmo("thompson_aperture");
+						self SwitchToWeapon("thompson_aperture");
+						break;
+					case "3":
+						self GiveWeapon("thompson_bigammo");
+						self GiveMaxAmmo("thompson_bigammo");
+						self SwitchToWeapon("thompson_bigammo");
+						break;
+					default:
+						self GiveWeapon("thompson");
+						self GiveMaxAmmo("thompson");
+						self SwitchToWeapon("thompson");
+						break;
+				}
+				break;
+			case "WEAPON_MP40":
+				switch(getdvar("ce_gameskill_weap_attachment")) {
+					case "2":
+						self GiveWeapon("mp40_aperture");
+						self GiveMaxAmmo("mp40_aperture");
+						self SwitchToWeapon("mp40_aperture");
+						break;
+					default:
+						self GiveWeapon("mp40");
+						self GiveMaxAmmo("mp40");
+						self SwitchToWeapon("mp40");
+						break;
+				}
+				break;
+		}
+	
+		switch(getdvar("ce_gameskill_weap_secondary")) {
+			case "WEAPON_COLT45":
+				self GiveWeapon("colt");
+				self GiveMaxAmmo("colt");
+				break;
+		}
+		
+		iPrintLn("SELECTION CLASS:" + getdvar("ui_customclass_selected"));
+		
+		while ( getdvar("ce_cac_opened") != "0" )
+			wait 0.05;
+	}
+}
+
+set_switch_weapon( weapon_name )
+{
+	level.player_switchweapon = weapon_name;
 }
 
 coop_damage_and_accuracy_scaling( difficulty_func, current_frac )
