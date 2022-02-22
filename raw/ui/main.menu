@@ -406,7 +406,7 @@ itemDef { \
 		#include "ui/info_box.inc"
 		CHOICE_MENU_TITLE( "@MENU_MAIN_MENU" )
 #else
-		CHOICE_MENU_TITLE( "^1Campaign Enhanced (BETA)" )
+		CHOICE_MENU_TITLE( "Campaign Enhanced" )
 #endif // #ifdef CONSOLE
 
 		itemDef
