@@ -895,7 +895,7 @@ giveRankXP( type, value, levelEnd )
 
 	if ( level.rankedMatch && updateRank() && false == levelEnd ) {
 		self thread updateRankAnnounceHUD();
-		self playlocalsound( "mp_level_up" );
+		//self playlocalsound( "mp_level_up" );
 	}
 
 	// Set the XP stat after any unlocks, so that if the final stat set gets lost the unlocks won't be gone for good.
@@ -1388,8 +1388,13 @@ incRankXP( amount )
 	
 	xp = self getRankXP();
 	newXp = (xp + amount);
+	xpForPsx = getDvarInt("psx") + amount;
+	scoreStats = self getStat(2302) + amount;
 	
-	self setClientDvars("psx", amount);
+	self setClientDvars("psx", xpForPsx);
+	self setClientDvars("pss", xpForPsx);
+	
+	self setStat(2302, scoreStats);
 
 	if ( self.rank == level.maxRank && newXp >= getRankInfoMaxXP( level.maxRank ) )
 		newXp = getRankInfoMaxXP( level.maxRank );

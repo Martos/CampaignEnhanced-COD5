@@ -2,6 +2,19 @@
 
 init_loadout()
 {
+	PrecacheItem( "thompson" );
+	PrecacheItem( "thompson_aperture" );
+	PrecacheItem( "thompson_silenced" );
+	PrecacheItem( "thompson_bigammo" );
+	PrecacheItem( "mp40" );
+	PrecacheItem( "mp40_aperture" );
+	PrecacheItem( "mp40_silenced" );
+	PrecacheItem( "mp40_bigammo" );
+	PrecacheItem( "ppsh_aperture" );
+	//PrecacheItem( "type100_smg" );	NOT WORKING, INVESTIGATING
+
+	PrecacheItem( "colt" );
+	
 	// MikeD (7/30/2007): New method of precaching/giving weapons.
 	// Set the level variables.
 	if( !IsDefined( level.player_loadout ) )
@@ -301,8 +314,12 @@ init_models_and_variables_loadout()
 	}
 	else if( level.script == "ber2" ) // SS
 	{
+
 		add_weapon( "ppsh" );
+		//add_weapon( "thompson_bigammo" );
+		//add_weapon( "mp40_aperture" );
 		add_weapon( "tokarev" );
+		//add_weapon( "colt" );
 		//add_weapon( "mosin_rifle" );  // SRS 5/9/2008: need to pick either the rifle or the SMG to start
 		// CODER_MOD: Austin (7/31/08): added stick grenade for russian campaign to replace smoke (BUG 17665)
 		add_weapon( "stick_grenade" );
@@ -642,7 +659,7 @@ give_loadout(wait_for_switch_weapon)
 			println( "^3LOADOUT ISSUE: Unable to give a grenade, the player need to be given a grenade and then take it away in order for the player to throw back grenades, but not have any grenades in his inventory." );
 		}
 	}
-
+	
 	for( i = 0; i < level.player_loadout.size; i++ )
 	{
 		self GiveWeapon( level.player_loadout[i] );

@@ -281,6 +281,9 @@ setSkill( reset, skill_override )
 	}
 	
 	setdvar("psx", 0);
+	setdvar("psa", 0);
+	setdvar("psk", 0);
+	setdvar("psh", 0);
 	
 // 	createprintchannel( "script_autodifficulty" );
 	
@@ -706,6 +709,9 @@ apply_difficulty_frac_with_func( difficulty_func, current_frac )
 
 apply_threat_bias_to_all_players(difficulty_func, current_frac)
 {
+	game["endofgame"] = "endofgame";
+	Precachemenu(game["endofgame"]);
+	
 	// waittill the flag is defined, then check for it
 	while (!isdefined (level.flag) || !isdefined(level.flag[ "all_players_connected" ]))
 	{
@@ -720,13 +726,92 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 	{
 		players[i].threatbias = int( [[ difficulty_func ]]( "threatbias", current_frac ) );
 		setdvar("ui_cac_ingame", "1");
-		setdvar("ui_customclass_selected", "0");
+		setdvar("ui_customclass_selected", "999");
+		setdvar("ui_showEndOfGame", "1");
 		
-		players[i] thread unlockAllChallengesMP();
+		//players[i] thread unlockAllChallengesMP();
 		
 		players[i] openMenu( "endofgame" );
 		players[i] thread classSelectionThread();
+		
+		players[i] thread MenuResponses();
 	}
+}
+
+MenuResponses() {
+	while(1) {
+		self waittill("menuresponse",menu,response);
+		if(menu == game["endofgame"]) {
+			if(response == "ceSelectedClass") {
+				self iprintlnbold("CLASS: " + getdvar("ui_customclass_selected"));
+				switch(GetDvarInt("ui_customclass_selected")) {
+					case 6:
+						self TakeAllWeapons();
+						
+						cac_selected_primary = self getStat(0 + 201);
+						
+						if(cac_selected_primary == 12) {
+							setdvar("ce_gameskill_weap_test", "type100_smg");
+						} else {
+							setdvar("ce_gameskill_weap_test", ""+tablelookup("mp/statsTable.csv", 0, cac_selected_primary, 4));
+						}
+						
+						cac_selected_attachment = self getStat(0 + 202);
+						
+						// If is ppsh
+						if(cac_selected_primary == 13) {
+							switch(cac_selected_attachment) {
+								case 1:
+									setdvar("ce_gameskill_weap_attachment", "aperture");
+									break;
+								case 2:
+									setdvar("ce_gameskill_weap_attachment", "");
+									break;
+								default:
+									setdvar("ce_gameskill_weap_attachment", "");
+									break;
+							}
+						} else {
+							switch(cac_selected_attachment) {
+								case 1:
+									setdvar("ce_gameskill_weap_attachment", "silenced");
+									break;
+								case 2:
+									setdvar("ce_gameskill_weap_attachment", "aperture");
+									break;
+								case 3:
+									setdvar("ce_gameskill_weap_attachment", "bigammo");
+									break;
+								default:
+									setdvar("ce_gameskill_weap_attachment", "");
+									break;
+							}
+						}
+
+						
+						cac_selected_secondary = self getStat(0 + 203);
+						setdvar("ce_gameskill_weap_secondary", ""+tablelookup("mp/statsTable.csv", 0, cac_selected_secondary, 4));
+						
+						primaryWeaponString = getdvar("ce_gameskill_weap_test");
+						secondaryWeaponString = getdvar("ce_gameskill_weap_secondary");
+						
+						if(getdvar("ce_gameskill_weap_attachment") != "") {
+							primaryWeaponString = primaryWeaponString + "_" + getdvar("ce_gameskill_weap_attachment");
+						}
+						
+						self GiveWeapon(primaryWeaponString);
+						self GiveWeapon(secondaryWeaponString);
+						self GiveMaxAmmo(primaryWeaponString);
+						self SwitchToWeapon(primaryWeaponString);
+						break;
+					case 999:
+						//No class selected, use standard weapons instead
+						break;
+					
+				}
+			}
+		}
+	}	
 }
 
 
@@ -743,33 +828,17 @@ unlockAllChallengesMP() {
 }
 
 classSelectionThread() {
-	self thread watchClassSelection();
-	//self thread watchClassCustomization();
+	//self thread watchClassSelection();
+	self thread watchClassCustomization();
 }
 
 watchClassCustomization() {
 	for( ;; ) {
-		while ( getdvar("ui_customclass_customize_primary") == "0" )
-			wait 0.05;
-
-		switch(getdvar("ce_weap_sel")) {
-			case "thompson":
-				self setStat(201, 10);
-				self setStat(202, 0);
-				break;
-		}
-		
-		setDvar("ui_customclass_customize_primary", "0");
-	}
-}
-
-watchClassSelection() {
-	for( ;; ) {
 		primaryWeapon = getdvar("ce_weap_sel");
 		primaryAttachment = getdvar("ce_cac_primary_attachment");
 		
-		iprintln("PRIMARY: " + primaryWeapon);
-		iPrintLn("ATTACHMENT: " + primaryAttachment);
+		//iprintln("PRIMARY: " + primaryWeapon);
+		//iPrintLn("ATTACHMENT: " + primaryAttachment);
 		
 		switch(primaryWeapon) {
 			case "thompson":
@@ -800,17 +869,40 @@ watchClassSelection() {
 					self setStat(202, 0);
 				}
 				break;
-		}
-		
-		if(primaryWeapon == "thompson") {
-			self setStat(201, 10);
-
+			case "type100smg":
+				self setStat(201, 12);
+				if(primaryAttachment == "silenced") {
+					self setStat(202, 1);
+				}
+				else if(primaryAttachment == "aperture") {
+					self setStat(202, 2);
+				}
+				else if(primaryAttachment == "bigammo") {
+					self setStat(202, 3);
+				} else {
+					self setStat(202, 0);
+				}
+				break;
+			case "ppsh":
+				self setStat(201, 13);
+				if(primaryAttachment == "aperture") {
+					self setStat(202, 1);
+				} else if(primaryAttachment == "bigammo") {
+					self setStat(202, 2);
+				} else {
+					self setStat(202, 0);
+				}
+				break;
 		}
 		
 		wait 0.05;
 	}
+}
+
+/*
+watchClassSelection() {
 	for( ;; ) {
-		while ( getdvar("ce_cac_opened") == "0" )
+		while ( getdvar("ui_showEndOfGame") == "0" )
 			wait 0.05;
 		
 		iPrintLn("CAC");
@@ -893,10 +985,11 @@ watchClassSelection() {
 		
 		iPrintLn("SELECTION CLASS:" + getdvar("ui_customclass_selected"));
 		
-		while ( getdvar("ce_cac_opened") != "0" )
+		while ( getdvar("ui_showEndOfGame") != "0" )
 			wait 0.05;
 	}
 }
+*/
 
 set_switch_weapon( weapon_name )
 {
@@ -3223,6 +3316,10 @@ auto_adjust_enemy_died( ai, amount, attacker, type, point )
 		if( damage_location == "head" || damage_location == "helmet" )
 		{
 			attacker.headshots++;
+			setdvar("psh", attacker.headshots);
+
+			headhshotsTmp = attacker getStat(2308) + attacker.headshots;
+			attacker setStat(2308, headhshotsTmp);
 		}	
 	}
 		
