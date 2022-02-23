@@ -1,6 +1,6 @@
 # Call Of Duty: World At War Campaign Enhanced
 
-Campaign Enhanced is a campaign modificator for call of duty world at war aiming to extend feature of an existing campaign experience with new funzionality making a new gameplay experience
+Campaign Enhanced is a campaign modificator for call of duty world at war aiming to extend feature of an existing campaign experience with new funzionality, making a new gameplay experience
 
 ## Features
 
