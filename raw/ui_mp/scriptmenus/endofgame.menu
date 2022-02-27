@@ -99,28 +99,28 @@
 		itemDef
 		{
 			type			ITEM_TYPE_TEXT
-			visible			1
+			visible			0
 			rect			ORIGIN_STATUS 0 0
 			origin			0 0
 			forecolor		MENU_FONT_COLOR2
 			text			"@MENU_UNTIL_MATCH_BEGIN"
 			textfont		UI_FONT_NORMAL
 			textscale		TEXTSIZE_SMALL
-			visible 		when ( dvarBool( ui_showEndOfGame ) );
+			visible 		when ( 0 );
 			decoration
 		}
 		itemDef
 		{
 			name			intermission_timer_countdown
 			type			ITEM_TYPE_TEXT
-			visible			1
+			visible			0
 			rect			ORIGIN_STATUS 0 0
 			origin			-40 0
 			forecolor		MENU_FONT_COLOR2
 			exp				text( secondsAsCountdown( timeLeft() ) );
 			textfont		UI_FONT_NORMAL
 			textscale		TEXTSIZE_SMALL
-			visible 		when ( dvarBool( ui_showEndOfGame ) );
+			visible 		when ( 0 );
 			decoration
 		}	
 		
@@ -142,14 +142,19 @@
 				open cac_main; 				
 
 		#define CLEARUIHINT	exec "set ui_hint_text @MP_NULL"
+		
+		#define SETUP_ACTION_PRESTIGEMODE \
+			open prestige_reset1
 				
-		CHOICE_BUTTON_VIS( 1, "@MPUI_CHOOSE_CLASS", SETUP_ACTION_CHANGECLASS, when( !localvarBool( ui_hideBack ) ) )
+		CHOICE_BUTTON_VIS( 1, "@MPUI_CHOOSE_CLASS_CAP", SETUP_ACTION_CHANGECLASS, when( !localvarBool( ui_hideBack ) ) )
 		CHOICE_BUTTON_FOCUS_VIS_ADV( 2, "@MPUI_CREATE_A_CLASS_CAP", SETUP_ACTION_CREATEACLASS, exec "set ui_hint_text @MPUI_DESC_CREATE_A_CLASS", CLEARUIHINT, when( !localvarBool( ui_hideBack ) && stat( 260 ) >= 1 ), !localvarBool( ui_hideBack ) && stat( 260 ) >= 1 )
 		CHOICE_BUTTON_FOCUS_VIS_NOHI( 2, "", ;, exec "set ui_hint_text @MPUI_DESC_CREATE_A_CLASS_LOCKED", CLEARUIHINT, when(!localvarBool( ui_hideBack ) && stat( 260 ) < 1 ) )
 		CHOICE_DBUTTON_VIS( 2, "@MPUI_CREATE_A_CLASS_CAP", when( !localvarBool( ui_hideBack ) && stat( 260 ) < 1 ) )
 		CHOICE_NEWICON_VIS( 2, "specialty_new", when( !localvarBool( ui_hideBack ) && ANY_NEW_CAC ) )
 		
-		CHOICE_BUTTON_VIS( 3, "@MPUI_CHALLENGES", open menu_challenges;, when( !localvarBool( ui_hideBack ) ) )
+		CHOICE_BUTTON_FOCUS_VIS_ADV( 3, "@MPUI_PRESTIGE_MODE", SETUP_ACTION_PRESTIGEMODE, ;, CLEARUIHINT, when( !localvarBool( ui_hideBack ) && PRESTIGE_AVAIL ), !localvarBool( ui_hideBack ) && PRESTIGE_AVAIL )
+		CHOICE_BUTTON_FOCUS_VIS_NOHI( 3, "", ;, exec "set ui_hint_text @MPUI_DESC_PRESTIGE2; set ui_show_arrow 1", CLEARUIHINT, when( !localvarBool( ui_hideBack ) && PRESTIGE_AVAIL==0 && PRESTIGE_FINISH==0 ) )
+		CHOICE_DBUTTON_VIS( 3, "@MPUI_PRESTIGE_MODE", when( !localvarBool( ui_hideBack ) && PRESTIGE_AVAIL == 0 && PRESTIGE_FINISH == 0 ) )
 
 		//CHOICE_BUTTON_VIS( 4, "@MENU_SCOREBOARD", close self;, when( !localvarBool( ui_hideBack ) ) )
 	
@@ -161,7 +166,7 @@
 		
 		// ====================== player stats =========================
 		
-		#include "ui_mp/player_info.inc"
+		//#include "ui_mp/player_info.inc"
 	}
 	
 	#include "ui_mp/popupstyle.inc"	
