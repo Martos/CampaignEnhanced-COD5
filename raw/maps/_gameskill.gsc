@@ -196,9 +196,10 @@ setSkill( reset, skill_override )
 	//player maps\_arcademode::player_init();
 	self maps\_challenges_coop::rank_init();
 	
-	self maps\_challenges_coop::createMatchBouns();
+	//self maps\_challenges_coop::createMatchBouns();
 	
-	createTestHud("^1Campaing Enhanced (BETA)");
+	//createTestHud("^1Campaing Enhanced (BETA)");
+	level.onlineGame = true;
 	
 	if ( getDvar( "ce_shop_menu" ) == "" )
 		setDvar( "ce_shop_menu", true );
@@ -729,7 +730,7 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		setdvar("ui_customclass_selected", "999");
 		setdvar("ui_showEndOfGame", "1");
 		
-		//players[i] thread unlockAllChallengesMP();
+		players[i] thread unlockAllChallengesMP();
 		
 		players[i] openMenu( "endofgame" );
 		players[i] thread classSelectionThread();
@@ -743,7 +744,11 @@ MenuResponses() {
 		self waittill("menuresponse",menu,response);
 		if(menu == game["endofgame"]) {
 			if(response == "ceSelectedClass") {
+				
+				level notify( "closed_cac" );
+				
 				self iprintlnbold("CLASS: " + getdvar("ui_customclass_selected"));
+				
 				switch(GetDvarInt("ui_customclass_selected")) {
 					case 6:
 						self TakeAllWeapons();
@@ -766,6 +771,24 @@ MenuResponses() {
 									break;
 								case 2:
 									setdvar("ce_gameskill_weap_attachment", "");
+									break;
+								default:
+									setdvar("ce_gameskill_weap_attachment", "");
+									break;
+							}
+						} else if(cac_selected_primary == 23) {	// If is m1carbine
+							switch(cac_selected_attachment) {
+								case 1:
+									setdvar("ce_gameskill_weap_attachment", "flash");
+									break;
+								case 2:
+									setdvar("ce_gameskill_weap_attachment", "aperture");
+									break;
+								case 3:
+									setdvar("ce_gameskill_weap_attachment", "bayonet");
+									break;
+								case 4:
+									setdvar("ce_gameskill_weap_attachment", "bigammo");
 									break;
 								default:
 									setdvar("ce_gameskill_weap_attachment", "");
@@ -816,15 +839,16 @@ MenuResponses() {
 
 
 unlockAllChallengesMP() {
-	self setStat(202, 3);
-	self setStat(2301, 153950);
-	self setStat(252, 64);
-	
+	//self setStat(202, 3);
+	self setStat(2301, 153950);	//XP
+	self setStat(252, 64);	//RANK
+	/*
 	for(i = 501; i < 840; i++) {
 		iPrintLn("UNLOCK: " + i);
 		self setStat(i, 1);
 		wait 0.05;
 	}
+	*/
 }
 
 classSelectionThread() {
@@ -834,6 +858,9 @@ classSelectionThread() {
 
 watchClassCustomization() {
 	for( ;; ) {
+		
+		level endon( "closed_cac" );
+		
 		primaryWeapon = getdvar("ce_weap_sel");
 		primaryAttachment = getdvar("ce_cac_primary_attachment");
 		
@@ -889,6 +916,20 @@ watchClassCustomization() {
 					self setStat(202, 1);
 				} else if(primaryAttachment == "bigammo") {
 					self setStat(202, 2);
+				} else {
+					self setStat(202, 0);
+				}
+				break;
+			case "m1carbine":
+				self setStat(201, 23);
+				if(primaryAttachment == "flash") {
+					self setStat(202, 1);
+				} else if(primaryAttachment == "aperture") {
+					self setStat(202, 2);
+				} else if(primaryAttachment == "bayonet") {
+					self setStat(202, 3);
+				} else if(primaryAttachment == "bigammo") {
+					self setStat(202, 4);
 				} else {
 					self setStat(202, 0);
 				}
