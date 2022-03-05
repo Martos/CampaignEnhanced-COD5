@@ -882,7 +882,7 @@ giveRankXP( type, value, levelEnd )
 		case "challenge":
 			self.summary_challenge += value;
 			self.summary_xp += value;
-			add_fake_xp(value);
+			//add_fake_xp(value);
 			break;
 			
 		case "kill":
