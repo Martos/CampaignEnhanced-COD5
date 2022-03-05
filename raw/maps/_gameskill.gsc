@@ -201,6 +201,11 @@ setSkill( reset, skill_override )
 	//createTestHud("^1Campaing Enhanced (BETA)");
 	level.onlineGame = true;
 	
+	//Scoreboard fix for Plutonium
+	if(GetDvar("version") == "Plutonium T4 Singleplayer (r2798)") {
+		SetDvar("onlinegame", "1");
+	}
+	
 	if ( getDvar( "ce_shop_menu" ) == "" )
 		setDvar( "ce_shop_menu", true );
 
