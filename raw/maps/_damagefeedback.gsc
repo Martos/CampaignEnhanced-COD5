@@ -1,9 +1,7 @@
 
 // MikeD (12/17/2007): Not called anywhere
 init()
-{
-	precacheShader( "damage_feedback" );
-	
+{	
 	if ( getDvar( "scr_damagefeedback" ) == "" )
 		setDvar( "scr_damagefeedback", "1" );
 
