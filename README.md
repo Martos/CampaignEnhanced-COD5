@@ -27,3 +27,7 @@ Coming soon ...
 ## Notes
 
 This mod is not intended to use in zombie. Only for campaign !
+
+## For Devs
+
+If you want to modify or write our own code, clone this repository on the root of Call of Duty World at War folder. You need to install first the complete mod tools.
