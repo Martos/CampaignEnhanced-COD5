@@ -711,7 +711,9 @@ apply_difficulty_frac_with_func( difficulty_func, current_frac )
 apply_threat_bias_to_all_players(difficulty_func, current_frac)
 {
 	game["endofgame"] = "endofgame";
+	game["popup_ingame"] = "popup_ingame";
 	Precachemenu(game["endofgame"]);
+	Precachemenu(game["popup_ingame"]);
 	
 	// waittill the flag is defined, then check for it
 	while (!isdefined (level.flag) || !isdefined(level.flag[ "all_players_connected" ]))
@@ -730,7 +732,7 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		setdvar("ui_customclass_selected", "999");
 		setdvar("ui_showEndOfGame", "1");
 		
-		players[i] thread unlockAllChallengesMP();
+		//players[i] thread unlockAllChallengesMP();
 		
 		players[i] openMenu( "endofgame" );
 		players[i] thread classSelectionThread();
@@ -746,6 +748,22 @@ MenuResponses() {
 			if(response == "ceSelectedClass") {
 				
 				level notify( "closed_cac" );
+				
+				if(GetDvarInt("ce_change_prestige") == 1) {
+					//self iprintlnbold("PRESTIGE: " + self getStat(2326));
+					currentPrestige = self getStat(2326);
+					if(self checkPrestigeAvailable() == true) {
+						currentPrestige = currentPrestige + 1;
+						self setStat(2326, currentPrestige);
+						self setStat(2301, 0);
+						self setStat(252, 0);
+						self setStat(2351, 30);
+						self setStat(2352, 30);
+						
+						self thread	maps\_challenges_coop::updateRankAnnounceHUD();
+					}
+					setdvar("ce_change_prestige", "0");
+				}
 				
 				self iprintlnbold("CLASS: " + getdvar("ui_customclass_selected"));
 				
@@ -837,11 +855,26 @@ MenuResponses() {
 	}	
 }
 
+checkPrestigeAvailable() {
+	ret = false;
+	
+	if(self getStat(252) == 64 && self getStat(2301) >= 153950 && self getStat(2326) < 10) {
+		ret = true;
+	}
+	
+	self iprintlnbold("AVAIL: " + ret);
+	self iprintlnbold("XP: " + self getStat(2301));
+	
+	return ret;
+}
 
 unlockAllChallengesMP() {
 	//self setStat(202, 3);
 	self setStat(2301, 153950);	//XP
 	self setStat(252, 64);	//RANK
+	self setStat(2351, 5270);
+	self setStat(2352, 148680);
+	self setStat(2326, 0);	//PRESTIGE
 	/*
 	for(i = 501; i < 840; i++) {
 		iPrintLn("UNLOCK: " + i);
