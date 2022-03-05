@@ -34,12 +34,15 @@ monitorDamage()
 
 updateDamageFeedback()
 {
-	//if ( !IsPlayer( self ) )
-	//	return;
-	//iPrintLn("Damage hit");
+	if ( !IsPlayer( self ) )
+		return;
+
 	self playlocalsound( "mp_hit_indication_3c" );
 	
-	self.hud_damagefeedback.alpha = 1;
-	self.hud_damagefeedback fadeOverTime( 1 );
-	self.hud_damagefeedback.alpha = 0;
+	if(isdefined(self.hud_damagefeedback)) {
+		self.hud_damagefeedback.alpha = 1;
+		self.hud_damagefeedback fadeOverTime( 1 );
+		self.hud_damagefeedback.alpha = 0;
+	}
+
 }
