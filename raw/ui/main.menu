@@ -512,6 +512,9 @@ itemDef { \
 			
 			CHOICE_BUTTON( 3, "@PLATFORM_GAME_SUMMARY_CAP", open "popup_unlock" )
 			CHOICE_BUTTON_VIS( 4, "@MENU_COOPERATIVE", open main_online; LOCAL_ZOMBIE_RESET, when( !localvarBool( ui_hideBack ) ); )
+			//CHOICE_BUTTON_VIS( 5, "@MPUI_PRESTIGE_MODE", open main_online; LOCAL_ZOMBIE_RESET, when( !localvarBool( ui_hideBack ) ); )
+			//CHOICE_BUTTON_FOCUS_VIS_ADV( 5, "@MPUI_PRESTIGE_MODE", SETUP_ACTION_PRESTIGEMODE, stat( 267 ) == 1;, CLEARUIHINT, when( !localvarBool( ui_hideBack ) && PRESTIGE_AVAIL ), !localvarBool( ui_hideBack ) && PRESTIGE_AVAIL )
+			//CHOICE_BUTTON_FOCUS_VIS_NOHI( 5, "", ;, exec "set ui_hint_text @MPUI_DESC_PRESTIGE2; set ui_show_arrow 1", CLEARUIHINT, when( !localvarBool( ui_hideBack ) && PRESTIGE_AVAIL==0 && PRESTIGE_FINISH==0 ) )
 			//CHOICE_BUTTON_VIS( 3, "@MENU_MULTIPLAYER", open multi_popmenu, when( !localvarBool( ui_hideBack ) ); )
 			CHOICE_SEPARATOR_VIS( CHOICE_SEP_1, when( !localvarBool( ui_hideBack ) ); )
 			//CHOICE_BUTTON_VIS( 3, "Join LAN Game", open menu_lan; LOCAL_ZOMBIE_RESET, when( !localvarBool( ui_hideBack ) ); )
