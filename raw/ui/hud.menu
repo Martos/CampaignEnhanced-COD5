@@ -10,7 +10,7 @@
 #define CHAPLIN_CHEAT_OFF (dvarBool( chaplinCheat ) == 0)
 
 #define TICKER_WIDTH( segID )		(segID*64) 1 64 6 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
-#define TICKER_WIDTH_WS( segID )		(segID*72) 1 135 6 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+#define TICKER_WIDTH_WS( segID )		(segID*85) 1 151 6 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
 
 #define HUD_TICKER( segID ) \
 		itemDef \
@@ -129,7 +129,7 @@
 	{
     	name			"stance"
 #ifdef PC
-		rect			120 -130 48 48 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+		rect			110 -70 48 48 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
 #else
 		rect			90 -70 48 48 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
 #endif						
@@ -349,11 +349,10 @@
 menuDef
 {
 	name			"competitivemodescores"
-	rect			-113 -130 0 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_BOTTOM
+	rect			-103 -81 0 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_BOTTOM
 	fullScreen		0
 	//visible when 	( !ui_active() && dvarint( ui_hud_hardcore ) == 0 && dvarBool( miniscoreboardhide ) == 0 && dvarBool( hud_missionFailed ) == 0 && dvarint( arcademode ) == 1 || dvarint( zombiemode ) == 1 );
-	//visible when 	( !ui_active() && dvarint( ui_hud_hardcore ) == 0 && dvarBool( hud_missionFailed ) == 0 );
-	visible 0
+	visible when 	( !ui_active() && dvarint( ui_hud_hardcore ) == 0 && dvarBool( hud_missionFailed ) == 0 );
 	
 	itemDef
 	{
@@ -389,11 +388,11 @@ menuDef
 }		
 
 #ifdef PC
-#define WEAPINFO_X -185
+#define WEAPINFO_X -160
 #else
 #define WEAPINFO_X -150
 #endif
-#define WEAPINFO_Y -80	
+#define WEAPINFO_Y -70	
 
 	menuDef
 	{
@@ -426,7 +425,7 @@ menuDef
 		itemDef
 		{
 			name			"clipGraphic"
-			rect			(WEAPINFO_X +90) (WEAPINFO_Y +0) 1 1
+			rect			(WEAPINFO_X +111) (WEAPINFO_Y +56) 1 1
 			forecolor		1 1 1 HUD_ALPHA
 			ownerdraw		CG_PLAYER_WEAPON_AMMO_CLIP_GRAPHIC
 			visible			1
@@ -436,7 +435,7 @@ menuDef
 		itemDef
 		{
 			name			"offhandFragIcon"
-			rect			(WEAPINFO_X +86) (WEAPINFO_Y -32) 24 24
+			rect			(WEAPINFO_X +86) (WEAPINFO_Y +22) 24 24
 			forecolor		1 1 1 HUD_ALPHA
 			ownerdraw		CG_OFFHAND_WEAPON_ICON_FRAG
 			background		"hud_us_grenade" // default texture
@@ -447,7 +446,7 @@ menuDef
 		itemDef
 		{
 			name			"offhandSmokeIcon"
-			rect			(WEAPINFO_X +56) (WEAPINFO_Y -32) 24 24
+			rect			(WEAPINFO_X +56) (WEAPINFO_Y +22) 24 24
 			forecolor		1 1 1 HUD_ALPHA
 			ownerdraw		CG_OFFHAND_WEAPON_ICON_SMOKEFLASH
 			background		"hud_us_smokegrenade" // default texture
@@ -457,7 +456,7 @@ menuDef
 		itemDef
 		{
 			name			"offhandsmokeammo"
-			rect			(WEAPINFO_X +76) (WEAPINFO_Y -8) 25 25
+			rect			(WEAPINFO_X +76) (WEAPINFO_Y +52) 25 25
 			textscale		TEXTSIZE_SMALL
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
 			textfont		UI_FONT_OBJECTIVE
@@ -470,7 +469,7 @@ menuDef
 		itemDef
 		{
 			name			"offhandfragammo"
-			rect			(WEAPINFO_X +106) (WEAPINFO_Y -8) 25 25
+			rect			(WEAPINFO_X +106) (WEAPINFO_Y +52) 25 25
 			textscale		TEXTSIZE_SMALL
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
 			textfont		UI_FONT_OBJECTIVE
@@ -483,7 +482,7 @@ menuDef
 		itemDef
 		{
 			name			"ammostock"
-			rect			(WEAPINFO_X +95) (WEAPINFO_Y +8) 25 25
+			rect			(WEAPINFO_X +115) (WEAPINFO_Y +64) 25 25
 			textscale		TEXTSIZE_SMALL
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
 			textfont		UI_FONT_OBJECTIVE
@@ -509,7 +508,7 @@ menuDef
 		itemDef
 		{
 			name			"weapname_lowdef"
-			rect			(WEAPINFO_X -146) (WEAPINFO_Y +20) 290 40
+			rect			(WEAPINFO_X -115) (WEAPINFO_Y +20) 290 40
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
 			textscale		TEXTSIZE_SMALL
 			textfont		UI_FONT_OBJECTIVE
@@ -648,9 +647,10 @@ menuDef
 	{
 		name "RoundCompass"
  	   	fullScreen MENU_FALSE
+		//visible 0
  	   	visible when  ( dvarBool( compass ) && !issplitscreen() && !dvarBool( cl_paused ) && !ui_active() && dvarint( ui_hud_hardcore )==0 );
 #ifdef PC
-		rect 5 -205 COMPASS_SIZE COMPASS_SIZE HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+		rect -15 -145 COMPASS_SIZE COMPASS_SIZE HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
 #else
 		rect -40 -140 COMPASS_SIZE COMPASS_SIZE HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
 #endif
@@ -1593,66 +1593,7 @@ menuDef
 		fullScreen		0
 		visible			1
 
-		// left edge
-		itemDef
-		{
-			style			WINDOW_STYLE_FILLED
-			rect			-100 -100 100 600 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_TOP
-			backcolor		COLOR_SAFEAREA
-			visible			1
-			decoration
-		}
-
-		// right edge
-		itemDef
-		{
-			style			WINDOW_STYLE_FILLED
-			rect			0 -100 100 600 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
-			backcolor		COLOR_SAFEAREA
-			visible			1
-			decoration
-			dvarTest		"ui_safearea"
-			showDVar		{ "1" }
-		}
-
-		// top edge
-		itemDef
-		{
-			style			WINDOW_STYLE_FILLED
-			rect			0 100 0 0 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_TOP
-			forecolor		1 1 1 1
-			backcolor		1 1 1 1
-			visible			1
-			decoration
-		}
-
-		// bottom edge
-		itemDef
-		{
-			style			WINDOW_STYLE_FILLED
-			rect			0 0 900 100 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
-			backcolor		COLOR_SAFEAREA
-			visible			1
-			decoration
-			dvarTest		"ui_safearea"
-			showDVar		{ "1" }
-		}
-		
-		itemDef	
-		{
-			type			ITEM_TYPE_TEXT
-			rect			-50 50 0 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
-			forecolor		1 1 1 1
-			text			"Pre-Beta v1"
-			textfont		UI_FONT_DEFAULT
-			textstyle	ITEM_TEXTSTYLE_SHADOWEDMORE
-			textscale		0.4583
-			textalign		ITEM_ALIGN_TOP_RIGHT
-			visible			1
-			decoration
-		}
-		
-		//#include "ui/safearea.menu"
+		#include "ui/safearea.menu"
 	}
 
 	// XP bar 
@@ -1660,13 +1601,14 @@ menuDef
 	{
 		//name			"xpbar"
 		name 			"Compass"
-		rect			50 -58 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+		rect			BOTTOM_RECT_X -8 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
 		fullScreen		0
 		visible 		1
+
 		itemDef
 		{
 			style			WINDOW_STYLE_SHADER
-			rect			0 0 500 8 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			rect			0 0 640 8 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
 			origin			0 0
 			background		"white"
 			forecolor		0 0 0 0.25
@@ -1687,7 +1629,7 @@ menuDef
 		itemDef
 		{
 			style			WINDOW_STYLE_SHADER
-			rect			0 0 735 8 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			rect			0 0 854 8 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
 			origin			0 0
 			background		"white"
 			forecolor		0 0 0 0.25
@@ -1697,8 +1639,8 @@ menuDef
 		itemDef
 		{
 			style			WINDOW_STYLE_SHADER
-			rect			0 2 650 4 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
-			exp				rect W( 733 * ((stat(2301)-stat(2351))/(stat(2352)-stat(2351))) );
+			rect			0 2 720 4 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp				rect W( 854 * ((stat(2301)-stat(2351))/(stat(2352)-stat(2351))) );
 			origin			0 0
 			background		"scorebar_fadein"
 			forecolor		1 0.8 0.4 HUD_FOREGROUND_ALPHA
@@ -1738,5 +1680,4 @@ menuDef
 			decoration
 		}
 	}
-	
 }
