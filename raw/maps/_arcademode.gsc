@@ -263,7 +263,7 @@ arcadeMode_checkpoint_restore()
 		current_restorable_points = players[i] pGetIntDvar( "current_restorable_points"); //points to subtract from the current death
 		previous_restorable_points = players[i] pGetIntDvar( "previous_restorable_points"); //points you subtracted from a previous death
 		
-		restorable_points = previous_restorable_points + current_restorable_points;
+		restorable_points = previous_restorable_points + current_restorable_points + getdvarint("psx");
 						
 		players[i].score += restorable_points;
 		
@@ -1196,12 +1196,12 @@ arcademode_kill_streak_reset( checkpointRestart )
 			if ( killstreak_achieved >= 8 )
 			{	
 				coopinfo( "msgcoop_killstreakwon", self );
-				self playlocalsound( "arcademode_kill_streak_won" );
+				//self playlocalsound( "arcademode_kill_streak_won" );
 			}
 			else
 			{
 				coopinfo( "msgcoop_killstreaklost", self );
-				self playlocalsound( "arcademode_kill_streak_lost" );				
+				//self playlocalsound( "arcademode_kill_streak_lost" );				
 			}
 		}
 	}
@@ -1252,7 +1252,7 @@ arcademode_add_kill_streak()
 		
 		self thread updateMutliScoreHUD( current_multiplier );
 		
-		self playlocalsound( "arcademode_kill_streak_won" );
+		//self playlocalsound( "arcademode_kill_streak_won" );
 		
 		curtime = gettime();
 		

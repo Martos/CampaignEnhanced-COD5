@@ -1394,6 +1394,8 @@ incRankXP( amount )
 	self setClientDvars("psx", xpForPsx);
 	self setClientDvars("pss", xpForPsx);
 	
+	self.score = xpForPsx;
+	
 	self setStat(2302, scoreStats);
 
 	if ( self.rank == level.maxRank && newXp >= getRankInfoMaxXP( level.maxRank ) )
