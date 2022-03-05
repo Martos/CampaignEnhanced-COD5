@@ -1,1 +1,0 @@
-Extract to cod 5 root folder
