@@ -515,7 +515,7 @@ arcademode_dvar_init()
 	//enemy
 	setdvar ( "arcademode_score_kill",			5 );
 	setdvar ( "arcademode_score_melee",			4 );
-	setdvar ( "arcademode_score_headshot",		5 );
+	setdvar ( "arcademode_score_headshot",		6 );
 	setdvar ( "arcademode_score_upperbody",		1 );
 	setdvar ( "arcademode_score_lowerbody",		0 );
 	setdvar ( "arcademode_score_assist",			2 );
