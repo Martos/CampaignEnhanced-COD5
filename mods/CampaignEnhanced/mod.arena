@@ -23,3 +23,8 @@
 	longname	"MENU_LEVEL_BER2"
 	gametype	"cmp arc"
 }
+{
+	map			"ber3"
+	longname	"MENU_LEVEL_BER3"
+	gametype	"cmp arc"
+}
