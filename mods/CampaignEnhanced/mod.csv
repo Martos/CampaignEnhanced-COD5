@@ -66,6 +66,7 @@ material,weapon_svt40
 material,weapon_m1carbine
 material,weapon_gewehr43
 material,weapon_springfield
+material,weapon_springfield_scoped
 material,weapon_type99_rifle
 material,weapon_type99_lmg
 material,weapon_mosin_rifle
@@ -74,6 +75,9 @@ material,weapon_mg42
 material,weapon_dp28
 material,weapon_bar
 material,weapon_30cal
+material,weapon_ptrs41
+material,weapon_shotgun4
+material,weapon_double_barreled_shotgun
 material,weapon_attachment_flash
 material,weapon_attachment_silencer
 material,weapon_attachment_bigammo
