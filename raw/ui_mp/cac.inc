@@ -35,7 +35,7 @@
 		rect			0 0 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
 		focuscolor		COLOR_FOCUSED
 		style			WINDOW_STYLE_EMPTY //style			WINDOW_STYLE_FILLED
-		soundloop 		"music_mainmenu"
+		//soundloop 		"music_mainmenu"
 		//popup
 		onOpen {			
 			// load perk 2's selection into ui_perk2_selection so we can check if dual primaries perk is selected
@@ -432,14 +432,14 @@
 			LOCAL_PRIMARY_WEAPON_ACTION( suffix, weaponStat, weaponRef, attachRef ), \
 			execnow "set "highlight_dvar" "weaponRef;, \
 			CLEAR_WEAP_NEW( weaponRef );, \
-			when( ( 1 /*stat( int(weaponStat)+3000 ) & 1*/ ) && dvarString( ui_primary_selected ) == "Primary Weapon" && int(weaponStat) != stat(CAC_SECONDARY) ); ) \	/*SISTEMARE CON LO STATS DEL LIVELLO ! ARMA PRINCIPALE*/
+			when( ( stat( int(weaponStat)+3000 ) ) && dvarString( ui_primary_selected ) == "Primary Weapon" && int(weaponStat) != stat(CAC_SECONDARY) ); ) \	/*SISTEMARE CON LO STATS DEL LIVELLO ! ARMA PRINCIPALE*/
 		\
 		CHOICE_BUTTON_FOCUS_VIS_NOHI( itemNum, \
 			weaponName, \
 			LOCAL_PRIMARY_WEAPON_ACTION2( suffix, weaponStat, weaponRef, attachRef ), \
 			execnow "set "highlight_dvar" "weaponRef;, \
 			CLEAR_WEAP_NEW( weaponRef );, \
-			when( ( 1 /*stat( int(weaponStat)+3000 ) & 1*/ ) && dvarString( ui_primary_selected ) == "Secondary Weapon" && int(weaponStat) != stat(CAC_PRIMARY) ); ) \ /*SISTEMARE CON LO STATS DEL LIVELLO ! ARMA SECONDARIA*/
+			when( ( stat( int(weaponStat)+3000 ) ) && dvarString( ui_primary_selected ) == "Secondary Weapon" && int(weaponStat) != stat(CAC_PRIMARY) ); ) \ /*SISTEMARE CON LO STATS DEL LIVELLO ! ARMA SECONDARIA*/
 		\
 		CHOICE_NEWICON_VIS( itemNum, "specialty_new", when( ( stat( int(weaponStat)+3000 ) & (NEW_WEAPON_BITMASK+NEW_ITEMS_MASK)) > 0 ) ) \
 		CHOICE_LOCKEDICON_VIS( itemNum, "specialty_locked", when( ( stat( int(weaponStat)+3000 ) & 1 ) == 0 ); ) 		
