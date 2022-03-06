@@ -1,0 +1,25 @@
+{
+	map			"mak"
+	longname	"MENU_LEVEL_MAK"
+	gametype	"cmp arc"
+}
+{
+	map			"pel1"
+	longname	"MENU_LEVEL_PEL1"
+	gametype	"cmp arc"
+}
+{
+	map			"pel2"
+	longname	"MENU_LEVEL_PEL2"
+	gametype	"cmp arc"
+}
+{
+	map			"ber1"
+	longname	"MENU_LEVEL_BER1"
+	gametype	"cmp arc"
+}
+{
+	map			"ber2"
+	longname	"MENU_LEVEL_BER2"
+	gametype	"cmp arc"
+}
