@@ -143,8 +143,6 @@
 			showMenu "pausedbkgnd"
 			showMenu "objectiveinfo"
 			showMenu "overheadmap"
-			showMenu "test"
-			showMenu "missionsuccessbar_arcademode_splitscreen"
 			focusfirst
 			nosavehide "saveandquit"
 			saveAvailableHide "quit";
@@ -162,8 +160,6 @@
 			hideMenu "pausedbkgnd"
 			hideMenu "objectiveinfo"
 			hideMenu "overheadmap"
-			hideMenu "test"
-			hideMenu "missionsuccessbar_arcademode_splitscreen"
 #ifndef PC
 			exec "splitscreenview"
 #endif	
@@ -193,8 +189,6 @@
 			decoration
 		}
 		
-#define TEST_SHOP \
-		open "ingame_controls";
 //"credits_quit"
 #define SETUP_ACTION_CREDITS_QUIT \
 			setdvar credits_active 0; \
@@ -305,8 +299,6 @@
 
 		// "restartCheckpoint"
 		CHOICE_BUTTON_P( 5, "@MENU_RESTART_CHECKPOINT", "restartCheckpoint", open "popup_checkpoint_restart_warning";, dvarBool( ui_shipping_cheats ) && dvarbool( sv_running ) )
-		
-		CHOICE_BUTTON_P(6, "SHOP", ;, SETUP_ACTION_MENU_OPTIONS, 1)
 
 /*
 // "difficulty"
@@ -391,152 +383,6 @@
 	// looke for overlaybg.inc
 #endif
 
-#ifdef PC
-	#define SCOREBAR_OFFSET 0 4
-#else
-	#define SCOREBAR_OFFSET 0 0
-#endif
-
-
-#define SCOREBAR_LEFT_OFFSET -200
-#define SCOREBAR_WIDTH 1000 
-	
-	menuDef  // Stub: the scoreboard is controlled by code
-	{
-		name			"missionsuccessbar_arcademode_splitscreen"
-		rect			0 0 640 480
-		visible			when ( !ui_active() );
-
-		itemDef
-		{
-			style			WINDOW_STYLE_SHADER
-			rect			SCOREBAR_LEFT_OFFSET 0 SCOREBAR_WIDTH 2 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_TOP
-			origin			SCOREBAR_OFFSET
-			background		"line_horizontal_scorebar"
-			forecolor		1 1 1 1
-			visible			1
-			decoration
-		}
-		
-		itemDef	
-		{
-			style			WINDOW_STYLE_SHADER
-			rect			SCOREBAR_LEFT_OFFSET 2 SCOREBAR_WIDTH 1 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_TOP
-			origin			SCOREBAR_OFFSET
-			background		"line_horizontal_scorebar"
-			forecolor		0 0 0 0.5
-			visible			1
-			decoration
-		}	
-		
-		itemDef	
-		{
-			style			WINDOW_STYLE_SHADER
-			rect			SCOREBAR_LEFT_OFFSET 3 SCOREBAR_WIDTH 18 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_TOP
-			origin			SCOREBAR_OFFSET
-			background		"menu_white_line_faded"
-			forecolor		0 0 0 0.5
-			visible			1
-			decoration
-		}	
-		
-		itemDef	
-		{
-			style			WINDOW_STYLE_SHADER
-			rect			SCOREBAR_LEFT_OFFSET 21 SCOREBAR_WIDTH 1 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_TOP
-			origin			SCOREBAR_OFFSET
-			background		"line_horizontal_scorebar"
-			forecolor		0 0 0 0.5
-			visible			1
-			decoration
-		}	
-		
-		itemDef
-		{
-			style			WINDOW_STYLE_SHADER
-			rect			SCOREBAR_LEFT_OFFSET 22 SCOREBAR_WIDTH 2 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_TOP
-			origin			SCOREBAR_OFFSET
-			background		"line_horizontal_scorebar"
-			forecolor		1 1 1 1
-			visible			1
-			decoration
-		}
-		
-		itemDef 
-		{
-			rect			0 20 1 1 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_TOP
-			origin			SCOREBAR_OFFSET
-			exp text		( locString( "@MENU_MISSION_SUCCESS" ) );
-			textfont		UI_FONT_NORMAL
-			textscale		TEXTSIZE_DEFAULT
-			textalign		ITEM_ALIGN_CENTER
-			forecolor		0.95 0.72 0.21 1.0
-			textstyle		ITEM_TEXTSTYLE_NORMAL
-			visible			1
-			decoration 
-		}
-	}
-	
-	menuDef
-	{
-		name			"test"
-		fullScreen		0
-		rect			0 0 640 480
-		focusColor		COLOR_FOCUSED
-		
-		itemDef
-		{
-			text			"Campaign Enhanced (BETA)"
-			type			ITEM_TYPE_TEXT
-			origin			48 68
-			forecolor		1.0 1.0 1.0 1.0
-			visible			1
-		}
-	}
-	
-	#define SCORE_BAR() \
-		itemDef \
-		{ \
-			style			WINDOW_STYLE_SHADER \
-			rect			0 3 640 18 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_TOP \
-			origin			SCOREBAR_OFFSET\
-			background		"line_horizontal_scorebar" \
-			forecolor		0 0 0 1 \
-			visible			1 \
-			decoration \
-		} \
-		itemDef \
-		{ \
-			style			WINDOW_STYLE_SHADER \
-			rect			0 3 640 18 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_TOP \
-			origin			SCOREBAR_OFFSET\
-			background		"line_horizontal_scorebar" \
-			forecolor		0.6 0.64 0.69 1 \
-			visible			when( team( name ) == "TEAM_ALLIES" && dvarString( "scr_allies" ) == "usmc" && !dvarInt( "splitscreen" ) ) \
-			decoration \
-		} \
-		itemDef \
-		{ \
-			style			WINDOW_STYLE_SHADER \
-			rect			0 3 640 18 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_TOP \
-			origin			SCOREBAR_OFFSET\
-			background		"line_horizontal_scorebar" \
-			forecolor		0.52 0.28 0.28 1 \
-			visible			when( team( name ) == "TEAM_AXIS" && dvarString( "scr_axis" ) == "ussr" && !dvarInt( "splitscreen" ) ) \
-			decoration \
-		} \
-		itemDef \
-		{ \
-			style			WINDOW_STYLE_SHADER \
-			rect			0 3 640 18 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_TOP \
-			origin			SCOREBAR_OFFSET\
-			background		"line_horizontal_scorebar" \
-			forecolor		0.65 0.57 0.41 1 \
-			visible			when( team( name ) == "TEAM_AXIS" && dvarString( "scr_axis" ) == "arab" && !dvarInt( "splitscreen" ) ) \
-			decoration \
-		} \
-
-
 	// objective info... shown when paused, or on PC when "TAB" is held
 	menuDef
 	{
@@ -544,30 +390,8 @@
 		fullScreen		0
 		rect			0 0 640 480
 		focusColor		COLOR_FOCUSED
-		/*
-		itemDef
-		{
-			text			"Campaign Enhanced (BETA)"
-			type			ITEM_TYPE_TEXT
-			origin			48 68
-			forecolor		1.0 1.0 1.0 1.0
-			visible			1
-		}
-		*/
-		itemDef	
-		{
-			style			WINDOW_STYLE_SHADER
-			rect			0 2 640 1 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_TOP
-			origin			SCOREBAR_OFFSET
-			background		"line_horizontal_scorebar"
-			forecolor		0 0 1 1
-			visible			1
-			decoration
-		}
-		SCORE_BAR
 
 		// top black border
-		/*
 		itemDef
 		{
 			style			WINDOW_STYLE_SHADER
@@ -577,7 +401,6 @@
 			visible			1
 			decoration
 		}
-		*/
 		// bottom black border
 		itemDef
 		{
@@ -605,7 +428,7 @@
 		}
 		*/
 
-		CHOICE_MENU_TITLE( "DA MODIFICARE" )
+		CHOICE_MENU_TITLE( "@MENU_MISSIONOBJECTIVES_CAP" )
 
 		// objective check box stub
 		itemDef

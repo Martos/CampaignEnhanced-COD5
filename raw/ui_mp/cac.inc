@@ -374,14 +374,6 @@
 		PREPROC_SHADER_DRAW_ALIGNED( (LOADOUT_IMAGE_X-45) LOADOUT_IMAGE_Y 180 90 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup("mp/statsTable.csv",4,dvarString(highlight_dvar),6), 1 1 1 1, 0, 2, 0 0 0 0 visible when( dvarString(ui_inside_popup) != "attachment" && dvarString(ui_inside_popup) != "camo" ); ) \
 		/* weapon title*/\
 		PREPROC_TEXT_DRAW_ALIGNED_EXP( LOADOUT_TITLE_X LOADOUT_TITLE_Y (LOADOUT_WIDTH+8) 20 LOADOUT_ALIGN, ORIGIN_LOADOUT, "@"+tablelookup("mp/statsTable.csv",4,dvarString(highlight_dvar),3), TEXTSIZE_DEFAULT, 0, 0, ITEM_ALIGN_MIDDLE_LEFT, COLOR_INFO_YELLOW visible when( dvarString(ui_inside_popup) != "attachment" && dvarString(ui_inside_popup) != "camo" ); ) \
-		/* weapon desc unlocked*/\
-		PREPROC_TEXT_DRAW_ALIGNED_EXP( LOADOUT_DESC_X LOADOUT_DESC_Y (LOADOUT_WIDTH-30) 20 LOADOUT_ALIGN, ORIGIN_LOADOUT, "@"+tablelookup("mp/statsTable.csv",4,dvarString(highlight_dvar),7), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_LEFT, CHOICE_TEXTCOLOR visible when( ( stat(int(tablelookup("mp/statsTable.csv",4,dvarString(highlight_dvar),1))) & 1 ) && ( ( dvarString( ui_primary_selected ) != "Primary Weapon" || dvarString( ui_primary_highlighted ) != tablelookup("mp/statsTable.csv",1,dvarInt(ui_secondary_weapon), 4 ) ) && ( dvarString( ui_primary_selected ) != "Secondary Weapon" || dvarString( ui_primary_highlighted ) != tablelookup("mp/statsTable.csv",1,dvarInt(ui_primary_weapon), 4 ) ) ) ); )\
-		PREPROC_TEXT_DRAW_ALIGNED_EXP( LOADOUT_DESC_X LOADOUT_DESC_Y (LOADOUT_WIDTH-30) 20 LOADOUT_ALIGN, ORIGIN_LOADOUT, "@"+tablelookup("mp/statsTable.csv",4,dvarString(highlight_dvar),10), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_LEFT, COLOR_RED_TEXT visible when( ( stat(int(tablelookup("mp/statsTable.csv",4,dvarString(highlight_dvar),1))) & 1 ) == 0 ); )\
-		/* Weapon already selected description */ \
-		PREPROC_TEXT_DRAW_ALIGNED_EXP( LOADOUT_DESC_X LOADOUT_DESC_Y (LOADOUT_WIDTH-30) 20 LOADOUT_ALIGN, ORIGIN_LOADOUT, "@MPUI_ALREADY_SELECTED", TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_LEFT, CHOICE_TEXTCOLOR visible when( ( stat(int(tablelookup("mp/statsTable.csv",4,dvarString(highlight_dvar),1))) & 1 ) && ( ( dvarString( ui_primary_selected ) == "Primary Weapon" && dvarString( ui_primary_highlighted ) == tablelookup("mp/statsTable.csv",1,dvarInt(ui_secondary_weapon), 4 ) ) || ( dvarString( ui_primary_selected ) == "Secondary Weapon" && dvarString( ui_primary_highlighted ) == tablelookup("mp/statsTable.csv",1,dvarInt(ui_primary_weapon), 4 ) ) ) ); ) \
-		/* attributes info display =============== */\
-		CAC_LOADOUT_ATTRIBUTES \
-		CAC_LOADOUT_ATTRIBUTES_PREVIEW_NA
 		
 	#define LOCAL_PRIMARY_WEAPON_ACTION( suffix, pstat, weapRef, attachRef ) \
 		setdvar ce_weap_sel weapRef; \
