@@ -40,6 +40,11 @@ weapon,sp/m1carbine
 weapon,sp/m1carbine_aperture
 weapon,sp/m1carbine_bigammo
 weapon,sp/m1carbine_flash
+material,weapon_fraggrenade_cac
+material,weapon_flare_cac
+material,weapon_molotov_cac
+material,weapon_tabun_gas_cac
+material,weapon_sticky_grenade_cac
 material,weapon_mp40
 material,weapon_thompson
 material,weapon_ppsh
