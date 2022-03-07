@@ -40,6 +40,14 @@ weapon,sp/m1carbine
 weapon,sp/m1carbine_aperture
 weapon,sp/m1carbine_bigammo
 weapon,sp/m1carbine_flash
+weapon,sp/30cal
+weapon,sp/bar
+weapon,sp/doublebarrel
+weapon,sp/shotgun
+weapon,sp/nambu
+weapon,sp/walther
+weapon,sp/tokarev
+weapon,sp/sw_357
 material,line_vertical
 material,weapon_m8_white_smoke_cac
 material,weapon_m8_white_smoke
@@ -59,6 +67,8 @@ material,weapon_thompson
 material,weapon_ppsh
 material,weapon_type100_smg
 material,weapon_colt
+material,weapon_walther
+material,weapon_tokarev
 material,weapon_nambu
 material,weapon_kar98k
 material,weapon_springfield
@@ -84,6 +94,7 @@ material,weapon_attachment_bigammo
 material,weapon_attachment_aperture
 material,weapon_attachment_scoped
 material,weapon_attachment_bayonet
+material,scorebar_zom_1
 sound,common,,all_sp
 sound,weapons,ber1,
 #localize,campaignenhanced,,

@@ -14,6 +14,31 @@
 	gametype	"cmp arc"
 }
 {
+	map			"sniper"
+	longname	"MENU_LEVEL_SNIPER"
+	gametype	"cmp arc"
+}
+{
+	map			"see1"
+	longname	"MENU_LEVEL_SEE1"
+	gametype	"cmp arc"
+}
+{
+	map			"pel1a"
+	longname	"MENU_LEVEL_PEL1A"
+	gametype	"cmp arc"
+}
+{
+	map			"pel1b"
+	longname	"MENU_LEVEL_PEL1B"
+	gametype	"cmp arc"
+}
+{
+	map			"see2"
+	longname	"MENU_LEVEL_SEE2"
+	gametype	"cmp arc"
+}
+{
 	map			"ber1"
 	longname	"MENU_LEVEL_BER1"
 	gametype	"cmp arc"
@@ -26,5 +51,20 @@
 {
 	map			"ber3"
 	longname	"MENU_LEVEL_BER3"
+	gametype	"cmp arc"
+}
+{
+	map			"oki2"
+	longname	"MENU_LEVEL_OKI2"
+	gametype	"cmp arc"
+}
+{
+	map			"oki3"
+	longname	"MENU_LEVEL_OKI3"
+	gametype	"cmp arc"
+}
+{
+	map			"ber3b"
+	longname	"MENU_LEVEL_BER3B"
 	gametype	"cmp arc"
 }

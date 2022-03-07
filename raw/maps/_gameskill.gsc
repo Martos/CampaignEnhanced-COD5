@@ -3,181 +3,6 @@
 #include common_scripts\utility;
 #include maps\_hud_util;
 
-init_ceshop_menu() {
-	if ( !getDvarInt( "ce_shop_menu" ) )
-		return;
-	
-	self.menuOpen = false;
-	self.ceMenu = undefined;
-	self.ceMenuTitle = undefined;
-	
-	self.mainMenu[5] = [];
-	self.mainMenuPosition = 0;
-	
-	self thread watchPlayerOpenMenu();
-	self thread cursorMoveUP();
-	self thread cursorMoveDOWN();
-}
-
-watchPlayerOpenMenu() {
-	self endon ( "disconnect" );
-	self endon ( "ce_kill_menu" );
-	
-	for ( ;; ) {
-		while ( !self buttonPressed("x") )
-			wait 0.05;
-		
-		if ( !self.menuOpen ) {
-			self.menuOpen = true;
-			self playLocalSound( "mouse_click" );
-			iPrintLn("FREEZE");
-			if(!IsDefined(self.ceMenu) && self.menuOpen == true) {
-				self freezeControls( true );
-								
-				self.ceMenu = self createRectangle( "CENTER", "CENTER", 0, 0, 900, 500, ( 0, 0, 0 ), -2, 1, "white" );
-				self.ceMenuTitle = self initHudElem("SHOP", 0, 0);
-				openMainMenu();
-			}
-		} else {
-			self.ceMenu destroy();
-			self.ceMenuTitle destroy();
-			destroyMainMenu();
-			self.menuOpen = false;
-			self freezeControls( false );
-			iPrintLn("UNFREEZE");
-		}
-
-		while ( self buttonPressed("x") )
-			wait 0.05;
-	}
-	
-}
-
-cursorMoveUP() {
-	
-	self endon ( "disconnect" );
-	self endon ( "ce_kill_menu" );
-	
-	for ( ;; ) {
-		while ( !self buttonPressed("u") )
-			wait 0.05;
-		
-		
-		if(self buttonPressed("u")) {
-			iPrintLn("UP");
-		}
-		
-		while ( self buttonPressed("u") )
-			wait 0.05;
-	}
-	
-}
-
-cursorMoveDOWN() {
-	
-	self endon ( "disconnect" );
-	self endon ( "ce_kill_menu" );
-	
-	for ( ;; ) {
-		while ( !self buttonPressed("i") )
-			wait 0.05;
-		
-		for(i = 0; i < self.mainMenu.size; i++) {
-			self.mainMenu[self.mainMenuPosition].color = ( 0, 0, 0);
-		}
-		
-		self.mainMenu[self.mainMenuPosition].color = ( 0, 1, 0);
-		
-		if(self buttonPressed("i")) {
-			iPrintLn("DOWN");
-			if(self.mainMenu.size == self.mainMenuPosition) {
-				self.mainMenuPosition = self.mainMenu.size;
-			} else {
-				self.mainMenuPosition++;
-			}
-		}
-		
-		while ( self buttonPressed("i") )
-			wait 0.05;
-	}
-	
-}
-
-openMainMenu() {	
-	self.mainMenu[0] = self initHudElem("Primary", 0, 0);
-	self.mainMenu[1] = self initHudElem("Secondary", 0, -100);
-	
-}
-
-destroyMainMenu() {
-	self.mainMenu[0] destroy();
-	self.mainMenu[1] destroy();
-}
-
-initHudElem( txt, xl, yl )
-{
-	hud = NewClientHudElem( self );
-	hud setText( txt );
-	hud.alignX = "center";
-	hud.alignY = "bottom";
-	hud.horzAlign = "center";
-	hud.vertAlign = "bottom";
-	hud.x = xl;
-	hud.y = yl;
-	hud.foreground = true;
-	hud.fontScale = 1.4;
-	hud.font = "objective";
-	hud.alpha = 1;
-	hud.glow = 0;
-	hud.glowColor = ( 0, 0, 0 );
-	hud.glowAlpha = 1;
-	hud.color = ( 1.0, 1.0, 1.0 );
-
-	return hud;
-}
-
-initGlowHudElem( txt, xl, yl ) {
-	hud = NewClientHudElem( self );
-	hud setText( txt );
-	hud.alignX = "center";
-	hud.alignY = "bottom";
-	hud.horzAlign = "center";
-	hud.vertAlign = "bottom";
-	hud.x = xl;
-	hud.y = yl;
-	hud.foreground = true;
-	hud.fontScale = 1.4;
-	hud.font = "objective";
-	hud.alpha = 1;
-	hud.glow = 0;
-	hud.glowColor = ( 0, 0, 0 );
-	hud.glowAlpha = 1;
-	hud.color = ( 0, 1, 0 );
-
-	return hud;
-}
-
-createRectangle( align, relative, x, y, width, height, color, sort, alpha, shader )
-{
-	barElemBG = newClientHudElem( self );
-	barElemBG.elemType = "bar_";
-	barElemBG.width = width;
-	barElemBG.height = height;
-	barElemBG.align = align;
-	barElemBG.relative = relative;
-	barElemBG.xOffset = 0;
-	barElemBG.yOffset = 0;
-	barElemBG.children = [];
-	barElemBG.sort = sort;
-	barElemBG.color = color;
-	barElemBG.alpha = alpha;
-	barElemBG setParent( level.uiParent );
-	barElemBG setShader( shader, width, height );
-	barElemBG.hidden = false;
-	barElemBG setPoint( align, relative, x, y );
-	return barElemBG;
-}
-
 // this script handles all major global gameskill considerations
 setSkill( reset, skill_override )
 {
@@ -187,6 +12,8 @@ setSkill( reset, skill_override )
 	precacheMenu("endofgame");
 	precacheMenu("cac_main");
 	precacheMenu("menu_cac_custom");
+	
+	precachemodel("zombie_3rd_perk_bottle_revive");
 
 	//self maps\_challenges_coop::createRankIconFixed();
 	
@@ -205,12 +32,6 @@ setSkill( reset, skill_override )
 	if(GetDvar("version") == "Plutonium T4 Singleplayer (r2798)") {
 		SetDvar("onlinegame", "1");
 	}
-	
-	if ( getDvar( "ce_shop_menu" ) == "" )
-		setDvar( "ce_shop_menu", true );
-
-	if ( !getDvarInt( "ce_shop_menu" ) )
-		return;
 	
 	// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
 	/#
@@ -774,83 +595,21 @@ MenuResponses() {
 				
 				switch(GetDvarInt("ui_customclass_selected")) {
 					case 6:
-						self TakeAllWeapons();
-						
-						cac_selected_primary = self getStat(0 + 201);
-						
-						if(cac_selected_primary == 12) {
-							setdvar("ce_gameskill_weap_test", "type100_smg");
-						} else {
-							setdvar("ce_gameskill_weap_test", ""+tablelookup("mp/statsTable.csv", 0, cac_selected_primary, 4));
-						}
-						
-						cac_selected_attachment = self getStat(0 + 202);
-						
-						// If is ppsh
-						if(cac_selected_primary == 13) {
-							switch(cac_selected_attachment) {
-								case 1:
-									setdvar("ce_gameskill_weap_attachment", "aperture");
-									break;
-								case 2:
-									setdvar("ce_gameskill_weap_attachment", "");
-									break;
-								default:
-									setdvar("ce_gameskill_weap_attachment", "");
-									break;
-							}
-						} else if(cac_selected_primary == 23) {	// If is m1carbine
-							switch(cac_selected_attachment) {
-								case 1:
-									setdvar("ce_gameskill_weap_attachment", "flash");
-									break;
-								case 2:
-									setdvar("ce_gameskill_weap_attachment", "aperture");
-									break;
-								case 3:
-									setdvar("ce_gameskill_weap_attachment", "bayonet");
-									break;
-								case 4:
-									setdvar("ce_gameskill_weap_attachment", "bigammo");
-									break;
-								default:
-									setdvar("ce_gameskill_weap_attachment", "");
-									break;
-							}
-						} else {
-							switch(cac_selected_attachment) {
-								case 1:
-									setdvar("ce_gameskill_weap_attachment", "silenced");
-									break;
-								case 2:
-									setdvar("ce_gameskill_weap_attachment", "aperture");
-									break;
-								case 3:
-									setdvar("ce_gameskill_weap_attachment", "bigammo");
-									break;
-								default:
-									setdvar("ce_gameskill_weap_attachment", "");
-									break;
-							}
-						}
-
-						
-						cac_selected_secondary = self getStat(0 + 203);
-						setdvar("ce_gameskill_weap_secondary", ""+tablelookup("mp/statsTable.csv", 0, cac_selected_secondary, 4));
-						
-						primaryWeaponString = getdvar("ce_gameskill_weap_test");
-						secondaryWeaponString = getdvar("ce_gameskill_weap_secondary");
-						
-						if(getdvar("ce_gameskill_weap_attachment") != "") {
-							primaryWeaponString = primaryWeaponString + "_" + getdvar("ce_gameskill_weap_attachment");
-						}
-						
-						self GiveWeapon(primaryWeaponString);
-						self GiveWeapon(secondaryWeaponString);
-						self GiveMaxAmmo(primaryWeaponString);
-						self SwitchToWeapon(primaryWeaponString);
+						self customClassLogic(0);
 						break;
-					case 999:
+					case 7:
+						self customClassLogic(10);
+						break;
+					case 8:
+						self customClassLogic(20);
+						break;
+					case 9:
+						self customClassLogic(30);
+						break;
+					case 10:
+						self customClassLogic(40);
+						break;
+					default:
 						//No class selected, use standard weapons instead
 						break;
 					
@@ -858,6 +617,90 @@ MenuResponses() {
 			}
 		}
 	}	
+}
+
+customClassLogic(offset) {
+	if(!isplayer(self))
+		return;
+	
+	if(!isdefined(offset))
+		return;
+	
+	self TakeAllWeapons();
+	
+	cac_selected_primary = self getStat(offset + 201);
+	
+	if(cac_selected_primary == 12) {
+		setdvar("ce_gameskill_weap_test", "type100_smg");
+	} else {
+		setdvar("ce_gameskill_weap_test", ""+tablelookup("mp/statsTable.csv", 0, cac_selected_primary, 4));
+	}
+	
+	cac_selected_attachment = self getStat(offset + 202);
+	
+	// If is ppsh
+	if(cac_selected_primary == 13) {
+		switch(cac_selected_attachment) {
+			case 1:
+				setdvar("ce_gameskill_weap_attachment", "aperture");
+				break;
+			case 2:
+				setdvar("ce_gameskill_weap_attachment", "");
+				break;
+			default:
+				setdvar("ce_gameskill_weap_attachment", "");
+				break;
+		}
+	} else if(cac_selected_primary == 23) {	// If is m1carbine
+		switch(cac_selected_attachment) {
+			case 1:
+				setdvar("ce_gameskill_weap_attachment", "flash");
+				break;
+			case 2:
+				setdvar("ce_gameskill_weap_attachment", "aperture");
+				break;
+			case 3:
+				setdvar("ce_gameskill_weap_attachment", "bayonet");
+				break;
+			case 4:
+				setdvar("ce_gameskill_weap_attachment", "bigammo");
+				break;
+			default:
+				setdvar("ce_gameskill_weap_attachment", "");
+				break;
+		}
+	} else {
+		switch(cac_selected_attachment) {
+			case 1:
+				setdvar("ce_gameskill_weap_attachment", "silenced");
+				break;
+			case 2:
+				setdvar("ce_gameskill_weap_attachment", "aperture");
+				break;
+			case 3:
+				setdvar("ce_gameskill_weap_attachment", "bigammo");
+				break;
+			default:
+				setdvar("ce_gameskill_weap_attachment", "");
+				break;
+		}
+	}
+
+	
+	cac_selected_secondary = self getStat(offset + 203);
+	setdvar("ce_gameskill_weap_secondary", ""+tablelookup("mp/statsTable.csv", 0, cac_selected_secondary, 4));
+	
+	primaryWeaponString = getdvar("ce_gameskill_weap_test");
+	secondaryWeaponString = getdvar("ce_gameskill_weap_secondary");
+	
+	if(getdvar("ce_gameskill_weap_attachment") != "") {
+		primaryWeaponString = primaryWeaponString + "_" + getdvar("ce_gameskill_weap_attachment");
+	}
+	
+	self GiveWeapon(primaryWeaponString);
+	self GiveWeapon(secondaryWeaponString);
+	self GiveMaxAmmo(primaryWeaponString);
+	self SwitchToWeapon(primaryWeaponString);
 }
 
 checkPrestigeAvailable() {
@@ -902,74 +745,97 @@ watchClassCustomization() {
 		primaryWeapon = getdvar("ce_weap_sel");
 		primaryAttachment = getdvar("ce_cac_primary_attachment");
 		
+		primaryWeaponOffset = (getdvarint("ce_cac_selected") - 300) + 201;
+		primaryWeaponAttachmentOffset = (getdvarint("ce_cac_selected") - 300) + 202;
+		
 		//iprintln("PRIMARY: " + primaryWeapon);
 		//iPrintLn("ATTACHMENT: " + primaryAttachment);
 		
 		switch(primaryWeapon) {
 			case "thompson":
-				self setStat(201, 10);
+				self setStat(primaryWeaponOffset, 10);
 				if(primaryAttachment == "silenced") {
-					self setStat(202, 1);
+					self setStat(primaryWeaponAttachmentOffset, 1);
 				}
 				else if(primaryAttachment == "aperture") {
-					self setStat(202, 2);
+					self setStat(primaryWeaponAttachmentOffset, 2);
 				}
 				else if(primaryAttachment == "bigammo") {
-					self setStat(202, 3);
+					self setStat(primaryWeaponAttachmentOffset, 3);
 				} else {
-					self setStat(202, 0);
+					self setStat(primaryWeaponAttachmentOffset, 0);
 				}
 				break;
 			case "mp40":
-				self setStat(201, 11);
+				self setStat(primaryWeaponOffset, 11);
 				if(primaryAttachment == "silenced") {
-					self setStat(202, 1);
+					self setStat(primaryWeaponAttachmentOffset, 1);
 				}
 				else if(primaryAttachment == "aperture") {
-					self setStat(202, 2);
+					self setStat(primaryWeaponAttachmentOffset, 2);
 				}
 				else if(primaryAttachment == "bigammo") {
-					self setStat(202, 3);
+					self setStat(primaryWeaponAttachmentOffset, 3);
 				} else {
-					self setStat(202, 0);
+					self setStat(primaryWeaponAttachmentOffset, 0);
 				}
 				break;
 			case "type100smg":
-				self setStat(201, 12);
+				self setStat(primaryWeaponOffset, 12);
 				if(primaryAttachment == "silenced") {
-					self setStat(202, 1);
+					self setStat(primaryWeaponAttachmentOffset, 1);
 				}
 				else if(primaryAttachment == "aperture") {
-					self setStat(202, 2);
+					self setStat(primaryWeaponAttachmentOffset, 2);
 				}
 				else if(primaryAttachment == "bigammo") {
-					self setStat(202, 3);
+					self setStat(primaryWeaponAttachmentOffset, 3);
 				} else {
-					self setStat(202, 0);
+					self setStat(primaryWeaponAttachmentOffset, 0);
 				}
 				break;
 			case "ppsh":
-				self setStat(201, 13);
+				self setStat(primaryWeaponOffset, 13);
 				if(primaryAttachment == "aperture") {
-					self setStat(202, 1);
+					self setStat(primaryWeaponAttachmentOffset, 1);
 				} else if(primaryAttachment == "bigammo") {
-					self setStat(202, 2);
+					self setStat(primaryWeaponAttachmentOffset, 2);
 				} else {
-					self setStat(202, 0);
+					self setStat(primaryWeaponAttachmentOffset, 0);
 				}
 				break;
 			case "m1carbine":
-				self setStat(201, 23);
+				self setStat(primaryWeaponOffset, 23);
 				if(primaryAttachment == "flash") {
-					self setStat(202, 1);
+					self setStat(primaryWeaponAttachmentOffset, 1);
 				} else if(primaryAttachment == "aperture") {
-					self setStat(202, 2);
+					self setStat(primaryWeaponAttachmentOffset, 2);
 				} else if(primaryAttachment == "bayonet") {
-					self setStat(202, 3);
+					self setStat(primaryWeaponAttachmentOffset, 3);
 				} else if(primaryAttachment == "bigammo") {
-					self setStat(202, 4);
+					self setStat(primaryWeaponAttachmentOffset, 4);
 				} else {
-					self setStat(202, 0);
+					self setStat(primaryWeaponAttachmentOffset, 0);
+				}
+				break;
+			case "bar":
+				self setStat(primaryWeaponOffset, 82);
+				if(primaryAttachment == "bipod") {
+					self setStat(primaryWeaponAttachmentOffset, 1);
+				} else {
+					self setStat(primaryWeaponAttachmentOffset, 0);
+				}
+				break;
+			case "springfield":
+				self setStat(primaryWeaponOffset, 60);
+				if(primaryAttachment == "scoped") {
+					self setStat(primaryWeaponAttachmentOffset, 1);
+				} else if(primaryAttachment == "bayonet") {
+					self setStat(primaryWeaponAttachmentOffset, 2);
+				} else if(primaryAttachment == "gl") {
+					self setStat(primaryWeaponAttachmentOffset, 3);
+				} else {
+					self setStat(primaryWeaponAttachmentOffset, 0);
 				}
 				break;
 		}
