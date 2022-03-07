@@ -19,7 +19,12 @@ init_loadout()
 	PrecacheItem( "m1carbine_aperture" );
 	
 	PrecacheItem( "bar" );
+	PrecacheItem( "bar_bipod" );
 	PrecacheItem( "30cal" );
+	PrecacheItem( "mg42" );
+	PrecacheItem( "fg42" );
+	PrecacheItem( "dp28" );
+	PrecacheItem( "dp28_bipod" );
 	
 	PrecacheItem( "shotgun" );
 	PrecacheItem( "doublebarrel" );

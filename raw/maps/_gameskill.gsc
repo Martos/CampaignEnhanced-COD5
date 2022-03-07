@@ -669,6 +669,15 @@ customClassLogic(offset) {
 				setdvar("ce_gameskill_weap_attachment", "");
 				break;
 		}
+	} else if(cac_selected_primary == 83 || cac_selected_primary == 82) {
+		switch(cac_selected_attachment) {
+			case 1:
+				setdvar("ce_gameskill_weap_attachment", "bipod");
+				break;
+			default:
+				setdvar("ce_gameskill_weap_attachment", "");
+				break;
+		}
 	} else {
 		switch(cac_selected_attachment) {
 			case 1:
@@ -820,6 +829,18 @@ watchClassCustomization() {
 				break;
 			case "bar":
 				self setStat(primaryWeaponOffset, 82);
+				if(primaryAttachment == "bipod") {
+					self setStat(primaryWeaponAttachmentOffset, 1);
+				} else {
+					self setStat(primaryWeaponAttachmentOffset, 0);
+				}
+				break;
+			case "fg42":
+				self setStat(primaryWeaponOffset, 81);
+				self setStat(primaryWeaponAttachmentOffset, 0);
+				break;
+			case "dp28":
+				self setStat(primaryWeaponOffset, 83);
 				if(primaryAttachment == "bipod") {
 					self setStat(primaryWeaponAttachmentOffset, 1);
 				} else {
