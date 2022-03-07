@@ -586,6 +586,12 @@ MenuResponses() {
 						self setStat(2351, 30);
 						self setStat(2352, 30);
 						
+						//Crea una classe
+						self setStat(260, 0);	
+						
+						//Sblocchi arma
+						self thread weaponsUnlocksReset();
+						
 						self thread	maps\_challenges_coop::updateRankAnnounceHUD();
 					}
 					setdvar("ce_change_prestige", "0");
@@ -617,6 +623,39 @@ MenuResponses() {
 			}
 		}
 	}	
+}
+
+weaponsUnlocksReset() {
+	self setStat(3000, 0);
+	self setStat(3001, 0);
+	self setStat(3002, 0);
+	self setStat(3010, 0);
+	self setStat(3020, 0);
+	self setStat(3060, 0);
+	self setStat(3062, 0);
+	self setStat(3070, 0);
+	self setStat(3080, 0);
+	self setStat(3082, 0);
+	self setStat(3021, 0);
+	self setStat(3011, 0);
+	self setStat(3042, 0);
+	self setStat(3083, 0);
+	self setStat(3022, 0);
+	self setStat(3003, 0);
+	self setStat(3061, 0);
+	self setStat(3091, 0);
+	self setStat(3012, 0);
+	self setStat(3071, 0);
+	self setStat(3041, 0);
+	self setStat(3024, 0);
+	self setStat(3063, 0);
+	self setStat(3081, 0);
+	self setStat(3004, 0);
+	self setStat(3013, 0);
+	self setStat(3064, 0);
+	self setStat(3040, 0);
+	self setStat(3023, 0);
+	self setStat(3050, 0);
 }
 
 customClassLogic(offset) {
@@ -732,6 +771,7 @@ unlockAllChallengesMP() {
 	self setStat(2351, 5270);
 	self setStat(2352, 148680);
 	self setStat(2326, 0);	//PRESTIGE
+	
 	/*
 	for(i = 501; i < 840; i++) {
 		iPrintLn("UNLOCK: " + i);

@@ -922,6 +922,81 @@ updateRankAnnounceHUD()
 	rank_char = level.rankTable[self.rank][1];
 	subRank = int(rank_char[rank_char.size-1]);
 	
+	self iprintlnbold("RANK: " + self.rank);
+
+	//Sblocchi per livello
+	switch(self.rank) {
+		case 3:
+			self setStat(260, 1);	//Crea una classe
+			self setStat(3000, 1);
+			self setStat(3001, 1);
+			self setStat(3002, 1);
+			self setStat(3010, 1);
+			self setStat(3020, 1);
+			self setStat(3060, 1);
+			self setStat(3062, 1);
+			self setStat(3070, 1);
+			self setStat(3080, 1);
+			self setStat(3082, 1);
+			break;
+		case 6:
+			self setStat(3021, 1);
+			break;
+		case 9:
+			self setStat(3011, 1);
+			break;
+		case 12:
+			self setStat(3042, 1);
+			self setStat(3083, 1);
+			break;
+		case 16:
+			self setStat(3022, 1);
+			break;
+		case 20:
+			self setStat(3003, 1);
+			self setStat(3061, 1);
+			break;
+		case 23:
+			self setStat(3091, 1);
+			break;
+		case 24:
+			self setStat(3012, 1);
+			break;
+		case 28:
+			self setStat(3071, 1);
+			break;
+		case 32:
+			self setStat(3041, 1);
+			break;
+		case 36:
+			self setStat(3024, 1);
+			break;
+		case 40:
+			self setStat(3063, 1);
+			break;
+		case 44:
+			self setStat(3081, 1);
+			break;
+		case 48:
+			self setStat(3004, 1);
+			break;
+		case 52:
+			self setStat(3013, 1);
+			break;
+		case 56:
+			self setStat(3064, 1);
+			break;
+		case 60:
+			self setStat(3040, 1);
+			break;
+		case 64:
+			self setStat(3023, 1);
+			self setStat(3050, 1);
+			break;
+		default:
+			break;
+	}
+	
 	if ( subRank == 2 )
 	{
 		notifyData.textLabel = newRankName;
