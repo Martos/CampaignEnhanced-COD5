@@ -12,8 +12,6 @@ setSkill( reset, skill_override )
 	precacheMenu("endofgame");
 	precacheMenu("cac_main");
 	precacheMenu("menu_cac_custom");
-	
-	precachemodel("zombie_3rd_perk_bottle_revive");
 
 	//self maps\_challenges_coop::createRankIconFixed();
 	
@@ -31,6 +29,7 @@ setSkill( reset, skill_override )
 	//Scoreboard fix for Plutonium
 	if(GetDvar("version") == "Plutonium T4 Singleplayer (r2798)") {
 		SetDvar("onlinegame", "1");
+		SetDvar("arcademode", "1");
 	}
 	
 	// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
@@ -580,14 +579,9 @@ MenuResponses() {
 					currentPrestige = self getStat(2326);
 					if(self checkPrestigeAvailable() == true) {
 						currentPrestige = currentPrestige + 1;
-						self setStat(2326, currentPrestige);
-						self setStat(2301, 0);
-						self setStat(252, 0);
-						self setStat(2351, 30);
-						self setStat(2352, 30);
-						
-						//Crea una classe
-						self setStat(260, 0);	
+
+						//Reset stats
+						self thread profileStatsReset();
 						
 						//Sblocchi arma
 						self thread weaponsUnlocksReset();
@@ -623,6 +617,17 @@ MenuResponses() {
 			}
 		}
 	}	
+}
+
+profileStatsReset(currentPrestige) {
+	//Crea una classe
+	self setStat(260, 0);
+	
+	self setStat(2326, currentPrestige);
+	self setStat(2301, 0);
+	self setStat(252, 0);
+	self setStat(2351, 30);
+	self setStat(2352, 30);
 }
 
 weaponsUnlocksReset() {

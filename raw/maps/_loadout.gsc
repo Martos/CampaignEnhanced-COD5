@@ -14,9 +14,12 @@ init_loadout()
 	
 	PrecacheItem( "ppsh_aperture" );
 	//PrecacheItem( "type100_smg" );	NOT WORKING, INVESTIGATING
+	
 	PrecacheItem( "m1carbine" );
 	PrecacheItem( "m1carbine_flash" );
 	PrecacheItem( "m1carbine_aperture" );
+	PrecacheItem( "gewehr43" );
+	PrecacheItem( "gewehr43_aperture" );
 	
 	PrecacheItem( "bar" );
 	PrecacheItem( "bar_bipod" );

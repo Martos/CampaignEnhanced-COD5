@@ -351,20 +351,11 @@ menuDef
 	name			"competitivemodescores"
 	rect			-103 -81 0 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_BOTTOM
 	fullScreen		0
-	//visible when 	( !ui_active() && dvarint( ui_hud_hardcore ) == 0 && dvarBool( miniscoreboardhide ) == 0 && dvarBool( hud_missionFailed ) == 0 && dvarint( arcademode ) == 1 || dvarint( zombiemode ) == 1 );
 	visible when 	( !ui_active() && dvarint( ui_hud_hardcore ) == 0 && dvarBool( hud_missionFailed ) == 0 );
 	
 	itemDef
 	{
 		name			"playerscores"
-		rect			0 0 100 0
-		ownerdraw		CG_COMPETITIVE_MODE_SCORES
-		visible			1
-	}
-
-	itemDef
-	{
-		name			"rank_pvt1"
 		rect			0 0 100 0
 		ownerdraw		CG_COMPETITIVE_MODE_SCORES
 		visible			1
@@ -376,7 +367,7 @@ menuDef
 	name			"miniscoreboard_splitscreen_lowDef"
 	rect			-53 -135 0 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_BOTTOM
 	fullScreen		0
-	visible when 	( !ui_active() );
+	visible when 	( 0 );
 	
 	itemDef
 	{

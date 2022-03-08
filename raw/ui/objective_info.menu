@@ -445,6 +445,54 @@
 			decoration
 		}
 		
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect	 		160 160 320 16
+			forecolor		1.0 0.8 0.4 0.65
+			background		"white"
+			textscale		0.38
+			textfont		UI_FONT_DEFAULT
+			visible 		when  ( LOCAL_VIS_OBJECTIVE_DISPLAY );
+			decoration
+		}
+		
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect	 		160 160 320 16
+			forecolor		1.0 0.8 0.4 1
+			background		"rank_pvt1"
+			textscale		0.38
+			textfont		UI_FONT_DEFAULT
+			visible 		when  ( LOCAL_VIS_OBJECTIVE_DISPLAY );
+			decoration
+		}
+		
+		itemDef
+		{
+			rect	 		160 176 320 16
+			forecolor		1.0 1.0 1.0 1
+			exp text		( stat(252) )
+			textfont		UI_FONT_NORMAL
+			textscale		0.35
+			textalign		ITEM_ALIGN_LEFT
+			textstyle		ITEM_TEXTSTYLE_NORMAL
+			visible			when  ( LOCAL_VIS_OBJECTIVE_DISPLAY );
+		}
+		
+		itemDef
+		{
+			rect	 		230 176 320 16
+			forecolor		1.0 1.0 1.0 1
+			exp text		( dvarString("psx") )
+			textfont		UI_FONT_NORMAL
+			textscale		0.35
+			textalign		ITEM_ALIGN_LEFT
+			textstyle		ITEM_TEXTSTYLE_NORMAL
+			visible			when  ( LOCAL_VIS_OBJECTIVE_DISPLAY );
+		}
+		
 		// map --------------------
 		/*
 		itemDef

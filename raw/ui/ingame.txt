@@ -4,20 +4,27 @@
 	loadMenu { "ui/objective_info.menu" }
 	loadMenu { "ui_mp/options.menu" }
 	loadMenu { "ui/options_ingame.menu" }
-	loadMenu { "ui_mp/scriptmenus/ingame_options.menu" }
-	loadMenu { "ui_mp/scriptmenus/options_look_pc_ingame.menu" }
-	loadMenu { "ui_mp/scriptmenus/options_move_pc_ingame.menu" }
-	loadMenu { "ui_mp/scriptmenus/options_shoot_pc_ingame.menu" }
-	loadMenu { "ui_mp/scriptmenus/options_misc_pc_ingame.menu" }
-	loadMenu { "ui_mp/scriptmenus/options_graphics_pc_ingame.menu" }
-	loadMenu { "ui_mp/scriptmenus/options_game_pc_ingame.menu" }
-	loadMenu { "ui_mp/scriptmenus/options_sound_pc_ingame.menu" }
-	loadMenu { "ui_mp/scriptmenus/options_coop_pc_ingame.menu" }
-	loadMenu { "ui_mp/scriptmenus/options_control_defaults_ingame.menu" }
-	loadMenu { "ui_mp/scriptmenus/options_graphics_defaults_ingame.menu" }
-	loadMenu { "ui_mp/scriptmenus/options_voice_ingame.menu" }
-	loadMenu { "ui_mp/scriptmenus/options_multi_ingame.menu" }
-	loadMenu { "ui_mp/scriptmenus/controls_multi_ingame.menu" }
+	loadMenu { "ui_mp/scriptmenus/changeclass.menu" }
+	loadMenu { "ui_mp/scriptmenus/endofgame.menu" }
+	loadMenu { "ui_mp/cac_main.menu" }
+	loadMenu { "ui_mp/cac_custom.menu" }
+
+	loadMenu { "ui/options_new_pc.menu" }
+
+	loadMenu { "ui/options_look_pc.menu" }
+	loadMenu { "ui/options_move_pc.menu" }
+	loadMenu { "ui/options_shoot_pc.menu" }
+	loadMenu { "ui/options_misc_pc.menu" }
+	loadMenu { "ui/options_graphics_pc.menu" }
+	loadMenu { "ui/options_game_pc.menu" }
+	loadMenu { "ui/options_sound_pc.menu" }
+	loadMenu { "ui/options_coop_pc.menu" }
+	loadMenu { "ui/options_control_defaults.menu" }
+	loadMenu { "ui/options_graphics_defaults.menu" }
+	loadMenu { "ui_mp/options_voice.menu" }
+	loadMenu { "ui_mp/options_multi.menu" }
+	loadMenu { "ui_mp/controls_multi.menu" }
+
 	loadMenu { "ui/vid_restart_pc.menu" }
 	loadMenu { "ui/snd_restart.menu" }
 
@@ -33,6 +40,4 @@
 	loadMenu { "ui/difficulty.menu" }
 	loadMenu { "ui/popup_leavegame.menu" }
 	loadMenu { "ui/popup_ingame.menu" }
-
-	//loadMenu { "ui_mp/scriptmenus/changeclass_offline.menu" }
 }
