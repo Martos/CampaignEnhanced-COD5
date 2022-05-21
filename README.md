@@ -4,21 +4,20 @@ Campaign Enhanced is a campaign modificator for call of duty world at war aiming
 
 ## Features
 
-- Multiplayer progression imported in offline single player
+- Multiplayer progression imported in offline campaign
 - Ranks and prestige
 - Custom class
 - Full customizing of weapons and equipments
 - Challenges
 - Working hit marker
 - Level up sound
-- Single Player scoreboard (Only working on t4 plutonium)
-- Online Cooperative (currently in testing)
-- More coming ...
+- Single Player Scoreboard (T4M Feature)
+- Online Cooperative
 
 ## Requirement
 
-- Call of Duty World at War copy (STEAM) or T4 Plutonium
-- T4 modification (if you have game from steam)
+- Call of Duty World at War (STEAM or T4 Plutonium)
+- T4M [download](https://github.com/iAmThatMichael/T4M)
 
 ## In Game Screens
 
