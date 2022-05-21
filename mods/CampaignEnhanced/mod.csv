@@ -1,13 +1,11 @@
 rawfile,maps/_load.gsc
 rawfile,maps/_aimassist.gsc
 rawfile,maps/_utility.gsc
-rawfile,maps/Payload.gsc
 rawfile,maps/_loadout.gsc
 rawfile,maps/_gameskill.gsc
 rawfile,maps/_challenges_coop.gsc
 rawfile,maps/_arcademode.gsc
 rawfile,maps/_damagefeedback.gsc
-rawfile,maps/_callbackglobal.gsc
 rawfile,maps/_introscreen.gsc
 rawfile,maps/mp/gametypes/_menus.gsc
 menufile,ui/menus.txt
