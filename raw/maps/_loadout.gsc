@@ -20,6 +20,8 @@ init_loadout()
 	PrecacheItem( "m1carbine_aperture" );
 	PrecacheItem( "gewehr43" );
 	PrecacheItem( "gewehr43_aperture" );
+
+	PrecacheItem( "type99rifle" );
 	
 	PrecacheItem( "bar" );
 	PrecacheItem( "bar_bipod" );

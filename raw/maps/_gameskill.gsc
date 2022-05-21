@@ -718,6 +718,12 @@ customClassLogic(offset) {
 				setdvar("ce_gameskill_weap_attachment", "");
 				break;
 		}
+	} else if(cac_selected_primary == 62) {
+		switch(cac_selected_attachment) {
+			default:
+				setdvar("ce_gameskill_weap_attachment", "");
+				break;
+		}
 	} else {
 		switch(cac_selected_attachment) {
 			case 1:
@@ -890,6 +896,18 @@ watchClassCustomization() {
 				break;
 			case "springfield":
 				self setStat(primaryWeaponOffset, 60);
+				if(primaryAttachment == "scoped") {
+					self setStat(primaryWeaponAttachmentOffset, 1);
+				} else if(primaryAttachment == "bayonet") {
+					self setStat(primaryWeaponAttachmentOffset, 2);
+				} else if(primaryAttachment == "gl") {
+					self setStat(primaryWeaponAttachmentOffset, 3);
+				} else {
+					self setStat(primaryWeaponAttachmentOffset, 0);
+				}
+				break;
+			case "type99rifle":
+				self setStat(primaryWeaponOffset, 62);
 				if(primaryAttachment == "scoped") {
 					self setStat(primaryWeaponAttachmentOffset, 1);
 				} else if(primaryAttachment == "bayonet") {
