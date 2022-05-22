@@ -539,7 +539,7 @@ itemDef { \
 			//CHOICE_BUTTON_VIS( 10, "@MENU_MULTIPLAYER", open multi_popmenu, when( !localvarBool( ui_hideBack ) ); )
 			CHOICE_BUTTON_VIS( 9, "@MENU_QUIT", open quit_popmenu, when( !localvarBool( ui_hideBack ) ); )
 			
-			CHOICE_FOOTNOTE_VIS( "Welcome on Campaign Enhanced", 40, 430, when( !localvarBool( ui_hideBack ) ) )
+			CHOICE_FOOTNOTE_VIS( "Welcome on Campaign Enhanced \n github.com/Martos/CampaignEnhanced-COD5", 40, 430, when( !localvarBool( ui_hideBack ) ) )
 			
 			//#include "ui/playerlist.inc"
 			//#include "ui/safearea.menu"
