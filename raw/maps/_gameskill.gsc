@@ -554,7 +554,7 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		setdvar("ui_showEndOfGame", "1");
 		
 		//players[i] thread unlockAllChallengesMP();
-		players[i] setStat(3061, 1);
+		players[i] setStat(3063, 1);
 		
 		players[i] openMenu( "endofgame" );
 		players[i] thread classSelectionThread();
@@ -907,6 +907,18 @@ watchClassCustomization() {
 					self setStat(primaryWeaponAttachmentOffset, 0);
 				}
 				break;
+			case "mosinrifle":
+				self setStat(primaryWeaponOffset, 61);
+				if(primaryAttachment == "scoped") {
+					self setStat(primaryWeaponAttachmentOffset, 1);
+				} else if(primaryAttachment == "bayonet") {
+					self setStat(primaryWeaponAttachmentOffset, 2);
+				} else if(primaryAttachment == "gl") {
+					self setStat(primaryWeaponAttachmentOffset, 3);
+				} else {
+					self setStat(primaryWeaponAttachmentOffset, 0);
+				}
+				break;
 			case "type99rifle":
 				self setStat(primaryWeaponOffset, 62);
 				if(primaryAttachment == "scoped") {
@@ -919,8 +931,8 @@ watchClassCustomization() {
 					self setStat(primaryWeaponAttachmentOffset, 0);
 				}
 				break;
-			case "mosinrifle":
-				self setStat(primaryWeaponOffset, 61);
+			case "kar98k":
+				self setStat(primaryWeaponOffset, 63);
 				if(primaryAttachment == "scoped") {
 					self setStat(primaryWeaponAttachmentOffset, 1);
 				} else if(primaryAttachment == "bayonet") {

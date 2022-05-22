@@ -23,6 +23,7 @@ init_loadout()
 
 	PrecacheItem( "type99rifle" );
 	PrecacheItem( "mosinrifle" );
+	PrecacheItem( "kar98k" );
 	
 	PrecacheItem( "bar" );
 	PrecacheItem( "bar_bipod" );
