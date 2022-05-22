@@ -1,5 +1,7 @@
 # Call Of Duty: World At War Campaign Enhanced
 
+![GitHub last commit](https://img.shields.io/github/last-commit/Martos/CampaignEnhanced-COD5)
+
 Campaign Enhanced is a campaign modificator aiming to extend feature of an existing campaign experience with new funzionality, making a new gameplay experience
 
 ## Features
