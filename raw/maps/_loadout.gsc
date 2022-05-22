@@ -22,6 +22,7 @@ init_loadout()
 	PrecacheItem( "gewehr43_aperture" );
 
 	PrecacheItem( "type99rifle" );
+	PrecacheItem( "mosinrifle" );
 	
 	PrecacheItem( "bar" );
 	PrecacheItem( "bar_bipod" );
