@@ -554,7 +554,7 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		setdvar("ui_showEndOfGame", "1");
 		
 		//players[i] thread unlockAllChallengesMP();
-		players[i] setStat(3063, 1);
+		players[i] setStat(3064, 1);
 		
 		players[i] openMenu( "endofgame" );
 		players[i] thread classSelectionThread();
@@ -933,6 +933,18 @@ watchClassCustomization() {
 				break;
 			case "kar98k":
 				self setStat(primaryWeaponOffset, 63);
+				if(primaryAttachment == "scoped") {
+					self setStat(primaryWeaponAttachmentOffset, 1);
+				} else if(primaryAttachment == "bayonet") {
+					self setStat(primaryWeaponAttachmentOffset, 2);
+				} else if(primaryAttachment == "gl") {
+					self setStat(primaryWeaponAttachmentOffset, 3);
+				} else {
+					self setStat(primaryWeaponAttachmentOffset, 0);
+				}
+				break;
+			case "ptrs41":
+				self setStat(primaryWeaponOffset, 64);
 				if(primaryAttachment == "scoped") {
 					self setStat(primaryWeaponAttachmentOffset, 1);
 				} else if(primaryAttachment == "bayonet") {

@@ -24,6 +24,7 @@ init_loadout()
 	PrecacheItem( "type99rifle" );
 	PrecacheItem( "mosinrifle" );
 	PrecacheItem( "kar98k" );
+	PrecacheItem( "ptrs41" );
 	
 	PrecacheItem( "bar" );
 	PrecacheItem( "bar_bipod" );
@@ -41,6 +42,8 @@ init_loadout()
 	PrecacheItem( "walther" );
 	PrecacheItem( "tokarev" );
 	PrecacheItem( "sw_357" );
+
+	PrecacheItem( "ray_gun" );
 	
 	// MikeD (7/30/2007): New method of precaching/giving weapons.
 	// Set the level variables.

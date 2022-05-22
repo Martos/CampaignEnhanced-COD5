@@ -52,6 +52,7 @@ weapon,sp/ray_gun
 weapon,sp/type99rifle
 weapon,sp/mosinrifle
 weapon,sp/kar98k
+weapon,sp/ptrs41
 material,line_vertical
 material,weapon_m8_white_smoke_cac
 material,weapon_m8_white_smoke
