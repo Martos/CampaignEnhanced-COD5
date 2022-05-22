@@ -22,6 +22,7 @@ init_loadout()
 	PrecacheItem( "gewehr43_aperture" );
 
 	PrecacheItem( "type99rifle" );
+	PrecacheItem( "type99rifle_scoped" );
 	PrecacheItem( "mosinrifle" );
 	PrecacheItem( "kar98k" );
 	PrecacheItem( "kar98k_scoped" );

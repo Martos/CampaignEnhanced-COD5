@@ -50,6 +50,7 @@ weapon,sp/tokarev
 weapon,sp/sw_357
 weapon,sp/ray_gun
 weapon,sp/type99rifle
+weapon,sp/type99rifle_scoped
 weapon,sp/mosinrifle
 weapon,sp/kar98k
 weapon,sp/ptrs41
@@ -103,5 +104,6 @@ material,weapon_attachment_bipod
 material,scorebar_zom_1
 sound,common,,all_sp
 sound,weapons,,all_sp
+sound,weapons,,nazi_zombie_prototype
 #localize,campaignenhanced,,
 #localize,mod,,
