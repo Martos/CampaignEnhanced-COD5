@@ -587,7 +587,7 @@ MenuResponses() {
 					setdvar("ce_change_prestige", "0");
 				}
 				
-				self iprintlnbold("CLASS: " + getdvar("ui_customclass_selected"));
+				//self iprintlnbold("CLASS: " + getdvar("ui_customclass_selected"));
 				
 				switch(GetDvarInt("ui_customclass_selected")) {
 					case 6:
@@ -765,8 +765,8 @@ checkPrestigeAvailable() {
 		ret = true;
 	}
 	
-	self iprintlnbold("AVAIL: " + ret);
-	self iprintlnbold("XP: " + self getStat(2301));
+	//self iprintlnbold("AVAIL: " + ret);
+	//self iprintlnbold("XP: " + self getStat(2301));
 	
 	return ret;
 }
@@ -2404,7 +2404,6 @@ return_false( attacker )
 
 player_attacker( attacker )
 {
-	//iPrintLn("HIT");
 	hitMarker();
 	
 	if ( [[ level.custom_player_attacker ]]( attacker ) )
@@ -2472,7 +2471,7 @@ auto_adjust_enemy_died( ai, amount, attacker, type, point )
 			// CODER MOD: TOMMY K - 07/30/08
 			arcademode_assignpoints( "arcademode_score_assist", player );
 			//add_fake_xp(2);
-			attacker thread maps\_damagefeedback::updateDamageFeedback( attacker );
+			attacker thread maps\_damagefeedback::updateDamageFeedback();
 		}
 		ai.attackers = [];
 		ai.attackerData = [];
