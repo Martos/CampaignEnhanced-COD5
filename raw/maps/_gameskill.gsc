@@ -719,11 +719,25 @@ customClassLogic(offset) {
 				setdvar("ce_gameskill_weap_attachment", "");
 				break;
 		}
-	} else if(cac_selected_primary == 62) {
+	} else if(cac_selected_primary == 60 || cac_selected_primary == 61 || cac_selected_primary == 62 || cac_selected_primary == 63 || cac_selected_primary == 64) {
 		switch(cac_selected_attachment) {
+			case 1:
+				setdvar("ce_gameskill_weap_attachment", "scoped");
+				break;
+			case 2:
+				setdvar("ce_gameskill_weap_attachment", "bayonet");
+				break;
+			case 3:
+				setdvar("ce_gameskill_weap_attachment", "gl");
+				break;
 			default:
 				setdvar("ce_gameskill_weap_attachment", "");
 				break;
+		}
+		//PTRS-41 No attachments
+		if(cac_selected_primary == 64) {
+			cac_selected_attachment = 0;
+			setdvar("ce_gameskill_weap_attachment", "");
 		}
 	} else {
 		switch(cac_selected_attachment) {
@@ -752,7 +766,7 @@ customClassLogic(offset) {
 	if(getdvar("ce_gameskill_weap_attachment") != "") {
 		primaryWeaponString = primaryWeaponString + "_" + getdvar("ce_gameskill_weap_attachment");
 	}
-	
+	self iprintlnbold(cac_selected_primary + "-" + cac_selected_attachment + "(" + primaryWeaponString + ")");
 	self GiveWeapon(primaryWeaponString);
 	self GiveWeapon(secondaryWeaponString);
 	self GiveMaxAmmo(primaryWeaponString);
@@ -945,15 +959,7 @@ watchClassCustomization() {
 				break;
 			case "ptrs41":
 				self setStat(primaryWeaponOffset, 64);
-				if(primaryAttachment == "scoped") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				} else if(primaryAttachment == "bayonet") {
-					self setStat(primaryWeaponAttachmentOffset, 2);
-				} else if(primaryAttachment == "gl") {
-					self setStat(primaryWeaponAttachmentOffset, 3);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
+				self setStat(primaryWeaponAttachmentOffset, 0);
 				break;
 		}
 		
