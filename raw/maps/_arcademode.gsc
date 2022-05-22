@@ -836,8 +836,8 @@ arcademode_death( mod, hit_location, hit_origin, player, enemy, uberKillingMachi
 				break;
 			}
 		}
-		iprintln(player.score);
-		iprintln(points);
+		//iprintln(player.score);
+		//iprintln(points);
 		//player.score += points;
 				
 		//TEST CODE
@@ -1037,7 +1037,6 @@ creatingScorePlus() {
 
 	if( !isdefined( self.hud_scoreplusupdate ) )
 	{
-		iPrintLn("Creating score plus");
 		self.hud_scoreplusupdate = newScoreHudElem(self);
 		self.hud_scoreplusupdate.hidewheninmenu = true;
 		self.hud_scoreplusupdate.horzAlign = "center";

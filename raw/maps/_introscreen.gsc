@@ -30,7 +30,7 @@ main()
 		println("File: _introscreen.gsc. Function: main()\n");
 	#/
 	
-	iPrintLn("INTROSCREEN");
+	//iPrintLn("INTROSCREEN");
 	
 	flag_init( "pullup_weapon" ); 
 	flag_init( "starting final intro screen fadeout" );

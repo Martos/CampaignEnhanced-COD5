@@ -922,7 +922,7 @@ updateRankAnnounceHUD()
 	rank_char = level.rankTable[self.rank][1];
 	subRank = int(rank_char[rank_char.size-1]);
 	
-	self iprintlnbold("RANK: " + self.rank);
+	//self iprintlnbold("RANK: " + self.rank);
 
 	//Sblocchi per livello
 	switch(self.rank) {
