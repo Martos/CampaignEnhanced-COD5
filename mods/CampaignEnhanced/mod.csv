@@ -102,6 +102,6 @@ material,weapon_attachment_bayonet
 material,weapon_attachment_bipod
 material,scorebar_zom_1
 sound,common,,all_sp
-sound,weapons,ber1,
+sound,weapons,,all_sp
 #localize,campaignenhanced,,
 #localize,mod,,
