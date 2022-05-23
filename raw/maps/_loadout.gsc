@@ -46,7 +46,7 @@ init_loadout()
 	PrecacheItem( "sw_357" );
 
 	PrecacheItem( "ray_gun" );
-	
+
 	// MikeD (7/30/2007): New method of precaching/giving weapons.
 	// Set the level variables.
 	if( !IsDefined( level.player_loadout ) )
@@ -289,37 +289,13 @@ init_models_and_variables_loadout()
 	}
 	else if( level.script == "ber1" ) // Bloodlust (7/06/2007): Berlin 1
 	{
-		add_weapon( "tokarev" );
-		switch(GetDvar( "sel_pri_custom_weapons" )){
-			case "mp40":
-				add_weapon( "mp40_bigammo_mp" );
-				set_switch_weapon( "mp40_bigammo_mp" );
-				break;
-			case "thompson":
-				add_weapon("thompson_bigammo_mp");
-				set_switch_weapon("thompson_bigammo_mp");
-				break;
-			case "ppsh":
-				add_weapon("ppsh_aperture_mp");
-				set_switch_weapon("ppsh_aperture_mp");
-				break;
-			case "stg44":
-				add_weapon("stg44_flash_mp");
-				set_switch_weapon("stg44_flash_mp");
-				break;
-			case "t100":
-				add_weapon("type100smg_aperture_mp");
-				set_switch_weapon("type100smg_aperture_mp");
-				break;
-			default:
-				add_weapon( "mosin_rifle" );
-				set_switch_weapon( "mosin_rifle" );
-				break;
-		}	
+		add_weapon( "tokarev" );	
+		add_weapon( "mosin_rifle" );
 		add_weapon( "stick_grenade" );
 		//add_weapon( "m8_white_smoke" );
 		add_weapon( "molotov" );
 		set_secondary_offhand( "molotov" );
+		set_switch_weapon( "mosin_rifle" );
 
 		set_laststand_pistol( "tokarev" );
 
@@ -346,12 +322,8 @@ init_models_and_variables_loadout()
 	}
 	else if( level.script == "ber2" ) // SS
 	{
-
 		add_weapon( "ppsh" );
-		//add_weapon( "thompson_bigammo" );
-		//add_weapon( "mp40_aperture" );
 		add_weapon( "tokarev" );
-		//add_weapon( "colt" );
 		//add_weapon( "mosin_rifle" );  // SRS 5/9/2008: need to pick either the rifle or the SMG to start
 		// CODER_MOD: Austin (7/31/08): added stick grenade for russian campaign to replace smoke (BUG 17665)
 		add_weapon( "stick_grenade" );
@@ -452,42 +424,14 @@ init_models_and_variables_loadout()
 	}
 	else if( level.script == "oki3" ) // ChrisP
 	{
-		switch(GetDvar( "sel_pri_custom_weapons" )){
-			case "mp40":
-				add_weapon( "mp40_bigammo_mp" );
-				set_switch_weapon( "mp40_bigammo_mp" );
-				break;
-			case "thompson":
-				add_weapon("thompson_bigammo_mp");
-				set_switch_weapon("thompson_bigammo_mp");
-				break;
-			case "ppsh":
-				add_weapon("ppsh_aperture_mp");
-				set_switch_weapon("ppsh_aperture_mp");
-				break;
-			case "stg44":
-				add_weapon("stg44_flash_mp");
-				set_switch_weapon("stg44_flash_mp");
-				break;
-			case "t100":
-				add_weapon("type100smg_aperture_mp");
-				set_switch_weapon("type100smg_aperture_mp");
-				break;
-			default:
-				add_weapon( "thompson" );
-				set_switch_weapon( "thompson" );
-				break;
-		}	
-		
-		add_weapon("mp40");
-		//add_weapon( "m1garand" );
-		//add_weapon( "thompson" );
+		add_weapon( "m1garand" );
+		add_weapon( "thompson" );
 		add_weapon( "fraggrenade" );
 		add_weapon( "m8_white_smoke" );
 		add_weapon("air_support");
 		set_action_slot( 4, "weapon", "air_support" );
 		set_secondary_offhand( "smoke" );
-		//set_switch_weapon( "m1garand" );
+		set_switch_weapon( "m1garand" );
 		set_laststand_pistol( "colt" );
 
 		set_player_viewmodel( "viewmodel_usa_marine_arms");
@@ -691,7 +635,7 @@ give_loadout(wait_for_switch_weapon)
 			println( "^3LOADOUT ISSUE: Unable to give a grenade, the player need to be given a grenade and then take it away in order for the player to throw back grenades, but not have any grenades in his inventory." );
 		}
 	}
-	
+
 	for( i = 0; i < level.player_loadout.size; i++ )
 	{
 		self GiveWeapon( level.player_loadout[i] );
