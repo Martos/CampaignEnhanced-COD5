@@ -77,7 +77,9 @@ material,weapon_tokarev
 material,weapon_nambu
 material,weapon_kar98k
 material,weapon_springfield
+material,weapon_m1garand
 material,weapon_svt40
+material,weapon_stg44
 material,weapon_m1carbine
 material,weapon_gewehr43
 material,weapon_springfield
@@ -100,7 +102,10 @@ material,weapon_attachment_aperture
 material,weapon_attachment_scoped
 material,weapon_attachment_bayonet
 material,weapon_attachment_bipod
+material,weapon_attachment_rg
 material,scorebar_zom_1
+material,specialty_locked
+material,specialty_locked_big
 sound,common,,all_sp
 sound,weapons,,all_sp
 sound,weapons,,nazi_zombie_prototype
