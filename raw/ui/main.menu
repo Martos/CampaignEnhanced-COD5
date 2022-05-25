@@ -361,7 +361,9 @@ itemDef { \
 #else // #if GERMAN_ZOMBIE_BUILD
 			setdvar allow_zombies_german 0
 #endif // #if GERMAN_ZOMBIE_BUILD
+
 			uiScript openmenuondvar ui_sp_unlock 1 "popmenu_sp_unlock";
+			uiScript openmenuondvar ce_welcome 1 "popmenu_ce_welcome";
 		}
 		onFocus
 		{
@@ -515,7 +517,10 @@ itemDef { \
 			//CHOICE_LOCKEDICON_VIS( 3, "specialty_locked", when( !localvarBool( ui_hideBack ) && stat( 260 ) < 1 ) ) 	
 			
 			CHOICE_BUTTON( 3, "@PLATFORM_GAME_SUMMARY_CAP", SETUP_REPORT )
-			CHOICE_BUTTON_VIS( 4, "@MENU_COOPERATIVE", open main_online; LOCAL_ZOMBIE_RESET, when( !localvarBool( ui_hideBack ) ); )
+			//CHOICE_BUTTON_VIS( 4, "@MENU_COOPERATIVE", open main_online; LOCAL_ZOMBIE_RESET, when( !localvarBool( ui_hideBack ) ); )
+			CHOICE_BUTTON_FOCUS_VIS_ADV( 4, "@MENU_COOPERATIVE", SETUP_ACTION_PRESTIGEMODE, ;, CLEARUIHINT, when( !localvarBool( ui_hideBack ) ), !localvarBool( ui_hideBack ) )
+			CHOICE_BUTTON_FOCUS_VIS_NOHI( 4, "", ;, exec "set ui_hint_text @MPUI_DESC_PRESTIGE2; set ui_show_arrow 1", CLEARUIHINT, when( !localvarBool( ui_hideBack ) ) )
+			CHOICE_LOCKEDICON_VIS( 4, "specialty_locked", when( !localvarBool( ui_hideBack ) ) ) 	
 			//CHOICE_BUTTON_VIS( 5, "@MPUI_PRESTIGE_MODE", open main_online; LOCAL_ZOMBIE_RESET, when( !localvarBool( ui_hideBack ) ); )
 			//CHOICE_BUTTON_FOCUS_VIS_ADV( 5, "@MPUI_PRESTIGE_MODE", SETUP_ACTION_PRESTIGEMODE, stat( 267 ) == 1;, CLEARUIHINT, when( !localvarBool( ui_hideBack ) && PRESTIGE_AVAIL ), !localvarBool( ui_hideBack ) && PRESTIGE_AVAIL )
 			//CHOICE_BUTTON_FOCUS_VIS_NOHI( 5, "", ;, exec "set ui_hint_text @MPUI_DESC_PRESTIGE2; set ui_show_arrow 1", CLEARUIHINT, when( !localvarBool( ui_hideBack ) && PRESTIGE_AVAIL==0 && PRESTIGE_FINISH==0 ) )
@@ -540,23 +545,9 @@ itemDef { \
 			CHOICE_BUTTON_VIS( 9, "@MENU_QUIT", open quit_popmenu, when( !localvarBool( ui_hideBack ) ); )
 			
 			CHOICE_FOOTNOTE_VIS( "Welcome on Campaign Enhanced \n github.com/Martos/CampaignEnhanced-COD5", 40, 430, when( !localvarBool( ui_hideBack ) ) )
-			
 			//#include "ui/playerlist.inc"
 			//#include "ui/safearea.menu"
-			
-						// ----------------- BEGIN Message of the day ------------------------		
-			#define	INFO_BOX_ORIENT				1
-			#define INFO_BOX_TITLE_HEIGHT		20
-			#define INFO_BOX_WIDTH				(CHOICE_SIZE_X-(INFO_BOX_TITLE_HEIGHT/4))
-			#define INFO_BOX_HEIGHT				126
-			#define INFO_BOX_X					(CHOICE_X_START)
-			#define INFO_BOX_Y					304
-			#define ORIGIN_INFO_BOX_TITLE		INFO_BOX_X INFO_BOX_Y
-	
-			#define INFO_TEXT				"Hello World"
-			#define INFO_TITLE				"Hello World"
-			
-			#include "ui/info_box.inc"
+
 #endif // #ifdef PC
 
 /*
@@ -1089,6 +1080,19 @@ itemDef { \
 		CHOICE_POPMENU_SUBTITLE( "@PLATFORM_SP_UNLOCK_INFO" )
 		//CHOICE_POPMENU_SUBTITLE_VIS( "@PLATFORM_SP_UNLOCK_DESC", 1 exp rect Y( RECT_Y_OFFSET ); )		
 		
+		CHOICE_BUTTON( 3, "@MENU_OK", close self;)
+	}
+
+	menuDef
+	{
+		CENTER_POPUP_SETUP_ONOPEN( popmenu_ce_welcome, 3, ;, ;, 1 )
+			onClose{ exec "set ce_welcome 0";  }
+			onOpen{ exec "set ce_welcome 0";  }
+
+		CHOICE_POPMENU_TITLE( "Welcome on Campaign Enhanced (BETA)" )
+
+		CHOICE_POPMENU_SUBTITLE( "Enjoy the new experience of Call of Duty World at War Campaign! \n Report any bug and issues on my github page. \n Enjoy and stay tuned for new updates." )
+
 		CHOICE_BUTTON( 3, "@MENU_OK", close self;)
 	}
 	
