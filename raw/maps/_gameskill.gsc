@@ -554,7 +554,7 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		setdvar("ui_showEndOfGame", "1");
 		
 		//players[i] thread unlockAllChallengesMP();
-		players[i] setStat(3064, 1);
+		//players[i] setStat(3064, 1);
 		
 		players[i] openMenu( "endofgame" );
 		players[i] thread classSelectionThread();
@@ -578,7 +578,7 @@ MenuResponses() {
 						currentPrestige = currentPrestige + 1;
 
 						//Reset stats
-						self thread profileStatsReset();
+						self thread profileStatsReset(currentPrestige);
 						
 						//Sblocchi arma
 						self thread weaponsUnlocksReset();
@@ -620,11 +620,12 @@ profileStatsReset(currentPrestige) {
 	//Crea una classe
 	self setStat(260, 0);
 	
-	self setStat(2326, currentPrestige);
 	self setStat(2301, 0);
 	self setStat(252, 0);
 	self setStat(2351, 30);
 	self setStat(2352, 30);
+	
+	self setStat(2326, currentPrestige);
 }
 
 weaponsUnlocksReset() {
@@ -793,6 +794,8 @@ unlockAllChallengesMP() {
 	self setStat(2351, 5270);
 	self setStat(2352, 148680);
 	self setStat(2326, 0);	//PRESTIGE
+	
+	self setStat(260, 1);	//CLASS UNLOCK
 	
 	/*
 	for(i = 501; i < 840; i++) {
