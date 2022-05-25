@@ -20,7 +20,11 @@ init_loadout()
 	PrecacheItem( "m1carbine_aperture" );
 	PrecacheItem( "gewehr43" );
 	PrecacheItem( "gewehr43_aperture" );
+	PrecacheItem( "stg44" );
+	PrecacheItem( "stg44_aperture" );
 
+	PrecacheItem( "springfield" );
+	PrecacheItem( "springfield_scoped" );
 	PrecacheItem( "type99rifle" );
 	PrecacheItem( "type99rifle_scoped" );
 	PrecacheItem( "mosinrifle" );
