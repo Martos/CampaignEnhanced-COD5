@@ -353,10 +353,11 @@
 
 			uiScript closeMenuOnDvar ui_keep_unlock_open "0" popup_unlock;
 		}
-		onESC 			{ close self; }
+		onESC 			{ close self; setdvar ui_unlock_report "0"; }
 		execkeyint BUTTON_A { close self; }
 		onClose			
 		{ 
+			setdvar ui_unlock_report "0";
 			open popup_summary; 	// when last child page closes this parent topbar, we continue to game summary menu
 		}	
 			

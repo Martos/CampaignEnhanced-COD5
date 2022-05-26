@@ -28,7 +28,6 @@
 ;--------------------------------
 ;Pages
 
-  !insertmacro MUI_PAGE_LICENSE "${NSISDIR}\Docs\Modern UI\License.txt"
   !insertmacro MUI_PAGE_COMPONENTS
   !insertmacro MUI_PAGE_DIRECTORY
   !insertmacro MUI_PAGE_INSTFILES
@@ -45,6 +44,8 @@
 ;Installer Sections
 
 Section "Campaign Enhanced" SecDummy
+
+  SectionIn RO
 
   SetOutPath "$INSTDIR"
   
@@ -63,7 +64,7 @@ SectionEnd
 ;Descriptions
 
   ;Language strings
-  LangString DESC_SecDummy ${LANG_ENGLISH} "A test section."
+  LangString DESC_SecDummy ${LANG_ENGLISH} "Mod files"
 
   ;Assign language strings to sections
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN

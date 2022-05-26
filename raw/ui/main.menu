@@ -121,8 +121,8 @@ itemDef { \
 		soundloop 		"music_mainmenu"
 		onOpen
 		{
-			uiScript openMenuOnDvar "ui_lobbypopup" summary "popup_unlock";
-			execOnDvarIntValue ui_showpopup 1 "openmenu popup_unlock";
+			//uiScript openMenuOnDvar "ui_lobbypopup" summary "popup_unlock";
+			//execOnDvarIntValue ui_showpopup 1 "openmenu popup_unlock";
             #if COOP_EPD
                 open main_lockout 
 			#elif defined( CONSOLE )
@@ -364,6 +364,7 @@ itemDef { \
 
 			uiScript openmenuondvar ui_sp_unlock 1 "popmenu_sp_unlock";
 			uiScript openmenuondvar ce_welcome 1 "popmenu_ce_welcome";
+			uiScript openmenuondvar ui_unlock_report 1 "popup_unlock";
 		}
 		onFocus
 		{

@@ -22,11 +22,7 @@ setSkill( reset, skill_override )
 	//createTestHud("^1Campaing Enhanced (BETA)");
 	level.onlineGame = true;
 	
-	//Scoreboard fix for Plutonium
-	if(GetDvar("version") == "Plutonium T4 Singleplayer (r2798)") {
-		SetDvar("onlinegame", "1");
-		SetDvar("arcademode", "1");
-	}
+	setdvar( "ui_unlock_report", "1" );
 	
 	// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
 	/#
@@ -553,8 +549,7 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		setdvar("ui_customclass_selected", "999");
 		setdvar("ui_showEndOfGame", "1");
 		
-		//players[i] thread unlockAllChallengesMP();
-		//players[i] setStat(3064, 1);
+		players[i] thread unlockAllChallengesMP();
 		
 		players[i] openMenu( "endofgame" );
 		players[i] thread classSelectionThread();
@@ -686,8 +681,56 @@ customClassLogic(offset) {
 			case 1:
 				setdvar("ce_gameskill_weap_attachment", "aperture");
 				break;
-			case 2:
+			default:
 				setdvar("ce_gameskill_weap_attachment", "");
+				break;
+		}
+	} else if(cac_selected_primary == 21) {
+		switch(cac_selected_attachment) {
+			case 1:
+				setdvar("ce_gameskill_weap_attachment", "silenced");
+				break;
+			case 2:
+				setdvar("ce_gameskill_weap_attachment", "aperture");
+				break;
+			case 3:
+				setdvar("ce_gameskill_weap_attachment", "telescopic");
+				break;
+			case 4:
+				setdvar("ce_gameskill_weap_attachment", "gl");
+				break;
+			default:
+				setdvar("ce_gameskill_weap_attachment", "");
+				break;
+		}
+	} else if(cac_selected_primary == 22) {
+		switch(cac_selected_attachment) {
+			case 1:
+				setdvar("ce_gameskill_weap_attachment", "flash");
+				break;
+			case 2:
+				setdvar("ce_gameskill_weap_attachment", "bayonet");
+				break;
+			case 3:
+				setdvar("ce_gameskill_weap_attachment", "gl");
+				break;
+			case 4:
+				setdvar("ce_gameskill_weap_attachment", "scoped");
+				break;
+			default:
+				setdvar("ce_gameskill_weap_attachment", "");
+				break;
+		}
+	} else if(cac_selected_primary == 20 || cac_selected_primary == 24) {
+		switch(cac_selected_attachment) {
+			case 1:
+				setdvar("ce_gameskill_weap_attachment", "flash");
+				break;
+			case 2:
+				setdvar("ce_gameskill_weap_attachment", "aperture");
+				break;
+			case 3:
+				setdvar("ce_gameskill_weap_attachment", "telescopic");
 				break;
 			default:
 				setdvar("ce_gameskill_weap_attachment", "");
@@ -706,6 +749,39 @@ customClassLogic(offset) {
 				break;
 			case 4:
 				setdvar("ce_gameskill_weap_attachment", "bigammo");
+				break;
+			default:
+				setdvar("ce_gameskill_weap_attachment", "");
+				break;
+		}
+	} else if(cac_selected_primary == 40 || cac_selected_primary == 41 || cac_selected_primary == 42) {
+		switch(cac_selected_attachment) {
+			case 1:
+				setdvar("ce_gameskill_weap_attachment", "bipod");
+				break;
+			default:
+				setdvar("ce_gameskill_weap_attachment", "");
+				break;
+		}
+	} else if(cac_selected_primary == 80) {
+		switch(cac_selected_attachment) {
+			case 1:
+				setdvar("ce_gameskill_weap_attachment", "bipod");
+				break;
+			case 2:
+				setdvar("ce_gameskill_weap_attachment", "bayonet");
+				break;
+			default:
+				setdvar("ce_gameskill_weap_attachment", "");
+				break;
+		}
+	} else if(cac_selected_primary == 81) {
+		switch(cac_selected_attachment) {
+			case 1:
+				setdvar("ce_gameskill_weap_attachment", "bipod");
+				break;
+			case 2:
+				setdvar("ce_gameskill_weap_attachment", "telescopic");
 				break;
 			default:
 				setdvar("ce_gameskill_weap_attachment", "");
@@ -878,6 +954,58 @@ watchClassCustomization() {
 					self setStat(primaryWeaponAttachmentOffset, 0);
 				}
 				break;
+			case "svt40":
+				self setStat(primaryWeaponOffset, 20);
+				if(primaryAttachment == "flash") {
+					self setStat(primaryWeaponAttachmentOffset, 1);
+				} else if(primaryAttachment == "aperture") {
+					self setStat(primaryWeaponAttachmentOffset, 2);
+				} else if(primaryAttachment == "telescopic") {
+					self setStat(primaryWeaponAttachmentOffset, 3);
+				} else {
+					self setStat(primaryWeaponAttachmentOffset, 0);
+				}
+				break;
+			case "gewehr43":
+				self setStat(primaryWeaponOffset, 21);
+				if(primaryAttachment == "silenced") {
+					self setStat(primaryWeaponAttachmentOffset, 1);
+				} else if(primaryAttachment == "aperture") {
+					self setStat(primaryWeaponAttachmentOffset, 2);
+				} else if(primaryAttachment == "telescopic") {
+					self setStat(primaryWeaponAttachmentOffset, 3);
+				} else if(primaryAttachment == "gl") {
+					self setStat(primaryWeaponAttachmentOffset, 4);
+				} else {
+					self setStat(primaryWeaponAttachmentOffset, 0);
+				}
+				break;
+			case "m1garand":
+				self setStat(primaryWeaponOffset, 22);
+				if(primaryAttachment == "flash") {
+					self setStat(primaryWeaponAttachmentOffset, 1);
+				} else if(primaryAttachment == "bayonet") {
+					self setStat(primaryWeaponAttachmentOffset, 2);
+				} else if(primaryAttachment == "gl") {
+					self setStat(primaryWeaponAttachmentOffset, 3);
+				} else if(primaryAttachment == "scoped") {
+					self setStat(primaryWeaponAttachmentOffset, 4);
+				} else {
+					self setStat(primaryWeaponAttachmentOffset, 0);
+				}
+				break;
+			case "stg44":
+				self setStat(primaryWeaponOffset, 24);
+				if(primaryAttachment == "flash") {
+					self setStat(primaryWeaponAttachmentOffset, 1);
+				} else if(primaryAttachment == "aperture") {
+					self setStat(primaryWeaponAttachmentOffset, 2);
+				} else if(primaryAttachment == "telescopic") {
+					self setStat(primaryWeaponAttachmentOffset, 3);
+				} else {
+					self setStat(primaryWeaponAttachmentOffset, 0);
+				}
+				break;
 			case "m1carbine":
 				self setStat(primaryWeaponOffset, 23);
 				if(primaryAttachment == "flash") {
@@ -902,12 +1030,18 @@ watchClassCustomization() {
 				break;
 			case "fg42":
 				self setStat(primaryWeaponOffset, 81);
-				self setStat(primaryWeaponAttachmentOffset, 0);
+				if(primaryAttachment == "bipod") {
+					self setStat(primaryWeaponAttachmentOffset, 1);
+				} else {
+					self setStat(primaryWeaponAttachmentOffset, 0);
+				}
 				break;
 			case "dp28":
 				self setStat(primaryWeaponOffset, 83);
 				if(primaryAttachment == "bipod") {
 					self setStat(primaryWeaponAttachmentOffset, 1);
+				} else if(primaryAttachment == "telescopic") {
+					self setStat(primaryWeaponAttachmentOffset, 2);
 				} else {
 					self setStat(primaryWeaponAttachmentOffset, 0);
 				}

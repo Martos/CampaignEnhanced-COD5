@@ -25,6 +25,11 @@ init_loadout()
 
 	PrecacheItem( "springfield" );
 	PrecacheItem( "springfield_scoped" );
+	PrecacheItem( "springfield_bayonet");
+	PrecacheItem( "springfield_gl");
+	PrecacheItem( "m1garand" );
+	PrecacheItem( "m1garand_gl" );
+	PrecacheItem( "m1garand_scoped" );
 	PrecacheItem( "type99rifle" );
 	PrecacheItem( "type99rifle_scoped" );
 	PrecacheItem( "mosinrifle" );

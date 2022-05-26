@@ -1,12 +1,10 @@
 rawfile,maps/_load.gsc
-rawfile,maps/_aimassist.gsc
 rawfile,maps/_utility.gsc
 rawfile,maps/_loadout.gsc
 rawfile,maps/_gameskill.gsc
 rawfile,maps/_challenges_coop.gsc
 rawfile,maps/_arcademode.gsc
 rawfile,maps/_damagefeedback.gsc
-rawfile,maps/mp/gametypes/_menus.gsc
 menufile,ui/menus.txt
 menufile,ui/hud.txt
 menufile,ui/ingame.txt
@@ -21,6 +19,7 @@ weapon,sp/thompson_silenced
 weapon,sp/ppsh_single
 weapon,sp/ppsh_aperture
 weapon,sp/kar98k_scoped
+weapon,sp/stg44
 weapon,sp/stg44_aperture
 weapon,sp/m1carbine
 weapon,sp/m1carbine_aperture
@@ -53,6 +52,14 @@ weapon,sp/type99rifle_scoped
 weapon,sp/mosinrifle
 weapon,sp/kar98k
 weapon,sp/ptrs41
+weapon,sp/springfield
+weapon,sp/springfield_gl
+weapon,sp/springfield_bayonet
+weapon,sp/springfield_scoped
+weapon,sp/m1garand
+weapon,sp/m1garand_gl
+weapon,sp/m1garand_scoped
+weapon,sp/m7_launcher
 material,line_vertical
 material,weapon_m8_white_smoke_cac
 material,weapon_m8_white_smoke
@@ -103,6 +110,9 @@ material,weapon_attachment_scoped
 material,weapon_attachment_bayonet
 material,weapon_attachment_bipod
 material,weapon_attachment_rg
+material,weapon_attachment_telescopic_german
+material,weapon_attachment_telescopic_russian
+material,weapon_attachment_acog
 material,scorebar_zom_1
 material,specialty_locked
 material,specialty_locked_big
