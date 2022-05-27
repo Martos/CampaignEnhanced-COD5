@@ -66,18 +66,18 @@
 #define LOCAL_TIER_ACTION( pnum_s, pstat ) \
 	play "mouse_click"; \
 	execnow "set ui_tier_num "pnum_s; \
-	execnow "set ui_table_name mp/challengeTable_coop"pnum_s".csv"; \
+	execnow "set ui_table_name mp/challengeTable_tier"pnum_s".csv"; \
 	/*statSetUsingTable( pstat, 1 );*/ \
 	/*exec "uploadstats";*/ \
 	open "popup_tier"
 
-#define LOCAL_NAME( pnum ) "@"+tablelookup("mp/challengetable_coop.csv",0,pnum,1)
+#define LOCAL_NAME( pnum ) "@"+tablelookup("mp/challengetable.csv",0,pnum,1)
 
 #define LOCAL_DESC( pnum ) \
-	PREPROC_TEXT_DRAW_ALIGNED_EXP( ORIGIN_DESCRIPTION 220 22 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP, 0 0, "@"+tablelookup("mp/challengetable_coop.csv",0,pnum,2), CHOICE_TEXTSIZE, 0, 0, ITEM_ALIGN_MIDDLE_LEFT, CHOICE_TEXTCOLOR name "desc_tier"#pnum )
+	PREPROC_TEXT_DRAW_ALIGNED_EXP( ORIGIN_DESCRIPTION 220 22 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP, 0 0, "@"+tablelookup("mp/challengetable.csv",0,pnum,2), CHOICE_TEXTSIZE, 0, 0, ITEM_ALIGN_MIDDLE_LEFT, CHOICE_TEXTCOLOR name "desc_tier"#pnum )
 
 #define LOCAL_DESC2( pnum ) \
-	PREPROC_TEXT_DRAW_ALIGNED_EXP( ORIGIN_DESCRIPTION 220 22 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP, 0 0, "@"+tablelookup("mp/challengetable_coop.csv",0,pnum,3), CHOICE_TEXTSIZE, 0, 0, ITEM_ALIGN_MIDDLE_LEFT, CHOICE_TEXTCOLOR name "desc2_tier"#pnum )
+	PREPROC_TEXT_DRAW_ALIGNED_EXP( ORIGIN_DESCRIPTION 220 22 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP, 0 0, "@"+tablelookup("mp/challengetable.csv",0,pnum,3), CHOICE_TEXTSIZE, 0, 0, ITEM_ALIGN_MIDDLE_LEFT, CHOICE_TEXTCOLOR name "desc2_tier"#pnum )
 
 #define LOCAL_UNLOCK_COLOR 		0.31 0.31 0.33 0.55 //0.21 0.21 0.23 0.65
 
@@ -205,26 +205,45 @@
 				
 #define COOP_TIER_ACTION \
 	play "mouse_click"; \
-	execnow "set ui_table_name mp/challengeTable_coop.csv"; \
+	execnow "set ui_table_name mp/challengetable.csv"; \
 	/*statSetUsingTable( pstat, 1 ); */ \
 	/*exec "uploadstats";*/ \
 	open "popup_tier"
 		
-		CHOICE_BUTTON_FOCUS_VIS_ADV( 1, LOCAL_NAME(1), LOCAL_TIER_ACTION( "1", "270" ), SHOW_DESC(1), HIDE_DESC(1), 1, 1 )
-		CHOICE_BUTTON_FOCUS_VIS_ADV( 2, LOCAL_NAME(2), LOCAL_TIER_ACTION( "2", "271" ), SHOW_DESC(2), HIDE_DESC(2), 1, 1 )
-		CHOICE_BUTTON_FOCUS_VIS_ADV( 3, LOCAL_NAME(3), LOCAL_TIER_ACTION( "3", "272" ), SHOW_DESC(3), HIDE_DESC(3), 1, 1 )
+		CHOICE_BUTTON_FOCUS_VIS( 1, LOCAL_NAME(1), LOCAL_TIER_ACTION( "1", "270" ), SHOW_DESC(1), HIDE_DESC(1), when( stat(270) > 0 ); )
+		CHOICE_BUTTON_FOCUS_VIS_NOHI( 1, "", ;, SHOW_DESC2(1); execNow "set ui_current_challenge_stat 270", HIDE_DESC2(1); execNow "set ui_current_challenge_stat 0", when( stat(270) == 0 ); )
+		CHOICE_DBUTTON_VIS( 1,  LOCAL_NAME(1), when( stat( 270 ) < 1 ); )
+
+		CHOICE_BUTTON_FOCUS_VIS( 2, LOCAL_NAME(2), LOCAL_TIER_ACTION( "2", "271" ), SHOW_DESC(2), HIDE_DESC(2), when( stat(271) > 0 ); )
+		CHOICE_BUTTON_FOCUS_VIS_NOHI( 2, "", ;, SHOW_DESC2(2); execNow "set ui_current_challenge_stat 271", HIDE_DESC2(2); execNow "set ui_current_challenge_stat 0", when( stat(271) == 0 ); )
+		CHOICE_DBUTTON_VIS( 2,  LOCAL_NAME(2), when( stat( 271 ) < 1 ); )
+
+		CHOICE_BUTTON_FOCUS_VIS( 3, LOCAL_NAME(3), LOCAL_TIER_ACTION( "3", "272" ), SHOW_DESC(3), HIDE_DESC(3), when( stat(272) > 0 ); )
+		CHOICE_BUTTON_FOCUS_VIS_NOHI( 3, "", ;, SHOW_DESC2(3); execNow "set ui_current_challenge_stat 272", HIDE_DESC2(3); execNow "set ui_current_challenge_stat 0", when( stat(272) == 0 ); )
+		CHOICE_DBUTTON_VIS( 3,  LOCAL_NAME(3), when( stat( 272 ) < 1 ); )
+
+		CHOICE_BUTTON_FOCUS_VIS( 4, LOCAL_NAME(4), LOCAL_TIER_ACTION( "4", "273" ), SHOW_DESC(4), HIDE_DESC(4), when( stat(273) > 0 ); )
+		CHOICE_BUTTON_FOCUS_VIS_NOHI( 4, "", ;, SHOW_DESC2(4); execNow "set ui_current_challenge_stat 273", HIDE_DESC2(4); execNow "set ui_current_challenge_stat 0", when( stat(273) == 0 ); )
+		CHOICE_DBUTTON_VIS( 4,  LOCAL_NAME(4), when( stat( 273 ) < 1 ); )
+
+		CHOICE_BUTTON_FOCUS_VIS( 5, LOCAL_NAME(5), LOCAL_TIER_ACTION( "5", "274" ), SHOW_DESC(5), HIDE_DESC(5), when( stat(274) > 0 ); )
+		CHOICE_BUTTON_FOCUS_VIS_NOHI( 5, "", ;, SHOW_DESC2(5); execNow "set ui_current_challenge_stat 274", HIDE_DESC2(5); execNow "set ui_current_challenge_stat 0", when( stat(274) == 0 ); )
+		CHOICE_DBUTTON_VIS( 5,  LOCAL_NAME(5), when( stat( 274 ) < 1 ); )
+
+		//CHOICE_SEPARATOR( CHOICE_SEP_1 )
+					
+		CHOICE_NEWICON_VIS( 1, "specialty_new", when( stat( "270" ) > 1 ) )
+		CHOICE_NEWICON_VIS( 2, "specialty_new", when( stat( "271" ) > 1 ) )
+		CHOICE_NEWICON_VIS( 3, "specialty_new", when( stat( "272" ) > 1 ) )
+		CHOICE_NEWICON_VIS( 4, "specialty_new", when( stat( "273" ) > 1 ) )
+		CHOICE_NEWICON_VIS( 5, "specialty_new", when( stat( "274" ) > 1 ) )
+			
+		CHOICE_LOCKEDICON_VIS( 1, "specialty_locked", when( stat( "270" ) == 0 ) )
+		CHOICE_LOCKEDICON_VIS( 2, "specialty_locked", when( stat( "271" ) == 0 ) )
+		CHOICE_LOCKEDICON_VIS( 3, "specialty_locked", when( stat( "272" ) == 0 ) )
+		CHOICE_LOCKEDICON_VIS( 4, "specialty_locked", when( stat( "273" ) == 0 ) )
+		CHOICE_LOCKEDICON_VIS( 5, "specialty_locked", when( stat( "274" ) == 0 ) )	
 		
-		CHOICE_BUTTON_FOCUS_VIS_ADV( 4, LOCAL_NAME(4), LOCAL_TIER_ACTION( "4", "273" ), SHOW_DESC(4), HIDE_DESC(4), 1, 1 )
-		/*CHOICE_BUTTON_FOCUS_VIS_ADV( 5, LOCAL_NAME(5), LOCAL_TIER_ACTION( "5", "274" ), SHOW_DESC(5), HIDE_DESC(5), 1, 1 )
-
-		CHOICE_SEPARATOR( CHOICE_SEP_1 )
-
-		CHOICE_BUTTON_FOCUS_VIS_ADV( 6, LOCAL_NAME(6), LOCAL_TIER_ACTION( "6", "275" ), SHOW_DESC(6), HIDE_DESC(6), 1, 1 )
-		CHOICE_BUTTON_FOCUS_VIS_ADV( 7, LOCAL_NAME(7), LOCAL_TIER_ACTION( "7", "276" ), SHOW_DESC(7), HIDE_DESC(7), 1, 1 )
-		CHOICE_BUTTON_FOCUS_VIS_ADV( 8, LOCAL_NAME(8), LOCAL_TIER_ACTION( "8", "277" ), SHOW_DESC(8), HIDE_DESC(8), 1, 1 )
-		CHOICE_BUTTON_FOCUS_VIS_ADV( 9, LOCAL_NAME(9), LOCAL_TIER_ACTION( "9", "278" ), SHOW_DESC(9), HIDE_DESC(9), 1, 1 )
-		CHOICE_BUTTON_FOCUS_VIS_ADV( 10, LOCAL_NAME(10), LOCAL_TIER_ACTION( "10", "279" ), SHOW_DESC(10), HIDE_DESC(10), 1, 1 )   
-		*/
 		
 		#ifdef PC
 			// player stats
@@ -295,7 +314,7 @@
 		/*mainframe*/	PREPROC_SHADER_DRAW( RECT_TIER_FRAME, 0 0, "line_horizontal", 0.267 0.271 0.278 1, 0, 0, 1 1 1 1 )
 		/*listbox*/		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X, ORIGIN_LIST_BOX_Y, WIDTH_LIST_BOX, HEIGHT_LIST_BOX, "gradient_center", 0 0 0 0.88, WINDOW_BORDER_SUNKEN, BORDER_SIZE_TIER_FRAME, BORDER_COLOR_TIER_FRAME )
 		/*infobox*/		PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X, ORIGIN_INFO_BOX_Y, WIDTH_INFO_BOX, HEIGHT_INFO_BOX, "gradient_center", 0 0 0 0.55, WINDOW_BORDER_SUNKEN, BORDER_SIZE_TIER_FRAME, BORDER_COLOR_TIER_FRAME )
-		/*title*/		PREPROC_TEXT_DRAW_ADV( ORIGIN_INFO_BOX_X, ORIGIN_INFO_BOX_Y-2, WIDTH_INFO_BOX, 40,  exp text( "@"+tablelookup("mp/challengeTable_coop.csv",0,dvarString( ui_tier_num ),2)  ), TEXTSIZE_DEFAULT, 0, -6, ITEM_ALIGN_CENTER, LABEL_TEXT_COLOR )
+		/*title*/		PREPROC_TEXT_DRAW_ADV( ORIGIN_INFO_BOX_X, ORIGIN_INFO_BOX_Y-2, WIDTH_INFO_BOX, 40,  exp text( "@"+tablelookup("mp/challengetable.csv",0,dvarString( ui_tier_num ),2)  ), TEXTSIZE_DEFAULT, 0, -6, ITEM_ALIGN_CENTER, LABEL_TEXT_COLOR )
 		
 		// ------ CHALLENGE ITEM NAME ------
 		#define PQ_NAME_IDX(pslot_s) \

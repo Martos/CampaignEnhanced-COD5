@@ -3,19 +3,20 @@
 
   !include "MUI2.nsh"
 
+  !define MUI_ICON ".\screens\CoDWaW_ID_ICON1.ico"
+  !define MUI_HEADERIMAGE
+  !define MUI_HEADERIMAGE_BITMAP ".\screens\cod.bmp"
+  !define MUI_HEADERIMAGE_RIGHT
+
 ;--------------------------------
 ;General
 
   ;Name and file
-  Name "CampaignEnhanced"
-  OutFile "CampaignEnhanced Setup.exe"
+  Name "Campaign Enhanced"
+  OutFile "Campaign Enhanced Setup.exe"
   Unicode True
 
-  ;Default installation folder
-  InstallDir "$LOCALAPPDATA\Activision\CodWaW\mods\CampaignEnhanced"
-  
-  ;Get installation folder from registry if available
-  InstallDirRegKey HKCU "Software\WaW-Campaign-Enhanced" ""
+  Var /GLOBAL InstDirB
 
   ;Request application privileges for Windows Vista
   RequestExecutionLevel user
@@ -29,11 +30,7 @@
 ;Pages
 
   !insertmacro MUI_PAGE_COMPONENTS
-  !insertmacro MUI_PAGE_DIRECTORY
   !insertmacro MUI_PAGE_INSTFILES
-  
-  !insertmacro MUI_UNPAGE_CONFIRM
-  !insertmacro MUI_UNPAGE_INSTFILES
   
 ;--------------------------------
 ;Languages
@@ -45,18 +42,10 @@
 
 Section "Campaign Enhanced" SecDummy
 
+  StrCpy $InstDirB "$LOCALAPPDATA\Activision\CodWaW\mods\CampaignEnhanced"
   SectionIn RO
-
-  SetOutPath "$INSTDIR"
-  
-  ;ADD YOUR OWN FILES HERE...
+  SetOutPath "$InstDirB"
   File /nonfatal /a /r "CampaignEnhanced\"
-  
-  ;Store installation folder
-  WriteRegStr HKCU "Software\WaW-Campaign-Enhanced" "" $INSTDIR
-  
-  ;Create uninstaller
-  WriteUninstaller "$INSTDIR\Uninstall.exe"
 
 SectionEnd
 
@@ -72,16 +61,3 @@ SectionEnd
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 ;--------------------------------
-;Uninstaller Section
-
-Section "Uninstall"
-
-  ;ADD YOUR OWN FILES HERE...
-
-  Delete "$INSTDIR\Uninstall.exe"
-
-  RMDir "$INSTDIR"
-
-  DeleteRegKey /ifempty HKCU "Software\WaW-Campaign-Enhanced"
-
-SectionEnd

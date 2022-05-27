@@ -16,8 +16,10 @@ weapon,sp/thompson
 weapon,sp/thompson_aperture
 weapon,sp/thompson_bigammo
 weapon,sp/thompson_silenced
+weapon,sp/ppsh
 weapon,sp/ppsh_single
 weapon,sp/ppsh_aperture
+weapon,sp/type100smg
 weapon,sp/kar98k_scoped
 weapon,sp/stg44
 weapon,sp/stg44_aperture
@@ -60,6 +62,8 @@ weapon,sp/m1garand
 weapon,sp/m1garand_gl
 weapon,sp/m1garand_scoped
 weapon,sp/m7_launcher
+weapon,sp/svt40
+weapon,sp/svt40_aperture
 material,line_vertical
 material,weapon_m8_white_smoke_cac
 material,weapon_m8_white_smoke
@@ -118,6 +122,6 @@ material,specialty_locked
 material,specialty_locked_big
 sound,common,,all_sp
 sound,weapons,,all_sp
-sound,weapons,,nazi_zombie_prototype
+stringtable,mp/challengetable.csv
 #localize,campaignenhanced,,
 #localize,mod,,

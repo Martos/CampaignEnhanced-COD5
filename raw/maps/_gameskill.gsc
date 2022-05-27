@@ -656,6 +656,39 @@ weaponsUnlocksReset() {
 	self setStat(3050, 0);
 }
 
+unlocksAllWeapons() {
+	self setStat(3000, 1);
+	self setStat(3001, 1);
+	self setStat(3002, 1);
+	self setStat(3010, 1);
+	self setStat(3020, 1);
+	self setStat(3060, 1);
+	self setStat(3062, 1);
+	self setStat(3070, 1);
+	self setStat(3080, 1);
+	self setStat(3082, 1);
+	self setStat(3021, 1);
+	self setStat(3011, 1);
+	self setStat(3042, 1);
+	self setStat(3083, 1);
+	self setStat(3022, 1);
+	self setStat(3003, 1);
+	self setStat(3061, 1);
+	self setStat(3091, 1);
+	self setStat(3012, 1);
+	self setStat(3071, 1);
+	self setStat(3041, 1);
+	self setStat(3024, 1);
+	self setStat(3063, 1);
+	self setStat(3081, 1);
+	self setStat(3004, 1);
+	self setStat(3013, 1);
+	self setStat(3064, 1);
+	self setStat(3040, 1);
+	self setStat(3023, 1);
+	self setStat(3050, 1);
+}
+
 customClassLogic(offset) {
 	if(!isplayer(self))
 		return;
@@ -681,8 +714,11 @@ customClassLogic(offset) {
 			case 1:
 				setdvar("ce_gameskill_weap_attachment", "aperture");
 				break;
-			default:
+			case 2:
 				setdvar("ce_gameskill_weap_attachment", "");
+				break;
+			default:
+				setdvar("ce_gameskill_weap_attachment", "single");
 				break;
 		}
 	} else if(cac_selected_primary == 21) {
@@ -872,6 +908,8 @@ unlockAllChallengesMP() {
 	self setStat(2326, 0);	//PRESTIGE
 	
 	self setStat(260, 1);	//CLASS UNLOCK
+
+	self unlocksAllWeapons();
 	
 	/*
 	for(i = 501; i < 840; i++) {

@@ -6,18 +6,20 @@ init_loadout()
 	PrecacheItem( "thompson_aperture" );
 	PrecacheItem( "thompson_silenced" );
 	PrecacheItem( "thompson_bigammo" );
-	
 	PrecacheItem( "mp40" );
 	PrecacheItem( "mp40_aperture" );
 	PrecacheItem( "mp40_silenced" );
 	PrecacheItem( "mp40_bigammo" );
-	
+	PrecacheItem( "ppsh" );
+	PrecacheItem( "ppsh_single" );
 	PrecacheItem( "ppsh_aperture" );
-	//PrecacheItem( "type100_smg" );	NOT WORKING, INVESTIGATING
+	PrecacheItem( "type100smg" );
 	
 	PrecacheItem( "m1carbine" );
 	PrecacheItem( "m1carbine_flash" );
 	PrecacheItem( "m1carbine_aperture" );
+	PrecacheItem( "svt40" );
+	PrecacheItem( "svt40_aperture" );
 	PrecacheItem( "gewehr43" );
 	PrecacheItem( "gewehr43_aperture" );
 	PrecacheItem( "stg44" );
