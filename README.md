@@ -18,7 +18,7 @@ Campaign Enhanced is a campaign modificator aiming to extend feature of an exist
 
 ## Requirement
 
-- Call of Duty World at War (STEAM or T4 Plutonium)
+- Call of Duty World at War
 - T4M [download](https://github.com/iAmThatMichael/T4M)
 
 ## In Game Screens
@@ -31,7 +31,3 @@ Campaign Enhanced is a campaign modificator aiming to extend feature of an exist
 ## Notes
 
 This mod is not intended to use in zombie. Only for campaign !
-
-## For Devs
-
-If you want to modify or write our own code, clone this repository on the root of Call of Duty World at War folder. You need to install first the complete mod tools.
