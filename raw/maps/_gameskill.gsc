@@ -689,6 +689,57 @@ unlocksAllWeapons() {
 	self setStat(3050, 1);
 }
 
+unlocksChallenges() {
+	//Gewer
+	self setStat(501, 255);		//[1 - 4]Tier - 255 Completed
+	self setStat(502, 255);
+	self setStat(2501, 150);
+	self setStat(2502, 150);
+	//svt40
+	self setStat(503, 255);
+	self setStat(504, 255);
+	self setStat(2503, 100);
+	self setStat(2504, 150);
+	//m1garand
+	self setStat(505, 255);
+	self setStat(506, 255);
+	self setStat(2505, 150);
+	self setStat(2506, 150);
+	//m1ai
+	self setStat(507, 255);
+	self setStat(508, 255);
+	self setStat(2507, 150);
+	self setStat(2508, 150);
+	//stg44
+	self setStat(509, 255);
+	self setStat(510, 255);
+	self setStat(2509, 100);
+	self setStat(2510, 150);
+	//thompson
+	self setStat(521, 255);
+	self setStat(522, 255);
+	self setStat(2521, 150);
+	self setStat(2522, 150);
+	//type100
+	self setStat(523, 255);
+	self setStat(524, 255);
+	self setStat(2523, 150);
+	self setStat(2524, 150);
+	//mp40
+	self setStat(525, 255);
+	self setStat(526, 255);
+	self setStat(2525, 150);
+	self setStat(2526, 150);
+	//ppsh
+	self setStat(527, 255);
+	self setStat(528, 255);
+	self setStat(2527, 75);
+	self setStat(2528, 150);
+	
+	slot = 1;
+	self iprintlnbold("CHALLENGE PROGRESS " + slot + ":" + int( tablelookup( "mp/challengeTable_tier3.csv", 1, slot, 3 ) ) );
+}
+
 customClassLogic(offset) {
 	if(!isplayer(self))
 		return;
@@ -910,6 +961,7 @@ unlockAllChallengesMP() {
 	self setStat(260, 1);	//CLASS UNLOCK
 
 	self unlocksAllWeapons();
+	self unlocksChallenges();
 	
 	/*
 	for(i = 501; i < 840; i++) {

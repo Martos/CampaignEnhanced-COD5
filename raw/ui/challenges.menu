@@ -179,7 +179,6 @@
 		//=========================================================
 	
 		// description arrow thingy
-		/*
 		itemDef	{
 			name			desc_arrow
 			style			WINDOW_STYLE_SHADER
@@ -196,19 +195,6 @@
 		LOCAL_DESC( 3 )     	LOCAL_DESC2( 3 )               
 		LOCAL_DESC( 4 )     	LOCAL_DESC2( 4 )               
 		LOCAL_DESC( 5 )     	LOCAL_DESC2( 5 )               
-		LOCAL_DESC( 6 )     	LOCAL_DESC2( 6 )               
-		LOCAL_DESC( 7 )     	LOCAL_DESC2( 7 )               
-		LOCAL_DESC( 8 )     	LOCAL_DESC2( 8 )               
-		LOCAL_DESC( 9 )     	LOCAL_DESC2( 9 )               
-		LOCAL_DESC( 10 )    	LOCAL_DESC2( 10 )
-		*/
-				
-#define COOP_TIER_ACTION \
-	play "mouse_click"; \
-	execnow "set ui_table_name mp/challengetable.csv"; \
-	/*statSetUsingTable( pstat, 1 ); */ \
-	/*exec "uploadstats";*/ \
-	open "popup_tier"
 		
 		CHOICE_BUTTON_FOCUS_VIS( 1, LOCAL_NAME(1), LOCAL_TIER_ACTION( "1", "270" ), SHOW_DESC(1), HIDE_DESC(1), when( stat(270) > 0 ); )
 		CHOICE_BUTTON_FOCUS_VIS_NOHI( 1, "", ;, SHOW_DESC2(1); execNow "set ui_current_challenge_stat 270", HIDE_DESC2(1); execNow "set ui_current_challenge_stat 0", when( stat(270) == 0 ); )
@@ -352,6 +338,7 @@
 		// ------ VISIBLE WHEN ------
 		#define CHALLENGE_COMPLETE_RAW( ptablename, ptableslot ) \
 		visible when( stat( int( tablelookup( ptablename, 1, ptableslot, 2 ) ) ) == 255 )
+		
 		#define CHALLENGE_COMPLETE CHALLENGE_COMPLETE_RAW( dvarString(ui_table_name), dvarString(ui_table_slot) )
 		#define CHALLENGE_COMPLETE_S(pslot_s) CHALLENGE_COMPLETE_RAW( dvarString(ui_table_name), pslot_s )
 		
@@ -360,6 +347,7 @@
 		
 		#define VIS_WHEN_CHALLENGE_INPROGRESS( ptablename, ptableslot ) \
 		visible when( ( tablelookup( ptablename, 1, ptableslot, 2 ) != "" ) && ( stat( int( tablelookup( ptablename, 1, ptableslot, 2 ) ) ) > 0 ) && CHALLENGE_INCOMPLETE( ptablename, ptableslot ) )
+		
 		#define VIS_WHEN_INPROGRESS VIS_WHEN_CHALLENGE_INPROGRESS( dvarString(ui_table_name), dvarString(ui_table_slot) )
 		#define VIS_WHEN_INPROGRESS_S(pslot_s) VIS_WHEN_CHALLENGE_INPROGRESS( dvarString(ui_table_name), pslot_s )
 		
