@@ -1637,25 +1637,12 @@ ch_kills( victim )
 	switch(difficulty)
 	{	
 		case "easy":
-			//player maps\_challenges_coop::giveRankXP("kill", 2);
-			//arcademode_assignpoints("arcademode_score_kill", player);
-			//add_fake_xp(2);
 			break;
 		case "normal":
-			//player maps\_challenges_coop::giveRankXP("kill", 5);
-			//arcademode_assignpoints("arcademode_score_kill", player);
-			//player thread maps\_arcademode::updatePlusScoreHUD( 0 );
-			//add_fake_xp(5);
 			break;
 		case "hardened":
-			//player maps\_challenges_coop::giveRankXP("kill", 8);
-			//arcademode_assignpoints("arcademode_score_kill", player);
-			//add_fake_xp(8);
 			break;
 		case "veteran":
-			//player maps\_challenges_coop::giveRankXP("kill", 10);
-			//arcademode_assignpoints("arcademode_score_kill", player);
-			//add_fake_xp(10);
 			break;
 	}
 	

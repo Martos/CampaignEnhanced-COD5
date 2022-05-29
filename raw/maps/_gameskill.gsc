@@ -726,8 +726,8 @@ unlocksChallenges() {
 	self setStat(2523, 150);
 	self setStat(2524, 150);
 	//mp40
-	self setStat(525, 255);
-	self setStat(526, 255);
+	self setStat(525, 1);
+	self setStat(526, 1);
 	self setStat(2525, 150);
 	self setStat(2526, 150);
 	//ppsh
@@ -961,7 +961,7 @@ unlockAllChallengesMP() {
 	self setStat(260, 1);	//CLASS UNLOCK
 
 	self unlocksAllWeapons();
-	self unlocksChallenges();
+	//self unlocksChallenges();
 	
 	/*
 	for(i = 501; i < 840; i++) {
