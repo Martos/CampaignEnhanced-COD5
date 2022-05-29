@@ -3,9 +3,7 @@
 {	
 	loadMenu { "ui/main.menu" }
 	loadMenu { "ui/levels.menu" }
-	loadMenu { "ui/levels_game.menu" }
-//	loadMenu { "ui/cod5_levels_test.menu" }
-	loadMenu { "ui/levels_dev.menu" }
+	//loadMenu { "ui/levels_game.menu" }
 	loadMenu { "ui/difficulty.menu" }
 	loadMenu { "ui/error.menu" }
 	loadMenu { "ui_mp/mods.menu" }
@@ -25,7 +23,6 @@
 	loadMenu { "ui_mp/options_voice.menu" }
 	loadMenu { "ui_mp/cdkey.menu" }
 
-
 	loadMenu { "ui/playerprofile.menu" }
 	loadMenu { "ui/briefing.menu" }
 	loadMenu { "ui/connect.menu" }
@@ -41,37 +38,20 @@
 	loadMenu { "ui_mp/serverinfo.menu" }
 	loadMenu { "ui/filter.menu" }
 	
-	
-	
 	loadMenu { "ui/popup_gettinglb.menu" }
 	
-// 	loadMenu { "ui/xboxlive.menu" }
 	loadMenu { "ui/xboxlive_lobby.menu" }
 	loadMenu { "ui/xboxlive_partyended.menu" }
 	loadMenu { "ui/systemlink_lobby.menu" }
 	loadMenu { "ui/systemlink_partyended.menu" }	
 	
-//	loadMenu { "ui/settings_map.menu" }
 	loadMenu { "ui/game_summary.menu" }
 	loadMenu { "ui/challenges.menu" }
 	loadMenu { "ui/collectibles.menu" }
-
 	
 	loadMenu { "ui/pc_gamesetup_coop.menu" }	
 	loadMenu { "ui/settings_quick_cmp.menu" }
-	loadMenu { "ui/settings_quick_zom.menu" }
 	
 	loadMenu { "ui_mp/manage_friends.menu" }
-	
-	loadMenu { "ui_mp/pb_popmenus.menu" }
-	
-	loadMenu { "ui_mp/cac_main.menu" }
-	loadMenu { "ui_mp/cac_custom.menu" }
-
-	loadMenu { "ui/custom_weapons_menu.menu" }
-	loadMenu { "ui/sel_primary_weapon.menu" }
-	loadMenu { "ui/sel_secondary_weapon.menu" }
-	
-	
 	
 }
