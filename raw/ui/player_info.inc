@@ -1,4 +1,4 @@
-#define CE_VERSION				"0.98 - DEV"
+#define CE_VERSION				"0.101 - DEV"
 
 #define PLAYERSTATS_WIDTH 		270
 
