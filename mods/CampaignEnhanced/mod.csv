@@ -1,3 +1,5 @@
+localize,ce,,
+stringtable,mp/challengetable.csv
 rawfile,maps/_load.gsc
 rawfile,maps/_utility.gsc
 rawfile,maps/_loadout.gsc
@@ -23,6 +25,8 @@ weapon,sp/type100smg
 weapon,sp/kar98k_scoped
 weapon,sp/stg44
 weapon,sp/stg44_aperture
+weapon,sp/stg44_telescopic
+weapon,sp/stg44_flash
 weapon,sp/m1carbine
 weapon,sp/m1carbine_aperture
 weapon,sp/m1carbine_bigammo
@@ -52,6 +56,7 @@ weapon,sp/ray_gun
 weapon,sp/type99rifle
 weapon,sp/type99rifle_scoped
 weapon,sp/mosinrifle
+weapon,sp/mosinrifle_scoped
 weapon,sp/kar98k
 weapon,sp/ptrs41
 weapon,sp/springfield
@@ -60,6 +65,7 @@ weapon,sp/springfield_bayonet
 weapon,sp/springfield_scoped
 weapon,sp/m1garand
 weapon,sp/m1garand_gl
+weapon,sp/m1garand_bayonet
 weapon,sp/m1garand_scoped
 weapon,sp/m7_launcher
 weapon,sp/svt40
@@ -122,6 +128,3 @@ material,specialty_locked
 material,specialty_locked_big
 sound,common,,all_sp
 sound,weapons,,all_sp
-stringtable,mp/challengetable.csv
-#localize,campaignenhanced,,
-#localize,mod,,

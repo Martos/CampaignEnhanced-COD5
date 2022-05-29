@@ -24,6 +24,8 @@ init_loadout()
 	PrecacheItem( "gewehr43_aperture" );
 	PrecacheItem( "stg44" );
 	PrecacheItem( "stg44_aperture" );
+	PrecacheItem( "stg44_telescopic" );
+	PrecacheItem( "stg44_flash" );
 
 	PrecacheItem( "springfield" );
 	PrecacheItem( "springfield_scoped" );
@@ -31,10 +33,12 @@ init_loadout()
 	PrecacheItem( "springfield_gl");
 	PrecacheItem( "m1garand" );
 	PrecacheItem( "m1garand_gl" );
+	PrecacheItem( "m1garand_bayonet" );
 	PrecacheItem( "m1garand_scoped" );
 	PrecacheItem( "type99rifle" );
 	PrecacheItem( "type99rifle_scoped" );
 	PrecacheItem( "mosinrifle" );
+	PrecacheItem( "mosinrifle_scoped" );
 	PrecacheItem( "kar98k" );
 	PrecacheItem( "kar98k_scoped" );
 	PrecacheItem( "ptrs41" );
