@@ -1,15 +1,7 @@
 // general definitions
 
-#ifdef CONSOLE
-	#define CHOICE_X_START			0//22
-	#define CHOICE_Y_START			65//85//58//34
-	
-	#undef ORIGIN_TITLE
-	#define ORIGIN_TITLE			0 0
-#else
-	#define CHOICE_X_START			30//22
-	#define CHOICE_Y_START			65//85//58//34
-#endif
+#define CHOICE_X_START			30//22
+#define CHOICE_Y_START			65//85//58//34
 
 
 
@@ -82,7 +74,6 @@
 		#define BACK_OPEN 	close CAC_MENU_NAME; open cac_main;
 		#include "ui_mp/navcontrols.inc"
 
-		#include "ui/safearea.menu"
 		//=========================================================
 		//===================== MENU SELECTION ====================
 		//=========================================================
@@ -325,20 +316,10 @@
 // ===========================================================================================================================
 // ===========================================================================================================================
 
-#ifdef CONSOLE
-	#undef CHOICE_X_START
-	#define CHOICE_X_START			0
-	#undef CHOICE_Y_START
-	#define CHOICE_Y_START			90
-
-	#undef ORIGIN_TITLE
-	#define ORIGIN_TITLE			0 0
-#else
 	#undef CHOICE_X_START
 	#define CHOICE_X_START			30
 	#undef CHOICE_Y_START
 	#define CHOICE_Y_START			90
-#endif
 
 
 	#define LOCAL_WEAPON_CLASS_INFO_WINDOW \

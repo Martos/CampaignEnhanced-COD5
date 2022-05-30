@@ -65,19 +65,14 @@
 		rect			0 0 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
 		focusColor		COLOR_FOCUSED
 		style			WINDOW_STYLE_EMPTY
-#ifdef CONSOLE
-		blurWorld		7.0
-#endif				
 		onOpen
 		{ 
 			STAT_UPDATE
 		}
 		onClose
 		{
-			#ifdef PC
-				setdvar ui_showEndOfGame "0";
-				scriptMenuResponse "ceSelectedClass";
-			#endif // #ifdef PC
+			setdvar ui_showEndOfGame "0";
+			scriptMenuResponse "ceSelectedClass";
 		}
 		onESC 
 		{

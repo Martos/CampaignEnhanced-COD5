@@ -65,7 +65,6 @@
 		// background from overlaybg.inc
 		OVERLAY_BACKGROUND
 		#include "ui/navcontrols.inc"
-		#include "ui/safearea.menu"
 
 		CHOICE_OVERLAY_TITLE( "@MENU_SETTINGS" )
 

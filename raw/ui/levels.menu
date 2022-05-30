@@ -325,9 +325,7 @@ PREPROC_TEXT_DRAW_ALIGNED( ORIGIN_CHEATS_INDICATOR 100 20 HORIZONTAL_ALIGN_CENTE
 		}
 		onFocus
 		{
-#ifdef CONSOLE
-			exec "endsplitscreensignin";
-#endif
+
 		}
 		onEsc
 		{	
@@ -367,21 +365,6 @@ PREPROC_TEXT_DRAW_ALIGNED( ORIGIN_CHEATS_INDICATOR 100 20 HORIZONTAL_ALIGN_CENTE
 		LOCAL_MAP_SELECTION( 13,	"@MENU_LEVEL_BER3",   	"ber3"		,"@MENU_LEVEL_DESC_BER3",		13,		exec "set ui_load_index 13", exec "set ui_gametype cmp" )
 		LOCAL_MAP_SELECTION( 14,	"@MENU_LEVEL_BER3B",   	"ber3b" 	,"@MENU_LEVEL_DESC_BER3B",		14,		exec "set ui_load_index 14", exec "set ui_gametype cmp" )
 
-
-
-// opens zombie menu selection
-		//ZOMBIE_CHOICE_BUTTON( 16, "@PATCH_ZOMBIE_MAPS", open levels_unlock, "nazi_zombie_prototype", "@PATCH_ZOMBIE_MAPS_DESC", 15, exec "set ui_load_index 15" )
-
-//#if !GERMAN_ZOMBIE_BUILD
-//		LOCAL_NONGERMAN_MAP_SELECTION_NODIFFICULTY( 16,	"@MENU_LEVEL_ZOMBIE_PROTOTYPE", "nazi_zombie_prototype", "@MENU_LEVEL_DESC_ZOM_PROTO",		15,		exec "set ui_load_index 15", exec "set ui_gametype zom" )
-//		LOCAL_NONGERMAN_MAP_SELECTION_NODIFFICULTY( 17,	"@PATCH_LEVEL_ZOMBIE_ASYLUM", "nazi_zombie_asylum", "@PATCH_LEVEL_DESC_ZOM_ASYLUM",		16,		exec "set ui_load_index 16", exec "set ui_gametype zom" )
-//		LOCAL_NONGERMAN_MAP_SELECTION_NODIFFICULTY( 18,	"@PATCH_LEVEL_ZOMBIE_SUMPF", "nazi_zombie_sumpf", "@PATCH_LEVEL_DESC_ZOM_SUMPF",		17,		exec "set ui_load_index 17", exec "set ui_gametype zom" )
-//#else
-//		LOCAL_MAP_SELECTION_NODIFFICULTY( 16,	"@MENU_LEVEL_ZOMBIE_PROTOTYPE", "nazi_zombie_prototype", "@MENU_LEVEL_DESC_ZOM_PROTO",		15,		exec "set ui_load_index 15", exec "set ui_gametype cmp" )
-//		LOCAL_MAP_SELECTION_NODIFFICULTY( 17,	"@PATCH_LEVEL_ZOMBIE_ASYLUM", "nazi_zombie_asylum", "@PATCH_LEVEL_DESC_ZOM_ASYLUM",		16,		exec "set ui_load_index 16", exec "set ui_gametype cmp" )
-//		LOCAL_MAP_SELECTION_NODIFFICULTY( 18,	"@PATCH_LEVEL_ZOMBIE_SUMPF", "nazi_zombie_sumpf", "@PATCH_LEVEL_DESC_ZOM_SUMPF",		17,		exec "set ui_load_index 17", exec "set ui_gametype cmp" )
-//#endif // #ifdef GERMAN_ZOMBIE_BUILD
-
 		LOCAL_DIFFICULTY_WIDGET
 
 		// --------- button ----------
@@ -394,56 +377,7 @@ PREPROC_TEXT_DRAW_ALIGNED( ORIGIN_CHEATS_INDICATOR 100 20 HORIZONTAL_ALIGN_CENTE
 			textscale			TEXTSIZE_SMALL
 			textalign			ITEM_ALIGN_BOTTOM_LEFT
 			visible				when ( dvarbool( cg_development ) || dvarbool ( ui_shipping_cheats ) );
-#ifdef CONSOLE
-			decoration
-			execkeyint BUTTON_Y {open cod5_levels_test;}
-#endif
-//#ifdef PC
-//			type				1
-//			rect				-140 -26 60 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM
-//			mouseEnter			{ play "mouse_over"; }
-//			action
-//			{
-//				play			"mouse_click";
-//				close			self;
-//				open			cod5_levels_test;
-//			}
-//#endif
-
-		}		
-
-/*					
-		#ifdef PC
-			PREPROC_SHADER_DRAW_ALIGNED( GAMEINFO_ORIGIN GAMEINFO_WIDTH2 GAMEINFO_WIDTH2 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER, 0 5, levelshot_cargoship, 1 1 1 1, 0, 0, 0 0 0 0 )
-		#endif
-		
-		#define LOCAL_ACT_IMAGE(pname, pimage) \
-			PREPROC_SHADER_DRAW_ALIGNED( GAMEINFO_ORIGIN GAMEINFO_WIDTH2 (GAMEINFO_WIDTH2-8) HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER, 0 5, pimage, 1 1 1 1, 0, 0, 0 0 0 0 name pname group act_group )
-		
-		//LOCAL_ACT_IMAGE( "act_pre_image", "levelshot_cargoship" )
-		//LOCAL_ACT_IMAGE( "act_one_image", "levelshot_bog_b" )
-		//LOCAL_ACT_IMAGE( "act_two_image", "levelshot_sniperescape" )
-		//LOCAL_ACT_IMAGE( "act_three_image", "levelshot_launchfacility_a" )
-		//LOCAL_ACT_IMAGE( "act_ep_image", "levelshot_airplane" )
-		
-		UI_EDGE_REVERSE( GAMEINFO_ORIGIN,HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER, 0, 0, 0.1 0.1 0.1 1 ) 
-		UI_EDGE_REVERSE( GAMEINFO_ORIGIN,HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER, 0, 0, 0.9 0.95 1 0.4 )
-		PREPROC_SHADER_DRAW_ALIGNED( GAMEINFO_ORIGIN GAMEINFO_WIDTH 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER, 5 0, "white", 0.1 0.1 0.1 1, 0, 0, 0 0 0 0 )
-		PREPROC_SHADER_DRAW_ALIGNED( GAMEINFO_ORIGIN (-(GAMEINFO_WIDTH)) 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER, 5 0, "gradient_fadein", 0.9 0.95 1 0.4, 0, 0, 0 0 0 0 )
-		PREPROC_SHADER_DRAW_ALIGNED( GAMEINFO_ORIGIN -80 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER, (GAMEINFO_WIDTH-76) 0, "ui_perforation", 1 1 1 1, 0, 0, 0 0 0 0 )
-		
-		PREPROC_SHADER_DRAW_ALIGNED( GAMEINFO_ORIGIN GAMEINFO_WIDTH2 16 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER, 0 20, "gradient_top", 0 0 0 .75, 0, 0, 0 0 0 0 )
-		PREPROC_SHADER_DRAW_ALIGNED( GAMEINFO_ORIGIN GAMEINFO_WIDTH2 16 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER, 0 (GAMEINFO_HEIGHT-22), "gradient_bottom", 0 0 0 .75, 0, 0, 0 0 0 0 )	
-		
-		CHOICE_BUTTON_VIS( 1, "@MENU_DEV", open levels_game, when( localVarInt( ui_hide_act_button ) == 0 ); )
-
-		#undef GAMEINFO_HEIGHT
-		#undef GAMEINFO_HEIGHT2
-		#define GAMEINFO_HEIGHT			258
-		#define GAMEINFO_HEIGHT2		(86+PC_OFFSET_Y)
-		
-		CHEATS_INDICATOR
-*/
+		}
 	}
 
 // TU4/DLC2 hack for new zombie menu
@@ -455,11 +389,10 @@ PREPROC_TEXT_DRAW_ALIGNED( ORIGIN_CHEATS_INDICATOR 100 20 HORIZONTAL_ALIGN_CENTE
 		focuscolor		COLOR_FOCUSED
 		style			WINDOW_STYLE_FILLED
 		soundloop 		"music_mainmenu"
-#ifdef CONSOLE
-		onFocus{ exec "endsplitscreensignin" }
-#endif
-		onEsc{ close self }
-
+		onEsc
+		{ 
+			close self 
+		}
 		onOpen
 		{
 			hide act_group

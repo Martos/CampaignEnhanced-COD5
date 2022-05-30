@@ -381,44 +381,8 @@
 #define CHOICE_ACCEPT_HINT( itemIndex, vis )
 #endif // #else // #if defined( CONSOLE ) && !defined( SPLITSCREEN )
 
-#ifdef CONSOLE
-#define TITLE_STRIP \
-		/* title bar */ \
-		itemDef \
-		{ \
-			style			WINDOW_STYLE_SHADER \
-			rect			-5 40 640 25 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN \
-			background		"menu_lobby_title_back" \
-			forecolor		0.2137 0.2346 0.2398 0.75 \
-			/*forecolor		COLOR_TITLEBAR*/ \
-			visible			1 \
-			decoration \
-		} \
-		/* bottom white strip */ \
-		itemDef \
-		{ \
-			style			WINDOW_STYLE_SHADER \
-			rect			-107 65 854 1 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN \
-			background		"menu_white_line_faded" \
-			forecolor		0.20 0.216 0.22 1 \
-			visible			1 \
-			decoration \
-		}
-
-#define OVERLAY_TITLE_STRIP \
-		itemDef \
-		{ \
-			style			WINDOW_STYLE_SHADER \
-			rect			-107 66 500 27 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN \
-			background		"gradient" \
-			forecolor		COLOR_TITLEBAR \
-			visible			1 \
-			decoration \
-		}
-#else // #ifdef CONSOLE
-		#define TITLE_STRIP
-		#define OVERLAY_TITLE_STRIP
-#endif // #else // #ifdef CONSOLE
+#define TITLE_STRIP
+#define OVERLAY_TITLE_STRIP
 
 #define CHOICE_MENU_TITLE_SS( titleArg ) \
 		itemDef \

@@ -275,9 +275,9 @@
 		PREPROC_TEXT_DRAW_EXP( ORIGIN_MAINFRAME 0 0, (ALIGNED_IN_X_NEXT-60) (ALIGNED_IN_Y+100), exp text( "@MPUI_NONE" ), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_LEFT, EOG_TEXT_COLOR visible when( CAN_RANK_UP==0 ); )
 
 		// xp bar meter markers
-		//PREPROC_SHADER_DRAW( ORIGIN_RANK_FRAME 1 8 , (ALIGNED_IN_X_XP+46) (ALIGNED_IN_Y_XP+86), "line_vertical", 0.5 1.5 0.6 0.8, 0, 0, EOG_BORDER_COLOR visible when( ( stat(252) < MAX_RANK ) && ( !dvarBool( xblive_privatematch ) ) ); )
-		//PREPROC_SHADER_DRAW( ORIGIN_RANK_FRAME 1 16 , (ALIGNED_IN_X_XP+92) (ALIGNED_IN_Y_XP+82), "line_vertical", 0.5 1.5 0.6 0.75, 0, 0, EOG_BORDER_COLOR visible when( ( stat(252) < MAX_RANK ) && ( !dvarBool( xblive_privatematch ) ) ); )
-		//PREPROC_SHADER_DRAW( ORIGIN_RANK_FRAME 1 8 , (ALIGNED_IN_X_XP+136) (ALIGNED_IN_Y_XP+86), "line_vertical", 0.5 1.5 0.6 0.8, 0, 0, EOG_BORDER_COLOR visible when( ( stat(252) < MAX_RANK ) && ( !dvarBool( xblive_privatematch ) ) ); )
+		//PREPROC_SHADER_DRAW( ORIGIN_RANK_FRAME 1 8 , (ALIGNED_IN_X_XP+46) (ALIGNED_IN_Y_XP+86), "line_vertical", 0.5 1.5 0.6 0.8, 0, 0, EOG_BORDER_COLOR visible when( ( stat(252) < MAX_RANK ) ); )
+		//PREPROC_SHADER_DRAW( ORIGIN_RANK_FRAME 1 16 , (ALIGNED_IN_X_XP+92) (ALIGNED_IN_Y_XP+82), "line_vertical", 0.5 1.5 0.6 0.75, 0, 0, EOG_BORDER_COLOR visible when( ( stat(252) < MAX_RANK ) ); )
+		//PREPROC_SHADER_DRAW( ORIGIN_RANK_FRAME 1 8 , (ALIGNED_IN_X_XP+136) (ALIGNED_IN_Y_XP+86), "line_vertical", 0.5 1.5 0.6 0.8, 0, 0, EOG_BORDER_COLOR visible when( ( stat(252) < MAX_RANK ) ); )
 
 		// xp gained
 		//PREPROC_SHADER_DRAW( ORIGIN_RANK_FRAME (WIDTH_RANK_FRAME-14) 28, 8 206, "white", 1 1 1 0.075, 0, 0, 0 0 0 0 ) 
@@ -319,10 +319,8 @@
 		/* xp filling bar*/
 		PREPROC_SHADER_DRAW_ADV( (ORIGIN_RANK_FRAME_X+ALIGNED_IN_X_XP+2), (ORIGIN_RANK_FRAME_Y+ALIGNED_IN_Y_XP+84), ANIMATE_BAR, 12, "white", 1 0.9 0.5 0.6, 0, 1, 1 1 1 1 visible when( ( CAN_RANK_UP ) ); )
 
-		#ifdef PC
-			// @param: prect1, prect2, visArg :: visArg->prect1||prect2
-			PC_NEXT_BUTTON( ORIGIN_TOPBAR_X (ORIGIN_TOPBAR_Y+HEIGHT_TOPBAR+6+HEIGHT_MAINFRAME) WIDTH_TOPBAR HEIGHT_TOPBAR, 0 0 0 0, 1 )
-		#endif
+		// @param: prect1, prect2, visArg :: visArg->prect1||prect2
+		PC_NEXT_BUTTON( ORIGIN_TOPBAR_X (ORIGIN_TOPBAR_Y+HEIGHT_TOPBAR+6+HEIGHT_MAINFRAME) WIDTH_TOPBAR HEIGHT_TOPBAR, 0 0 0 0, 1 )
 	}
 	
 	#define VIS_WEAPON		dvarInt(player_unlockweapons)!=0
@@ -338,19 +336,8 @@
 		{ 
 			//play "mp_ingame_summary"; 
 			exec "setdvartotime ui_time_marker";		// animation start marker
-#ifdef CONSOLE
-			execnow "set ui_keep_unlock_open 0";
-#else // #ifdef CONSOLE
 			setdvar ui_keep_unlock_open "0";
-#endif // #else // #ifdef CONSOLE
-			uiScript openMenuOnDvar player_unlock_page "1" popup_unlock_page1;	// unlock page 1 only
-			uiScript openMenuOnDvar player_unlock_page "2" popup_unlock_page2;	// unlock page 2 only
-			uiScript openMenuOnDvar player_unlock_page "3" popup_unlock_page1;	// both pages visible
-			
-			#ifdef PC
-				hide highlighted_next;
-			#endif
-
+			hide highlighted_next;
 			uiScript closeMenuOnDvar ui_keep_unlock_open "0" popup_unlock;
 		}
 		onESC 			{ close self; setdvar ui_unlock_report "0"; }
