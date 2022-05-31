@@ -6,15 +6,18 @@ Campaign Enhanced is a campaign modificator aiming to extend feature of an exist
 
 ## Features
 
-- Multiplayer progression imported in offline campaign
-- Ranks and prestige
-- Custom class
-- Full customizing of weapons and equipments
-- Challenges
-- Working hit marker
-- Level up sound
-- Single Player Scoreboard (T4M Feature)
-- Online Cooperative (coming soon ...)
+- [x] Multiplayer progression imported in offline campaign
+- [x] Ranks and prestige
+- [x] Custom class
+- [x] Full customizing of weapons and equipments
+- [x] Multiplayer Challenges
+- [x] Hit marker
+- [x] Multiplayer sound
+- [x] Single Player Scoreboard (T4M Feature)
+
+## TODO
+
+- [] Online Cooperative
 
 ## Requirement
 
