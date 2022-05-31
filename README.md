@@ -17,7 +17,7 @@ Campaign Enhanced is a campaign modificator aiming to extend feature of an exist
 
 ## TODO
 
-- [] Online Cooperative
+- [ ] Online Cooperative
 
 ## Requirement
 
