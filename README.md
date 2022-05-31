@@ -31,7 +31,3 @@ Campaign Enhanced is a campaign modificator aiming to extend feature of an exist
 ![Alt text](/screens/2.png?raw=true "Barracks Menu")
 ![Alt text](/screens/3.png?raw=true "Custom Class Menu")
 ![Alt text](/screens/4.png?raw=true "In Game")
-
-## Notes
-
-This mod is not intended to use in zombie. Only for campaign !
