@@ -1,4 +1,4 @@
-# Call Of Duty: World At War Campaign Enhanced
+# Call Of Duty: World At War Campaign Enhanced MOD
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/Martos/CampaignEnhanced-COD5?style=for-the-badge)
 ![GitHub Downloads](https://img.shields.io/github/downloads/Martos/CampaignEnhanced-COD5/total?color=blue&style=for-the-badge)
