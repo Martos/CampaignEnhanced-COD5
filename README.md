@@ -1,20 +1,24 @@
 # Call Of Duty: World At War Campaign Enhanced
 
-![GitHub last commit](https://img.shields.io/github/last-commit/Martos/CampaignEnhanced-COD5)
+![GitHub last commit](https://img.shields.io/github/last-commit/Martos/CampaignEnhanced-COD5?style=for-the-badge)
+![GitHub Downloads](https://img.shields.io/github/downloads/Martos/CampaignEnhanced-COD5/total?color=blue&style=for-the-badge)
 
 Campaign Enhanced is a campaign modificator aiming to extend feature of an existing campaign experience with new funzionality, making a new gameplay experience
 
 ## Features
 
-- Multiplayer progression imported in offline campaign
-- Ranks and prestige
-- Custom class
-- Full customizing of weapons and equipments
-- Challenges
-- Working hit marker
-- Level up sound
-- Single Player Scoreboard (T4M Feature)
-- Online Cooperative (coming soon ...)
+- [x] Multiplayer progression imported in offline campaign
+- [x] Ranks and prestige
+- [x] Custom class
+- [x] Full customizing of weapons and equipments
+- [x] Multiplayer Challenges
+- [x] Hit marker
+- [x] Multiplayer sound
+- [x] Single Player Scoreboard (T4M Feature)
+
+## TODO
+
+- [ ] Online Cooperative
 
 ## Requirement
 
@@ -27,7 +31,3 @@ Campaign Enhanced is a campaign modificator aiming to extend feature of an exist
 ![Alt text](/screens/2.png?raw=true "Barracks Menu")
 ![Alt text](/screens/3.png?raw=true "Custom Class Menu")
 ![Alt text](/screens/4.png?raw=true "In Game")
-
-## Notes
-
-This mod is not intended to use in zombie. Only for campaign !
