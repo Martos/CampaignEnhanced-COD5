@@ -33,6 +33,8 @@ weapon,sp/m1carbine_bigammo
 weapon,sp/m1carbine_flash
 weapon,sp/gewehr43_aperture
 weapon,sp/gewehr43
+weapon,sp/gewehr43_telescopic
+weapon,sp/gewehr43_gl
 weapon,sp/30cal
 weapon,sp/bar
 weapon,sp/bar_bipod
@@ -70,6 +72,8 @@ weapon,sp/m1garand_scoped
 weapon,sp/m7_launcher
 weapon,sp/svt40
 weapon,sp/svt40_aperture
+weapon,sp/svt40_telescopic
+weapon,sp/svt40_flash
 material,line_vertical
 material,weapon_m8_white_smoke_cac
 material,weapon_m8_white_smoke

@@ -20,8 +20,12 @@ init_loadout()
 	PrecacheItem( "m1carbine_aperture" );
 	PrecacheItem( "svt40" );
 	PrecacheItem( "svt40_aperture" );
+	PrecacheItem( "svt40_telescopic" );
+	PrecacheItem( "svt40_flash" );
 	PrecacheItem( "gewehr43" );
 	PrecacheItem( "gewehr43_aperture" );
+	PrecacheItem( "gewehr43_telescopic" );
+	PrecacheItem( "gewehr43_gl" );
 	PrecacheItem( "stg44" );
 	PrecacheItem( "stg44_aperture" );
 	PrecacheItem( "stg44_telescopic" );
