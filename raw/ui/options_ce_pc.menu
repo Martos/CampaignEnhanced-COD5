@@ -1,0 +1,145 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+#define OPTIONS_STYLE			1
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#undef CHOICE_ACTION_SOUND
+#define CHOICE_ACTION_SOUND "mouse_click_t"
+
+{
+	menuDef
+	{
+		name			options_ce
+		fullScreen		0
+		rect			0 0 640 480
+		focusColor		COLOR_FOCUSED
+		soundloop		""
+		onOpen
+		{
+			close options_look;
+			close options_move;
+			close options_shoot;
+			close options_invehicle;
+			close options_misc;
+			close options_sound;
+			close options_game;
+			close options_view;
+			close options_defaults;
+			close options_driverinfo;
+			close options_credits;
+			close options_multi;
+			close options_graphics_defaults;
+			close options_graphics_texture;
+			close options_control_defaults;
+			close options_coop;
+
+			setLocalVarBool ui_showApply 0;
+			setLocalVarBool ui_hideBack 1;
+
+			// setfromdvar dst src
+			//exec "exec options_ce.cfg";
+
+// 2008-Aug-1 KTouevsky: loosk like COD4 have "Soften Smoke Edges" to be "Yes/No" only and linked to r_zfeather directly
+			//execOnDvarFloatValue r_zfeather 0 "set ui_zfeather 0";	// off
+			//execOnDvarFloatValue r_zfeather 1 "set ui_zfeather 1";	// world
+			//execOnDvarFloatValue r_depthPrepassModels 1 "set ui_zfeather 2";	// everything
+
+		}
+		onClose
+		{
+			setLocalVarBool ui_hideBack 0;
+			//execOnDvarIntValue ui_zfeather 0 "set r_zfeather 0;set r_depthPrepassModels 0";	// off
+			//execOnDvarIntValue ui_zfeather 1 "set r_zfeather 1;set r_depthPrepassModels 0";	// world
+			//execOnDvarIntValue ui_zfeather 2 "set r_zfeather 1;set r_depthPrepassModels 1";	// everything
+		}
+		onESC
+		{
+			close self;
+		}
+		
+		#include "ui_mp/leftside_options.inc"
+		
+		CHOICE_SECTION_TITLE( 21, "CAMPAIGN ENHANCED OPTIONS" )
+
+		//#ifdef PC_INGAME
+		
+		CHOICE_DVARYESNO( 22, "Disable XP Bar", ui_ce_hide_xpBar, setLocalVarBool ui_showApply 1; )
+		CHOICE_DVARYESNO( 23, "Disable Hit Marker", ui_ce_hide_marker, setLocalVarBool ui_showApply 1; )
+		
+		//#endif
+		
+		itemDef 
+		{
+			name			apply
+			text			"@MENU_APPLY"
+			type			1
+			style			WINDOW_STYLE_FILLED
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			200 -26 80 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM
+			textfont		UI_FONT_NORMAL
+			textalign		ITEM_ALIGN_LEFT
+			textscale		TEXTSIZE_SMALL
+			textaligny		18
+			visible			when( ( localVarBool( ui_showApply ) && !dvarint( sv_running ) ) || dvarInt(ui_allow_graphic_change) );
+			mouseEnter		{ play "mouse_over"; }
+			action 
+			{
+				play "mouse_click";
+				setLocalVarBool ui_showApply 0;
+				
+				exec "seta ui_ce_hide_xpBar 1";	//Force write to file
+				exec "seta ui_ce_hide_marker 1";
+				exec "seta ui_ce_hide_xpBar 0";
+				exec "seta ui_ce_hide_marker 0";
+				
+				execOnDvarIntValue ui_ce_hide_xpBar 0 "seta ui_ce_hide_xpBar 0";
+				execOnDvarIntValue ui_ce_hide_xpBar 1 "seta ui_ce_hide_xpBar 1";
+				
+				execOnDvarIntValue ui_ce_hide_marker 0 "seta ui_ce_hide_marker 0";
+				execOnDvarIntValue ui_ce_hide_marker 1 "seta ui_ce_hide_marker 1";
+				
+				
+				//open vid_restart_popmenu
+			}	
+		}
+		itemDef 
+		{
+			name			apply2
+			text			"@MENU_APPLY"
+			type			1
+			style			WINDOW_STYLE_FILLED
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			200 -26 80 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM
+			textfont		UI_FONT_NORMAL
+			textalign		ITEM_ALIGN_LEFT
+			textscale		TEXTSIZE_SMALL
+			textaligny		18
+			visible			when( localVarBool( ui_showApply ) && dvarint( sv_running ) && dvarInt( ui_allow_graphic_change ) == 0 );
+			mouseEnter		{ play "mouse_over"; }
+			action 
+			{
+				play "mouse_click";
+				uiScript openMenuOnDvar g_reloading 0 vid_restart_popmenu_listen; 
+				uiScript openMenuOnDvarNot g_reloading 0 vid_restart_popmenu_dead;
+			}	
+		}
+	
+	}
+	
+	// restoring button properties
+	
+	// ---
+	#undef TEXTSIZE_BUTTON_PC
+	#define TEXTSIZE_BUTTON_PC	0.4
+	
+	#undef CHOICE_SIZE_X
+	#define CHOICE_SIZE_X 		224
+	
+	#undef CHOICE_SIZE_Y
+	#define CHOICE_SIZE_Y 		22
+	
+	#undef  SECTION_X_OFFSET
+	#define SECTION_X_OFFSET 	0
+	// ---
+}
