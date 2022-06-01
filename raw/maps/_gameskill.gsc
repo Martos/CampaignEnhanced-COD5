@@ -21,6 +21,7 @@ setSkill( reset, skill_override )
 	
 	//createTestHud("^1Campaing Enhanced (BETA)");
 	level.onlineGame = true;
+	level.cheating = false;
 	
 	setdvar( "ui_unlock_report", "1" );
 	
@@ -102,6 +103,8 @@ setSkill( reset, skill_override )
 	setdvar("psa", 0);
 	setdvar("psk", 0);
 	setdvar("psh", 0);
+
+	setdvar( "ce_cheats", 0 );
 	
 // 	createprintchannel( "script_autodifficulty" );
 	
@@ -550,6 +553,7 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		setdvar("ui_showEndOfGame", "1");
 		
 		players[i] thread unlockAllChallengesMP();
+		players[i] thread watchPlayerCheats();
 		
 		players[i] openMenu( "endofgame" );
 		players[i] thread classSelectionThread();
@@ -1190,6 +1194,48 @@ watchClassCustomization() {
 				break;
 		}
 		
+		wait 0.05;
+	}
+}
+
+watchPlayerCheats() {
+	for( ;; ) {
+		level endon( "ce_cheats_detected" );
+
+		if ( IsGodMode( self ) ) {
+			level.cheating = true;
+		}
+
+		if( getDvarInt( "sf_use_ignoreammo" ) > 0 )
+		{
+			level.cheating = true;
+		}
+		
+		if( getDvarInt("player_sustainAmmo") > 0 )
+		{
+			level.cheating = true;
+		}
+			
+		if( getDvarInt( "revive_trigger_radius") > 60 )
+		{
+			level.cheating = true;
+		}
+			
+		if( getDvarInt( "g_speed" ) > 190)
+		{
+			level.cheating = true;
+		}
+		
+		if( getDvarInt( "g_gravity" ) != 800 )
+		{
+			level.cheating = true;
+		}
+
+		if(level.cheating == true) {
+			setdvar( "ce_cheats", 1 );
+			level notify( "ce_cheats_detected" );
+		}
+
 		wait 0.05;
 	}
 }

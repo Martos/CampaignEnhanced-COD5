@@ -58,3 +58,16 @@
 			visible			when( dvarint("developer") != 0 )
 			decoration
 		}
+		itemDef	
+		{
+			type			ITEM_TYPE_TEXT
+			rect			-30 40 0 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP	//x y width height
+			forecolor		1 0.3 0.3 1
+			text			"Cheats Detected. XP Disabled."
+			textfont		UI_FONT_OBJECTIVE
+			textstyle		ITEM_TEXTSTYLE_SHADOWEDMORE
+			textscale		0.20
+			textalign		ITEM_ALIGN_TOP_RIGHT
+			visible			when( dvarint("ce_cheats") != 0 )
+			decoration
+		}

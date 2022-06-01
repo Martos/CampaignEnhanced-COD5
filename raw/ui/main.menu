@@ -103,6 +103,8 @@ itemDef { \
 				uiScript openMainMenuPlayerProfileScriptCallback;
 				uiScript stopRefresh;
 			#endif
+			
+			exec "set ce_cheats 0";
 		}
 		onClose
 		{			

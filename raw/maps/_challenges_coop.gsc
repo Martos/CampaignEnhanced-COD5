@@ -870,6 +870,10 @@ giveRankXP( type, value, levelEnd )
 {
 	self endon("disconnect");
 
+	if(getDvarInt("ce_cheats") == 1) {
+		return;
+	}
+
 	if(	!isDefined( levelEnd ) )
 	{
 		levelEnd = false;
