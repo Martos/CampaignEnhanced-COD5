@@ -27,7 +27,6 @@
 		rect			0 0 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
 		focuscolor		COLOR_FOCUSED
 		style			WINDOW_STYLE_EMPTY //style			WINDOW_STYLE_FILLED
-		//soundloop 		"music_mainmenu"
 		//popup
 		onOpen {			
 			// load perk 2's selection into ui_perk2_selection so we can check if dual primaries perk is selected
