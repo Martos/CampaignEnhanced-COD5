@@ -31,7 +31,6 @@
 		//popup
 		onOpen {			
 			// load perk 2's selection into ui_perk2_selection so we can check if dual primaries perk is selected
-			statGetInDvarUsingTable( CAC_SPECIALTY_WEAPON, ui_perk2_selection );
 			// Set weapon dvars to enable check for Overkill
 			setDvarStringUsingTable( ui_primary_weapon, tableLookup( "mp/statsTable.csv", 0, STAT_CAC_PRIMARY, 1 ) );
 			setDvarStringUsingTable( ui_secondary_weapon, tableLookup( "mp/statsTable.csv", 0, STAT_CAC_SECONDARY, 1 ) ); 
@@ -41,7 +40,6 @@
 			
 			// open auto rename popup
 			/*
-			statGetInDvarUsingTable( CAC_CLASS, ui_cac_autorename );
 			execNowOnDvarIntValue ui_cac_autorename 1 "ui_keyboard MENU_CUSTOMCLASS_KEYBOARD "CAC_CUSTOM_NAME;
 			statSetUsingTable( CAC_CLASS, 0 );
 			*/
@@ -305,7 +303,6 @@
 
 
 	#define PERK1_RESET \
-		statGetInDvarUsingTable( CAC_SPECIALTY_EQUIPMENT, ui_perk1_slot ); \
 	    PERK1_RESET1 \
 		statSetOnDvarStringValue( ui_secondary_attachment_slot, "gl", CAC_SPECIALTY_EQUIPMENT, 193 ); \
 		statSetOnDvarStringValue( ui_secondary_attachment_slot, "grip", CAC_SPECIALTY_EQUIPMENT, 193 ); \
@@ -368,9 +365,7 @@
 		setdvar ce_pstat pstat; \
 		setdvar ce_cac_primary CAC_PRIMARY; \
 		/*statSetUsingTable( CAC_PRIMARY_STORAGE, tableLookup( "mp/statsTable.csv", 4, weapRef, 1 ) );*/ \
-		/*statGetInDvarUsingTable(CAC_PRIMARY_STORAGE, ui_primary_weapon );*/ \
 		CLEAR_NEW( ui_primary_weapon, WEAPON_NEW_BITMASK ); \
-		/*statGetInDvarUsingTable( CAC_SPECIALTY_EQUIPMENT, ui_perk1_slot );*/ \
 		PERK1_RESET1; \
 		/*setDvarStringUsingTable( ui_secondary_attachment_slot, CAC_SEC_ATTACHMENT_SLOT );*/ \
 		/*statSetOnDvarStringValue( ui_secondary_attachment_slot, "gl", CAC_SPECIALTY_EQUIPMENT, 193 );*/ \
@@ -384,9 +379,7 @@
 		play "mouse_click"; \
 		statSetUsingTable( CAC_SECONDARY, pstat ); \
 		statSetUsingTable( CAC_SECONDARY_STORAGE, tableLookup( "mp/statsTable.csv", 4, weapRef, 1 ) ); \
-		statGetInDvarUsingTable( CAC_SECONDARY_STORAGE, ui_secondary_weapon ); \
 		CLEAR_NEW( ui_secondary_weapon, WEAPON_NEW_BITMASK ); \
-		statGetInDvarUsingTable( CAC_SPECIALTY_EQUIPMENT, ui_perk1_slot ); \
 		setDvarStringUsingTable( ui_primary_attachment_slot, CAC_PRI_ATTACHMENT_SLOT ); \
 		statSetOnDvarStringValue( ui_primary_attachment_slot, "gl", CAC_SPECIALTY_EQUIPMENT, 193 ); \
 		statSetOnDvarStringValue( ui_primary_attachment_slot, "grip", CAC_SPECIALTY_EQUIPMENT, 193 ); \
@@ -738,7 +731,6 @@
 			play "mouse_click"; \
 			statSetUsingTable( CAC_SECONDARY, pstat ); \
 			statSetUsingTable( CAC_SECONDARY_STORAGE, tableLookup( "mp/statsTable.csv", 4, weapRef, 1 ) ); \
-			statGetInDvarUsingTable( CAC_SECONDARY_STORAGE, ui_secondary_weapon ); \
 			CLEAR_NEW( ui_secondary_weapon, WEAPON_NEW_BITMASK ); \
 			PREPROC_ATTACH_CLOSEALL
 
@@ -748,7 +740,6 @@
 			play "mouse_click"; \
 			statSetUsingTable( CAC_SECONDARY, pstat ); \
 			statSetUsingTable( CAC_SECONDARY_STORAGE, tableLookup( "mp/statsTable.csv", 4, weapRef, 1 ) ); \
-			statGetInDvarUsingTable( CAC_SECONDARY_STORAGE, ui_secondary_weapon ); \
 			CLEAR_NEW( ui_secondary_weapon, WEAPON_NEW_BITMASK ); \
 			PREPROC_ATTACH_CLOSEALL
 			// currently side arms will have no attachments
@@ -936,9 +927,7 @@
 		statSetOnDvarStringValue( ui_dual_primaries, "true", CAC_SECONDARY_ATTACHMENT, 0 ); \
 		setDvarStringUsingTable( ui_secondary_weapon, tableLookup( "mp/statsTable.csv", 0, STAT_CAC_SECONDARY, 1 ) ); \
 		execNow "set ui_dual_primaries false"; \
-		statGetInDvarUsingTable( CAC_SPECIALTY_EQUIPMENT, ui_perk1_slot ); \
 		PERK1_RESET1 \
-		statGetInDvarUsingTable( CAC_PRIMARY_ATTACHMENT, ui_primary_attachment_slot ); \
 		statSetOnDvarStringValue( ui_primary_attachment_slot, "gl", CAC_SPECIALTY_EQUIPMENT, 193 ); \
 		statSetOnDvarStringValue( ui_primary_attachment_slot, "grip", CAC_SPECIALTY_EQUIPMENT, 193 ); 
 

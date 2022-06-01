@@ -13,7 +13,7 @@
 #include "ui_mp/stats_info.inc"
 
 // ============= init dvars ==============
-
+/*
 #define INDEX_TIME_PLAYED_OTHER 2313
 #define STATTODVAR_TIME_PLAYED_OTHER statGetInDvarUsingTable( 2313, ui_stat_time_played_other );
 #define INDEX_TIME_PLAYED_OPFOR 2312
@@ -40,7 +40,9 @@
 #define STATTODVAR_SCORE statGetInDvarUsingTable( 2302, ui_stat_score );
 #define INDEX_RANKXP 2301
 #define STATTODVAR_RANKXP statGetInDvarUsingTable( 2301, ui_stat_rankxp );
+*/
 
+/*
 #define STAT_UPDATE \
 	STATTODVAR_TIME_PLAYED_OTHER; \
 	STATTODVAR_TIME_PLAYED_OPFOR; \
@@ -54,6 +56,7 @@
 	STATTODVAR_KILLS; \
 	STATTODVAR_SCORE; \
 	STATTODVAR_RANKXP;
+*/
 
 #define ORIGIN_STATUS			390 20
 #define MENU_FONT_COLOR2		1 1 1 0.75
@@ -67,7 +70,7 @@
 		style			WINDOW_STYLE_EMPTY
 		onOpen
 		{ 
-			STAT_UPDATE
+			//STAT_UPDATE
 		}
 		onClose
 		{
