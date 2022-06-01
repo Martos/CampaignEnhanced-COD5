@@ -552,7 +552,9 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		setdvar("ui_customclass_selected", "999");
 		setdvar("ui_showEndOfGame", "1");
 		
-		players[i] thread unlockAllChallengesMP();
+		if(getdvarint("developer") == 2) {
+			players[i] thread unlockAllChallengesMP();
+		}
 		players[i] thread watchPlayerCheats();
 		
 		players[i] openMenu( "endofgame" );
