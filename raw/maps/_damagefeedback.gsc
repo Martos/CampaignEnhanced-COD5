@@ -36,6 +36,9 @@ updateDamageFeedback()
 {
 	if ( !IsPlayer( self ) )
 		return;
+	
+	if ( getDvar( "ui_ce_hide_marker" ) == "1")
+		return;
 
 	self playlocalsound( "mp_hit_indication_3c" );
 	

@@ -66,6 +66,7 @@
 		
 		CHOICE_DVARYESNO( 22, "Disable XP Bar", ui_ce_hide_xpBar, setLocalVarBool ui_showApply 1; )
 		CHOICE_DVARYESNO( 23, "Disable Hit Marker", ui_ce_hide_marker, setLocalVarBool ui_showApply 1; )
+		CHOICE_DVARYESNO( 24, "Hide score hud", ui_ce_hide_score_hud, setLocalVarBool ui_showApply 1; )
 		
 		//#endif
 		
@@ -88,10 +89,14 @@
 				play "mouse_click";
 				setLocalVarBool ui_showApply 0;
 				
-				exec "seta ui_ce_hide_xpBar 1";	//Force write to file
-				exec "seta ui_ce_hide_marker 1";
+				//Force write to file
+				exec "seta ui_ce_hide_xpBar 1";
 				exec "seta ui_ce_hide_xpBar 0";
+				exec "seta ui_ce_hide_marker 1";
 				exec "seta ui_ce_hide_marker 0";
+				exec "seta ui_ce_hide_score_hud 1";
+				exec "seta ui_ce_hide_score_hud 0";
+				//*******************
 				
 				execOnDvarIntValue ui_ce_hide_xpBar 0 "seta ui_ce_hide_xpBar 0";
 				execOnDvarIntValue ui_ce_hide_xpBar 1 "seta ui_ce_hide_xpBar 1";
@@ -99,6 +104,8 @@
 				execOnDvarIntValue ui_ce_hide_marker 0 "seta ui_ce_hide_marker 0";
 				execOnDvarIntValue ui_ce_hide_marker 1 "seta ui_ce_hide_marker 1";
 				
+				execOnDvarIntValue ui_ce_hide_score_hud 0 "seta ui_ce_hide_score_hud 0";
+				execOnDvarIntValue ui_ce_hide_score_hud 1 "seta ui_ce_hide_score_hud 1";	
 				
 				//open vid_restart_popmenu
 			}	

@@ -2857,7 +2857,7 @@ auto_adjust_enemy_died( ai, amount, attacker, type, point )
 		
 	
 	aa_add_event( "aa_player_kills", 1 );
-	//attacker thread maps\_damagefeedback::updateDamageFeedback( attacker );
+	
 	flag_set( "arcademode_ending_complete" );
 
 	//prof_end( "auto_adjust_enemy_died" );

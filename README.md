@@ -15,6 +15,7 @@ Campaign Enhanced is a campaign modificator aiming to extend feature of an exist
 - [x] Hit marker
 - [x] Multiplayer sound
 - [x] Cheats Detector
+- [x] Options page
 - [x] Single Player Scoreboard (T4M Feature)
 
 ## TODO
