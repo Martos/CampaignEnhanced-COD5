@@ -663,7 +663,7 @@ weaponsUnlocksReset() {
 }
 
 unlocksAllWeapons() {
-	//RIFLE Stat 3010: 196611	Stat 3010: 458759	Stat 3010: 983055
+	//Stat 3010: 1	Stat 3010: 196611	Stat 3010: 458759	Stat 3010: 983055	Stat 3021: 2031647
 	self setStat(3000, 1);
 	self setStat(3001, 1);
 	self setStat(3002, 1);
@@ -674,7 +674,7 @@ unlocksAllWeapons() {
 	self setStat(3070, 1);
 	self setStat(3080, 1);
 	self setStat(3082, 1);
-	self setStat(3021, 1);
+	self setStat(3021, 1);	//GEWHER43
 	self setStat(3011, 1);	//MP40
 	self setStat(3042, 1);
 	self setStat(3083, 1);
