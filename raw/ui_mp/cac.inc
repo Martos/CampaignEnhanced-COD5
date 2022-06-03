@@ -502,26 +502,27 @@
 	#define LOCAL_ATTACHMENT_ITEM( itemNum, p_setstat, p_numref, p_numref_s, pname, paction, ptype, statDvar, bitMask )\
 		CHOICE_DBUTTON_VIS( itemNum, "@"+tablelookup("mp/statsTable.csv",4,dvarString(ui_primary_highlighted),3)+"_"+tablelookup("mp/attachmentTable.csv",4,pname,7), when( 1 ); ) \
 		CHOICE_HIGHLIGHT( itemNum, 1 ) \
-		CHOICE_BUTTON_FOCUS_VIS_NOHI( itemNum, "", ;, execNow "set ui_attachment_highlighted "pname;, ;, when( ptype == "primary" && ( pname == "gl" && dvarString( ui_secondary_attachment_slot ) == "gl" ) ); ) \
-		CHOICE_BUTTON_FOCUS_VIS_NOHI( itemNum, "", ;, execNow "set ui_attachment_highlighted "pname;, ;, when( ptype == "secondary" && ( pname == "gl" && dvarString( ui_primary_attachment_slot ) == "gl" ) ); ) \
+		CHOICE_BUTTON_FOCUS_VIS_NOHI( itemNum, "", ;, exec "set ce_attachment_stat "p_setstat; execNow "set ui_attachment_highlighted "pname;, ;, when( ptype == "primary" && ( stat( stat( p_setstat-1 )+3000 ) & int(tablelookup( "mp/attachmenttable.csv", 2, p_numref, 3 ) ) ) && ( pname == "gl" && dvarString( ui_secondary_attachment_slot ) == "gl" ) ); ) \
+		CHOICE_BUTTON_FOCUS_VIS_NOHI( itemNum, "", ;, exec "set ce_attachment_stat "p_setstat; execNow "set ui_attachment_highlighted "pname;, ;, when( ptype == "secondary" && ( stat( stat( p_setstat-1 )+3000 ) & int(tablelookup( "mp/attachmenttable.csv", 2, p_numref, 3 ) ) ) && ( pname == "gl" && dvarString( ui_primary_attachment_slot ) == "gl" ) ); ) \
 		\
 		CHOICE_BUTTON_FOCUS_VIS_NOHI( itemNum, \
 			"@"+tablelookup("mp/statsTable.csv",4,dvarString(ui_primary_highlighted),3)+"_"+tablelookup("mp/attachmentTable.csv",4,pname,7), \
 			LOCAL_ATTACHMENT_ACTION( p_setstat, p_numref, paction, ptype, pname );CLEAR_NEW( statDvar, bitMask );, \
 			execnow "set ui_attachment_highlighted "pname; execnow "set ui_attachment_statslot "p_numref_s;,\
 			CLEAR_NEW( statDvar, bitMask );, \
-			when( ptype == "primary" && 1 ) ) \
+			when( ptype == "primary" && ( stat( stat( p_setstat-1 )+3000 ) & int(tablelookup( "mp/attachmenttable.csv", 2, p_numref, 3 ) ) ) && ( pname != "gl" || dvarString( ui_secondary_attachment_slot ) != "gl" ) ) ) \
 		\
 		CHOICE_BUTTON_FOCUS_VIS_NOHI( itemNum, \
 			"@"+tablelookup("mp/statsTable.csv",4,dvarString(ui_primary_highlighted),3)+"_"+tablelookup("mp/attachmentTable.csv",4,pname,7), \
 			LOCAL_ATTACHMENT_ACTION2( p_setstat, p_numref, paction, ptype, pname );CLEAR_NEW( statDvar, bitMask );, \
 			execnow "set ui_attachment_highlighted "pname; execnow "set ui_attachment_statslot "p_numref_s;, \
 			CLEAR_NEW( statDvar, bitMask );, \
-			when( ptype == "secondary" && 0 ) ) \
+			when( ptype == "secondary" && ( stat( stat( p_setstat-1 )+3000 ) & int(tablelookup( "mp/attachmenttable.csv", 2, p_numref, 3 ) ) ) && ( pname != "gl" || dvarString( ui_primary_attachment_slot ) != "gl" ) ) ) \
 		\
-		CHOICE_BUTTON_FOCUS_VIS_NOHI( itemNum, "", ;, execnow "set ui_attachment_highlighted "pname; execnow "set ui_attachment_statslot "p_numref_s; execnow "set ui_attachment_loadout "pname, ;, when( 0 ); ) \
-		CHOICE_DBUTTON_VIS( itemNum, "@"+tablelookup("mp/statsTable.csv",4,dvarString(ui_primary_highlighted),3)+"_"+tablelookup("mp/attachmentTable.csv",4,pname,7), when( 0 ); ) \	/*ACCESSORIO BLOCCATO */
-		CHOICE_NEWICON_VIS( itemNum, "specialty_new", when( 0 ) ) \	/*ICONA SBLOCCO*/
+		CHOICE_BUTTON_FOCUS_VIS_NOHI( itemNum, "", ;, execnow "set ui_attachment_highlighted "pname; execnow "set ui_attachment_statslot "p_numref_s; execnow "set ui_attachment_loadout "pname, ;, when( ( stat( stat( p_setstat-1 )+3000 ) & int(tablelookup( "mp/attachmenttable.csv", 2, p_numref, 3 ))) == 0 ); ) \
+		CHOICE_DBUTTON_VIS( itemNum, "@"+tablelookup("mp/statsTable.csv",4,dvarString(ui_primary_highlighted),3)+"_"+tablelookup("mp/attachmentTable.csv",4,pname,7), when( ( stat( stat( p_setstat-1 )+3000 ) & int(tablelookup( "mp/attachmenttable.csv", 2, p_numref, 3 ))) == 0 ); ) \
+		CHOICE_NEWICON_VIS( itemNum, "specialty_new", when( ( int(tablelookup( "mp/attachmenttable.csv", 2, p_numref, 3 )) != 1 ) && (stat( stat( p_setstat-1 )+3000 ) & int(tablelookup( "mp/attachmenttable.csv", 2, p_numref, 3 ))<<16 )) ) \
+		CHOICE_LOCKEDICON_VIS( itemNum, "specialty_locked", when( ( stat( stat( p_setstat-1 )+3000 ) & int(tablelookup( "mp/attachmenttable.csv", 2, p_numref, 3 ))) == 0 ); )
 
 	// hackaround to work for PC's floating mouse unfocusing
 	#undef  UI_FOCUSFIRST
