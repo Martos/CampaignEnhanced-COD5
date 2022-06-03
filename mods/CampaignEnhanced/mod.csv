@@ -74,6 +74,7 @@ weapon,sp/svt40
 weapon,sp/svt40_aperture
 weapon,sp/svt40_telescopic
 weapon,sp/svt40_flash
+weapon,sp/357magnum
 material,line_vertical
 material,weapon_m8_white_smoke_cac
 material,weapon_m8_white_smoke
@@ -96,6 +97,7 @@ material,weapon_colt
 material,weapon_walther
 material,weapon_tokarev
 material,weapon_nambu
+material,weapon_357magnum
 material,weapon_kar98k
 material,weapon_springfield
 material,weapon_m1garand

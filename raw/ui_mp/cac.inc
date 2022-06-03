@@ -726,10 +726,8 @@
 		PREPROC_TEXT_DRAW_ALIGNED_EXP( LOADOUT_DESC_X LOADOUT_DESC_Y (LOADOUT_WIDTH-30) 20 LOADOUT_ALIGN, ORIGIN_LOADOUT, "@"+tablelookup("mp/statsTable.csv",4,dvarString(highlight_dvar),10), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_LEFT, COLOR_RED_TEXT visible when( ( stat(int(tablelookup("mp/statsTable.csv",4,dvarString(highlight_dvar),1))) & 1 ) == 0 ); )\
 
 	#define LOCAL_SIDEARM_ACTION( pstat, weapRef ) \
-			statSetUsingTable( CAC_SECONDARY_ATTACHMENT, 0 ); \
+			setDvar ce_side_sel weapRef;	\ 
 			play "mouse_click"; \
-			statSetUsingTable( CAC_SECONDARY, pstat ); \
-			statSetUsingTable( CAC_SECONDARY_STORAGE, tableLookup( "mp/statsTable.csv", 4, weapRef, 1 ) ); \
 			CLEAR_NEW( ui_secondary_weapon, WEAPON_NEW_BITMASK ); \
 			PREPROC_ATTACH_CLOSEALL
 

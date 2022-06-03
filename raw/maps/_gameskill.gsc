@@ -990,12 +990,29 @@ watchClassCustomization() {
 		
 		primaryWeapon = getdvar("ce_weap_sel");
 		primaryAttachment = getdvar("ce_cac_primary_attachment");
+		sideWeapon = getdvar("ce_side_sel");
 		
 		primaryWeaponOffset = (getdvarint("ce_cac_selected") - 300) + 201;
 		primaryWeaponAttachmentOffset = (getdvarint("ce_cac_selected") - 300) + 202;
-		
-		//iprintln("PRIMARY: " + primaryWeapon);
-		//iPrintLn("ATTACHMENT: " + primaryAttachment);
+		sideWeaponOffset = (getdvarint("ce_cac_selected") - 300) + 203;
+
+		switch(sideWeapon) {
+			case "colt":
+				self setStat(sideWeaponOffset, 0);
+				break;
+			case "nambu":
+				self setStat(sideWeaponOffset, 1);
+				break;
+			case "walther":
+				self setStat(sideWeaponOffset, 2);
+				break;
+			case "tokarev":
+				self setStat(sideWeaponOffset, 3);
+				break;
+			case "357magnum":
+				self setStat(sideWeaponOffset, 4);
+				break;
+		}
 		
 		switch(primaryWeapon) {
 			case "thompson":

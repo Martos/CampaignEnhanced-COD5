@@ -63,6 +63,7 @@ init_loadout()
 	PrecacheItem( "walther" );
 	PrecacheItem( "tokarev" );
 	PrecacheItem( "sw_357" );
+	PrecacheItem( "357magnum" );
 
 	PrecacheItem( "ray_gun" );
 
