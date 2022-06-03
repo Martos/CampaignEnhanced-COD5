@@ -893,14 +893,17 @@ challengeWatcher(hit_location) {
 				currentTierStatCheckKill = currentTierStatCheckKill + 1;
 				self thread maps\_challenges_coop::challengeNotify("TEST1");
 				self setStat(521, currentTierStatCheckKill);
+				self setStat(3010, 196611);
 			} else if(currentKillStats >= 75 && currentTierStatCheckKill == 2) {
 				currentTierStatCheckKill = currentTierStatCheckKill + 1;
 				self thread maps\_challenges_coop::challengeNotify("TEST2");
 				self setStat(521, currentTierStatCheckKill);
+				self setStat(3010, 458759);
 			} else if(currentKillStats >= 150 && currentTierStatCheckKill == 3) {
 				currentTierStatCheckKill = 255;
 				self thread maps\_challenges_coop::challengeNotify("TEST3");
 				self setStat(521, currentTierStatCheckKill);
+				self setStat(3010, 983055);
 			}
 
 			if(hit_location != "head")
@@ -950,14 +953,17 @@ challengeWatcher(hit_location) {
 				currentTierStatCheckKill = currentTierStatCheckKill + 1;
 				self thread maps\_challenges_coop::challengeNotify("TEST1");
 				self setStat(525, currentTierStatCheckKill);
+				self setStat(3011, 196611);
 			} else if(currentKillStats >= 75 && currentTierStatCheckKill == 2) {
 				currentTierStatCheckKill = currentTierStatCheckKill + 1;
 				self thread maps\_challenges_coop::challengeNotify("TEST2");
 				self setStat(525, currentTierStatCheckKill);
+				self setStat(3011, 458759);
 			} else if(currentKillStats >= 150 && currentTierStatCheckKill == 3) {
 				currentTierStatCheckKill = 255;
 				self thread maps\_challenges_coop::challengeNotify("TEST3");
 				self setStat(525, currentTierStatCheckKill);
+				self setStat(3011, 983055);
 			}
 
 			if(hit_location != "head")
