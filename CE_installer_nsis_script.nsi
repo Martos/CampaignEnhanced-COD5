@@ -3,7 +3,7 @@
 
   !include "MUI2.nsh"
 
-  !define MUI_ICON ".\screens\CoDWaW_ID_ICON1.ico"
+  !define MUI_ICON ".\screens\CoDWaW_ID_ICON1_0-00-00-002.ico"
   !define MUI_HEADERIMAGE
   !define MUI_HEADERIMAGE_BITMAP ".\screens\cod.bmp"
   !define MUI_HEADERIMAGE_RIGHT
