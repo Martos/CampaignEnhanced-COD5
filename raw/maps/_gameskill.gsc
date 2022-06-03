@@ -2859,7 +2859,7 @@ auto_adjust_enemy_died( ai, amount, attacker, type, point )
 			attacker.headshots++;
 			setdvar("psh", attacker.headshots);
 
-			headhshotsTmp = attacker getStat(2308) + attacker.headshots;
+			headhshotsTmp = attacker getStat(2308) + 1;
 			attacker setStat(2308, headhshotsTmp);
 		}	
 	}
