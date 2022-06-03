@@ -663,10 +663,11 @@ weaponsUnlocksReset() {
 }
 
 unlocksAllWeapons() {
+	//RIFLE Stat 3010: 196611	Stat 3010: 458759	Stat 3010: 983055
 	self setStat(3000, 1);
 	self setStat(3001, 1);
 	self setStat(3002, 1);
-	self setStat(3010, 983055);	//THOMPSON 	Stat 3010: 196611	Stat 3010: 458759	Stat 3010: 983055
+	self setStat(3010, 1);	//THOMPSON
 	self setStat(3020, 1);
 	self setStat(3060, 1);
 	self setStat(3062, 1);
@@ -674,21 +675,21 @@ unlocksAllWeapons() {
 	self setStat(3080, 1);
 	self setStat(3082, 1);
 	self setStat(3021, 1);
-	self setStat(3011, 983055);	//MP40
+	self setStat(3011, 1);	//MP40
 	self setStat(3042, 1);
 	self setStat(3083, 1);
 	self setStat(3022, 1);
 	self setStat(3003, 1);
 	self setStat(3061, 1);
 	self setStat(3091, 1);
-	self setStat(3012, 983055);
+	self setStat(3012, 1);
 	self setStat(3071, 1);
 	self setStat(3041, 1);
 	self setStat(3024, 1);
 	self setStat(3063, 1);
 	self setStat(3081, 1);
 	self setStat(3004, 1);
-	self setStat(3013, 983055);
+	self setStat(3013, 1);
 	self setStat(3064, 1);
 	self setStat(3040, 1);
 	self setStat(3023, 1);
