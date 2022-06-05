@@ -5818,7 +5818,7 @@ ignore_triggers( timer )
  ============= 
 ///ScriptDocBegin
 "Name: delayThread( <delay> , <function> , <arg1> , <arg2> , <arg3> )"
-"Summary: Delaythread is cool! It saves you from having to write extra script for once off commands. Note you don’t have to thread it off. Delaythread is that smart!"
+"Summary: Delaythread is cool! It saves you from having to write extra script for once off commands. Note you donï¿½t have to thread it off. Delaythread is that smart!"
 "Module: Utility"
 "MandatoryArg: <delay> : The delay before the function occurs"
 "MandatoryArg: <delay> : The function to run."
@@ -10425,6 +10425,7 @@ spread_array_thread( entities, process, var1, var2, var3 )
 }
 
 createTestHud(text) {
+/*
 	textelem = newHudElem();
 	textelem.x = 0;
 	textelem.y = 0;
@@ -10434,6 +10435,7 @@ createTestHud(text) {
 	textelem.vertAlign = "fullscreen";
 	textelem setText(text);
 	textelem.alpha = 1;
+*/
 }
 
 createTestFile() {

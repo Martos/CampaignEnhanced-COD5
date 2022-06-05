@@ -5,8 +5,6 @@
 
 main( bScriptgened,bCSVgened,bsgenabled )
 {
-	PrecacheMenu("settings");
-	
 println( "_LOAD START TIME = " + GetTime() );
 	// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
 	/#
@@ -302,7 +300,6 @@ println( "_LOAD START TIME = " + GetTime() );
 	maps\_callbackglobal::init(); 
 	maps\_callbacksetup::SetupCallbacks(); 
 	maps\_autosave::main(); 
-	//thread functions\_mymenu::init();
 
 	maps\_anim::init(); 
 	maps\_busing::businit(); 
@@ -326,10 +323,7 @@ println( "_LOAD START TIME = " + GetTime() );
 	maps\_challenges_coop::init();
 	maps\_hud_message::init();
 	SetObjectiveTextColors();
-	maps\_laststand::init(); 	
-	
-	//maps\_challenges_coop::createRankIconFixed();
-	//maps\_arcademode::main();
+	maps\_laststand::init();
 	
 	// CODE_MOD
 	thread maps\_cooplogic::init(); 
@@ -349,17 +343,6 @@ println( "_LOAD START TIME = " + GetTime() );
 	}
 
 	SetSavedDvar( "ui_campaign", level.campaign ); // level.campaign is set in maps\_loadout::init_loadout
-
-	/#
-	thread maps\_debug::mainDebug(); 
-	#/
-
-// SCRIPTER_MOD
-// MikeD( 3/20/2007 ): Added for _createcam to work.
-/#
-	// commented out prevent variable limit being hit
-	//maps\_createcam::main(); 
-#/	
 
 	// MikeD( 7/27/2007 ): Added the SaveGame here for the beginning of the level.
 	level thread maps\_autosave::start_level_save(); 
@@ -695,8 +678,7 @@ onPlayerConnect()
 		player thread animscripts\init::onPlayerConnect(); 
 		player thread onPlayerSpawned(); 
 		player thread onPlayerDisconnect(); 
-		
-		player maps\_challenges_coop::createRankIconFixed(player);
+
 		player maps\_damagefeedback::init();
 
 		// if we are in splitscreen then turn the water off to 
@@ -797,9 +779,7 @@ onPlayerSpawned()
 			// Enable arcademode for default
 			if( true )
 			{
-				self thread maps\_arcademode::player_init(); 
-				self maps\_challenges_coop::createRankIconFixed(self);
-				//createTestHud("ARCADEMODE_INIT_FROM_LOAD");
+				self thread maps\_arcademode::player_init();
 			}
 
 			// CODER_MOD - JamesS added self to player_death_detection

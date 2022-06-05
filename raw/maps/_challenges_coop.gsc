@@ -559,44 +559,7 @@ rank_init()
 	precacheString( &"RANK_ROMANI" );
 	precacheString( &"RANK_ROMANII" );
 	precacheString( &"RANK_ROMANIII" );
-	
-	//createRankIconFixed();
-}
-
-createRankIconFixed(player) {
-	
-	/*
-	textelem = newHudElem();
-	textelem.x = 250;
-	textelem.y = 0;
-	textelem.alignX = "left";
-	textelem.alignY = "top";
-	textelem.horzAlign = "fullscreen";
-	textelem.vertAlign = "fullscreen";
-	textelem setText( "^3 FROM CHALLENGE COOP: "  + player getRank());
-	textelem.alpha = 1;
-	*/
-	
-	if(!isDefined(player)) {
-		prestige = 0;
-		p_rank = self maps\_challenges_coop::getRank();
-		p_rankicon = self getRankInfoIcon(p_rank,prestige);
-		
-		rank_hud_icon_c = newHudElem();
-		rank_hud_icon_c.foreground = true; 
-		rank_hud_icon_c.sort = 0; 
-		rank_hud_icon_c.hidewheninmenu = false; 
-		rank_hud_icon_c.alignX = "right"; 
-		rank_hud_icon_c.alignY = "middle"; 
-		rank_hud_icon_c.horzAlign = "right";
-		rank_hud_icon_c.vertAlign = "bottom";
-		rank_hud_icon_c.x = -103; 
-		rank_hud_icon_c.y = -83; 
-		rank_hud_icon_c.alpha = 1;
-		rank_hud_icon_c.fontScale = 2.0;
-		
-		rank_hud_icon_c SetShader(p_rankicon, 25, 25);
-	}
+	precacheString( &"MP_MATCH_BONUS_IS" );
 }
 
 // update copy of a challenges to be progressed this game, only at the start of the game
@@ -1651,9 +1614,6 @@ ch_kills( victim )
 	}
 	
 	player maps\_challenges_coop::statAdd("kills", 1);
-	//player playlocalsound( "mp_hit_indication_3c" );
-	//player setstat(1219, self getstat(1219)+1);
-	//createRankIconFixed(player);
 
 	if( player maps\_laststand::player_is_in_laststand() )
 	{

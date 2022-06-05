@@ -66,17 +66,6 @@ main()
 	//setdvar("friendlyfire_enabled", 0);	
 }
 
-cheatLevel() {
-	player = get_players()[0];
-	
-	while(1) {
-		player maps\_challenges_coop::giveRankXP( "kill", 50 );
-		wait(1);
-	}
-	
-}
-
-
 pSetDvar(dvarName, value)
 {
 	setdvar( dvarName + self getEntityNumber(), value );
@@ -209,11 +198,7 @@ onPlayerSpawned()
 			self.hud_scoremulti fontPulseInit();
 			self.hud_scoremulti.alpha = 0;
 		}
-		
-		thread cheatLevel();
-		
-			
-					
+
 		//self.teamKillPunish = false;
 		//if ( level.minimumAllowedSuicides >= 0 && self.pers["player_suicides_total"] > level.minimumAllowedSuicides )
 		//	self thread reduceTeamKillsOverTime();
@@ -871,6 +856,11 @@ challengeWatcher(hit_location) {
 	if ( !IsPlayer( self ) ) {
 		return;
 	}
+
+	if ( flag( "arcademode_complete" ) )
+		return;
+
+	level endon("disconnect");
 
 	switch(self GetCurrentWeapon()) {
 		case "thompson":
