@@ -10450,3 +10450,7 @@ createTestFile() {
 	closeFile( fileNum );
 	#/
 }
+
+getWeaponChallengeName(string, size) {
+	return getsubstr(string, 10, size);
+}

@@ -881,17 +881,17 @@ challengeWatcher(hit_location) {
 
 			if(currentKillStats >= 25 && currentTierStatCheckKill == 1) {
 				currentTierStatCheckKill = currentTierStatCheckKill + 1;
-				self thread maps\_challenges_coop::challengeNotify("TEST1");
+				self thread maps\_challenges_coop::challengeNotify("@"+tablelookup("mp/challengetable_tier2.csv",0,1,8));
 				self setStat(521, currentTierStatCheckKill);
 				self setStat(3010, 196611);
 			} else if(currentKillStats >= 75 && currentTierStatCheckKill == 2) {
 				currentTierStatCheckKill = currentTierStatCheckKill + 1;
-				self thread maps\_challenges_coop::challengeNotify("TEST2");
+				self thread maps\_challenges_coop::challengeNotify("@"+tablelookup("mp/challengetable_tier2.csv",0,2,8));
 				self setStat(521, currentTierStatCheckKill);
 				self setStat(3010, 458759);
 			} else if(currentKillStats >= 150 && currentTierStatCheckKill == 3) {
 				currentTierStatCheckKill = 255;
-				self thread maps\_challenges_coop::challengeNotify("TEST3");
+				self thread maps\_challenges_coop::challengeNotify("@"+tablelookup("mp/challengetable_tier2.csv",0,3,8));
 				self setStat(521, currentTierStatCheckKill);
 				self setStat(3010, 983055);
 			}
@@ -910,15 +910,15 @@ challengeWatcher(hit_location) {
 
 			if(currentKillStatsHS >= 25 && currentTierStatCheckHS == 1) {
 				currentTierStatCheckHS = currentTierStatCheckHS + 1;
-				self thread maps\_challenges_coop::challengeNotify("TEST H1");
+				self thread maps\_challenges_coop::challengeNotify("@"+tablelookup("mp/challengetable_tier2.csv",0,4,8));
 				self setStat(522, currentTierStatCheckHS);
 			} else if(currentKillStatsHS >= 75 && currentTierStatCheckHS == 2) {
 				currentTierStatCheckHS = currentTierStatCheckHS + 1;
-				self thread maps\_challenges_coop::challengeNotify("TEST H2");
+				self thread maps\_challenges_coop::challengeNotify("@"+tablelookup("mp/challengetable_tier2.csv",0,5,8));
 				self setStat(522, currentTierStatCheckHS);
 			} else if(currentKillStatsHS >= 150 && currentTierStatCheckHS == 3) {
 				currentTierStatCheckHS = 255;
-				self thread maps\_challenges_coop::challengeNotify("TEST H3");
+				self thread maps\_challenges_coop::challengeNotify("@"+tablelookup("mp/challengetable_tier2.csv",0,6,8));
 				self setStat(522, currentTierStatCheckHS);
 			}
 

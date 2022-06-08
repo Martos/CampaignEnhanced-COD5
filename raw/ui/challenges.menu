@@ -209,12 +209,13 @@
 		CHOICE_DBUTTON_VIS( 5,  LOCAL_NAME(5), when( stat( 274 ) < 1 ); )
 
 		//CHOICE_SEPARATOR( CHOICE_SEP_1 )
-					
+		/*
 		CHOICE_NEWICON_VIS( 1, "specialty_new", when( stat( "270" ) > 1 ) )
 		CHOICE_NEWICON_VIS( 2, "specialty_new", when( stat( "271" ) > 1 ) )
 		CHOICE_NEWICON_VIS( 3, "specialty_new", when( stat( "272" ) > 1 ) )
 		CHOICE_NEWICON_VIS( 4, "specialty_new", when( stat( "273" ) > 1 ) )
 		CHOICE_NEWICON_VIS( 5, "specialty_new", when( stat( "274" ) > 1 ) )
+		*/
 			
 		CHOICE_LOCKEDICON_VIS( 1, "specialty_locked", when( stat( "270" ) == 0 ) )
 		CHOICE_LOCKEDICON_VIS( 2, "specialty_locked", when( stat( "271" ) == 0 ) )
