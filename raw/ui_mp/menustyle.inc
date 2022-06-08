@@ -75,6 +75,7 @@
 				close options_voice; \
 				close options_multi; \
 				close controls_multi; \
+				close options_ce; \
 				CLOSE_SELF_INGAME
 		#endif
 		
