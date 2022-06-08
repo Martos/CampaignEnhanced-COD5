@@ -5,45 +5,22 @@
 
 // this script handles all major global gameskill considerations
 setSkill( reset, skill_override )
-{
-	precacheString( &"MP_MATCH_BONUS_IS" );
-	precacheMenu("endofgame");
-
-	//self maps\_challenges_coop::createRankIconFixed();
-	
-	if(getdvar("zombiemode") == "0") {
-		self maps\_arcademode::arcademode_dvar_init();
-	}
-	//player maps\_arcademode::player_init();
+{	
+	self maps\_arcademode::arcademode_dvar_init();
 	self maps\_challenges_coop::rank_init();
 	
-	//self maps\_challenges_coop::createMatchBouns();
-	
-	//createTestHud("^1Campaing Enhanced (BETA)");
 	level.onlineGame = true;
 	level.cheating = false;
 	
 	setdvar( "ui_unlock_report", "1" );
 	
-	// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
-	/#
-	if( getdebugdvar( "replay_debug" ) == "1" )
-		println("File: _gameskill.gsc. Function: setSkill()\n");
-	#/
-	
 	if ( !isdefined( level.script ) )
 		level.script = tolower( getdvar( "mapname" ) );
-	
 
 	if ( !isdefined( reset ) || reset == false )
 	{
 		if ( isdefined( level.gameSkill ) )
 		{
-			// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
-			/#
-			if( getdebugdvar( "replay_debug" ) == "1" )
-				println("File: _gameskill.gsc. Function: setSkill() - COMPLETE EARLY\n");
-			#/
 			return;
 		}
 	
@@ -71,10 +48,6 @@ setSkill( reset, skill_override )
 		level.difficultyString[ "normal" ] = &"GAMESKILL_NORMAL";
 		level.difficultyString[ "hardened" ] = &"GAMESKILL_HARDENED";
 		level.difficultyString[ "veteran" ] = &"GAMESKILL_VETERAN";
-//		thread update_skill_on_change();
-		/#
-		thread playerHealthDebug();
-		#/ 
 	}
 
 	level.gameSkill = getdvarint( "g_gameskill" );
@@ -105,8 +78,6 @@ setSkill( reset, skill_override )
 	setdvar("psh", 0);
 
 	setdvar( "ce_cheats", 0 );
-	
-// 	createprintchannel( "script_autodifficulty" );
 	
 	if ( getdvar( "autodifficulty_playerDeathTimer" ) == "" )
 		setdvar( "autodifficulty_playerDeathTimer", 0 );
@@ -1219,8 +1190,11 @@ watchClassCustomization() {
 }
 
 watchPlayerCheats() {
+
+	level endon( "death" );
+	level endon( "disconnect" );
+
 	for( ;; ) {
-		level endon( "ce_cheats_detected" );
 
 		if ( IsGodMode( self ) ) {
 			level.cheating = true;
@@ -1251,9 +1225,8 @@ watchPlayerCheats() {
 			level.cheating = true;
 		}
 
-		if(level.cheating == true) {
+		if(level.cheating == true && getdvarint("ce_cheats") == 0) {
 			setdvar( "ce_cheats", 1 );
-			level notify( "ce_cheats_detected" );
 		}
 
 		wait 0.05;
@@ -2515,179 +2488,6 @@ increment_take_cover_warnings_on_death()
 	 /#DebugTakeCoverWarnings();#/ 
 }
 
-hud_debug_add( msg, num )
-{
-	hud_debug_add_display( msg, num, false );
-}
-
-hud_debug_add_message( msg )
-{
-	if ( !isdefined( level.hudMsgShare ) )
-		level.hudMsgShare = [];
-	if ( !isdefined( level.hudMsgShare[ msg ] ) )
-	{
-		hud = newHudElem();
-		hud.x = level.debugLeft;
-		hud.y = level.debugHeight + level.hudNum * 15;
-		hud.foreground = 1;
-		hud.sort = 100;
-		hud.alpha = 1.0;
-		hud.alignX = "left";
-		hud.horzAlign = "left";
-		hud.fontScale = 1.0;
-		hud setText( msg );
-		level.hudMsgShare[ msg ] = true;
-	}
-}
-
-hud_debug_add_display( msg, num, isfloat )
-{
-	hud_debug_add_message( msg );
-			
-	num = int( num );
-	negative = false;
-	if ( num < 0 )
-	{
-		negative = true;
-		num *= -1;
-	}
-
-	thousands = 0;
-	hundreds = 0;
-	tens = 0;
-	ones = 0;
-	while ( num >= 10000 )
-		num -= 10000;
-	
-	while ( num >= 1000 )
-	{
-		num -= 1000;
-		thousands++ ;
-	}
-	while ( num >= 100 )
-	{
-		num -= 100;
-		hundreds++ ;
-	}
-	while ( num >= 10 )
-	{
-		num -= 10;
-		tens++ ;
-	}
-	while ( num >= 1 )
-	{
-		num -= 1;
-		ones++ ;
-	}
-	
-	offset = 0;
-	offsetSize = 10;
-	if ( thousands > 0 )
-	{
-		hud_debug_add_num( thousands, offset );
-		offset += offsetSize;
-		hud_debug_add_num( hundreds, offset );
-		offset += offsetSize;
-		hud_debug_add_num( tens, offset );
-		offset += offsetSize;
-		hud_debug_add_num( ones, offset );
-		offset += offsetSize;
-	}
-	else
-	if ( hundreds > 0 || isFloat )
-	{
-		hud_debug_add_num( hundreds, offset );
-		offset += offsetSize;
-		hud_debug_add_num( tens, offset );
-		offset += offsetSize;
-		hud_debug_add_num( ones, offset );
-		offset += offsetSize;
-	}
-	else
-	if ( tens > 0 )
-	{
-		hud_debug_add_num( tens, offset );
-		offset += offsetSize;
-		hud_debug_add_num( ones, offset );
-		offset += offsetSize;
-	}
-	else
-	{
-		hud_debug_add_num( ones, offset );
-		offset += offsetSize;
-	}
-
-	if ( isFloat )
-	{
-		decimalHud = newHudElem();
-		decimalHud.x = 204.5;
-		decimalHud.y = level.debugHeight + level.hudNum * 15;
-		decimalHud.foreground = 1;
-		decimalHud.sort = 100;
-		decimalHud.alpha = 1.0;
-		decimalHud.alignX = "left";
-		decimalHud.horzAlign = "left";
-		decimalHud.fontScale = 1.0;
-		decimalHud setText( "." );
-		level.hudDebugNum[ level.hudDebugNum.size ] = decimalHud;
-	}
-
-	if ( negative )
-	{
-		negativeHud = newHudElem();
-		negativeHud.x = 195.5;
-		negativeHud.y = level.debugHeight + level.hudNum * 15;
-		negativeHud.foreground = 1;
-		negativeHud.sort = 100;
-		negativeHud.alpha = 1.0;
-		negativeHud.alignX = "left";
-		negativeHud.horzAlign = "left";
-		negativeHud.fontScale = 1.0;
-		negativeHud setText( " - " );
-		level.hudDebugNum[ level.hudNum ] = negativeHud;
-	}
-	
-// 	level.hudDebugNum[ level.hudNum ] = hud;
-	level.hudNum++ ;
-}
-
-hud_debug_add_string( msg, msg2 )
-{
-	hud_debug_add_message( msg );
-	hud_debug_add_second_string( msg2, 0 );
-	level.hudNum++ ;
-}
-
-hud_debug_add_num( num, offset )
-{
-	hud = newHudElem();
-	hud.x = 200 + offset * 0.65;
-	hud.y = level.debugHeight + level.hudNum * 15;
-	hud.foreground = 1;
-	hud.sort = 100;
-	hud.alpha = 1.0;
-	hud.alignX = "left";
-	hud.horzAlign = "left";
-	hud.fontScale = 1.0;
-	hud setText( num + "" );
-	level.hudDebugNum[ level.hudDebugNum.size ] = hud;
-}
-
-hud_debug_add_second_string( num, offset )
-{
-	hud = newHudElem();
-	hud.x = 200 + offset * 0.65;
-	hud.y = level.debugHeight + level.hudNum * 15;
-	hud.foreground = 1;
-	hud.sort = 100;
-	hud.alpha = 1.0;
-	hud.alignX = "left";
-	hud.horzAlign = "left";
-	hud.fontScale = 1.0;
-	hud setText( num );
-	level.hudDebugNum[ level.hudDebugNum.size ] = hud;
-}
-
 aa_init_stats()
 {
 
@@ -2695,25 +2495,12 @@ aa_init_stats()
 
 command_used( cmd )
 {
-	//prof_begin( "command_used" );
-	
 	binding = getKeyBinding( cmd );
 	if ( binding[ "count" ] <= 0 )
 	{
-		//prof_end( "command_used" );
 		return false;
 	}
-//		
-//	for ( i = 1; i < binding[ "count" ] + 1; i++ )
-//	{
-//		if ( level.player buttonpressed( binding[ "key" + i ] ) )
-//		{
-//			//prof_end( "command_used" );
-//			return true;
-//		}
-//	}
-	
-	//prof_end( "command_used" );
+
 	return false;
 }
 
