@@ -269,6 +269,9 @@ itemDef { \
 		CHOICE_BUTTON_VIS( 7, "@MENU_OPTIONS_CONTROLS_CAP", open options_new_pc;, when( !localvarBool( ui_hideBack ) ); )
 		CHOICE_BUTTON_VIS( 8, "@MENU_MODS", open mods_menu;, when( !localvarBool( ui_hideBack ) ) )
 		CHOICE_BUTTON_VIS( 9, "@MENU_QUIT", open quit_popmenu, when( !localvarBool( ui_hideBack ) ); )
+		
+		//COLORE SFONDO -> CHOICE_HIGHLIGHT_CUSTOM( 8, 1 0 0 0.5, 1 0 0 0.4, 1 )
+		//IMMAGINE SFONDO -> CHOICE_BUTTON_BG_RAW( 8, "menu_button_backing", BUTTON_BG_COLOR, 1 )
 
 		CHOICE_FOOTNOTE_VIS( "Welcome on Campaign Enhanced \n github.com/Martos/CampaignEnhanced-COD5", 40, 430, when( !localvarBool( ui_hideBack ) ) )
 	}
