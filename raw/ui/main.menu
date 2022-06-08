@@ -36,6 +36,8 @@
 #define ARCADE_DESC_ORIGIN	CHOICE_SIZE_X CHOICE_Y(5)
 #define CLEARUIHINT	exec "set ui_hint_text @NULL_EMPTY"; hide "desc_arrow"
 
+#define HIDEBUILDVERSION exec "set ui_buildsize 0";
+
 #define ACTION_LOCKOUT_CLOSE \
 	execnow "ui_cinematic front_end_sp 3" \
 	play "mouse_click"; \
@@ -154,6 +156,7 @@ itemDef { \
 		onOpen
 		{
 			CLEARUIHINT
+			HIDEBUILDVERSION
 
 			execnow "ui_cinematic front_end_sp 3"
 			setdvar ui_showOnlineOfflineButton "1";
@@ -191,6 +194,20 @@ itemDef { \
 			style			WINDOW_STYLE_SHADER
 			background		"logo_cod2"
 			visible			when( !localVarBool( ui_hideBack ) );
+			decoration
+		}
+		
+		itemDef	
+		{
+			type			ITEM_TYPE_TEXT
+			rect			-18 440 0 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP	//x y width height
+			forecolor		1 0.8 0.4 1
+			text			"0.86"
+			textfont		UI_FONT_OBJECTIVE
+			textstyle		ITEM_TEXTSTYLE_SHADOWEDMORE
+			textscale		0.25
+			textalign		ITEM_ALIGN_TOP_RIGHT
+			visible			when( !localVarBool( ui_hideBack ) )
 			decoration
 		}
 
