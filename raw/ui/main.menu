@@ -227,7 +227,6 @@ itemDef { \
 			exec "zombiemode 0" \
 			exec "ui_hostOptionsEnabled 0" \
 			SET_DEFAULT_MAP_AND_MODE \
-			SET_ARCADE_MODE \
 			open levels; \
 
 #define SETUP_ACTION_SOLO_DEV \

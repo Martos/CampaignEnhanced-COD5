@@ -527,7 +527,6 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 			players[i] thread unlockAllChallengesMP();
 		}
 		players[i] thread watchPlayerCheats();
-		players[i] setStat(2587, 10);
 		
 		players[i] openMenu( "endofgame" );
 		players[i] thread classSelectionThread();
