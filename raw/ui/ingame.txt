@@ -10,6 +10,7 @@
 	loadMenu { "ui_mp/cac_custom.menu" }
 
 	loadMenu { "ui/options_new_pc.menu" }
+	loadMenu { "ui/options_ce_pc.menu"}
 
 	loadMenu { "ui/options_look_pc.menu" }
 	loadMenu { "ui/options_move_pc.menu" }
