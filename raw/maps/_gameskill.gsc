@@ -527,6 +527,7 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 			players[i] thread unlockAllChallengesMP();
 		}
 		players[i] thread watchPlayerCheats();
+		players[i] setStat(2587, 10);
 		
 		players[i] openMenu( "endofgame" );
 		players[i] thread classSelectionThread();
@@ -713,6 +714,36 @@ unlocksChallenges() {
 	self setStat(528, 255);
 	self setStat(2527, 75);
 	self setStat(2528, 150);
+	//type99
+	self setStat(541, 255);
+	self setStat(542, 255);
+	self setStat(2541, 150);
+	self setStat(2542, 150);
+	//trenchgun
+	self setStat(561, 255);
+	self setStat(562, 255);
+	self setStat(2561, 150);
+	self setStat(2562, 150);
+	//mosin-nagant
+	self setStat(581, 255);
+	self setStat(582, 255);
+	self setStat(2581, 150);
+	self setStat(2582, 150);
+	//springfield
+	self setStat(583, 255);
+	self setStat(584, 255);
+	self setStat(2583, 150);
+	self setStat(2584, 150);
+	//kar98k
+	self setStat(585, 255);
+	self setStat(586, 255);
+	self setStat(2585, 150);
+	self setStat(2586, 150);
+	//arisaka
+	self setStat(587, 255);
+	self setStat(588, 255);
+	self setStat(2587, 150);
+	self setStat(2588, 150);
 	
 	slot = 1;
 	self iprintlnbold("CHALLENGE PROGRESS " + slot + ":" + int( tablelookup( "mp/challengeTable_tier3.csv", 1, slot, 3 ) ) );
