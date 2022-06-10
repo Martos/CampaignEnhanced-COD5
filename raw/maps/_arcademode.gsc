@@ -861,130 +861,66 @@ challengeWatcher(hit_location) {
 		return;
 
 	level endon("disconnect");
-
-	switch(self GetCurrentWeapon()) {
-		case "thompson":
-		case "thompson_bigammo":
-		case "thompson_silenced":
-		case "thompson_aperture":
-			currentTierStatCheckKill = self getStat(521);
-			currentTierStatCheckHS = self getStat(522);
-			if(currentTierStatCheckKill == 255)
-				break;
-
-			currentKillStats = self getStat(2521);
-			if(currentKillStats == 150)
-				break;
-
+	
+	weapName = self GetCurrentWeapon();
+	
+	currentTierStatCheckKill = self getStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,2)));
+	currentTierStatCheckHS = self getStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,3)));
+	
+	if(!isdefined(currentTierStatCheckKill))
+		return;
+	
+	//challenge uccisioni
+	if(currentTierStatCheckKill < 255) {
+		currentKillStats = self getStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,4)));
+		if(currentKillStats < int(tablelookup("mp/weaponchallengetable.csv",1,weapName,8))) {
 			currentKillStats = currentKillStats + 1;
-			self setStat(2521, currentKillStats);
-
+			self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,4)), currentKillStats);
 			if(currentKillStats >= 25 && currentTierStatCheckKill == 1) {
 				currentTierStatCheckKill = currentTierStatCheckKill + 1;
 				self thread maps\_challenges_coop::challengeNotify("@"+tablelookup("mp/challengetable_tier2.csv",0,1,8));
-				self setStat(521, currentTierStatCheckKill);
-				self setStat(3010, 196611);
+				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,2)), currentTierStatCheckKill);
+				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,6)), 196611);
 			} else if(currentKillStats >= 75 && currentTierStatCheckKill == 2) {
 				currentTierStatCheckKill = currentTierStatCheckKill + 1;
 				self thread maps\_challenges_coop::challengeNotify("@"+tablelookup("mp/challengetable_tier2.csv",0,2,8));
-				self setStat(521, currentTierStatCheckKill);
-				self setStat(3010, 458759);
+				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,2)), currentTierStatCheckKill);
+				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,6)), 458759);
 			} else if(currentKillStats >= 150 && currentTierStatCheckKill == 3) {
 				currentTierStatCheckKill = 255;
 				self thread maps\_challenges_coop::challengeNotify("@"+tablelookup("mp/challengetable_tier2.csv",0,3,8));
-				self setStat(521, currentTierStatCheckKill);
-				self setStat(3010, 983055);
+				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,2)), currentTierStatCheckKill);
+				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,6)), 983055);
 			}
-
-			if(hit_location != "head")
-				break;
-			if(currentTierStatCheckHS == 255)
-				break;
-			
-			currentKillStatsHS = self getStat(2522);
-			if(currentKillStatsHS == 150)
-				break;
-
+		}
+	}
+	
+	if(!isdefined(currentTierStatCheckHS))
+		return;
+	
+	//challenge headshot
+	if(hit_location != "head")
+		return;
+	
+	if(currentTierStatCheckHS < 255) {
+		currentKillStatsHS = self getStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,5)));
+		if(currentKillStatsHS < int(tablelookup("mp/weaponchallengetable.csv",1,weapName,10))) {
 			currentKillStatsHS = currentKillStatsHS + 1;
-			self setStat(2522, currentKillStatsHS);
-
+			self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,5)), currentKillStatsHS);
 			if(currentKillStatsHS >= 25 && currentTierStatCheckHS == 1) {
 				currentTierStatCheckHS = currentTierStatCheckHS + 1;
 				self thread maps\_challenges_coop::challengeNotify("@"+tablelookup("mp/challengetable_tier2.csv",0,4,8));
-				self setStat(522, currentTierStatCheckHS);
+				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,3)), currentTierStatCheckHS);
 			} else if(currentKillStatsHS >= 75 && currentTierStatCheckHS == 2) {
 				currentTierStatCheckHS = currentTierStatCheckHS + 1;
 				self thread maps\_challenges_coop::challengeNotify("@"+tablelookup("mp/challengetable_tier2.csv",0,5,8));
-				self setStat(522, currentTierStatCheckHS);
+				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,3)), currentTierStatCheckHS);
 			} else if(currentKillStatsHS >= 150 && currentTierStatCheckHS == 3) {
 				currentTierStatCheckHS = 255;
 				self thread maps\_challenges_coop::challengeNotify("@"+tablelookup("mp/challengetable_tier2.csv",0,6,8));
-				self setStat(522, currentTierStatCheckHS);
+				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,3)), currentTierStatCheckHS);
 			}
-
-			break;
-		case "mp40":
-		case "mp40_bigammo":
-		case "mp40_silenced":
-		case "mp40_aperture":
-			currentTierStatCheckKill = self getStat(525);
-			currentTierStatCheckHS = self getStat(526);
-			if(currentTierStatCheckKill == 255)
-				break;
-
-			currentKillStats = self getStat(2525);
-			if(currentKillStats == 150)
-				break;
-
-			currentKillStats = currentKillStats + 1;
-			self setStat(2525, currentKillStats);
-
-			if(currentKillStats >= 25 && currentTierStatCheckKill == 1) {
-				currentTierStatCheckKill = currentTierStatCheckKill + 1;
-				self thread maps\_challenges_coop::challengeNotify("TEST1");
-				self setStat(525, currentTierStatCheckKill);
-				self setStat(3011, 196611);
-			} else if(currentKillStats >= 75 && currentTierStatCheckKill == 2) {
-				currentTierStatCheckKill = currentTierStatCheckKill + 1;
-				self thread maps\_challenges_coop::challengeNotify("TEST2");
-				self setStat(525, currentTierStatCheckKill);
-				self setStat(3011, 458759);
-			} else if(currentKillStats >= 150 && currentTierStatCheckKill == 3) {
-				currentTierStatCheckKill = 255;
-				self thread maps\_challenges_coop::challengeNotify("TEST3");
-				self setStat(525, currentTierStatCheckKill);
-				self setStat(3011, 983055);
-			}
-
-			if(hit_location != "head")
-				break;
-			if(currentTierStatCheckHS == 255)
-				break;
-			
-			currentKillStatsHS = self getStat(2526);
-			if(currentKillStatsHS == 150)
-				break;
-
-			currentKillStatsHS = currentKillStatsHS + 1;
-			self setStat(2526, currentKillStatsHS);
-
-			if(currentKillStatsHS >= 25 && currentTierStatCheckHS == 1) {
-				currentTierStatCheckHS = currentTierStatCheckHS + 1;
-				self thread maps\_challenges_coop::challengeNotify("TEST H1");
-				self setStat(526, currentTierStatCheckHS);
-			} else if(currentKillStatsHS >= 75 && currentTierStatCheckHS == 2) {
-				currentTierStatCheckHS = currentTierStatCheckHS + 1;
-				self thread maps\_challenges_coop::challengeNotify("TEST H2");
-				self setStat(526, currentTierStatCheckHS);
-			} else if(currentKillStatsHS >= 150 && currentTierStatCheckHS == 3) {
-				currentTierStatCheckHS = 255;
-				self thread maps\_challenges_coop::challengeNotify("TEST H3");
-				self setStat(526, currentTierStatCheckHS);
-			}
-
-			break;
-		default:
-			break;
+		}
 	}
 
 }

@@ -1,0 +1,5 @@
+#index,name,tierk,tierh,currentk,currenth,weaponunlock,tiername,maxkill,maxh
+1,thompson,521,522,2521,2522,3010,mp/challengetable_tier2.csv,150,150
+2,thompson_bigammo,521,522,2521,2522,3010,mp/challengetable_tier2.csv,150,150
+3,thompson_silenced,521,522,2521,2522,3010,mp/challengetable_tier2.csv,150,150
+4,thompson_aperture,521,522,2521,2522,3010,mp/challengetable_tier2.csv,150,150

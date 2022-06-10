@@ -1,5 +1,6 @@
 localize,ce,,
 stringtable,mp/challengetable.csv
+stringtable,mp/weaponchallengetable.csv
 rawfile,maps/_load.gsc
 rawfile,maps/_utility.gsc
 rawfile,maps/_loadout.gsc
