@@ -202,7 +202,7 @@ itemDef { \
 			type			ITEM_TYPE_TEXT
 			rect			-18 440 0 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP	//x y width height
 			forecolor		1 0.8 0.4 1
-			text			"0.86"
+			text			CE_VERSION
 			textfont		UI_FONT_OBJECTIVE
 			textstyle		ITEM_TEXTSTYLE_SHADOWEDMORE
 			textscale		0.25

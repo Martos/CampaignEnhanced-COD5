@@ -1,5 +1,3 @@
-#define CE_VERSION				"0.120 - DEV"
-
 #define PLAYERSTATS_WIDTH 		270
 
 #ifdef PC
