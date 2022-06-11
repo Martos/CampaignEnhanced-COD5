@@ -1209,6 +1209,12 @@ watchClassCustomization() {
 					self setStat(primaryWeaponAttachmentOffset, 0);
 				}
 				break;
+			case "shotgun":
+				self setStat(primaryWeaponOffset, 70);
+				break;
+			case "doublebarreledshotgun":
+				self setStat(primaryWeaponOffset, 71);
+				break;
 			case "ptrs41":
 				self setStat(primaryWeaponOffset, 64);
 				self setStat(primaryWeaponAttachmentOffset, 0);

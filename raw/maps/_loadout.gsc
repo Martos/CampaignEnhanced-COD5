@@ -56,7 +56,7 @@ init_loadout()
 	PrecacheItem( "dp28_bipod" );
 	
 	PrecacheItem( "shotgun" );
-	PrecacheItem( "doublebarrel" );
+	PrecacheItem( "doublebarreledshotgun" );
 
 	PrecacheItem( "colt" );
 	PrecacheItem( "nambu" );

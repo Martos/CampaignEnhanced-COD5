@@ -49,7 +49,7 @@ weapon,sp/dp28_bipod
 weapon,sp/dp28_bipod_stand
 weapon,sp/dp28_bipod_prone
 weapon,sp/dp28_bipod_crouch
-weapon,sp/doublebarrel
+weapon,sp/doublebarreledshotgun
 weapon,sp/shotgun
 weapon,sp/nambu
 weapon,sp/walther
@@ -130,6 +130,8 @@ material,weapon_attachment_rg
 material,weapon_attachment_telescopic_german
 material,weapon_attachment_telescopic_russian
 material,weapon_attachment_acog
+material,weapon_attachment_sawoff
+material,weapon_attachment_grip
 material,scorebar_zom_1
 material,specialty_locked
 material,specialty_locked_big
