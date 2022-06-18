@@ -57,6 +57,8 @@ init_loadout()
 	
 	PrecacheItem( "shotgun" );
 	PrecacheItem( "doublebarreledshotgun" );
+	PrecacheItem( "doublebarreledshotgun_grip" );
+	PrecacheItem( "doublebarreledshotgun_sawoff" );
 
 	PrecacheItem( "colt" );
 	PrecacheItem( "nambu" );

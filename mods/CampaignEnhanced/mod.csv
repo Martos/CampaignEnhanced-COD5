@@ -50,6 +50,8 @@ weapon,sp/dp28_bipod_stand
 weapon,sp/dp28_bipod_prone
 weapon,sp/dp28_bipod_crouch
 weapon,sp/doublebarreledshotgun
+weapon,sp/doublebarreledshotgun_grip
+weapon,sp/doublebarreledshotgun_sawoff
 weapon,sp/shotgun
 weapon,sp/nambu
 weapon,sp/walther

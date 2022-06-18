@@ -911,6 +911,18 @@ customClassLogic(offset) {
 			cac_selected_attachment = 0;
 			setdvar("ce_gameskill_weap_attachment", "");
 		}
+	} else if(cac_selected_primary == 71) {
+		switch(cac_selected_attachment) {
+			case 1:
+				setdvar("ce_gameskill_weap_attachment", "grip");
+				break;
+			case 2:
+				setdvar("ce_gameskill_weap_attachment", "sawoff");
+				break;
+			default:
+				setdvar("ce_gameskill_weap_attachment", "");
+				break;
+		}
 	} else {
 		switch(cac_selected_attachment) {
 			case 1:
@@ -1214,6 +1226,13 @@ watchClassCustomization() {
 				break;
 			case "doublebarreledshotgun":
 				self setStat(primaryWeaponOffset, 71);
+				if(primaryAttachment == "grip") {
+					self setStat(primaryWeaponAttachmentOffset, 1);
+				} else if(primaryAttachment == "sawoff") {
+					self setStat(primaryWeaponAttachmentOffset, 2);
+				} else {
+					self setStat(primaryWeaponAttachmentOffset, 0);
+				}
 				break;
 			case "ptrs41":
 				self setStat(primaryWeaponOffset, 64);
