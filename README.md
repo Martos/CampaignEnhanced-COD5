@@ -18,7 +18,7 @@ Campaign Enhanced is a campaign modificator aiming to extend feature of an exist
 - [x] Options page
 - [x] Scoreboard (T4M Feature)
 
-## TODO
+## Next Release
 
 - [ ] Online Cooperative
 
