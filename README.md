@@ -9,24 +9,22 @@ Campaign Enhanced is a campaign modificator aiming to extend feature of an exist
 
 ## Features ![Progress](https://progress-bar.dev/86)
 
-- [x] Multiplayer progression imported in offline campaign
-- [x] Ranks and prestige
+- [x] Multiplayer Ranks and Prestiges
 - [x] Custom class
-- [x] Full customizing of weapons and equipments
 - [x] Multiplayer Challenges
 - [x] Hit marker
-- [x] Multiplayer sound
+- [x] Multiplayer sounds
 - [x] Cheats Detector
 - [x] Options page
-- [x] Single Player Scoreboard (T4M Feature)
+- [x] Scoreboard (T4M Feature)
 
 ## TODO
 
 - [ ] Online Cooperative
 
-## Requirement
+## Requirements
 
-- Call of Duty World at War (Buy from Steam)
+- Call of Duty World at War
 - T4M [download](https://github.com/iAmThatMichael/T4M)
 
 ## In Game Screens
