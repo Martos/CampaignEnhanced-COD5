@@ -28,8 +28,18 @@ Campaign Enhanced is a campaign modificator aiming to extend feature of an exist
 - T4M [download](https://github.com/iAmThatMichael/T4M)
 
 ## In Game Screens
+| <img src="screens/1.png?raw=true" width="800" height="600" /> |
+|:-:|
+| Main Menu |
 
-![Alt text](/screens/1.png?raw=true "Main Menu")
-![Alt text](/screens/2.png?raw=true "Barracks Menu")
-![Alt text](/screens/3.png?raw=true "Custom Class Menu")
-![Alt text](/screens/4.png?raw=true "In Game")
+| <img src="screens/2.png?raw=true" width="800" height="600" /> |
+|:-:|
+| Barracks |
+
+| <img src="screens/3.png?raw=true" width="800" height="600" /> |
+|:-:|
+| Class Selection |
+
+| <img src="screens/4.png?raw=true" width="800" height="600" /> |
+|:-:|
+| In Game |
