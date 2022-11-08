@@ -46,6 +46,7 @@ init_loadout()
 	PrecacheItem( "kar98k" );
 	PrecacheItem( "kar98k_scoped" );
 	PrecacheItem( "kar98k_gl" );
+	PrecacheItem( "kar98k_bayonet" );
 	PrecacheItem( "ptrs41" );
 	
 	PrecacheItem( "bar" );
