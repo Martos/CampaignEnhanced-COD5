@@ -167,6 +167,10 @@ itemDef { \
 			setdvar allow_zombies_german 0
 #endif // #if GERMAN_ZOMBIE_BUILD
 
+			//Force write to config file
+			exec "seta ce_welcome 1";
+			exec "seta ce_welcome 0";
+
 			uiScript openmenuondvar ui_sp_unlock 1 "popmenu_sp_unlock";
 			uiScript openmenuondvar ce_welcome 1 "popmenu_ce_welcome";
 			uiScript openmenuondvar ui_unlock_report 1 "popup_unlock";
@@ -616,9 +620,9 @@ itemDef { \
 			onClose{ exec "set ce_welcome 0";  }
 			onOpen{ exec "set ce_welcome 0";  }
 
-		CHOICE_POPMENU_TITLE( "Welcome on Campaign Enhanced (BETA)" )
+		CHOICE_POPMENU_TITLE( "Welcome on Campaign Enhanced" )
 
-		CHOICE_POPMENU_SUBTITLE( "Enjoy the new experience of Call of Duty World at War Campaign! \n Report any bug and issues on my github page. \n Enjoy and stay tuned for new updates." )
+		CHOICE_POPMENU_SUBTITLE( "Enjoy the new experience of Call of Duty World at War Campaign! \n Report any bug and issues on github page. \n Enjoy and stay tuned for new updates." )
 
 		CHOICE_BUTTON( 3, "@MENU_OK", close self;)
 	}
