@@ -43,6 +43,7 @@ init_loadout()
 	PrecacheItem( "type99rifle_scoped" );
 	PrecacheItem( "mosinrifle" );
 	PrecacheItem( "mosinrifle_scoped" );
+	PrecacheItem( "mosinrifle_bayonet" );
 	PrecacheItem( "kar98k" );
 	PrecacheItem( "kar98k_scoped" );
 	PrecacheItem( "kar98k_gl" );
