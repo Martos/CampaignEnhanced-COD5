@@ -622,7 +622,7 @@ itemDef { \
 
 		CHOICE_POPMENU_TITLE( "Welcome on Campaign Enhanced" )
 
-		CHOICE_POPMENU_SUBTITLE( "Enjoy the new experience of Call of Duty World at War Campaign! \n Report any bug and issues on github page. \n Enjoy and stay tuned for new updates." )
+		CHOICE_POPMENU_SUBTITLE( "Enjoy the new experience of Call of Duty World at War Campaign! \n Report any bug and issues on github page. \n Stay tuned for new updates." )
 
 		CHOICE_BUTTON( 3, "@MENU_OK", close self;)
 	}
