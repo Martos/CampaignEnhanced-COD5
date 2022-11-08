@@ -40,6 +40,19 @@
 ;--------------------------------
 ;Installer Sections
 
+Section "T4M" SecT4m
+
+  SectionIn RO
+  ReadRegStr $0 HKLM "SOFTWARE\WOW6432Node\Activision\Call of Duty WAW" "installpath"
+  ${If} $0 == ""
+    MessageBox MB_ICONINFORMATION "Not valid Call of Duty World at War installation find. $\r$\nPlease install T4M manually"
+  ${Else}
+    SetOutPath "$0"
+    File /nonfatal /a /r "d3d9.dll"
+  ${EndIf}
+
+SectionEnd
+
 Section "Campaign Enhanced" SecDummy
 
   StrCpy $InstDirB "$LOCALAPPDATA\Activision\CodWaW\mods\CampaignEnhanced"
@@ -54,10 +67,12 @@ SectionEnd
 
   ;Language strings
   LangString DESC_SecDummy ${LANG_ENGLISH} "Mod files"
+  LangString DESC_SecT4m ${LANG_ENGLISH} "T4M Support"
 
   ;Assign language strings to sections
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
     !insertmacro MUI_DESCRIPTION_TEXT ${SecDummy} $(DESC_SecDummy)
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecT4m} $(DESC_SecT4m)
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 ;--------------------------------
