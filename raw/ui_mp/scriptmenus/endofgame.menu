@@ -71,6 +71,7 @@
 		onOpen
 		{ 
 			//STAT_UPDATE
+			setdvar ui_customclass_selected_name "Default";
 		}
 		onClose
 		{
@@ -101,10 +102,10 @@
 			rect			ORIGIN_STATUS 0 0
 			origin			0 0
 			forecolor		MENU_FONT_COLOR2
-			text			"@MENU_UNTIL_MATCH_BEGIN"
+			exp				text( dvarString( ui_customclass_selected_name ) )
 			textfont		UI_FONT_NORMAL
 			textscale		TEXTSIZE_SMALL
-			visible 		when ( 0 );
+			visible 		when ( 1 );
 			decoration
 		}
 		itemDef
@@ -113,12 +114,12 @@
 			type			ITEM_TYPE_TEXT
 			visible			0
 			rect			ORIGIN_STATUS 0 0
-			origin			-40 0
+			origin			-85 0
 			forecolor		MENU_FONT_COLOR2
-			exp				text( secondsAsCountdown( timeLeft() ) );
+			exp				text( "Class selected:" );
 			textfont		UI_FONT_NORMAL
 			textscale		TEXTSIZE_SMALL
-			visible 		when ( 0 );
+			visible 		when ( 1 );
 			decoration
 		}	
 		
@@ -143,7 +144,7 @@
 		
 		#define SETUP_ACTION_PRESTIGEMODE \
 			open prestige_reset1
-				
+			
 		CHOICE_BUTTON_VIS( 1, "@MPUI_CHOOSE_CLASS", SETUP_ACTION_CHANGECLASS, when( !localvarBool( ui_hideBack ) ) )
 		CHOICE_BUTTON_FOCUS_VIS_ADV( 2, "@MPUI_CREATE_A_CLASS", SETUP_ACTION_CREATEACLASS, exec "set ui_hint_text @MPUI_DESC_CREATE_A_CLASS", CLEARUIHINT, when( !localvarBool( ui_hideBack ) && stat( 260 ) >= 1 ), !localvarBool( ui_hideBack ) && stat( 260 ) >= 1 )
 		CHOICE_BUTTON_FOCUS_VIS_NOHI( 2, "", ;, exec "set ui_hint_text @MPUI_DESC_CREATE_A_CLASS_LOCKED", CLEARUIHINT, when(!localvarBool( ui_hideBack ) && stat( 260 ) < 1 ) )
