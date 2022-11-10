@@ -1,0 +1,9 @@
+# C.E Scripts Lists
+
+rawfile,maps/_load.gsc
+rawfile,maps/_utility.gsc
+rawfile,maps/_loadout.gsc
+rawfile,maps/_gameskill.gsc
+rawfile,maps/_challenges_coop.gsc
+rawfile,maps/_arcademode.gsc
+rawfile,maps/_damagefeedback.gsc
