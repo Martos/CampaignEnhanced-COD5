@@ -496,9 +496,6 @@ apply_difficulty_frac_with_func( difficulty_func, current_frac )
 	//prof_end( "apply_difficulty_frac_with_func" );
 }
 
-
-
-
 apply_threat_bias_to_all_players(difficulty_func, current_frac)
 {
 	game["endofgame"] = "endofgame";
@@ -523,9 +520,10 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		setdvar("ui_customclass_selected", "999");
 		setdvar("ui_showEndOfGame", "1");
 		
-		if(getdvarint("developer") == 2) {
-			players[i] thread unlockAllChallengesMP();
-		}
+		/#
+		players[i] thread unlockAllChallengesMP();
+		#/
+		
 		players[i] thread watchPlayerCheats();
 		
 		players[i] openMenu( "endofgame" );
@@ -1067,6 +1065,16 @@ watchClassCustomization() {
 				}
 				else if(primaryAttachment == "bigammo") {
 					self setStat(primaryWeaponAttachmentOffset, 3);
+				} else {
+					self setStat(primaryWeaponAttachmentOffset, 0);
+				}
+				break;
+			case "type99lmg":
+				self setStat(primaryWeaponOffset, 80);
+				if(primaryAttachment == "bipod") {
+					self setStat(primaryWeaponAttachmentOffset, 1);
+				} else if(primaryAttachment == "bayonet") {
+					self setStat(primaryWeaponAttachmentOffset, 2);
 				} else {
 					self setStat(primaryWeaponAttachmentOffset, 0);
 				}
@@ -1982,7 +1990,6 @@ reduceTakeCoverWarnings()
 		{
 			takeCoverWarnings -- ;
 			setdvar( "takeCoverWarnings", takeCoverWarnings );
-			 /#DebugTakeCoverWarnings();#/ 
 		}
 	}
 	
@@ -2513,7 +2520,6 @@ setTakeCoverWarnings()
 		// takeCoverWarnings is 3 more than the number of warnings we want to occur.
 		setdvar( "takeCoverWarnings", 3 + 6 );
 	}
-	 /#DebugTakeCoverWarnings();#/ 
 }
 
 increment_take_cover_warnings_on_death()
@@ -2540,7 +2546,6 @@ increment_take_cover_warnings_on_death()
 	warnings = getdvarint( "takeCoverWarnings" );
 	if ( warnings < 10 )
 		setdvar( "takeCoverWarnings", warnings + 1 );
-	 /#DebugTakeCoverWarnings();#/ 
 }
 
 aa_init_stats()
