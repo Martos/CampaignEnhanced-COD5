@@ -14,10 +14,15 @@ init_loadout()
 	PrecacheItem( "ppsh_single" );
 	PrecacheItem( "ppsh_aperture" );
 	PrecacheItem( "type100smg" );
+	PrecacheItem( "type100_smg" );
+	PrecacheItem( "type100smg_aperture" );
+	PrecacheItem( "type100smg_bigammo" );
+	PrecacheItem( "type100smg_silenced" );
 	
 	PrecacheItem( "m1carbine" );
 	PrecacheItem( "m1carbine_flash" );
 	PrecacheItem( "m1carbine_aperture" );
+	PrecacheItem( "m1carbine_bayonet" );
 	PrecacheItem( "svt40" );
 	PrecacheItem( "svt40_aperture" );
 	PrecacheItem( "svt40_telescopic" );
@@ -39,11 +44,13 @@ init_loadout()
 	PrecacheItem( "m1garand_gl" );
 	PrecacheItem( "m1garand_bayonet" );
 	PrecacheItem( "m1garand_scoped" );
+	PrecacheItem( "m1garand_flash" );
 	PrecacheItem( "type99rifle" );
 	PrecacheItem( "type99rifle_scoped" );
 	PrecacheItem( "mosinrifle" );
 	PrecacheItem( "mosinrifle_scoped" );
 	PrecacheItem( "mosinrifle_bayonet" );
+	PrecacheItem( "mosinrifle_gl" );
 	PrecacheItem( "kar98k" );
 	PrecacheItem( "kar98k_scoped" );
 	PrecacheItem( "kar98k_gl" );
