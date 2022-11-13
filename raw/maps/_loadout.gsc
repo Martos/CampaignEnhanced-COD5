@@ -65,6 +65,7 @@ init_loadout()
 	PrecacheItem( "dp28" );
 	PrecacheItem( "dp28_bipod" );
 	PrecacheItem( "type99lmg" );
+	PrecacheItem( "type99lmg_bipod" );
 	
 	PrecacheItem( "shotgun" );
 	PrecacheItem( "doublebarreledshotgun" );
