@@ -55,6 +55,10 @@ weapon,sp/ray_gun
 weapon,sp/type99rifle
 weapon,sp/type99rifle_scoped
 weapon,sp/type99lmg
+weapon,sp/type99lmg_bipod
+weapon,sp/type99lmg_bipod_crouch
+weapon,sp/type99lmg_bipod_prone
+weapon,sp/type99lmg_bipod_stand
 weapon,sp/mosinrifle
 weapon,sp/mosinrifle_scoped
 weapon,sp/mosinrifle_bayonet
