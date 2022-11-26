@@ -178,15 +178,9 @@
 			origin			-12 6
 			background		"ui_arrow_right"
 			forecolor		1 1 1 0.3
-			visible			when( !dvarBool(ui_hide_desc) );
+			visible			when( 0 );
 			decoration
-		}
-		
-		LOCAL_DESC( 1 )     	LOCAL_DESC2( 1 )               
-		LOCAL_DESC( 2 )     	LOCAL_DESC2( 2 )               
-		LOCAL_DESC( 3 )     	LOCAL_DESC2( 3 )               
-		LOCAL_DESC( 4 )     	LOCAL_DESC2( 4 )               
-		LOCAL_DESC( 5 )     	LOCAL_DESC2( 5 )               
+		}            
 		
 		CHOICE_BUTTON_FOCUS_VIS( 1, LOCAL_NAME(1), LOCAL_TIER_ACTION( "1", "270" ), SHOW_DESC(1), HIDE_DESC(1), when( stat(270) > 0 ); )
 		CHOICE_BUTTON_FOCUS_VIS_NOHI( 1, "", ;, SHOW_DESC2(1); execNow "set ui_current_challenge_stat 270", HIDE_DESC2(1); execNow "set ui_current_challenge_stat 0", when( stat(270) == 0 ); )
@@ -291,7 +285,7 @@
 		/*mainframe*/	PREPROC_SHADER_DRAW( RECT_TIER_FRAME, 0 0, "line_horizontal", 0.267 0.271 0.278 1, 0, 0, 1 1 1 1 )
 		/*listbox*/		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X, ORIGIN_LIST_BOX_Y, WIDTH_LIST_BOX, HEIGHT_LIST_BOX, "gradient_center", 0 0 0 0.88, WINDOW_BORDER_SUNKEN, BORDER_SIZE_TIER_FRAME, BORDER_COLOR_TIER_FRAME )
 		/*infobox*/		PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X, ORIGIN_INFO_BOX_Y, WIDTH_INFO_BOX, HEIGHT_INFO_BOX, "gradient_center", 0 0 0 0.55, WINDOW_BORDER_SUNKEN, BORDER_SIZE_TIER_FRAME, BORDER_COLOR_TIER_FRAME )
-		/*title*/		PREPROC_TEXT_DRAW_ADV( ORIGIN_INFO_BOX_X, ORIGIN_INFO_BOX_Y-2, WIDTH_INFO_BOX, 40,  exp text( "@"+tablelookup("mp/challengetable.csv",0,dvarString( ui_tier_num ),2)  ), TEXTSIZE_DEFAULT, 0, -6, ITEM_ALIGN_CENTER, LABEL_TEXT_COLOR )
+		/*title*/		PREPROC_TEXT_DRAW_ADV( ORIGIN_INFO_BOX_X, ORIGIN_INFO_BOX_Y-2, WIDTH_INFO_BOX, 40,  exp text( "@"+tablelookup("mp/challengeTable.csv",0,dvarString( ui_tier_num ),1) ), TEXTSIZE_DEFAULT, 0, -6, ITEM_ALIGN_CENTER, LABEL_TEXT_COLOR )
 		
 		// ------ CHALLENGE ITEM NAME ------
 		#define PQ_NAME_IDX(pslot_s) \
