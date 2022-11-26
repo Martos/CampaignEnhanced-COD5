@@ -80,6 +80,9 @@ init_loadout()
 	PrecacheItem( "357magnum" );
 
 	PrecacheItem( "ray_gun" );
+	
+	PrecacheItem( "tabun_gas" );
+	PrecacheItem( "signal_flare" );
 
 	// MikeD (7/30/2007): New method of precaching/giving weapons.
 	// Set the level variables.

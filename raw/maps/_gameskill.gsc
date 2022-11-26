@@ -756,6 +756,38 @@ customClassLogic(offset) {
 	self TakeAllWeapons();
 	
 	cac_selected_primary = self getStat(offset + 201);
+	cac_primary_grenade = self getStat(offset + 200);
+	cac_special_grenade = self getStat(offset + 208);
+
+	switch(cac_primary_grenade) {
+		case 100:
+			setdvar("ce_gameskill_primary_grenade", "fraggrenade");
+			break;
+		case 101:
+			setdvar("ce_gameskill_primary_grenade", "molotov");
+			break;
+		case 104:
+			setdvar("ce_gameskill_primary_grenade", "stick_grenade");
+			break;
+		default:
+			setdvar("ce_gameskill_primary_grenade", "fraggrenade");
+			break;
+	}
+
+	switch(cac_special_grenade) {
+		case 102:
+			setdvar("ce_gameskill_special_grenade", "m8_white_smoke");
+			break;
+		case 103:
+			setdvar("ce_gameskill_special_grenade", "tabun_gas");
+			break;
+		case 105:
+			setdvar("ce_gameskill_special_grenade", "signal_flare");
+			break;
+		default:
+			setdvar("ce_gameskill_special_grenade", "m8_white_smoke");
+			break;
+	}
 	
 	if(cac_selected_primary == 12) {
 		setdvar("ce_gameskill_weap_test", "type100_smg");
@@ -944,6 +976,8 @@ customClassLogic(offset) {
 	
 	primaryWeaponString = getdvar("ce_gameskill_weap_test");
 	secondaryWeaponString = getdvar("ce_gameskill_weap_secondary");
+	primaryGrenadeString = getdvar("ce_gameskill_primary_grenade");
+	specialGrenadeString = getdvar("ce_gameskill_special_grenade");
 	
 	if(getdvar("ce_gameskill_weap_attachment") != "") {
 		primaryWeaponString = primaryWeaponString + "_" + getdvar("ce_gameskill_weap_attachment");
@@ -951,6 +985,8 @@ customClassLogic(offset) {
 	self iprintlnbold(cac_selected_primary + "-" + cac_selected_attachment + "(" + primaryWeaponString + ")");
 	self GiveWeapon(primaryWeaponString);
 	self GiveWeapon(secondaryWeaponString);
+	self GiveWeapon(primaryGrenadeString);
+	self GiveWeapon(specialGrenadeString);
 	self GiveMaxAmmo(primaryWeaponString);
 	self SwitchToWeapon(primaryWeaponString);
 }
@@ -1003,10 +1039,14 @@ watchClassCustomization() {
 		primaryWeapon = getdvar("ce_weap_sel");
 		primaryAttachment = getdvar("ce_cac_primary_attachment");
 		sideWeapon = getdvar("ce_side_sel");
+		primaryGrenade = getdvar("ce_pg_sel");
+		specialGrenade = getdvar("ce_sp_sel");
 		
 		primaryWeaponOffset = (getdvarint("ce_cac_selected") - 300) + 201;
 		primaryWeaponAttachmentOffset = (getdvarint("ce_cac_selected") - 300) + 202;
 		sideWeaponOffset = (getdvarint("ce_cac_selected") - 300) + 203;
+		primaryGrenadeOffset = (getdvarint("ce_cac_selected") - 300) + 200;
+		specialGrenadeOffset = (getdvarint("ce_cac_selected") - 300) + 208;
 
 		switch(sideWeapon) {
 			case "colt":
@@ -1023,6 +1063,30 @@ watchClassCustomization() {
 				break;
 			case "357magnum":
 				self setStat(sideWeaponOffset, 4);
+				break;
+		}
+
+		switch(primaryGrenade) {
+			case "molotov":
+				self setStat(primaryGrenadeOffset, 101);
+				break;
+			case "frag_grenade":
+				self setStat(primaryGrenadeOffset, 100);
+				break;
+			case "sticky_grenade":
+				self setStat(primaryGrenadeOffset, 104);
+				break;
+		}
+
+		switch(specialGrenade) {
+			case "m8_white_smoke":
+				self setStat(specialGrenadeOffset, 102);
+				break;
+			case "tabun_gas":
+				self setStat(specialGrenadeOffset, 103);
+				break;
+			case "signal_flare":
+				self setStat(specialGrenadeOffset, 105);
 				break;
 		}
 		

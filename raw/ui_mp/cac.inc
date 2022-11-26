@@ -784,13 +784,13 @@
 		PREPROC_TEXT_DRAW_ALIGNED_EXP( LOADOUT_DESC_X LOADOUT_DESC_Y (LOADOUT_WIDTH-30) 20 LOADOUT_ALIGN, ORIGIN_LOADOUT, "@"+tablelookup("mp/statsTable.csv",4,dvarString(highlight_dvar),7), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_LEFT, CHOICE_TEXTCOLOR visible when( stat(int(tablelookup("mp/statsTable.csv",4,dvarString(highlight_dvar),1))) & 1 ); )\
 		PREPROC_TEXT_DRAW_ALIGNED_EXP( LOADOUT_DESC_X LOADOUT_DESC_Y (LOADOUT_WIDTH-30) 20 LOADOUT_ALIGN, ORIGIN_LOADOUT, "@"+tablelookup("mp/statsTable.csv",4,dvarString(highlight_dvar),10), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_LEFT, COLOR_RED_TEXT visible when( ( stat(int(tablelookup("mp/statsTable.csv",4,dvarString(highlight_dvar),1))) & 1 ) == 0 ); )\
 		
-	#define LOCAL_PGRENADE_ACTION( pstat ) \
+	#define LOCAL_PGRENADE_ACTION( pstat, weaponRef ) \
 			play "mouse_click"; \
-			statsetusingtable( CAC_PRIMARY_GRENADE, pstat ); \
+			setDvar ce_pg_sel weaponRef; \
 			close "popup_cac_pgrenade"
 		
 	#define LOCAL_PGRENADE_ITEM( itemNum, weaponName, weaponStat, weaponRef, highlight_dvar )\
-		CHOICE_BUTTON_FOCUS_VIS( itemNum, weaponName, LOCAL_PGRENADE_ACTION( weaponStat ), execnow "set "highlight_dvar" "weaponRef, CLEAR_WEAP_NEW( weaponRef );, \
+		CHOICE_BUTTON_FOCUS_VIS( itemNum, weaponName, LOCAL_PGRENADE_ACTION( weaponStat, weaponRef ), execnow "set "highlight_dvar" "weaponRef, CLEAR_WEAP_NEW( weaponRef );, \
 		when( stat( int(weaponStat)+3000 ) & 1) ) \
 		\
 		CHOICE_BUTTON_FOCUS_VIS_NOHI( itemNum, "", ;, execnow "set "highlight_dvar" "weaponRef, ;, when( ( stat(int(weaponStat)+3000) & 1 ) == 0 ); ) \
@@ -832,9 +832,7 @@
 
 	#define LOCAL_SGRENADE_ACTION( weaponRef ) \
 			play "mouse_click"; \
-			/*statSetUsingTable( CAC_SPECIAL_GRENADE, pstat );*/ \
-			setdvar test_sg weaponRef; \
-			ScriptMenuResponse ""; \
+			setDvar ce_sp_sel weaponRef; \
 			close "popup_cac_sgrenade"
 		
 	#define LOCAL_SGRENADE_ITEM( itemNum, weaponName, weaponStat, weaponRef, highlight_dvar )\
