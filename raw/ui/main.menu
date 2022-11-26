@@ -626,6 +626,17 @@ itemDef { \
 
 		CHOICE_BUTTON( 3, "@MENU_OK", close self;)
 	}
+
+	menuDef
+	{
+		CENTER_POPUP_SETUP_ONOPEN( popmenu_ce_patchnotes, 3, ;, ;, 1 )
+
+		CHOICE_POPMENU_TITLE( "Campaign Enhanced Patch Notes" )
+
+		CHOICE_POPMENU_SUBTITLE("Coming soon..")
+
+		CHOICE_BUTTON( 3, "@MENU_OK", close self;)
+	}
 	
 	#undef CHOICE_SIZE_X
 	#define CHOICE_SIZE_X			180
