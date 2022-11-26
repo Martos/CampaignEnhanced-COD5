@@ -7,7 +7,7 @@
 
 Campaign Enhanced is a campaign modificator aiming to extend feature of an existing campaign experience with new funzionality, making a new gameplay experience
 
-## Features ![Progress](https://progress-bar.dev/86)
+## Features ![Progress](https://progress-bar.dev/90)
 
 - [x] Multiplayer Ranks and Prestiges
 - [x] Custom class
