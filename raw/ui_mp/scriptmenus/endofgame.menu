@@ -59,6 +59,7 @@
 */
 
 #define ORIGIN_STATUS			390 20
+#define CUSTOM_CLASS_LOCKED_DESC	305 32
 #define MENU_FONT_COLOR2		1 1 1 0.75
 
 {
@@ -110,6 +111,19 @@
 		}
 		itemDef
 		{
+			type			ITEM_TYPE_TEXT
+			visible			0
+			rect			CUSTOM_CLASS_LOCKED_DESC 0 0
+			origin			0 0
+			forecolor		MENU_FONT_COLOR2
+			exp				text( "Custom Class available at Lv 4" )
+			textfont		UI_FONT_NORMAL
+			textscale		TEXTSIZE_SMALL
+			visible 		when ( stat(252) < 3 );
+			decoration
+		}
+		itemDef
+		{
 			name			intermission_timer_countdown
 			type			ITEM_TYPE_TEXT
 			visible			0
@@ -145,7 +159,9 @@
 		#define SETUP_ACTION_PRESTIGEMODE \
 			open prestige_reset1
 			
-		CHOICE_BUTTON_VIS( 1, "@MPUI_CHOOSE_CLASS", SETUP_ACTION_CHANGECLASS, when( !localvarBool( ui_hideBack ) ) )
+		CHOICE_BUTTON_VIS( 1, "@MPUI_CHOOSE_CLASS", SETUP_ACTION_CHANGECLASS, when( !localvarBool( ui_hideBack ) && stat(252) > 2 ) )
+		CHOICE_DBUTTON_VIS( 1, "@MPUI_CHOOSE_CLASS", when( !localvarBool( ui_hideBack ) && stat(252) < 3 ) )
+
 		CHOICE_BUTTON_FOCUS_VIS_ADV( 2, "@MPUI_CREATE_A_CLASS", SETUP_ACTION_CREATEACLASS, exec "set ui_hint_text @MPUI_DESC_CREATE_A_CLASS", CLEARUIHINT, when( !localvarBool( ui_hideBack ) && stat( 260 ) >= 1 ), !localvarBool( ui_hideBack ) && stat( 260 ) >= 1 )
 		CHOICE_BUTTON_FOCUS_VIS_NOHI( 2, "", ;, exec "set ui_hint_text @MPUI_DESC_CREATE_A_CLASS_LOCKED", CLEARUIHINT, when(!localvarBool( ui_hideBack ) && stat( 260 ) < 1 ) )
 		CHOICE_DBUTTON_VIS( 2, "@MPUI_CREATE_A_CLASS", when( !localvarBool( ui_hideBack ) && stat( 260 ) < 1 ) )
