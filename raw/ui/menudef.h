@@ -74,6 +74,7 @@
 
 //#define COLOR_TITLE			1 0.8 0.4 1
 #define COLOR_TITLE			1 1 1 1
+#define CE_COLOR_TITLE		1 0.8 0.4 1
 #define COLOR_HEADER		0.69 0.69 0.69 1
 #define COLOR_FOCUSED		0.95294 0.72156 0.21176 1 //1 0.788 0.129 1
 //#define COLOR_FOCUS_YELLOW	0.95294 0.72156 0.21176 1
@@ -140,4 +141,4 @@
 
 #define CAN_RANK_UP	(stat(252) < MAX_RANK || stat(2326) < MAX_PRESTIGE)
 
-#define CE_VERSION "0.90.0245"
+#define CE_VERSION "0.91.0278"

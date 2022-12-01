@@ -438,6 +438,26 @@
 			visible			1 \
 			decoration \
 		}
+
+#define CHOICE_MENU_CE_TITLE( titleArg ) \
+		/* white bar backing */ \
+		TITLE_STRIP \
+		itemDef \
+		{ \
+			type			ITEM_TYPE_TEXT \
+			rect			22 5 100 100 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_TOP \
+			origin			ORIGIN_TITLE \
+			forecolor		CE_COLOR_TITLE \
+			exp				text( titleArg ) \
+			textfont		UI_FONT_OBJECTIVE \
+			textscale		TEXTSIZE_TITLE \
+			textstyle		CHOICE_TEXTSTYLE \
+			textalign		ITEM_ALIGN_TOP_LEFT \
+			textaligny		TITLE_Y_OFFSET \
+			textalignx		TITLE_X_OFFSET \
+			visible			1 \
+			decoration \
+		}
 		
 #define CHOICE_MENU_TITLE_VIS( titleArg, visArg ) \
 		itemDef \

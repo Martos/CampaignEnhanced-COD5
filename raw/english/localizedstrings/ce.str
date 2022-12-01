@@ -1,0 +1,41 @@
+VERSION             "1"
+CONFIG              "C:\cod5\cod\cod5\bin\StringEd.cfg"
+FILENOTES           ""
+
+REFERENCE           ASSAULT
+LANG_ENGLISH        "RIFLES"
+
+REFERENCE           SMG
+LANG_ENGLISH        "SUBMACHINE GUNS"
+
+REFERENCE           LMG
+LANG_ENGLISH        "MACHINE GUNS"
+
+REFERENCE           SHOTGUNS
+LANG_ENGLISH        "SHOTGUNS"
+
+REFERENCE           SNIPER
+LANG_ENGLISH        "BOLT ACTION RIFLES"
+
+REFERENCE			CE_CLASS_SELECTED
+LANG_ENGLISH		"Class selected: "
+
+REFERENCE			CE_TITLE
+LANG_ENGLISH		"Campaign Enhanced"
+
+REFERENCE			MOTD
+LANG_ENGLISH		"Welcome on Campaign Enhanced \n github.com/Martos/CampaignEnhanced-COD5 for updates!"
+
+REFERENCE			WELCOME_DIALOG
+LANG_ENGLISH		"Enjoy the new experience of Call of Duty World at War Campaign! \n Report any bug and issues on github page. \n Stay tuned for new updates."
+
+REFERENCE			WELCOME_DIALOG_TITLE
+LANG_ENGLISH		"Welcome on Campaign Enhanced"
+
+REFERENCE			PATCH_NOTES_TITLE
+LANG_ENGLISH		"Campaign Enhanced Patch Notes"
+
+REFERENCE			PATCH_NOTES
+LANG_ENGLISH		"Coming soon..."
+
+ENDMARKER

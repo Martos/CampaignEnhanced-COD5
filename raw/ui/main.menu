@@ -186,10 +186,11 @@ itemDef { \
 		}
 		// background
 		#include "ui/bg.inc"
+		#include "ui/ce_playerlist.inc"
 
 		//MESSAGES OF THE DAYS
 		//#include "ui/info_box.inc"
-		CHOICE_MENU_TITLE( "CAMPAIGN ENHANCED" )
+		CHOICE_MENU_TITLE( "@CE_CE_TITLE" )
 
 		itemDef
 		{
@@ -293,7 +294,7 @@ itemDef { \
 		//COLORE SFONDO -> CHOICE_HIGHLIGHT_CUSTOM( 8, 1 0 0 0.5, 1 0 0 0.4, 1 )
 		//IMMAGINE SFONDO -> CHOICE_BUTTON_BG_RAW( 8, "menu_button_backing", BUTTON_BG_COLOR, 1 )
 
-		CHOICE_FOOTNOTE_VIS( "Welcome on Campaign Enhanced \n github.com/Martos/CampaignEnhanced-COD5", 40, 430, when( !localvarBool( ui_hideBack ) ) )
+		CHOICE_FOOTNOTE_VIS( "@CE_MOTD", 40, 430, when( !localvarBool( ui_hideBack ) ) )
 	}
 
 	menuDef
@@ -620,9 +621,9 @@ itemDef { \
 			onClose{ exec "set ce_welcome 0";  }
 			onOpen{ exec "set ce_welcome 0";  }
 
-		CHOICE_POPMENU_TITLE( "Welcome on Campaign Enhanced" )
+		CHOICE_POPMENU_TITLE( "@CE_WELCOME_DIALOG_TITLE" )
 
-		CHOICE_POPMENU_SUBTITLE( "Enjoy the new experience of Call of Duty World at War Campaign! \n Report any bug and issues on github page. \n Stay tuned for new updates." )
+		CHOICE_POPMENU_SUBTITLE( "@CE_WELCOME_DIALOG" )
 
 		CHOICE_BUTTON( 3, "@MENU_OK", close self;)
 	}
@@ -631,9 +632,9 @@ itemDef { \
 	{
 		CENTER_POPUP_SETUP_ONOPEN( popmenu_ce_patchnotes, 3, ;, ;, 1 )
 
-		CHOICE_POPMENU_TITLE( "Campaign Enhanced Patch Notes" )
+		CHOICE_POPMENU_TITLE( "@CE_PATCH_NOTES_TITLE" )
 
-		CHOICE_POPMENU_SUBTITLE("Coming soon..")
+		CHOICE_POPMENU_SUBTITLE( "@CE_PATCH_NOTES" )
 
 		CHOICE_BUTTON( 3, "@MENU_OK", close self;)
 	}
