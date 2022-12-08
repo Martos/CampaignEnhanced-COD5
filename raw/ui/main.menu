@@ -190,7 +190,9 @@ itemDef { \
 
 		//MESSAGES OF THE DAYS
 		//#include "ui/info_box.inc"
-		CHOICE_MENU_TITLE( "@CE_CE_TITLE" )
+		CHOICE_MENU_CE_TITLE( "@CE_CE_TITLE" )
+		
+		#include "ui/xpbar.inc"
 
 		itemDef
 		{

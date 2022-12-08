@@ -64,11 +64,12 @@
 
 		//#ifdef PC_INGAME
 		
-		CHOICE_DVARYESNO( 22, "Disable XP Bar", ui_ce_hide_xpBar, setLocalVarBool ui_showApply 1; )
-		CHOICE_DVARYESNO( 23, "Disable Hit Marker", ui_ce_hide_marker, setLocalVarBool ui_showApply 1; )
-		CHOICE_DVARYESNO( 24, "Hide score hud", ui_ce_hide_score_hud, setLocalVarBool ui_showApply 1; )
+		CHOICE_DVARYESNO( 22, "Disable XP Bar", ui_ce_hide_xpBar, ; )
+		CHOICE_DVARYESNO( 23, "Disable Hit Marker", ui_ce_hide_marker, ; )
+		CHOICE_DVARYESNO( 24, "Hide score hud", ui_ce_hide_score_hud, ; )
 		CHOICE_DVARSLIDER( 25, "Fov", cg_fov, 65, 65, 90, ; )
-		CHOICE_BUTTON_VIS( 27, "Patch Notes", open popmenu_ce_patchnotes;, when( 1 ); )
+		CHOICE_DVARYESNO( 26, "Enable console HUD", ui_ce_xenon_hud, ; )
+		CHOICE_BUTTON_VIS( 30, "Patch Notes", open popmenu_ce_patchnotes;, when( 1 ); )
 		
 		//#endif
 		
@@ -98,6 +99,8 @@
 				exec "seta ui_ce_hide_marker 0";
 				exec "seta ui_ce_hide_score_hud 1";
 				exec "seta ui_ce_hide_score_hud 0";
+				exec "seta ui_ce_xenon_hud 1";
+				exec "seta ui_ce_xenon_hud 0";
 				//*******************
 				
 				execOnDvarIntValue ui_ce_hide_xpBar 0 "seta ui_ce_hide_xpBar 0";
@@ -107,7 +110,10 @@
 				execOnDvarIntValue ui_ce_hide_marker 1 "seta ui_ce_hide_marker 1";
 				
 				execOnDvarIntValue ui_ce_hide_score_hud 0 "seta ui_ce_hide_score_hud 0";
-				execOnDvarIntValue ui_ce_hide_score_hud 1 "seta ui_ce_hide_score_hud 1";	
+				execOnDvarIntValue ui_ce_hide_score_hud 1 "seta ui_ce_hide_score_hud 1";
+				
+				execOnDvarIntValue ui_ce_xenon_hud 0 "seta ui_ce_xenon_hud 0";
+				execOnDvarIntValue ui_ce_xenon_hud 1 "seta ui_ce_xenon_hud 1";
 				
 				//open vid_restart_popmenu
 			}	
