@@ -3,6 +3,27 @@
 #include common_scripts\utility;
 #include maps\_hud_util;
 
+adjust_xenon_hud()
+{
+	if( getdvar("ui_ce_xenon_hud") != "1" )
+		return;
+	
+	switch(getdvar("r_mode")) {
+		case "1024x768":
+			setdvar( "xenon_compass_x", "15" );
+			setdvar( "xenon_compass_y", "185" );
+			setdvar( "xenon_weapinfo_x", "28" );
+			setdvar( "xenon_weapinfo_y", "45" );
+			break;
+		default:
+			setdvar( "xenon_compass_x", "30" );
+			setdvar( "xenon_compass_y", "125" );
+			setdvar( "xenon_weapinfo_x", "0" );
+			setdvar( "xenon_weapinfo_y", "0" );
+			break;
+	}
+}
+
 // this script handles all major global gameskill considerations
 setSkill( reset, skill_override )
 {	
@@ -515,14 +536,14 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 	players = get_players();
 	for( i = 0; i < players.size; i++ )
 	{
+		players[i] adjust_xenon_hud();
+	
 		players[i].threatbias = int( [[ difficulty_func ]]( "threatbias", current_frac ) );
 		setdvar("ui_cac_ingame", "1");
 		setdvar("ui_customclass_selected", "999");
 		setdvar("ui_showEndOfGame", "1");
 		
-		/#
 		players[i] thread unlockAllChallengesMP();
-		#/
 		
 		players[i] thread watchPlayerCheats();
 		

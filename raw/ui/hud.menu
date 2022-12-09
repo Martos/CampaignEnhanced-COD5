@@ -640,11 +640,9 @@ menuDef
  	   	fullScreen MENU_FALSE
 		//visible 0
  	   	visible when  ( dvarBool( compass ) && !issplitscreen() && !dvarBool( cl_paused ) && !ui_active() && dvarint( ui_hud_hardcore )==0 );
-#ifdef PC
 		rect -15 -145 COMPASS_SIZE COMPASS_SIZE HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
-#else
-		rect -40 -140 COMPASS_SIZE COMPASS_SIZE HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
-#endif
+		exp rect X( dvarInt(xenon_compass_x) )
+		exp rect Y( -dvarInt(xenon_compass_y) )
 
 // MikeD (10/16/2007): New RoundCompass
 		itemDef
@@ -1233,7 +1231,9 @@ menuDef
 		rect			BOTTOM_RECT_X -8 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
 		fullScreen		0
 		visible 		when( !ui_active() && !dvarInt("ce_cheats") && !dvarInt("ui_ce_hide_xpBar") )
-
+		
+		#include "ui/xpbar.inc"
+		/*
 		itemDef
 		{
 			style			WINDOW_STYLE_SHADER
@@ -1308,5 +1308,6 @@ menuDef
 			visible			0
 			decoration
 		}
+		*/
 	}
 }

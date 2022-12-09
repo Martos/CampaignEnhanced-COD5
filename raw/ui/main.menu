@@ -170,6 +170,11 @@ itemDef { \
 			//Force write to config file
 			exec "seta ce_welcome 1";
 			exec "seta ce_welcome 0";
+			
+			exec "seta xenon_compass_y 125"
+			exec "seta xenon_compass_x 30"
+			exec "seta xenon_weapinfo_x 0"
+			exec "seta xenon_weapinfo_y 0"
 
 			uiScript openmenuondvar ui_sp_unlock 1 "popmenu_sp_unlock";
 			uiScript openmenuondvar ce_welcome 1 "popmenu_ce_welcome";
@@ -192,7 +197,7 @@ itemDef { \
 		//#include "ui/info_box.inc"
 		CHOICE_MENU_CE_TITLE( "@CE_CE_TITLE" )
 		
-		#include "ui/xpbar.inc"
+		//#include "ui/xpbar.inc"
 
 		itemDef
 		{
