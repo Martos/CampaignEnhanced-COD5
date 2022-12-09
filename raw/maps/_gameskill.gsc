@@ -9,17 +9,32 @@ adjust_xenon_hud()
 		return;
 	
 	switch(getdvar("r_mode")) {
+		case "640x480":
+		case "800x600":
 		case "1024x768":
+		case "1152x864":
 			setdvar( "xenon_compass_x", "15" );
 			setdvar( "xenon_compass_y", "185" );
 			setdvar( "xenon_weapinfo_x", "28" );
 			setdvar( "xenon_weapinfo_y", "45" );
+			setdvar( "xenon_xpbar_thiker_x", "57" );
+			setdvar( "xenon_xpbar_thiker_wide_x", "64" );
+			break;
+		case "1920x1080":
+			setdvar( "xenon_compass_x", "15" );
+			setdvar( "xenon_compass_y", "185" );
+			setdvar( "xenon_weapinfo_x", "28" );
+			setdvar( "xenon_weapinfo_y", "45" );
+			setdvar( "xenon_xpbar_thiker_x", "57" );
+			setdvar( "xenon_xpbar_thiker_wide_x", "77" );
 			break;
 		default:
 			setdvar( "xenon_compass_x", "30" );
 			setdvar( "xenon_compass_y", "125" );
 			setdvar( "xenon_weapinfo_x", "0" );
 			setdvar( "xenon_weapinfo_y", "0" );
+			setdvar( "xenon_xpbar_thiker_x", "64" );
+			setdvar( "xenon_xpbar_thiker_wide_x", "85" );
 			break;
 	}
 }

@@ -383,12 +383,14 @@ menuDef
 #else
 #define WEAPINFO_X -150
 #endif
-#define WEAPINFO_Y -70	
+#define WEAPINFO_Y -70
 
 	menuDef
 	{
 		name			"weaponinfo"
 		rect			0 0 0 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_BOTTOM
+		exp				rect X(-dvarInt(xenon_weapinfo_x))
+		exp				rect Y(-dvarInt(xenon_weapinfo_y))
 		fullScreen		0
 		visible when ( !SUBTITLES_ACTIVE && CHAPLIN_CHEAT_OFF && dvarBool( ammoCounterHide ) == 0 && dvarBool( hud_missionFailed ) == 0 && !flashbanged() && !ui_active() && dvarint( ui_hud_hardcore ) == 0 );
 
