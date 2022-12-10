@@ -20,7 +20,7 @@
 			origin			0 0 \
 			background		"hud_xpticker480" \
 			forecolor		1 1 1 HUD_FOREGROUND_ALPHA \
-			visible			when( !dvarInt( "wideScreen" ) ); \
+			visible			when( !dvarInt( "wideScreen" ) && !dvarbool("ui_ce_xenon_hud") ); \
 			decoration \
 		} \
 		itemDef \
@@ -30,7 +30,7 @@
 			origin			0 0 \
 			background		"hud_xpticker480ws" \
 			forecolor		1 1 1 HUD_FOREGROUND_ALPHA \
-			visible			when( dvarInt( "wideScreen" ) ); \
+			visible			when( dvarInt( "wideScreen" ) && !dvarbool("ui_ce_xenon_hud") ); \
 			decoration \
 		}
 
@@ -1235,7 +1235,7 @@ menuDef
 		visible 		when( !ui_active() && !dvarInt("ce_cheats") && !dvarInt("ui_ce_hide_xpBar") )
 		
 		#include "ui/xpbar.inc"
-		/*
+
 		itemDef
 		{
 			style			WINDOW_STYLE_SHADER
@@ -1243,7 +1243,7 @@ menuDef
 			origin			0 0
 			background		"white"
 			forecolor		0 0 0 0.25
-			visible			when( !dvarInt( "wideScreen" ) );
+			visible			when( !dvarInt( "wideScreen" ) && !dvarbool("ui_ce_xenon_hud") );
 			decoration
 		}
 		itemDef
@@ -1254,7 +1254,7 @@ menuDef
 			origin			0 0
 			background		"scorebar_fadein"
 			forecolor		1 0.8 0.4 HUD_ALPHA
-			visible			when( !dvarInt( "wideScreen" ) );
+			visible			when( !dvarInt( "wideScreen" ) && !dvarbool("ui_ce_xenon_hud") );
 			decoration
 		}
 		itemDef
@@ -1264,7 +1264,7 @@ menuDef
 			origin			0 0
 			background		"white"
 			forecolor		0 0 0 0.25
-			visible			when( dvarInt( "wideScreen" ) );
+			visible			when( dvarInt( "wideScreen" ) && !dvarbool("ui_ce_xenon_hud") );
 			decoration
 		}
 		itemDef
@@ -1275,7 +1275,7 @@ menuDef
 			origin			0 0
 			background		"scorebar_fadein"
 			forecolor		1 0.8 0.4 HUD_FOREGROUND_ALPHA
-			visible			when( dvarInt( "wideScreen" ) );
+			visible			when( dvarInt( "wideScreen" ) && !dvarbool("ui_ce_xenon_hud") );
 			decoration
 		}
 
@@ -1310,6 +1310,5 @@ menuDef
 			visible			0
 			decoration
 		}
-		*/
 	}
 }

@@ -2,7 +2,7 @@
 #define SAFEAREA_X_OFFSET 40
 #define SAFEAREA_Y_OFFSET 40
 
-#define XPBAR_WIDTH 4
+#define XPBAR_WIDTH 6
 #define XPBAR_ALPHA 0.65
 
 #define XPBAR_BACK_COLOR 0 0 0 0.25
@@ -87,8 +87,8 @@ itemDef
 	rect			0 -200 540 4 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
 	exp				rect W( 541 * ((stat(2301)-stat(2351))/(stat(2352)-stat(2351))) );
 	exp				rect X(SAFEAREA_X_OFFSET)
-	exp 			rect Y(-SAFEAREA_Y_OFFSET)
-	exp				rect H(XPBAR_WIDTH)
+	exp 			rect Y( (-SAFEAREA_Y_OFFSET) + (1) )
+	exp				rect H(XPBAR_WIDTH-2)
 	origin			0 0
 	background		"scorebar_fadein"
 	forecolor		1 0.8 0.4 XPBAR_ALPHA
@@ -116,8 +116,8 @@ itemDef
 	rect			0 -200 540 4 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
 	exp				rect W( 743 * ((stat(2301)-stat(2351))/(stat(2352)-stat(2351))) );
 	exp				rect X(SAFEAREA_X_OFFSET)
-	exp 			rect Y(-SAFEAREA_Y_OFFSET)
-	exp				rect H(XPBAR_WIDTH)
+	exp 			rect Y( (-SAFEAREA_Y_OFFSET) + (1) )
+	exp				rect H(XPBAR_WIDTH-2)
 	origin			0 0
 	background		"scorebar_fadein"
 	forecolor		1 0.8 0.4 XPBAR_ALPHA
@@ -145,8 +145,8 @@ itemDef
 	rect			0 -200 540 4 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
 	exp				rect W( 746.2 * ((stat(2301)-stat(2351))/(stat(2352)-stat(2351))) );
 	exp				rect X(SAFEAREA_X_OFFSET)
-	exp 			rect Y(-SAFEAREA_Y_OFFSET)
-	exp				rect H(XPBAR_WIDTH)
+	exp 			rect Y( (-SAFEAREA_Y_OFFSET) + (1) )
+	exp				rect H(XPBAR_WIDTH-2)
 	origin			0 0
 	background		"scorebar_fadein"
 	forecolor		1 0.8 0.4 XPBAR_ALPHA
@@ -174,8 +174,8 @@ itemDef
 	rect			0 -200 540 4 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
 	exp				rect W( 695 * ((stat(2301)-stat(2351))/(stat(2352)-stat(2351))) );
 	exp				rect X(SAFEAREA_X_OFFSET)
-	exp 			rect Y(-SAFEAREA_Y_OFFSET)
-	exp				rect H(XPBAR_WIDTH)
+	exp 			rect Y( (-SAFEAREA_Y_OFFSET) + (1) )
+	exp				rect H(XPBAR_WIDTH-2)
 	origin			0 0
 	background		"scorebar_fadein"
 	forecolor		1 0.8 0.4 XPBAR_ALPHA
@@ -203,8 +203,8 @@ itemDef
 	rect			0 -200 540 4 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
 	exp				rect W( 747 * ((stat(2301)-stat(2351))/(stat(2352)-stat(2351))) );
 	exp				rect X(SAFEAREA_X_OFFSET)
-	exp 			rect Y(-SAFEAREA_Y_OFFSET)
-	exp				rect H(XPBAR_WIDTH)
+	exp 			rect Y( (-SAFEAREA_Y_OFFSET) + (1) )
+	exp				rect H(XPBAR_WIDTH-2)
 	origin			0 0
 	background		"scorebar_fadein"
 	forecolor		1 0.8 0.4 XPBAR_ALPHA
@@ -232,8 +232,8 @@ itemDef
 	rect			0 -200 540 4 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
 	exp				rect W( 746 * ((stat(2301)-stat(2351))/(stat(2352)-stat(2351))) );
 	exp				rect X(SAFEAREA_X_OFFSET)
-	exp 			rect Y(-SAFEAREA_Y_OFFSET)
-	exp				rect H(XPBAR_WIDTH)
+	exp 			rect Y( (-SAFEAREA_Y_OFFSET) + (1) )
+	exp				rect H(XPBAR_WIDTH-2)
 	origin			0 0
 	background		"scorebar_fadein"
 	forecolor		1 0.8 0.4 XPBAR_ALPHA
@@ -261,8 +261,8 @@ itemDef
 	rect			0 -200 540 4 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
 	exp				rect W( 746 * ((stat(2301)-stat(2351))/(stat(2352)-stat(2351))) );
 	exp				rect X(SAFEAREA_X_OFFSET)
-	exp 			rect Y(-SAFEAREA_Y_OFFSET)
-	exp				rect H(XPBAR_WIDTH)
+	exp 			rect Y( (-SAFEAREA_Y_OFFSET) + (1) )
+	exp				rect H(XPBAR_WIDTH-2)
 	origin			0 0
 	background		"scorebar_fadein"
 	forecolor		1 0.8 0.4 XPBAR_ALPHA
