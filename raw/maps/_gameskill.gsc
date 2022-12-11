@@ -19,6 +19,37 @@ adjust_xenon_hud()
 			setdvar( "xenon_weapinfo_y", "45" );
 			setdvar( "xenon_xpbar_thiker_x", "57" );
 			setdvar( "xenon_xpbar_thiker_wide_x", "64" );
+
+			setdvar( "xenon_xpbar_back_w", "560" );
+			setdvar( "xenon_xpbar_back_wide_w", "560" );
+			setdvar( "xenon_xpbar_front_w", "541" );
+			setdvar( "xenon_xpbar_front_wide_w", "541" );
+			break;
+		case "1280x800":
+			setdvar( "xenon_compass_x", "15" );
+			setdvar( "xenon_compass_y", "185" );
+			setdvar( "xenon_weapinfo_x", "28" );
+			setdvar( "xenon_weapinfo_y", "45" );
+			setdvar( "xenon_xpbar_thiker_x", "57" );
+			setdvar( "xenon_xpbar_thiker_wide_x", "86" );
+
+			setdvar( "xenon_xpbar_back_w", "560" );
+			setdvar( "xenon_xpbar_back_wide_w", "688" );
+			setdvar( "xenon_xpbar_front_w", "541" );
+			setdvar( "xenon_xpbar_front_wide_w", "664" );
+			break;
+		case "1366x768":
+			setdvar( "xenon_compass_x", "15" );
+			setdvar( "xenon_compass_y", "185" );
+			setdvar( "xenon_weapinfo_x", "28" );
+			setdvar( "xenon_weapinfo_y", "45" );
+			setdvar( "xenon_xpbar_thiker_x", "57" );
+			setdvar( "xenon_xpbar_thiker_wide_x", "86" );
+
+			setdvar( "xenon_xpbar_back_w", "560" );
+			setdvar( "xenon_xpbar_back_wide_w", "774" );
+			setdvar( "xenon_xpbar_front_w", "541" );
+			setdvar( "xenon_xpbar_front_wide_w", "744" );
 			break;
 		case "1920x1080":
 			setdvar( "xenon_compass_x", "15" );
@@ -27,6 +58,11 @@ adjust_xenon_hud()
 			setdvar( "xenon_weapinfo_y", "45" );
 			setdvar( "xenon_xpbar_thiker_x", "57" );
 			setdvar( "xenon_xpbar_thiker_wide_x", "77" );
+
+			setdvar( "xenon_xpbar_back_w", "773.5" );
+			setdvar( "xenon_xpbar_back_wide_w", "773.5" );
+			setdvar( "xenon_xpbar_front_w", "746" );
+			setdvar( "xenon_xpbar_front_wide_w", "746" );
 			break;
 		default:
 			setdvar( "xenon_compass_x", "30" );
@@ -35,6 +71,11 @@ adjust_xenon_hud()
 			setdvar( "xenon_weapinfo_y", "0" );
 			setdvar( "xenon_xpbar_thiker_x", "64" );
 			setdvar( "xenon_xpbar_thiker_wide_x", "85" );
+
+			setdvar( "xenon_xpbar_back_w", "560" );
+			setdvar( "xenon_xpbar_back_wide_w", "560" );
+			setdvar( "xenon_xpbar_front_w", "541" );
+			setdvar( "xenon_xpbar_front_wide_w", "541" );
 			break;
 	}
 }
