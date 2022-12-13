@@ -24,7 +24,7 @@ REFERENCE			CE_TITLE
 LANG_ENGLISH		"Campaign Enhanced"
 
 REFERENCE			MOTD
-LANG_ENGLISH		"Welcome on Campaign Enhanced \n github.com/Martos/CampaignEnhanced-COD5 for updates!"
+LANG_ENGLISH		"Welcome on Campaign Enhanced \n github.com/Martos/CampaignEnhanced-COD5"
 
 REFERENCE			WELCOME_DIALOG
 LANG_ENGLISH		"Enjoy the new experience of Call of Duty World at War Campaign! \n Report any bug and issues on github page. \n Stay tuned for new updates."
@@ -37,5 +37,17 @@ LANG_ENGLISH		"Campaign Enhanced Patch Notes"
 
 REFERENCE			PATCH_NOTES
 LANG_ENGLISH		"Coming soon..."
+
+REFERENCE			1X_XP_RATE
+LANG_ENGLISH		"x1 XP"
+
+REFERENCE			2X_XP_RATE
+LANG_ENGLISH		"x2 XP"
+
+REFERENCE			3X_XP_RATE
+LANG_ENGLISH		"x3 XP"
+
+REFERENCE			4X_XP_RATE
+LANG_ENGLISH		"x4 XP"
 
 ENDMARKER
