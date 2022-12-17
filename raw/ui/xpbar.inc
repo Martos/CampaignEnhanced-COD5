@@ -46,7 +46,7 @@
 			origin			0 0 \
 			background		"hud_xpticker480" \
 			forecolor		1 1 1 0.75 \
-			visible			when( !dvarInt( "wideScreen" ) && dvarString("r_mode") == "1366x768" ); \
+			visible			when( !dvarInt( "wideScreen" ) && ( dvarString("r_mode") == "1366x768" || dvarString("r_mode") == "1024x768" ) ); \
 			decoration \
 		} \
 		itemDef \
@@ -58,7 +58,7 @@
 			origin			0 0 \
 			background		"hud_xpticker480ws" \
 			forecolor		1 1 1 0.75 \
-			visible			when( dvarInt( "wideScreen" ) && dvarString("r_mode") == "1366x768" ); \
+			visible			when( dvarInt( "wideScreen" ) && ( dvarString("r_mode") == "1366x768" || dvarString("r_mode") == "1024x768" ) ); \
 			decoration \
 		}
 

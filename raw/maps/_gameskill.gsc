@@ -17,7 +17,7 @@ adjust_xenon_hud()
 			setdvar( "xenon_compass_y", "185" );
 			setdvar( "xenon_weapinfo_x", "28" );
 			setdvar( "xenon_weapinfo_y", "45" );
-			setdvar( "xenon_xpbar_thiker_x", "57" );
+			setdvar( "xenon_xpbar_thiker_x", "56" );
 			setdvar( "xenon_xpbar_thiker_wide_x", "64" );
 
 			setdvar( "xenon_xpbar_back_w", "560" );
@@ -599,7 +599,7 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		setdvar("ui_customclass_selected", "999");
 		setdvar("ui_showEndOfGame", "1");
 		
-		players[i] thread unlockAllChallengesMP();
+		//players[i] thread unlockAllChallengesMP();
 		
 		players[i] thread watchPlayerCheats();
 		
@@ -669,7 +669,7 @@ profileStatsReset(currentPrestige) {
 	
 	self setStat(2301, 0);
 	self setStat(252, 0);
-	self setStat(2351, 30);
+	self setStat(2351, 0);
 	self setStat(2352, 30);
 	
 	self setStat(2326, currentPrestige);
