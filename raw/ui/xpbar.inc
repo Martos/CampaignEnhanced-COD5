@@ -46,7 +46,8 @@
 			origin			0 0 \
 			background		"hud_xpticker480" \
 			forecolor		1 1 1 0.75 \
-			visible			when( !dvarInt( "wideScreen" ) && ( dvarString("r_mode") == "1366x768" || dvarString("r_mode") == "1024x768" ) ); \
+			visible			when( !dvarInt( "wideScreen" ) && ( dvarString("r_mode") == "1366x768" \
+									|| dvarString("r_mode") == "640x480" || dvarString("r_mode") == "800x600" || dvarString("r_mode") == "1024x768" ) ); \
 			decoration \
 		} \
 		itemDef \
@@ -58,7 +59,8 @@
 			origin			0 0 \
 			background		"hud_xpticker480ws" \
 			forecolor		1 1 1 0.75 \
-			visible			when( dvarInt( "wideScreen" ) && ( dvarString("r_mode") == "1366x768" || dvarString("r_mode") == "1024x768" ) ); \
+			visible			when( dvarInt( "wideScreen" ) && ( dvarString("r_mode") == "1366x768" \
+									|| dvarString("r_mode") == "640x480" || dvarString("r_mode") == "800x600" || dvarString("r_mode") == "1024x768" ) ); \
 			decoration \
 		}
 
@@ -161,3 +163,4 @@ HUD_TICKER_XENON( 6 )
 HUD_TICKER_XENON( 7 )
 
 HUD_TICKER_XENON_EXTRA( 8 )
+HUD_TICKER_XENON_EXTRA( 9 )
