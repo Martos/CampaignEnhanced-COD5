@@ -13,25 +13,47 @@ adjust_xenon_hud()
 		case "800x600":
 		case "1024x768":
 		case "1152x864":
+		case "1280x960":
+		case "1400x1050":
+		case "1440x1080":
 			setdvar( "xenon_compass_x", "15" );
 			setdvar( "xenon_compass_y", "185" );
 			setdvar( "xenon_weapinfo_x", "28" );
 			setdvar( "xenon_weapinfo_y", "45" );
+			
 			setdvar( "xenon_xpbar_thiker_x", "56" );
 			setdvar( "xenon_xpbar_thiker_wide_x", "64" );
+			setdvar( "xenon_xpbar_thiker_extra", "2");
 
 			setdvar( "xenon_xpbar_back_w", "560" );
 			setdvar( "xenon_xpbar_back_wide_w", "560" );
 			setdvar( "xenon_xpbar_front_w", "541" );
 			setdvar( "xenon_xpbar_front_wide_w", "541" );
 			break;
+		case "1280x720":
+			setdvar( "xenon_compass_x", "15" );
+			setdvar( "xenon_compass_y", "185" );
+			setdvar( "xenon_weapinfo_x", "28" );
+			setdvar( "xenon_weapinfo_y", "45" );
+			
+			setdvar( "xenon_xpbar_thiker_x", "57" );
+			setdvar( "xenon_xpbar_thiker_wide_x", "86" );
+			setdvar( "xenon_xpbar_thiker_extra", "2");
+
+			setdvar( "xenon_xpbar_back_w", "560" );
+			setdvar( "xenon_xpbar_back_wide_w", "688" );
+			setdvar( "xenon_xpbar_front_w", "541" );
+			setdvar( "xenon_xpbar_front_wide_w", "664" );
+			break;
 		case "1280x800":
 			setdvar( "xenon_compass_x", "15" );
 			setdvar( "xenon_compass_y", "185" );
 			setdvar( "xenon_weapinfo_x", "28" );
 			setdvar( "xenon_weapinfo_y", "45" );
+			
 			setdvar( "xenon_xpbar_thiker_x", "57" );
 			setdvar( "xenon_xpbar_thiker_wide_x", "86" );
+			setdvar( "xenon_xpbar_thiker_extra", "2");
 
 			setdvar( "xenon_xpbar_back_w", "560" );
 			setdvar( "xenon_xpbar_back_wide_w", "688" );
@@ -43,8 +65,10 @@ adjust_xenon_hud()
 			setdvar( "xenon_compass_y", "185" );
 			setdvar( "xenon_weapinfo_x", "28" );
 			setdvar( "xenon_weapinfo_y", "45" );
+			
 			setdvar( "xenon_xpbar_thiker_x", "57" );
 			setdvar( "xenon_xpbar_thiker_wide_x", "86" );
+			setdvar( "xenon_xpbar_thiker_extra", "1");
 
 			setdvar( "xenon_xpbar_back_w", "560" );
 			setdvar( "xenon_xpbar_back_wide_w", "774" );
@@ -56,8 +80,10 @@ adjust_xenon_hud()
 			setdvar( "xenon_compass_y", "185" );
 			setdvar( "xenon_weapinfo_x", "28" );
 			setdvar( "xenon_weapinfo_y", "45" );
+			
 			setdvar( "xenon_xpbar_thiker_x", "57" );
 			setdvar( "xenon_xpbar_thiker_wide_x", "77" );
+			setdvar( "xenon_xpbar_thiker_extra", "2");
 
 			setdvar( "xenon_xpbar_back_w", "773.5" );
 			setdvar( "xenon_xpbar_back_wide_w", "773.5" );
@@ -69,8 +95,10 @@ adjust_xenon_hud()
 			setdvar( "xenon_compass_y", "125" );
 			setdvar( "xenon_weapinfo_x", "0" );
 			setdvar( "xenon_weapinfo_y", "0" );
+			
 			setdvar( "xenon_xpbar_thiker_x", "64" );
 			setdvar( "xenon_xpbar_thiker_wide_x", "85" );
+			setdvar( "xenon_xpbar_thiker_extra", "2");
 
 			setdvar( "xenon_xpbar_back_w", "560" );
 			setdvar( "xenon_xpbar_back_wide_w", "560" );
@@ -607,6 +635,22 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		players[i] thread classSelectionThread();
 		
 		players[i] thread MenuResponses();
+		
+		players[i] thread TimePlayed();
+	}
+}
+
+TimePlayed()
+{
+	self endon("disconnect");
+	
+	while(1)
+	{
+		wait(1);
+		self maps\_challenges_coop::statAdd("time_played_total", 1);
+		
+		secondsPlayed = self maps\_challenges_coop::statGet("time_played_total");
+		self setStat(2311, secondsPlayed);
 	}
 }
 
