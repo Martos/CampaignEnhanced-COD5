@@ -36,7 +36,7 @@
 			decoration \
 		}
 
-#define HUD_TICKER_XENON_EXTRA( segID ) \
+#define HUD_TICKER_XENON_EXTRA_1( segID ) \
 		itemDef \
 		{ \
 			style			WINDOW_STYLE_SHADER \
@@ -46,8 +46,7 @@
 			origin			0 0 \
 			background		"hud_xpticker480" \
 			forecolor		1 1 1 0.75 \
-			visible			when( !dvarInt( "wideScreen" ) && ( dvarString("r_mode") == "1366x768" \
-									|| dvarString("r_mode") == "640x480" || dvarString("r_mode") == "800x600" || dvarString("r_mode") == "1024x768" ) ); \
+			visible			when( !dvarInt( "wideScreen" ) && ( dvarInt("xenon_xpbar_thiker_extra") >= 1 && dvarInt("xenon_xpbar_thiker_extra") != 0 ) ); \
 			decoration \
 		} \
 		itemDef \
@@ -59,10 +58,61 @@
 			origin			0 0 \
 			background		"hud_xpticker480ws" \
 			forecolor		1 1 1 0.75 \
-			visible			when( dvarInt( "wideScreen" ) && ( dvarString("r_mode") == "1366x768" \
-									|| dvarString("r_mode") == "640x480" || dvarString("r_mode") == "800x600" || dvarString("r_mode") == "1024x768" ) ); \
+			visible			when( dvarInt( "wideScreen" ) && ( dvarInt("xenon_xpbar_thiker_extra") >= 1 && dvarInt("xenon_xpbar_thiker_extra") != 0 ) ); \
 			decoration \
 		}
+		
+#define HUD_TICKER_XENON_EXTRA_2( segID ) \
+		itemDef \
+		{ \
+			style			WINDOW_STYLE_SHADER \
+			rect			TICKER_WIDTH_XENON( segID ) \
+			exp				rect X(SAFEAREA_X_OFFSET + segID*dvarInt("xenon_xpbar_thiker_x")) \
+			exp 			rect Y(-SAFEAREA_Y_OFFSET) \
+			origin			0 0 \
+			background		"hud_xpticker480" \
+			forecolor		1 1 1 0.75 \
+			visible			when( !dvarInt( "wideScreen" ) && ( dvarInt("xenon_xpbar_thiker_extra") <= 2 && dvarInt("xenon_xpbar_thiker_extra") != 0 ) ); \
+			decoration \
+		} \
+		itemDef \
+		{ \
+			style			WINDOW_STYLE_SHADER \
+			rect			TICKER_WIDTH_WS_XENON( segID ) \
+			exp				rect X(SAFEAREA_X_OFFSET + (segID*dvarInt("xenon_xpbar_thiker_wide_x"))) \
+			exp 			rect Y(-SAFEAREA_Y_OFFSET) \
+			origin			0 0 \
+			background		"hud_xpticker480ws" \
+			forecolor		1 1 1 0.75 \
+			visible			when( dvarInt( "wideScreen" ) && ( dvarInt("xenon_xpbar_thiker_extra") <= 2 && dvarInt("xenon_xpbar_thiker_extra") != 0 ) ); \
+			decoration \
+		}		
+		
+#define HUD_TICKER_XENON_EXTRA_3( segID ) \
+		itemDef \
+		{ \
+			style			WINDOW_STYLE_SHADER \
+			rect			TICKER_WIDTH_XENON( segID ) \
+			exp				rect X(SAFEAREA_X_OFFSET + segID*dvarInt("xenon_xpbar_thiker_x")) \
+			exp 			rect Y(-SAFEAREA_Y_OFFSET) \
+			origin			0 0 \
+			background		"hud_xpticker480" \
+			forecolor		1 1 1 0.75 \
+			visible			when( !dvarInt( "wideScreen" ) && ( dvarInt("xenon_xpbar_thiker_extra") > 2 && dvarInt("xenon_xpbar_thiker_extra") != 0 ) ); \
+			decoration \
+		} \
+		itemDef \
+		{ \
+			style			WINDOW_STYLE_SHADER \
+			rect			TICKER_WIDTH_WS_XENON( segID ) \
+			exp				rect X(SAFEAREA_X_OFFSET + (segID*dvarInt("xenon_xpbar_thiker_wide_x"))) \
+			exp 			rect Y(-SAFEAREA_Y_OFFSET) \
+			origin			0 0 \
+			background		"hud_xpticker480ws" \
+			forecolor		1 1 1 0.75 \
+			visible			when( dvarInt( "wideScreen" ) && ( dvarInt("xenon_xpbar_thiker_extra") > 2 && dvarInt("xenon_xpbar_thiker_extra") != 0 ) ); \
+			decoration \
+		}		
 
 //bottom
 itemDef
@@ -162,5 +212,6 @@ HUD_TICKER_XENON( 5 )
 HUD_TICKER_XENON( 6 )
 HUD_TICKER_XENON( 7 )
 
-HUD_TICKER_XENON_EXTRA( 8 )
-HUD_TICKER_XENON_EXTRA( 9 )
+HUD_TICKER_XENON_EXTRA_1( 8 )
+HUD_TICKER_XENON_EXTRA_2( 9 )
+HUD_TICKER_XENON_EXTRA_3( 10 )
