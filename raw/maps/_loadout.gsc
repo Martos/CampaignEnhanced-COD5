@@ -47,6 +47,7 @@ init_loadout()
 	PrecacheItem( "m1garand_flash" );
 	PrecacheItem( "type99rifle" );
 	PrecacheItem( "type99rifle_scoped" );
+	PrecacheItem( "type99rifle_bayonet" );
 	PrecacheItem( "mosinrifle" );
 	PrecacheItem( "mosinrifle_scoped" );
 	PrecacheItem( "mosinrifle_bayonet" );
