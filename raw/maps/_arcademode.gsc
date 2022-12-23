@@ -866,6 +866,9 @@ challengeWatcher(hit_location) {
 	
 	currentTierStatCheckKill = self getStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,2)));
 	currentTierStatCheckHS = self getStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,3)));
+	
+	maxKillChallenge = int(tablelookup("mp/weaponchallengetable.csv",1,weapName,8));
+	maxHsChallenge = int(tablelookup("mp/weaponchallengetable.csv",1,weapName,9));
 
 	challengesSummary = getDvarInt("psc");
 	if(!challengesSummary) {
@@ -875,7 +878,186 @@ challengeWatcher(hit_location) {
 	if(!isdefined(currentTierStatCheckKill))
 		return;
 	
+	if(!isdefined(maxKillChallenge))
+		return;
+
+	//Kills challenges
+	switch(currentTierStatCheckKill) {
+		case 1:
+			self iPrintLn("TIER 1");
+			targetKill = int(tablelookup("mp/weaponchallengetable.csv",1,weapName,10));
+			currentKillStats = self getStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,4)));
+
+			if(targetKill == 0)
+				break;
+
+			if(currentKillStats < targetKill) {
+				currentKillStats += 1;
+				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,4)), currentKillStats);
+				if(currentKillStats >= targetKill) {
+					currentTierStatCheckKill += 1;
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_"+tablelookup("mp/challengetable_tier2.csv",0,1,8));
+					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,2)), currentTierStatCheckKill);
+					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,6)), 196611);
+					self thread updatePlusScoreHUD( 100 );
+					challengesSummary += 100;
+				}
+			}
+			break;
+		case 2:
+			self iPrintLn("TIER 2");
+			targetKill = int(tablelookup("mp/weaponchallengetable.csv",1,weapName,11));
+			currentKillStats = self getStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,4)));
+
+			if(targetKill == 0)
+				break;
+
+			if(currentKillStats < targetKill) {
+				currentKillStats += 1;
+				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,4)), currentKillStats);
+				if(currentKillStats >= targetKill) {
+					currentTierStatCheckKill += 1;
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_"+tablelookup("mp/challengetable_tier2.csv",0,2,8));
+					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,2)), currentTierStatCheckKill);
+					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,6)), 458759);
+					self thread updatePlusScoreHUD( 500 );
+					challengesSummary += 500;
+				}
+			}
+			break;
+		case 3:
+			self iPrintLn("TIER 3");
+			targetKill = int(tablelookup("mp/weaponchallengetable.csv",1,weapName,12));
+			currentKillStats = self getStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,4)));
+
+			if(targetKill == 0)
+				break;
+			
+			if(currentKillStats < targetKill) {
+				if(currentKillStats >= maxKillChallenge)
+					currentKillStats = 255;
+				else
+					currentKillStats += 1;
+					
+				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,4)), currentKillStats);
+				if(currentKillStats >= targetKill) {
+					currentTierStatCheckKill += 1;
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_"+tablelookup("mp/challengetable_tier2.csv",0,3,8));
+					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,2)), currentTierStatCheckKill);
+					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,6)), 983055);
+					self thread updatePlusScoreHUD( 1000 );
+					challengesSummary += 1000;
+				}
+			}
+			break;
+		case 4:
+			self iPrintLn("TIER 4");
+			targetKill = int(tablelookup("mp/weaponchallengetable.csv",1,weapName,13));
+			currentKillStats = self getStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,4)));
+
+			if(targetKill == 0)
+				break;
+
+			if(currentKillStats < targetKill) {
+				currentKillStats += 1;
+				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,4)), currentKillStats);
+				if(currentKillStats >= targetKill) {
+					currentTierStatCheckKill = 255;
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_"+tablelookup("mp/challengetable_tier2.csv",0,3,8));
+					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,2)), currentTierStatCheckKill);
+					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,6)), 983055);
+					self thread updatePlusScoreHUD( 1000 );
+					challengesSummary += 1000;
+				}
+			}
+			break;
+		default:
+			self iPrintLn("NO TIER");
+			break;
+	}
+
+	setdvar("psc", challengesSummary);
+
+	if(!isdefined(currentTierStatCheckHS))
+		return;
+	
+	if(!isdefined(maxHsChallenge))
+		return;
+
+	//challenge headshot
+	if(hit_location != "head")
+		return;
+
+	switch(currentTierStatCheckHS) {
+		case 1:
+			self iPrintLn("TIER 1");
+			targetKill = int(tablelookup("mp/weaponchallengetable.csv",1,weapName,14));
+			currentKillStats = self getStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,5)));
+
+			if(targetKill == 0)
+				break;
+
+			if(currentKillStats < targetKill) {
+				currentKillStats += 1;
+				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,5)), currentKillStats);
+				if(currentKillStats >= targetKill) {
+					currentTierStatCheckHS += 1;
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_"+tablelookup("mp/challengetable_tier2.csv",0,4,8));
+					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,3)), currentTierStatCheckHS);
+					self thread updatePlusScoreHUD( 100 );
+					challengesSummary += 100;
+				}
+			}
+			break;
+		case 2:
+			self iPrintLn("TIER 2");
+			targetKill = int(tablelookup("mp/weaponchallengetable.csv",1,weapName,15));
+			currentKillStats = self getStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,5)));
+
+			if(targetKill == 0)
+				break;
+
+			if(currentKillStats < targetKill) {
+				currentKillStats += 1;
+				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,5)), currentKillStats);
+				if(currentKillStats >= targetKill) {
+					currentTierStatCheckHS += 1;
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_"+tablelookup("mp/challengetable_tier2.csv",0,5,8));
+					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,3)), currentTierStatCheckHS);
+					self thread updatePlusScoreHUD( 500 );
+					challengesSummary += 500;
+				}
+			}
+			break;
+		case 3:
+			self iPrintLn("TIER 3");
+			targetKill = int(tablelookup("mp/weaponchallengetable.csv",1,weapName,16));
+			currentKillStats = self getStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,5)));
+
+			if(targetKill == 0)
+				break;
+
+			if(currentKillStats < targetKill) {
+				currentKillStats += 1;
+				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,5)), currentKillStats);
+				if(currentKillStats >= targetKill) {
+					currentTierStatCheckHS = 255;
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_"+tablelookup("mp/challengetable_tier2.csv",0,6,8));
+					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,3)), currentTierStatCheckHS);
+					self thread updatePlusScoreHUD( 1000 );
+					challengesSummary += 1000;
+				}
+			}
+			break;
+		default:
+			self iPrintLn("NO TIER");
+			break;
+	}
+
+	setdvar("psc", challengesSummary);
+	
 	//challenge uccisioni
+	/*
 	if(currentTierStatCheckKill != 0 && currentTierStatCheckKill < 255) {
 		currentKillStats = self getStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,4)));
 		if(currentKillStats < int(tablelookup("mp/weaponchallengetable.csv",1,weapName,8))) {
@@ -883,21 +1065,21 @@ challengeWatcher(hit_location) {
 			self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,4)), currentKillStats);
 			if(currentKillStats >= 25 && currentTierStatCheckKill == 1) {
 				currentTierStatCheckKill = currentTierStatCheckKill + 1;
-				self thread maps\_challenges_coop::challengeNotify("@"+tablelookup("mp/challengetable_tier2.csv",0,1,8));
+				self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_"+tablelookup("mp/challengetable_tier2.csv",0,1,8));
 				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,2)), currentTierStatCheckKill);
 				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,6)), 196611);
 				self thread updatePlusScoreHUD( 100 );
 				challengesSummary = challengesSummary + 100;
 			} else if(currentKillStats >= 75 && currentTierStatCheckKill == 2) {
 				currentTierStatCheckKill = currentTierStatCheckKill + 1;
-				self thread maps\_challenges_coop::challengeNotify("@"+tablelookup("mp/challengetable_tier2.csv",0,2,8));
+				self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_"+tablelookup("mp/challengetable_tier2.csv",0,2,8));
 				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,2)), currentTierStatCheckKill);
 				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,6)), 458759);
 				self thread updatePlusScoreHUD( 500 );
 				challengesSummary = challengesSummary + 500;
-			} else if(currentKillStats >= 150 && currentTierStatCheckKill == 3) {
+			} else if(currentKillStats >= maxKillChallenge && currentTierStatCheckKill == 3) {
 				currentTierStatCheckKill = 255;
-				self thread maps\_challenges_coop::challengeNotify("@"+tablelookup("mp/challengetable_tier2.csv",0,3,8));
+				self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_"+tablelookup("mp/challengetable_tier2.csv",0,3,8));
 				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,2)), currentTierStatCheckKill);
 				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,6)), 983055);
 				self thread updatePlusScoreHUD( 1000 );
@@ -905,11 +1087,12 @@ challengeWatcher(hit_location) {
 			}
 		}
 	}
+	*/
 	
+	/*
 	if(!isdefined(currentTierStatCheckHS))
 		return;
 	
-	//challenge headshot
 	if(hit_location != "head")
 		return;
 	
@@ -941,6 +1124,7 @@ challengeWatcher(hit_location) {
 	}
 
 	setdvar("psc", challengesSummary);
+	*/
 }
 
 arcademode_assignpoints_toplayer( dvar, player, restore_at_checkpoint )
@@ -1091,6 +1275,10 @@ updatePlusScoreHUD( amount )
 	self.arcademode_updatePlusTotal += amount;
 	
 	self maps\_challenges_coop::giveRankXP("kill", amount);
+
+	psxValue = getDvarInt("psx");
+	psxValue += amount;
+	setDvar("psx", psxValue);
 
 	wait ( 0.05 );
 
