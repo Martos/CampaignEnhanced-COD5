@@ -626,6 +626,7 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		setdvar("ui_cac_ingame", "1");
 		setdvar("ui_customclass_selected", "999");
 		setdvar("ui_showEndOfGame", "1");
+		setdvar("cg_ScoresColor_Player_0", "0.023 0.168 0.203 1");
 		
 		//players[i] thread unlockAllChallengesMP();
 		
@@ -2834,7 +2835,11 @@ auto_adjust_enemy_died( ai, amount, attacker, type, point )
 
 			maps\_challenges_coop::doMissionCallback( "playerAssist", player );
 			
-			player.assists++;	
+			player.assists++;
+
+			psaValue = getDvarInt("psa");
+			psaValue += amount;
+			setDvar("psa", psaValue);
 			
 			// CODER MOD: TOMMY K - 07/30/08
 			arcademode_assignpoints( "arcademode_score_assist", player );
