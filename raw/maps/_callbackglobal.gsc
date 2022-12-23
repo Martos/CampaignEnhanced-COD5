@@ -625,6 +625,10 @@ Callback_PlayerKilled( eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vD
 	{
 		self [[level.overridePlayerKilled]]();
 	}
+	
+	players = get_players();
+	totalDeath = (players[0] getStat(2305)) + 1;
+	players[0] setStat(2305, totalDeath);
 
 	if( get_players().size > 1 )
 	{
