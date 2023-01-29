@@ -27,7 +27,7 @@ Campaign Enhanced is a campaign modificator aiming to extend feature of an exist
 - Call of Duty World at War
 - T4M [download](https://github.com/Martos/T4M)
 
-## In Game Screens
+## In Game Screens (old)
 | <img src="screens/1.png?raw=true" width="800" height="600" /> |
 |:-:|
 | Main Menu |
