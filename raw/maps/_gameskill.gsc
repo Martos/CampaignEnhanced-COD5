@@ -629,7 +629,7 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		setdvar("ui_cac_ingame", "1");
 		setdvar("ui_customclass_selected", "999");
 		setdvar("ui_showEndOfGame", "1");
-		setdvar("cg_ScoresColor_Player_0", "0.023 0.168 0.203 1");
+		setdvar("cg_ScoresColor_Player", "0.023 0.168 0.203 1");
 		
 		//players[i] thread unlockAllChallengesMP();
 		
