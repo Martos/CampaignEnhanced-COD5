@@ -868,7 +868,7 @@ unlocksChallenges() {
 	self setStat(2588, 150);
 	
 	slot = 1;
-	self iprintlnbold("CHALLENGE PROGRESS " + slot + ":" + int( tablelookup( "mp/challengeTable_tier3.csv", 1, slot, 3 ) ) );
+	//self iprintlnbold("CHALLENGE PROGRESS " + slot + ":" + int( tablelookup( "mp/challengeTable_tier3.csv", 1, slot, 3 ) ) );
 }
 
 customClassLogic(offset) {
@@ -1107,13 +1107,18 @@ customClassLogic(offset) {
 	if(getdvar("ce_gameskill_weap_attachment") != "") {
 		primaryWeaponString = primaryWeaponString + "_" + getdvar("ce_gameskill_weap_attachment");
 	}
-	self iprintlnbold(cac_selected_primary + "-" + cac_selected_attachment + "(" + primaryWeaponString + ")");
+	//self iprintlnbold(cac_selected_primary + "-" + cac_selected_attachment + "(" + primaryWeaponString + ")");
 	self GiveWeapon(primaryWeaponString);
 	self GiveWeapon(secondaryWeaponString);
 	self GiveWeapon(primaryGrenadeString);
 	self GiveWeapon(specialGrenadeString);
 	self GiveMaxAmmo(primaryWeaponString);
 	self SwitchToWeapon(primaryWeaponString);
+	
+	if(level.script == "pel1") {
+		self maps\_loadout::add_weapon( "rocket_barrage" );
+		self maps\_loadout::set_action_slot( 4, "weapon", "rocket_barrage" );
+	}
 }
 
 checkPrestigeAvailable() {
