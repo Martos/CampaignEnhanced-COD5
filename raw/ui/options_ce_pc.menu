@@ -71,6 +71,32 @@
 		CHOICE_DVARYESNO_VIS( 27, "Enable console HUD", ui_ce_xenon_hud, ;, when(dvarint(sv_running)==0); )
 		CHOICE_BUTTON_VIS( 30, "Patch Notes", open popmenu_ce_patchnotes;, when(dvarint(sv_running)==0); )
 		
+		itemDef
+		{
+			text 			"T4M Installed."
+			forecolor		0 1 0 1
+			style			WINDOW_STYLE_FILLED
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			-10 -170 80 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM
+			textfont		UI_FONT_NORMAL
+			textalign		ITEM_ALIGN_LEFT
+			textscale		TEXTSIZE_SMALL
+			visible			when( dvarBool(ce_t4m) )
+		}
+		
+		itemDef
+		{
+			text 			"T4M Not Installed."
+			forecolor		1 0 0 1
+			style			WINDOW_STYLE_FILLED
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			-10 -170 80 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM
+			textfont		UI_FONT_NORMAL
+			textalign		ITEM_ALIGN_LEFT
+			textscale		TEXTSIZE_SMALL
+			visible			when( !dvarBool(ce_t4m) )
+		}
+		
 		itemDef 
 		{
 			name			apply
