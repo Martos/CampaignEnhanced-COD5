@@ -63,6 +63,7 @@ init_loadout()
 	PrecacheItem( "30cal" );
 	PrecacheItem( "mg42" );
 	PrecacheItem( "fg42" );
+	PrecacheItem( "fg42_telescopic" );
 	PrecacheItem( "dp28" );
 	PrecacheItem( "dp28_bipod" );
 	PrecacheItem( "type99lmg" );
