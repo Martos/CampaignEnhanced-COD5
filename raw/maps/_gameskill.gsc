@@ -5,8 +5,11 @@
 
 adjust_xenon_hud()
 {
-	if( getdvar("ui_ce_xenon_hud") != "1" )
+	if( getdvar("ui_ce_xenon_hud") != "1" ) {
+		setdvar( "xenon_compass_x", "0" );
+		setdvar( "xenon_compass_y", "145" );
 		return;
+	}
 	
 	switch(getdvar("r_mode")) {
 		case "640x480":

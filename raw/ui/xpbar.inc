@@ -20,7 +20,7 @@
 			origin			0 0 \
 			background		"hud_xpticker480" \
 			forecolor		1 1 1 0.75 \
-			visible			when( !dvarInt( "wideScreen" ) ); \
+			visible			when( dvarbool("ui_ce_xenon_hud") && !dvarInt( "wideScreen" ) ); \
 			decoration \
 		} \
 		itemDef \
@@ -32,7 +32,7 @@
 			origin			0 0 \
 			background		"hud_xpticker480ws" \
 			forecolor		1 1 1 0.75 \
-			visible			when( dvarInt( "wideScreen" ) ); \
+			visible			when( dvarbool("ui_ce_xenon_hud") && dvarInt( "wideScreen" ) ); \
 			decoration \
 		}
 
@@ -46,7 +46,7 @@
 			origin			0 0 \
 			background		"hud_xpticker480" \
 			forecolor		1 1 1 0.75 \
-			visible			when( !dvarInt( "wideScreen" ) && ( dvarInt("xenon_xpbar_thiker_extra") >= 1 && dvarInt("xenon_xpbar_thiker_extra") != 0 ) ); \
+			visible			when( dvarbool("ui_ce_xenon_hud") && !dvarInt( "wideScreen" ) && ( dvarInt("xenon_xpbar_thiker_extra") >= 1 && dvarInt("xenon_xpbar_thiker_extra") != 0 ) ); \
 			decoration \
 		} \
 		itemDef \
@@ -58,7 +58,7 @@
 			origin			0 0 \
 			background		"hud_xpticker480ws" \
 			forecolor		1 1 1 0.75 \
-			visible			when( dvarInt( "wideScreen" ) && ( dvarInt("xenon_xpbar_thiker_extra") >= 1 && dvarInt("xenon_xpbar_thiker_extra") != 0 ) ); \
+			visible			when( dvarbool("ui_ce_xenon_hud") && dvarInt( "wideScreen" ) && ( dvarInt("xenon_xpbar_thiker_extra") >= 1 && dvarInt("xenon_xpbar_thiker_extra") != 0 ) ); \
 			decoration \
 		}
 		
@@ -72,7 +72,7 @@
 			origin			0 0 \
 			background		"hud_xpticker480" \
 			forecolor		1 1 1 0.75 \
-			visible			when( !dvarInt( "wideScreen" ) && ( dvarInt("xenon_xpbar_thiker_extra") <= 2 && dvarInt("xenon_xpbar_thiker_extra") != 0 ) ); \
+			visible			when( dvarbool("ui_ce_xenon_hud") && !dvarInt( "wideScreen" ) && ( dvarInt("xenon_xpbar_thiker_extra") <= 2 && dvarInt("xenon_xpbar_thiker_extra") != 0 ) ); \
 			decoration \
 		} \
 		itemDef \
@@ -84,7 +84,7 @@
 			origin			0 0 \
 			background		"hud_xpticker480ws" \
 			forecolor		1 1 1 0.75 \
-			visible			when( dvarInt( "wideScreen" ) && ( dvarInt("xenon_xpbar_thiker_extra") <= 2 && dvarInt("xenon_xpbar_thiker_extra") != 0 ) ); \
+			visible			when( dvarbool("ui_ce_xenon_hud") && dvarInt( "wideScreen" ) && ( dvarInt("xenon_xpbar_thiker_extra") <= 2 && dvarInt("xenon_xpbar_thiker_extra") != 0 ) ); \
 			decoration \
 		}		
 		
@@ -98,7 +98,7 @@
 			origin			0 0 \
 			background		"hud_xpticker480" \
 			forecolor		1 1 1 0.75 \
-			visible			when( !dvarInt( "wideScreen" ) && ( dvarInt("xenon_xpbar_thiker_extra") > 2 && dvarInt("xenon_xpbar_thiker_extra") != 0 ) ); \
+			visible			when( dvarbool("ui_ce_xenon_hud") && !dvarInt( "wideScreen" ) && ( dvarInt("xenon_xpbar_thiker_extra") > 2 && dvarInt("xenon_xpbar_thiker_extra") != 0 ) ); \
 			decoration \
 		} \
 		itemDef \
@@ -110,7 +110,7 @@
 			origin			0 0 \
 			background		"hud_xpticker480ws" \
 			forecolor		1 1 1 0.75 \
-			visible			when( dvarInt( "wideScreen" ) && ( dvarInt("xenon_xpbar_thiker_extra") > 2 && dvarInt("xenon_xpbar_thiker_extra") != 0 ) ); \
+			visible			when( dvarbool("ui_ce_xenon_hud") && dvarInt( "wideScreen" ) && ( dvarInt("xenon_xpbar_thiker_extra") > 2 && dvarInt("xenon_xpbar_thiker_extra") != 0 ) ); \
 			decoration \
 		}		
 
