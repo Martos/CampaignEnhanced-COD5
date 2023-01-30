@@ -92,3 +92,9 @@
 60,doublebarreledshotgun,563,564,2563,2564,3071,mp/challengetable_tier4.csv,150,150,25,50,0,0,25,75,150
 61,doublebarreledshotgun_grip,563,564,2563,2564,3071,mp/challengetable_tier4.csv,150,150,25,50,0,0,25,75,150
 62,doublebarreledshotgun_sawoff,563,564,2563,2564,3071,mp/challengetable_tier4.csv,150,150,25,50,0,0,25,75,150
+
+#SP standard weapons
+100,type99_rifle,587,588,2587,2588,3062,mp/challengetable_tier5.csv,150,150,25,75,150,25,75,150
+101,type99_rifle_scoped,587,588,2587,2588,3062,mp/challengetable_tier5.csv,150,150,25,75,150,25,75,150
+102,type99_rifle_wet,587,588,2587,2588,3062,mp/challengetable_tier5.csv,150,150,25,75,150,25,75,150
+103,type99_rifle_scoped_wet,587,588,2587,2588,3062,mp/challengetable_tier5.csv,150,150,25,75,150,25,75,150
