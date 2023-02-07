@@ -1,0 +1,83 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define CHOICE_X_START			30
+#define CHOICE_Y_START			40
+
+#define CHOICE_GROUP			"main"
+#define CHOICE_SEP_1			2
+
+#define LOGO_START_X			-300
+#define LOGO_START_Y			-160
+
+#define STYLE_PC	1
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#define SHOP_AMMO \
+		scriptMenuResponse "buy_ammo" \
+		close self; \
+		
+#define SHOP_RAYGUN \
+		scriptMenuResponse "buy_raygun" \
+		close self; \
+		
+#define SHOP_JUGGERNOG \
+		scriptMenuResponse "buy_juggernog" \
+		close self; \
+
+#define SHOP_SPEED \
+		scriptMenuResponse "buy_speed" \
+		close self; \
+
+{
+	menuDef
+	{
+		name			menu_shop
+		rect			0 0 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+		focusColor		COLOR_FOCUSED
+		style			WINDOW_STYLE_EMPTY
+		fullscreen		1
+		visible			1
+		onOpen
+		{
+			
+		}
+		onClose
+		{
+			setdvar ui_ce_shop "0";
+		}
+		onEsc
+		{
+			setdvar ui_ce_shop "0";
+			close self;
+		}
+		
+		itemDef
+		{
+			rect			LOGO_START_X LOGO_START_Y 256 64 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_BOTTOM
+			forecolor		1 1 1 1
+			style			WINDOW_STYLE_SHADER
+			background		"logo_cod2"
+			visible			when( !localVarBool( ui_hideBack ) );
+			decoration
+		}
+		
+		// background overlay
+		#define PC_INGAME	1
+		#include "ui/overlaybg.inc"
+		BACKGROUND_BLACK_LETTERBOX_BLURWORLD( 1.0 )
+		OVERLAY_BACKGROUND
+
+		CHOICE_MENU_TITLE( "SHOP" )
+
+		CHOICE_BUTTON_VIS( 1, "RELOAD ALL AMMO", SHOP_AMMO;, 1 )
+		CHOICE_BUTTON_VIS( 2, "JUGGERNOG", SHOP_JUGGERNOG;, 1 )
+		CHOICE_BUTTON_VIS( 3, "SPEED RELOAD", SHOP_SPEED;, 1 )
+		CHOICE_BUTTON_VIS( 4, "RAYGUN", SHOP_RAYGUN;, 1 )
+		
+		CHOICE_SEPARATOR_VIS( 5, 1 )
+		
+		CHOICE_BUTTON_VIS( 6, "@CLOSE", close self;, 1 )
+	}
+}

@@ -41,4 +41,6 @@
 	loadMenu { "ui/difficulty.menu" }
 	loadMenu { "ui/popup_leavegame.menu" }
 	loadMenu { "ui/popup_ingame.menu" }
+
+	loadMenu { "ui/shop.menu" }
 }

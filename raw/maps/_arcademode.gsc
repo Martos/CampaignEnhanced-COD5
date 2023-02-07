@@ -31,6 +31,11 @@ main()
 	
 	precacheShader( "damage_feedback" );
 	
+	precacheShader( "specialty_juggernaut_zombies" );
+	precacheShader( "specialty_fastreload_zombies" );
+	precacheShader( "specialty_doubletap_zombies" );
+	precacheShader( "specialty_quickrevive_zombies" );
+	
 	precacheMenu("objective_info");
  	  	
 	level.color_cool_green = ( 0.8, 2.0, 0.8 );
@@ -874,7 +879,35 @@ challengeWatcher(hit_location) {
 	if(!challengesSummary) {
 		challengesSummary = 0;
 	}
+
+	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,1));
 	
+	//self iPrintLn(tablelookup("mp/challengetable_tier3.csv",0,1,2));
+	
+	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,3));
+	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,4));
+	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,5));
+	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,6));
+	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,7));
+	
+	//self iPrintLn(tablelookup("mp/challengetable_tier3.csv",0,1,8));
+	
+	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,9));
+	//self iPrintLn(tablelookup("mp/challengetable_tier3.csv",0,1,10));
+	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,11));
+	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,12));
+	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,13));
+	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,14));
+	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,15));
+/*
+	self iPrintLn(tablelookup("mp/challengetable_tier3.csv",0,1,2) + " " + tablelookup("mp/challengetable_tier3.csv",0,1,8));
+	self iPrintLn(tablelookup("mp/challengetable_tier3.csv",0,2,2) + " " + tablelookup("mp/challengetable_tier3.csv",0,2,8));
+	self iPrintLn(tablelookup("mp/challengetable_tier3.csv",0,3,2) + " " + tablelookup("mp/challengetable_tier3.csv",0,3,8));
+	
+	self iPrintLn(tablelookup("mp/challengetable_tier3.csv",0,4,2) + " " + tablelookup("mp/challengetable_tier3.csv",0,4,8));
+	self iPrintLn(tablelookup("mp/challengetable_tier3.csv",0,5,2) + " " + tablelookup("mp/challengetable_tier3.csv",0,5,8));
+	self iPrintLn(tablelookup("mp/challengetable_tier3.csv",0,7,2) + " " + tablelookup("mp/challengetable_tier3.csv",0,7,8));
+	*/
 	if(!isdefined(currentTierStatCheckKill))
 		return;
 	

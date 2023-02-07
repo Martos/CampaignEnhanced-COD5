@@ -62,3 +62,8 @@ material,specialty_locked_big
 material,specialty_locked_challenge
 material,mtl_weapon_mp_type100_metal
 material,mtl_weapon_mp_type100_wood
+
+material,specialty_juggernaut_zombies
+material,specialty_fastreload_zombies
+material,specialty_doubletap_zombies
+material,specialty_quickrevive_zombies

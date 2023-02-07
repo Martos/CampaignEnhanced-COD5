@@ -608,8 +608,10 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 {
 	game["endofgame"] = "endofgame";
 	game["popup_ingame"] = "popup_ingame";
+	game["menu_shop"] = "menu_shop";
 	Precachemenu(game["endofgame"]);
 	Precachemenu(game["popup_ingame"]);
+	Precachemenu(game["menu_shop"]);
 	
 	// waittill the flag is defined, then check for it
 	while (!isdefined (level.flag) || !isdefined(level.flag[ "all_players_connected" ]))
@@ -627,9 +629,14 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 	
 		players[i].threatbias = int( [[ difficulty_func ]]( "threatbias", current_frac ) );
 		setdvar("ui_cac_ingame", "1");
+		setdvar("ui_ce_shop", "0");
 		setdvar("ui_customclass_selected", "999");
 		setdvar("ui_showEndOfGame", "1");
 		setdvar("cg_ScoresColor_Player", "0.023 0.168 0.203 1");
+		setdvar("ce_show_jug", "0");
+		setdvar("ce_show_sp", "0");
+		setdvar("ce_show_be", "0");
+		setdvar("ce_show_re", "0");
 		
 		//players[i] thread unlockAllChallengesMP();
 		
@@ -661,6 +668,38 @@ TimePlayed()
 MenuResponses() {
 	while(1) {
 		self waittill("menuresponse",menu,response);
+		if(menu == game["menu_shop"]) {
+			if(response == "buy_ammo") {
+				weapons = self GetWeaponsList(); 
+				for( i = 0 ; i < weapons.size ; i++ )
+				{				
+					self GiveMaxAmmo(weapons[i]);
+				}
+			}
+			if(response == "buy_raygun") {
+				self GiveWeapon("ray_gun");
+				self GiveMaxAmmo("ray_gun");
+				self SwitchToWeapon("ray_gun");
+			}
+			if(response == "buy_juggernog") {
+				self SetPerk( "specialty_armorvest" );
+				
+				self setblur(4, 0.1);
+				wait(0.1);
+				self setblur(0, 0.1);
+				
+				setdvar("ce_show_jug", "1");
+			}
+			if(response == "buy_speed") {
+				self SetPerk( "specialty_fastreload" );
+				
+				self setblur(4, 0.1);
+				wait(0.1);
+				self setblur(0, 0.1);
+				
+				setdvar("ce_show_sp", "1");
+			}
+		}
 		if(menu == game["endofgame"]) {
 			if(response == "ceSelectedClass") {
 				

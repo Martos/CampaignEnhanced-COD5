@@ -131,7 +131,11 @@
 	{
 		name			"pausedmenu"
 		fullScreen		0
+#ifdef CONSOLE		
+		rect			0 0 640 480
+#else		
 		rect			0 0 640 480 HORIZONTAL_ALIGN_FULLSCREEN
+#endif		
 		focusColor		COLOR_FOCUSED
 		allowedBinding	"pause"
 		onOpen
@@ -142,25 +146,34 @@
 			focusfirst
 			nosavehide "saveandquit"
 			saveAvailableHide "quit";
+//			profilehide "quitnoprofile"
+#ifdef PC
+//			nosavehide "quitnosave"
 			exec "update_sv_savegameavailable"
+#endif
+#ifndef PC
 			exec "fullscreenview"
+#endif	
 		}
 		onClose
 		{
 			hideMenu "pausedbkgnd"
 			hideMenu "objectiveinfo"
 			hideMenu "overheadmap"
+#ifndef PC
 			exec "splitscreenview"
+#endif	
 		}
 		onEsc
 		{
 			close pausedmenu;
 		}
-
+#ifdef PC
 		#define	PC_INGAME
 		#include "ui_mp/overlaybg.inc"
 		BACKGROUND_BLACK_LETTERBOX_BLURWORLD( 1.0 )
 		OVERLAY_BACKGROUND
+#endif
 
 		// "Paused" text
 		itemDef
@@ -187,14 +200,22 @@
 			setdvar zombiemode 0; \
 			exec "disconnect";
 
-#define SETUP_ACTION_MENU_CONTROLS \
-			close self; \
-			open "options_controls_new_pc"; 
+#ifdef PC 
+	#define SETUP_ACTION_MENU_CONTROLS \
+				close self; \
+				open "options_controls_new_pc"; 
 
-#define SETUP_ACTION_MENU_OPTIONS \
-			execnow "set ui_allow_graphic_change 0"; \
-			close self; \
-			open "options_new_pc";
+	#define SETUP_ACTION_MENU_OPTIONS \
+				execnow "set ui_allow_graphic_change 0"; \
+				close self; \
+				open "options_new_pc"; 
+#else
+	#define SETUP_ACTION_MENU_CONTROLS \
+				open "ingame_controls"; 
+
+	#define SETUP_ACTION_MENU_OPTIONS \
+				open "ingameoptions"; 
+#endif //#ifdef PC
 
 #define SOLO \
 		( !dvarBool( splitscreen ) && !dvarBool( onlinegame ) && !dvarBool( systemlinkparty ) )
@@ -241,16 +262,24 @@
 		CHOICE_BUTTON_P( 3, "@MENU_RESTART_LEVEL_CAP", "restartlevel", open "popup_restart_warning";, dvarstring( "credits_active" ) != "1" && SPLITSCREEN_HOST && NOT_CUSTOM_MATCH )
 		// Restart Level for any COOP game
 		CHOICE_BUTTON_P( 3, "@MENU_RESTART_LEVEL_CAP", "restartlevel", open "popup_restart_warning";, dvarstring( "credits_active" ) != "1" && dvarBool( sv_running ) && CUSTOM_MATCH && !dvarbool( splitscreen ) )
+#ifdef CONSOLE
+		// Locked Button for Restart Level
+		CHOICE_BUTTON_LOCKED( 3, "@MENU_RESTART_LEVEL_CAP", "restartlevel_locked", dvarString( "credits_active" ) != "1" && ( !dvarBool( sv_running ) && CUSTOM_MATCH ) || XBOX_LIVE_PUBLIC || NOT_SPLITSCREEN_HOST )
+#else
 		CHOICE_BUTTON_LOCKED( 3, "@MENU_RESTART_LEVEL_CAP", "restartlevel_locked", dvarString( "credits_active" ) != "1" && !dvarBool( sv_running ) )
 		CHOICE_BUTTON_P( 3, "@MENU_RESTART_LEVEL_CAP", "restartlevel", open "popup_restart_warning";, dvarstring( "credits_active" ) != "1" && dvarBool( sv_running ) && dvarbool( onlinegame ) )
-
+#endif
 		// Client Quitting Option : COOP
 		//"online_leave_quit"
 		CHOICE_BUTTON_P( 4, "@PLATFORM_QUIT_CAP", "online_leave_quit", open "popup_leavegame_coop";, dvarbool( onlinegame ) && !dvarbool( systemlinkparty ) && !dvarbool( sv_running ) && (!InPrivateParty() || PrivatePartyHost() || !PrivatePartyHostInLobby()) )
 		CHOICE_BUTTON_P( 4, "@PLATFORM_QUIT_CAP", "online_leave_quit", open "popup_leavegameandparty_coop";, dvarbool( onlinegame ) && !dvarbool( systemlinkparty ) && !dvarbool( sv_running ) && (InPrivateParty() && !PrivatePartyHost() && PrivatePartyHostInLobby()) )
-
+#ifdef CONSOLE
+		//"systemlinkparty_leave_quit"
+		CHOICE_BUTTON_P( 4, "@PLATFORM_QUIT_CAP", "systemlinkparty_leave_quit", open "popup_coop_client_quit";, !dvarBool( onlinegame ) && dvarbool( systemlinkparty ) && !dvarbool( sv_running ) && !dvarbool( zombiemode ) )
+#else
 		//"systemlinkparty_leave_quit"
 		CHOICE_BUTTON_P( 4, "@PLATFORM_QUIT_CAP", "systemlinkparty_leave_quit", open "popup_coop_client_quit";, dvarBool( onlinegame ) && dvarbool( systemlinkparty ) && !dvarbool( sv_running ) )
+#endif
 
 		// Host Quitting Option : COOP
 		// "quit_coop"
@@ -270,6 +299,8 @@
 
 		// "restartCheckpoint"
 		CHOICE_BUTTON_P( 5, "@MENU_RESTART_CHECKPOINT", "restartCheckpoint", open "popup_checkpoint_restart_warning";, dvarBool( ui_shipping_cheats ) && dvarbool( sv_running ) )
+		
+		CHOICE_BUTTON_P( 6, "SHOP", ;, open "menu_shop", dvarbool( sv_running ))
 
 /*
 // "difficulty"
@@ -305,6 +336,54 @@
 		}
 		*/
 	}
+
+#ifdef CONSOLE
+	// Pause menu background... separate menu so that it can draw behind the objective menu
+	menuDef
+	{
+		name			"pausedbkgnd"
+		fullScreen		0
+		rect			0 0 640 480
+		focusColor		COLOR_FOCUSED
+		blurWorld		4.8
+
+		// background overlay
+		itemDef
+		{
+			style			WINDOW_STYLE_FILLED
+			rect			0 0 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+			backcolor		0 0 0 0.50
+			visible			1
+			decoration
+		}
+
+		// gradient_top
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			0 0 854 75 HORIZONTAL_ALIGN_FULLSCREEN 0
+			background		"gradient_top"
+			visible			1
+			decoration
+		}
+
+		// gradient_bottom
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			0 480 854 75 HORIZONTAL_ALIGN_FULLSCREEN 0
+			background		"gradient_bottom"
+			visible			1
+			decoration
+		}
+
+		#ifndef PC
+			#include "ui/navcontrols.menu"
+		#endif
+	}
+#else
+	// looke for overlaybg.inc
+#endif
 
 	// objective info... shown when paused, or on PC when "TAB" is held
 	menuDef
