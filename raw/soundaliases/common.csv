@@ -101,3 +101,6 @@ mp_level_up,,SFX/mp/mp_level_up.wav,,1,1,,,,,,,ui,,,0,,,,1,1,,2d,,,,,all_sp,,,,,
 
 #Barracks progress sound
 mp_ingame_summary,,SFX/mp/progress_update_v5.wav,,1,1,,,,,,,ui,,,0,,,,1,1,,2d,,,,,all_sp,,,,,,wpn_all,,,,,,,,,,,100,100,0.25,1
+
+#cha_ching
+cha_ching,,SFX\Levels\zombie\buy_generic\buy_generic.wav,,1,1,250,2500,1,oldest,,,full_vol,,,,4000,,curve2,1,1,,3d,,,,,all_sp,,,,,,,,,,,0.5,,,,,,100,1,0.25,1
