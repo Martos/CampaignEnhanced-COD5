@@ -662,6 +662,9 @@ spawnShops() {
 	mapName = getdvar("mapname");
 	
 	switch(mapName) {
+		case "ber2":
+			spawnPoints = (-1126.41, -2329.11, 856.125);
+			break;
 		case "oki3":
 			spawnPoints = (3932.2, 5198.82, -818.639);
 			break;
