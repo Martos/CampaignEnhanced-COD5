@@ -114,6 +114,9 @@ player_init()
 	
 	self.arcademode_updatePlusTotal = 0;
 	self.arcademode_updateMinusTotal = 0;
+	self.totalScore = player getStat(2302);
+	self.score = player getStat(2302);
+	self.cached_score = player getStat(2302);
 
 	self.arcademode_bonus["lastKillTime"] = 0;
 	self.arcademode_bonus["uberKillingMachineStreak"] = 0;
@@ -203,6 +206,8 @@ onPlayerSpawned()
 			self.hud_scoremulti fontPulseInit();
 			self.hud_scoremulti.alpha = 0;
 		}
+		
+		self.totalScore = 0;
 
 		//self.teamKillPunish = false;
 		//if ( level.minimumAllowedSuicides >= 0 && self.pers["player_suicides_total"] > level.minimumAllowedSuicides )
@@ -257,17 +262,10 @@ arcadeMode_checkpoint_restore()
 						
 		players[i].score += restorable_points;
 		
-		//player_respawn_points = players[i].score + restorable_points;
-		//if( player_respawn_points <= 0 ) //can't give a player less than 0
-		//{
-		//	restorable_points -= player_respawn_points;
-		//	current_restorable_points -= player_respawn_points;
-		//	players[i].score = 0;
-		//}
-		//else 
-		//{
-		//	players[i].score = player_respawn_points;
-		//}		
+		// Total score
+		players[i].totalScore = players[i] getStat(2302);
+		players[i].score = players[i] getStat(2302);
+
 		
 		if( players[i].score < 0 )
 		{
@@ -794,13 +792,9 @@ arcademode_death( mod, hit_location, hit_origin, player, enemy, uberKillingMachi
 	
 	points = player player_points_kill_bonus( level.arcadeMode_killBase, enemy, mod, hit_location );
 
-	//iPrintLn("BONUS KILL XP: " + player player_points_kill_bonus( level.arcadeMode_killBase, enemy, mod, hit_location ));
-
 	if( player.score + points < 10000000 )
 	{			
 		points += level.arcademode_weaponAdded[ death_type ];
-
-		//iPrintLn("ARCADEMODE WEAPON ADDED: " + level.arcademode_weaponAdded[ death_type ]);
 		
 		//points += player player_add_points_cheats( "", mod, hit_location );
 		
@@ -826,9 +820,6 @@ arcademode_death( mod, hit_location, hit_origin, player, enemy, uberKillingMachi
 				break;
 			}
 		}
-		//iprintln(player.score);
-		//iprintln(points);
-		//player.score += points;
 				
 		//TEST CODE
 		//if( hit_location == "head" )
@@ -1304,8 +1295,6 @@ updatePlusScoreHUD( amount )
 	if(getDvarInt("ce_cheats") == 1) {
 		return;
 	}
-	
-	//creatingScorePlus();
 
 	self.arcademode_updatePlusTotal += amount;
 	
@@ -1314,6 +1303,9 @@ updatePlusScoreHUD( amount )
 	psxValue = getDvarInt("psx");
 	psxValue += amount;
 	setDvar("psx", psxValue);
+	
+	self.totalScore += amount;
+	self setStat(2302, self.totalScore);
 
 	wait ( 0.05 );
 

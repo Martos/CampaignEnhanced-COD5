@@ -632,7 +632,6 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		setdvar("ui_ce_shop", "0");
 		setdvar("ui_customclass_selected", "999");
 		setdvar("ui_showEndOfGame", "1");
-		setdvar("cg_ScoresColor_Player", "0.023 0.168 0.203 1");
 		setdvar("ce_show_jug", "0");
 		setdvar("ce_show_sp", "0");
 		setdvar("ce_show_be", "0");
@@ -648,6 +647,19 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		players[i] thread MenuResponses();
 		
 		players[i] thread TimePlayed();
+		
+		players[i] thread PatchPlayerScore();
+	}
+}
+
+PatchPlayerScore() {
+	self endon("disconnect");
+	
+	while(1) {
+		wait(0.05);
+		
+		self.score = self getStat(2302);
+		self.totalScore = self getStat(2302);
 	}
 }
 
@@ -666,10 +678,15 @@ TimePlayed()
 }
 
 MenuResponses() {
+	self endon("disconnect");
+	
 	while(1) {
 		self waittill("menuresponse",menu,response);
 		if(menu == game["menu_shop"]) {
 			if(response == "buy_ammo") {
+				self setStat(2302, self getStat(2302) - 1000);
+				self playlocalsound("cha_ching");
+				
 				weapons = self GetWeaponsList(); 
 				for( i = 0 ; i < weapons.size ; i++ )
 				{				
@@ -677,12 +694,17 @@ MenuResponses() {
 				}
 			}
 			if(response == "buy_raygun") {
+				self playlocalsound("cha_ching");
+				
 				self GiveWeapon("ray_gun");
 				self GiveMaxAmmo("ray_gun");
 				self SwitchToWeapon("ray_gun");
 			}
 			if(response == "buy_juggernog") {
+				self setStat(2302, self getStat(2302) - 5000);
+				
 				self SetPerk( "specialty_armorvest" );
+				self playlocalsound("cha_ching");
 				
 				self setblur(4, 0.1);
 				wait(0.1);
@@ -691,7 +713,10 @@ MenuResponses() {
 				setdvar("ce_show_jug", "1");
 			}
 			if(response == "buy_speed") {
+				self setStat(2302, self getStat(2302) - 3000);
+				
 				self SetPerk( "specialty_fastreload" );
+				self playlocalsound("cha_ching");
 				
 				self setblur(4, 0.1);
 				wait(0.1);
