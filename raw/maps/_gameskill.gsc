@@ -637,6 +637,8 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		setdvar("ce_show_be", "0");
 		setdvar("ce_show_re", "0");
 		
+		players[i] spawnShops();
+		
 		//players[i] thread unlockAllChallengesMP();
 		
 		players[i] thread watchPlayerCheats();
@@ -649,6 +651,67 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		players[i] thread TimePlayed();
 		
 		players[i] thread PatchPlayerScore();
+		
+		//DEBUG: Player positizion on map
+		//players[i] thread PrintPlayerPosition();
+	}
+}
+
+spawnShops() {
+	spawnPoints = (0, 0, 0);
+	mapName = getdvar("mapname");
+	
+	switch(mapName) {
+		case "oki3":
+			spawnPoints = (3932.2, 5198.82, -818.639);
+			break;
+		default: 
+			spawnPoints = (0, 0, 0);
+			break;
+	}
+	
+	test_spawn = spawn("script_model", spawnPoints);
+	test_spawn setmodel("static_peleliu_wood_ammo_box_char");
+	test_spawn setcontents(1);
+	test_spawn.targetname = "test_spawn";
+	test_spawn solid();
+
+	level thread open_shop_trigger();
+}
+
+open_shop_trigger() {
+	test_spawn_entity = getent("test_spawn","targetname");
+	flagtrig = Spawn("trigger_radius", test_spawn_entity.origin, 0, 64, 200);
+
+	flagtrig sethintstring("Press F to open Shop");
+	flagtrig SetCursorHint("HINT_NOICON");
+	
+	players = get_players();
+
+	while(1)
+	{
+		flagtrig waittill( "trigger", who );
+		
+		if(IsPlayer(players[0])) {
+			if(players[0] UseButtonPressed()) {
+				players[0] openMenu( "menu_shop" );
+			}
+		}
+
+		wait(0.1);
+	}
+}
+
+PrintPlayerPosition() {
+	self endon("disconnect");
+	
+	trig = GetEnt(self.target, "targetname");
+
+	trig waittill("trigger");
+	while(1)
+	{
+		self iprintlnbold(self.origin);
+		wait(1);
 	}
 }
 
