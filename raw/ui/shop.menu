@@ -37,7 +37,6 @@
 		rect			0 0 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
 		focusColor		COLOR_FOCUSED
 		style			WINDOW_STYLE_EMPTY
-		fullscreen		1
 		visible			1
 		onOpen
 		{
@@ -65,9 +64,12 @@
 		
 		// background overlay
 		#define PC_INGAME	1
-		#include "ui/overlaybg.inc"
+		#include "ui_mp/overlaybg.inc"
 		BACKGROUND_BLACK_LETTERBOX_BLURWORLD( 1.0 )
 		OVERLAY_BACKGROUND
+		
+		#define BACK_OPEN ;
+		#include "ui_mp/navcontrols.inc"
 
 		CHOICE_MENU_TITLE( "SHOP" )
 
