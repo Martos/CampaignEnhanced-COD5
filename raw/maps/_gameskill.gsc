@@ -653,17 +653,29 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		players[i] thread PatchPlayerScore();
 		
 		//DEBUG: Player positizion on map
-		//players[i] thread PrintPlayerPosition();
+		players[i] thread PrintPlayerPosition();
 	}
 }
 
 spawnShops() {
 	spawnPoints = (0, 0, 0);
+	anglePoints = (0, 0, 0);
+	secondSpawnPoints = (0, 0, 0);
+	secondAnglePoints = (0, 0, 0);
 	mapName = getdvar("mapname");
 	
 	switch(mapName) {
+		case "mak":
+			spawnPoints = (-10096.5, -19022.9, 90.1032);
+			anglePoints = (0, 0, 0);
+			secondSpawnPoints = (-7024.82, -15494.8, 560.86);
+			secondAnglePoints = (0, -90, 0);
+			break;
 		case "ber2":
 			spawnPoints = (-1126.41, -2329.11, 856.125);
+			anglePoints = (0, -90, 0);
+			secondSpawnPoints = (850.912, -73.1902, -432.875);
+			secondAnglePoints = (0, -90, 0);
 			break;
 		case "oki3":
 			spawnPoints = (3932.2, 5198.82, -818.639);
@@ -673,18 +685,54 @@ spawnShops() {
 			break;
 	}
 	
-	test_spawn = spawn("script_model", spawnPoints);
-	test_spawn setmodel("static_peleliu_wood_ammo_box_char");
-	test_spawn setcontents(1);
-	test_spawn.targetname = "test_spawn";
-	test_spawn solid();
+	first_shop = spawn("script_model", spawnPoints);
+	first_shop setmodel("static_peleliu_wood_ammo_box_char");
+	first_shop setcontents(1);
+	first_shop.targetname = "first_shop";
+	first_shop.angles = anglePoints;
+	first_shop solid();
+	
+	second_shop = spawn("script_model", secondSpawnPoints);
+	second_shop setmodel("static_peleliu_wood_ammo_box_char");
+	second_shop setcontents(1);
+	second_shop.targetname = "second_shop";
+	second_shop.angles = secondAnglePoints;
+	second_shop solid();
 
 	level thread open_shop_trigger();
+	level thread open_second_shop_trigger();
 }
 
 open_shop_trigger() {
-	test_spawn_entity = getent("test_spawn","targetname");
-	flagtrig = Spawn("trigger_radius", test_spawn_entity.origin, 0, 64, 200);
+	self endon("disconnect");
+	
+	first_shop_entity = getent("first_shop","targetname");
+	flagtrig = Spawn("trigger_radius", first_shop_entity.origin, 0, 64, 200);
+
+	flagtrig sethintstring("Press F to open Shop");
+	flagtrig SetCursorHint("HINT_NOICON");
+	
+	players = get_players();
+
+	while(1)
+	{
+		flagtrig waittill( "trigger", who );
+		
+		if(IsPlayer(players[0])) {
+			if(players[0] UseButtonPressed()) {
+				players[0] openMenu( "menu_shop" );
+			}
+		}
+
+		wait(0.1);
+	}
+}
+
+open_second_shop_trigger() {
+	self endon("disconnect");
+	
+	second_shop_entity = getent("second_shop","targetname");
+	flagtrig = Spawn("trigger_radius", second_shop_entity.origin, 0, 64, 200);
 
 	flagtrig sethintstring("Press F to open Shop");
 	flagtrig SetCursorHint("HINT_NOICON");
