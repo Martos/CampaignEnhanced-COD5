@@ -8,6 +8,7 @@
 	loadMenu { "ui_mp/scriptmenus/endofgame.menu" }
 	loadMenu { "ui_mp/cac_main.menu" }
 	loadMenu { "ui_mp/cac_custom.menu" }
+	loadMenu { "ui/shop.menu" }
 
 	loadMenu { "ui/options_new_pc.menu" }
 	loadMenu { "ui/options_ce_pc.menu"}
@@ -41,6 +42,4 @@
 	loadMenu { "ui/difficulty.menu" }
 	loadMenu { "ui/popup_leavegame.menu" }
 	loadMenu { "ui/popup_ingame.menu" }
-
-	loadMenu { "ui/shop.menu" }
 }
