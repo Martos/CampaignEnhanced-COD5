@@ -1305,7 +1305,7 @@ updatePlusScoreHUD( amount )
 	setDvar("psx", psxValue);
 	
 	self.totalScore += amount;
-	self setStat(2302, self.totalScore);
+	self setStat(2302, int(self.totalScore));
 
 	wait ( 0.05 );
 
