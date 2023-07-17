@@ -653,6 +653,7 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		players[i] thread PatchPlayerScore();
 		
 		//DEBUG: Player positizion on map
+		setdvar("ce_show_position", "0");
 		players[i] thread PrintPlayerPosition();
 	}
 }
@@ -672,8 +673,8 @@ spawnShops() {
 			secondAnglePoints = (0, -90, 0);
 			break;
 		case "ber2":
-			spawnPoints = (-1126.41, -2329.11, 856.125);
-			anglePoints = (0, -90, 0);
+			spawnPoints = (-1156.88, -2385.88, 856.125);
+			anglePoints = (0, -270, 0);
 			secondSpawnPoints = (850.912, -73.1902, -432.875);
 			secondAnglePoints = (0, -90, 0);
 			break;
@@ -686,14 +687,14 @@ spawnShops() {
 	}
 	
 	first_shop = spawn("script_model", spawnPoints);
-	first_shop setmodel("static_peleliu_wood_ammo_box_char");
+	first_shop setmodel("zombie_vending_doubletap_on");
 	first_shop setcontents(1);
 	first_shop.targetname = "first_shop";
 	first_shop.angles = anglePoints;
 	first_shop solid();
 	
 	second_shop = spawn("script_model", secondSpawnPoints);
-	second_shop setmodel("static_peleliu_wood_ammo_box_char");
+	second_shop setmodel("zombie_vending_doubletap_on");
 	second_shop setcontents(1);
 	second_shop.targetname = "second_shop";
 	second_shop.angles = secondAnglePoints;
@@ -755,13 +756,15 @@ open_second_shop_trigger() {
 
 PrintPlayerPosition() {
 	self endon("disconnect");
-	
+
 	trig = GetEnt(self.target, "targetname");
 
 	trig waittill("trigger");
 	while(1)
 	{
-		self iprintlnbold(self.origin);
+		if(GetDvarInt("ce_show_position") == 1) {
+			self iprintlnbold(self.origin);
+		}
 		wait(1);
 	}
 }
@@ -794,11 +797,16 @@ TimePlayed()
 MenuResponses() {
 	self endon("disconnect");
 	
+	SHOP_AMMO_PRICE = 500;
+	SHOP_JUGGERNOG_PRICE = 2500;
+	SHOP_SPEED_PRICE = 3000;
+	SHOP_RAYGUN_SPEED = 20000;
+	
 	while(1) {
 		self waittill("menuresponse",menu,response);
 		if(menu == game["menu_shop"]) {
 			if(response == "buy_ammo") {
-				self setStat(2302, self getStat(2302) - 1000);
+				self setStat(2302, self getStat(2302) - SHOP_AMMO_PRICE);
 				self playlocalsound("cha_ching");
 				
 				weapons = self GetWeaponsList(); 
@@ -815,7 +823,7 @@ MenuResponses() {
 				self SwitchToWeapon("ray_gun");
 			}
 			if(response == "buy_juggernog") {
-				self setStat(2302, self getStat(2302) - 5000);
+				self setStat(2302, self getStat(2302) - SHOP_JUGGERNOG_PRICE);
 				
 				self SetPerk( "specialty_armorvest" );
 				self playlocalsound("cha_ching");
@@ -827,7 +835,7 @@ MenuResponses() {
 				setdvar("ce_show_jug", "1");
 			}
 			if(response == "buy_speed") {
-				self setStat(2302, self getStat(2302) - 3000);
+				self setStat(2302, self getStat(2302) - SHOP_SPEED_PRICE);
 				
 				self SetPerk( "specialty_fastreload" );
 				self playlocalsound("cha_ching");

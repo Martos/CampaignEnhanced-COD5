@@ -87,7 +87,8 @@ init_loadout()
 	PrecacheItem( "signal_flare" );
 	
 	// Precache shop models
-	PrecacheModel("static_peleliu_wood_ammo_box_char");
+	// PrecacheModel("static_peleliu_wood_ammo_box_char");
+	PrecacheModel("zombie_vending_doubletap_on");
 
 	// MikeD (7/30/2007): New method of precaching/giving weapons.
 	// Set the level variables.
