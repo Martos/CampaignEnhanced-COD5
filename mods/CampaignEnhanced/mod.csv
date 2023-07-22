@@ -1,7 +1,10 @@
+ignore,code_post_gfx
 localize,ce,,
+localize,challenge,,
 include,ce_weapons
 include,ce_materials
 include,ce_scripts
+include,ce_models
 stringtable,mp/challengetable.csv
 stringtable,mp/weaponchallengetable.csv
 menufile,ui/menus.txt

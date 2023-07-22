@@ -119,8 +119,8 @@ itemDef
 {
 	style			WINDOW_STYLE_SHADER
 	rect			0 -SAFEAREA_Y_OFFSET 900 100 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
-	forecolor		1 1 1 1
-	visible			0
+	forecolor		0 0 0 1
+	visible			when( dvarbool("ui_ce_xenon_hud_dev") )
 	background		"white"
 	decoration
 }

@@ -8,6 +8,8 @@ adjust_xenon_hud()
 	if( getdvar("ui_ce_xenon_hud") != "1" ) {
 		setdvar( "xenon_compass_x", "0" );
 		setdvar( "xenon_compass_y", "145" );
+		setdvar( "xenon_score_x", "-103" );
+		setdvar( "xenon_score_y", "-81" );
 		return;
 	}
 	
@@ -32,6 +34,9 @@ adjust_xenon_hud()
 			setdvar( "xenon_xpbar_back_wide_w", "560" );
 			setdvar( "xenon_xpbar_front_w", "541" );
 			setdvar( "xenon_xpbar_front_wide_w", "541" );
+
+			setdvar( "xenon_score_x", "-140" );
+			setdvar( "xenon_score_y", "-135" );
 			break;
 		case "1280x720":
 			setdvar( "xenon_compass_x", "15" );
@@ -107,6 +112,9 @@ adjust_xenon_hud()
 			setdvar( "xenon_xpbar_back_wide_w", "560" );
 			setdvar( "xenon_xpbar_front_w", "541" );
 			setdvar( "xenon_xpbar_front_wide_w", "541" );
+
+			setdvar( "xenon_score_x", "-103" );
+			setdvar( "xenon_score_y", "-81" );
 			break;
 	}
 }
