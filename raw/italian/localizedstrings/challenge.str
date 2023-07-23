@@ -1,0 +1,610 @@
+// Note to translators:
+// If a sentence is the same in your language then please change it to "#same"
+//
+// eg:
+// LANG_ITALIAN  "HALT"
+// LANG_GERMAN   "#same"
+//
+// (This is so we can tell which strings have been signed-off as ok to be the same words for QA
+//  and because we do not store duplicate strings, which will then get exported again next time
+//  as being untranslated.)
+//
+VERSION             "1"
+CONFIG              "C:\cod5\cod\cod5\bin\StringEd.cfg"
+FILENOTES           ""
+
+REFERENCE           WIN_1_HARDCORE_TEAM_DEATHMATCH
+LANG_ITALIAN        "Win 1 hardcore Team Deathmatch. (Phase 1 of 3)"
+
+REFERENCE           ASSAULT
+LANG_ITALIAN        "RIFLES"
+
+REFERENCE           SMG
+LANG_ITALIAN        "SUBMACHINE GUNS"
+
+REFERENCE           HMG
+LANG_ITALIAN        "Heavy Machine Gun"
+
+REFERENCE           LMG
+LANG_ITALIAN        "MACHINE GUNS"
+
+REFERENCE           SHOTGUN
+LANG_ITALIAN        "SHOTGUNS"
+
+REFERENCE           SNIPER
+LANG_ITALIAN        "BOLT ACTION RIFLES"
+
+REFERENCE           BOOT_CAMP
+LANG_ITALIAN        "BOOT CAMP"
+
+REFERENCE           OPERATIONS
+LANG_ITALIAN        "OPERATIONS"
+
+REFERENCE           OPERATION_SPECIALIST
+LANG_ITALIAN        "Operation Specialist"
+
+REFERENCE           FIELD_SPECIALIST
+LANG_ITALIAN        "FIELD SPECIALIST"
+
+REFERENCE           KILLER
+LANG_ITALIAN        "KILLER"
+
+REFERENCE           VEHICLES
+LANG_ITALIAN        "VEHICLES"
+
+REFERENCE           HUMILIATION
+LANG_ITALIAN        "HUMILIATION"
+
+REFERENCE           ELITE
+LANG_ITALIAN        "ELITE"
+
+REFERENCE           ASSAULT_RIFLE_CHALLENGES
+LANG_ITALIAN        "RIFLES CHALLENGES"
+
+REFERENCE           SUB_MACHINE_GUN_CHALLENGES
+LANG_ITALIAN        "SUBMACHINE GUNS CHALLENGES"
+
+REFERENCE           LIGHT_MACHINE_GUN_CHALLENGES
+LANG_ITALIAN        "MACHINE GUNS CHALLENGES"
+
+REFERENCE           SHOTGUN_CHALLENGES
+LANG_ITALIAN        "SHOTGUNS CHALLENGES"
+
+REFERENCE           SNIPER_RIFLE_CHALLENGES
+LANG_ITALIAN        "BOLT ACTION RIFLES CHALLENGES"
+
+REFERENCE           BOOT_CAMP_CHALLENGES
+LANG_ITALIAN        "BOOT CAMP CHALLENGES"
+
+REFERENCE           OPERATIONS_CHALLENGES
+LANG_ITALIAN        "OPERATIONS CHALLENGES"
+
+REFERENCE           FIELD_SPECIALIST_CHALLENGES
+LANG_ITALIAN        "FIELD SPECIALIST CHALLENGES"
+
+REFERENCE           VEHICLE_CHALLENGES
+LANG_ITALIAN        "VEHICLES CHALLENGES"
+
+REFERENCE           HUMILIATION_CHALLENGES
+LANG_ITALIAN        "HUMILIATION CHALLENGES"
+
+REFERENCE           M1GARAND_MARKSMAN_I
+LANG_ITALIAN        "M1 Garand Marksman I"
+
+REFERENCE           M1GARAND_MARKSMAN_II
+LANG_ITALIAN        "M1 Garand Marksman II"
+
+REFERENCE           M1GARAND_MARKSMAN_III
+LANG_ITALIAN        "M1 Garand Marksman III"
+
+REFERENCE           M1GARAND_EXPERT_I
+LANG_ITALIAN        "M1 Garand Expert I"
+
+REFERENCE           M1GARAND_EXPERT_II
+LANG_ITALIAN        "M1 Garand Expert II"
+
+REFERENCE           M1GARAND_EXPERT_III
+LANG_ITALIAN        "M1 Garand Expert III"
+
+REFERENCE           SVT40_MARKSMAN_I
+LANG_ITALIAN        "SVT-40 Marksman I"
+
+REFERENCE           SVT40_MARKSMAN_II
+LANG_ITALIAN        "SVT-40 Marksman II"
+
+REFERENCE           SVT40_MARKSMAN_III
+LANG_ITALIAN        "SVT-40 Marksman III"
+
+REFERENCE           SVT40_EXPERT_I
+LANG_ITALIAN        "SVT-40 Expert I"
+
+REFERENCE           SVT40_EXPERT_II
+LANG_ITALIAN        "SVT-40 Expert II"
+
+REFERENCE           SVT40_EXPERT_III
+LANG_ITALIAN        "SVT-40 Expert III"
+
+REFERENCE           G43_MARKSMAN_I
+LANG_ITALIAN        "Gewehr 43 Marksman I"
+
+REFERENCE           G43_MARKSMAN_II
+LANG_ITALIAN        "Gewehr 43 Marksman II"
+
+REFERENCE           G43_MARKSMAN_III
+LANG_ITALIAN        "Gewehr 43 Marksman III"
+
+REFERENCE           G43_EXPERT_I
+LANG_ITALIAN        "Gewehr 43 Expert I"
+
+REFERENCE           G43_EXPERT_II
+LANG_ITALIAN        "Gewehr 43 Expert II"
+
+REFERENCE           G43_EXPERT_III
+LANG_ITALIAN        "Gewehr 43 Expert III"
+
+REFERENCE           STG44_MARKSMAN_I
+LANG_ITALIAN        "STG-44 Marksman I"
+
+REFERENCE           STG44_MARKSMAN_II
+LANG_ITALIAN        "STG-44 Marksman II"
+
+REFERENCE           STG44_MARKSMAN_III
+LANG_ITALIAN        "STG-44 Marksman III"
+
+REFERENCE           STG44_EXPERT_I
+LANG_ITALIAN        "STG-44 Expert I"
+
+REFERENCE           STG44_EXPERT_II
+LANG_ITALIAN        "STG-44 Expert II"
+
+REFERENCE           STG44_EXPERT_III
+LANG_ITALIAN        "STG-44 Expert III"
+
+REFERENCE           M1A1_MARKSMAN_I
+LANG_ITALIAN        "M1A1 Carbine Marksman I"
+
+REFERENCE           M1A1_MARKSMAN_II
+LANG_ITALIAN        "M1A1 Carbine Marksman II"
+
+REFERENCE           M1A1_MARKSMAN_III
+LANG_ITALIAN        "M1A1 Carbine Marksman III"
+
+REFERENCE           M1A1_EXPERT_I
+LANG_ITALIAN        "M1A1 Carbine Expert I"
+
+REFERENCE           M1A1_EXPERT_II
+LANG_ITALIAN        "M1A1 Carbine Expert II"
+
+REFERENCE           M1A1_EXPERT_III
+LANG_ITALIAN        "M1A1 Carbine Expert III"
+
+REFERENCE           THOMPSON_MARKSMAN_II
+LANG_ITALIAN        "Thompson Marksman II"
+
+REFERENCE           THOMPSON_MARKSMAN_III
+LANG_ITALIAN        "Thompson Marksman III"
+
+REFERENCE           THOMPSON_MARKSMAN_I
+LANG_ITALIAN        "Thompson Marksman I"
+
+REFERENCE           THOMPSON_EXPERT_I
+LANG_ITALIAN        "Thompson Expert I"
+
+REFERENCE           THOMPSON_EXPERT_II
+LANG_ITALIAN        "Thompson Expert II"
+
+REFERENCE           THOMPSON_EXPERT_III
+LANG_ITALIAN        "Thompson Expert III"
+
+REFERENCE           GET_25_KILLS_WITH_THIS
+LANG_ITALIAN        "Get 25 kills with this weapon. (Phase 1 of 3)"
+
+REFERENCE           GET_75_KILLS_WITH_THIS
+LANG_ITALIAN        "Get 75 kills with this weapon. (Phase 2 of 3)"
+
+REFERENCE           GET_150_KILLS_WITH_THIS
+LANG_ITALIAN        "Get 150 kills with this weapon. (Phase 3 of 3)"
+
+REFERENCE           GET_25_HEAD_SHOTS_WITH
+LANG_ITALIAN        "Get 25 head shots with this weapon. (Phase 1 of 3)"
+
+REFERENCE           GET_75_HEAD_SHOTS_WITH
+LANG_ITALIAN        "Get 75 head shots with this weapon. (Phase 2 of 3)"
+
+REFERENCE           GET_150_HEAD_SHOTS_WITH
+LANG_ITALIAN        "Get 150 head shots with this weapon. (Phase 3 of 3)"
+
+REFERENCE           TYPE100SMG_MARKSMAN_I
+LANG_ITALIAN        "Type 100 Marksman I"
+
+REFERENCE           TYPE100SMG_MARKSMAN_II
+LANG_ITALIAN        "Type 100 Marksman II"
+
+REFERENCE           TYPE100SMG_MARKSMAN_III
+LANG_ITALIAN        "Type 100 Marksman III"
+
+REFERENCE           TYPE100SMG_EXPERT_I
+LANG_ITALIAN        "Type 100 Expert I"
+
+REFERENCE           TYPE100SMG_EXPERT_II
+LANG_ITALIAN        "Type 100 Expert II"
+
+REFERENCE           TYPE100SMG_EXPERT_III
+LANG_ITALIAN        "Type 100 Expert III"
+
+REFERENCE           MP40_MARKSMAN_I
+LANG_ITALIAN        "MP40 Marksman I"
+
+REFERENCE           MP40_MARKSMAN_II
+LANG_ITALIAN        "MP40 Marksman II"
+
+REFERENCE           MP40_MARKSMAN_III
+LANG_ITALIAN        "MP40 Marksman III"
+
+REFERENCE           MP40_EXPERT_I
+LANG_ITALIAN        "MP40 Expert I"
+
+REFERENCE           MP40_EXPERT_II
+LANG_ITALIAN        "MP40 Expert II"
+
+REFERENCE           MP40_EXPERT_III
+LANG_ITALIAN        "MP40 Expert III"
+
+REFERENCE           PPSH_MARKSMAN_I
+LANG_ITALIAN        "PPSh-41 Marksman I"
+
+REFERENCE           PPSH_MARKSMAN_II
+LANG_ITALIAN        "PPSh-41 Marksman II"
+
+REFERENCE           PPSH_MARKSMAN_III
+LANG_ITALIAN        "PPSh-41 Marksman III"
+
+REFERENCE           PPSH_EXPERT_I
+LANG_ITALIAN        "PPSh-41 Expert I"
+
+REFERENCE           PPSH_EXPERT_II
+LANG_ITALIAN        "PPSh-41 Expert II"
+
+REFERENCE           PPSH_EXPERT_III
+LANG_ITALIAN        "PPSh-41 Expert III"
+
+REFERENCE           TYPE99LMG_MARKSMAN_I
+LANG_ITALIAN        "Type 99 Marksman I"
+
+REFERENCE           TYPE99LMG_EXPERT_I
+LANG_ITALIAN        "Type 99 Expert I"
+
+REFERENCE           TYPE99LMG_EXPERT_II
+LANG_ITALIAN        "Type 99 Expert II"
+
+REFERENCE           TYPE99LMG_EXPERT_III
+LANG_ITALIAN        "Type 99 Expert III"
+
+REFERENCE           FG42_MARKSMAN_I
+LANG_ITALIAN        "FG42 Marksman I"
+
+REFERENCE           FG42_EXPERT_I
+LANG_ITALIAN        "FG42 Expert I"
+
+REFERENCE           FG42_EXPERT_II
+LANG_ITALIAN        "FG42 Expert II"
+
+REFERENCE           FG42_EXPERT_III
+LANG_ITALIAN        "FG42 Expert III"
+
+REFERENCE           30CAL_MARKSMAN
+LANG_ITALIAN        "Browning M1919 Marksman"
+
+REFERENCE           30CAL_EXPERT_I
+LANG_ITALIAN        "Browning M1919 Expert I"
+
+REFERENCE           30CAL_EXPERT_II
+LANG_ITALIAN        "Browning M1919 Expert II"
+
+REFERENCE           30CAL_EXPERT_III
+LANG_ITALIAN        "Browning M1919 Expert III"
+
+REFERENCE           MG42_MARKSMAN
+LANG_ITALIAN        "MG42 Marksman"
+
+REFERENCE           MG42_EXPERT_I
+LANG_ITALIAN        "MG42 Expert I"
+
+REFERENCE           MG42_EXPERT_II
+LANG_ITALIAN        "MG42 Expert II"
+
+REFERENCE           MG42_EXPERT_III
+LANG_ITALIAN        "MG42 Expert III"
+
+REFERENCE           DP28_MARKSMAN
+LANG_ITALIAN        "DP-28 Marksman"
+
+REFERENCE           DP28_EXPERT_I
+LANG_ITALIAN        "DP-28 Expert I"
+
+REFERENCE           DP28_EXPERT_II
+LANG_ITALIAN        "DP-28 Expert II"
+
+REFERENCE           DP28_EXPERT_III
+LANG_ITALIAN        "DP-28 Expert III"
+
+REFERENCE           UNLOCK_GRIP
+LANG_ITALIAN        "UNLOCK: Grip for this weapon"
+
+REFERENCE           UNLOCK_BIPOD
+LANG_ITALIAN        "UNLOCK: Bipod for this weapon"
+
+REFERENCE           UNLOCK_BOXMAG
+LANG_ITALIAN        "UNLOCK: Extended Clip for this weapon"
+
+REFERENCE           UNLOCK_APERTURE
+LANG_ITALIAN        "UNLOCK: Aperture for this weapon"
+
+REFERENCE           UNLOCK_FLASH
+LANG_ITALIAN        "UNLOCK: Flash Hider for this weapon"
+
+REFERENCE           UNLOCK_SILENCER
+LANG_ITALIAN        "UNLOCK: Suppressor for this weapon"
+
+REFERENCE           UNLOCK_TELESCOPIC_SCOPE
+LANG_ITALIAN        "UNLOCK: Telescopic sight for this weapon"
+
+REFERENCE           UNLOCK_BAYONET
+LANG_ITALIAN        "UNLOCK: Bayonet for this weapon"
+
+REFERENCE           UNLOCK_GL
+LANG_ITALIAN        "UNLOCK: Rifle Grenade for this weapon"
+
+REFERENCE           GET_25_KILLS_WITH_THIS_1
+LANG_ITALIAN        "Get 25 kills with this weapon. (Phase 1 of 1)"
+
+REFERENCE           GET_75_KILLS_WITH_THIS_1
+LANG_ITALIAN        "Get 75 kills with this weapon. "
+
+REFERENCE           GET_50_KILLS_WITH_THIS
+LANG_ITALIAN        "Get 50 kills with this weapon. (Phase 2 of 3)"
+
+REFERENCE           GET_50_HEAD_SHOTS_WITH
+LANG_ITALIAN        "Get 50 head shots with this weapon. (Phase 2 of 3)"
+
+REFERENCE           GET_100_HEAD_SHOTS_WITH
+LANG_ITALIAN        "Get 100 head shots with this weapon. (Phase 3 of 3)"
+
+REFERENCE           BAR_MARKSMAN
+LANG_ITALIAN        "BAR Marksman"
+
+REFERENCE           BAR_EXPERT_I
+LANG_ITALIAN        "BAR Expert I"
+
+REFERENCE           BAR_EXPERT_II
+LANG_ITALIAN        "BAR Expert II"
+
+REFERENCE           BAR_EXPERT_III
+LANG_ITALIAN        "BAR Expert III"
+
+REFERENCE           SHOTGUN_MARKSMAN_I
+LANG_ITALIAN        "M1897 Trench Gun Marksman I"
+
+REFERENCE           SHOTGUN_EXPERT_I
+LANG_ITALIAN        "M1897 Trench Gun Expert I"
+
+REFERENCE           SHOTGUN_EXPERT_II
+LANG_ITALIAN        "M1897 Trench Gun Expert II"
+
+REFERENCE           SHOTGUN_EXPERT_III
+LANG_ITALIAN        "M1897 Trench Gun Expert III"
+
+REFERENCE           GET_25_KILLS_WITH_THIS_1_OF_4
+LANG_ITALIAN        "Get 25 kills with this weapon. (Phase 1 of 4)"
+
+REFERENCE           GET_75_KILLS_WITH_THIS_2_OF_4
+LANG_ITALIAN        "Get 75 kills with this weapon. (Phase 2 of 4)"
+
+REFERENCE           GET_100_KILLS_WITH_THIS_3_OF_4
+LANG_ITALIAN        "Get 100 kills with this weapon. (Phase 3 of 4)"
+
+REFERENCE           GET_150_KILLS_WITH_THIS_4_OF_4
+LANG_ITALIAN        "Get 150 kills with this weapon. (Phase 4 of 4)"
+
+REFERENCE           GET_25_KILLS_WITH_THIS_1_OF_2
+LANG_ITALIAN        "Get 25 kills with this weapon. (Phase 1 of 2)"
+
+REFERENCE           GET_75_KILLS_WITH_THIS_1_OF_1
+LANG_ITALIAN        "Get 75 kills with this weapon. "
+
+REFERENCE           GET_75_KILLS_WITH_THIS_2_OF_2
+LANG_ITALIAN        "Get 75 kills with this weapon. (Phase 2 of 2)"
+
+REFERENCE           GET_75_KILLS_WITH_THIS_1_OF_2
+LANG_ITALIAN        "Get 75 kills with this weapon. (Phase 1 of 2)"
+
+REFERENCE           GET_100_KILLS_WITH_THIS_2_OF_2
+LANG_ITALIAN        "Get 100 kills with this weapon. (Phase 2 of 2)"
+
+REFERENCE           GET_100_KILLS_WITH_THIS
+LANG_ITALIAN        "Get 100 kills with this weapon. (Phase 3 of 3)"
+
+REFERENCE           DBSHOTTY_MARKSMAN_I
+LANG_ITALIAN        "Double Barreled Marksman I"
+
+REFERENCE           DBSHOTTY_EXPERT_I
+LANG_ITALIAN        "Double Barreled Expert I"
+
+REFERENCE           DBSHOTTY_EXPERT_II
+LANG_ITALIAN        "Double Barreled Expert II"
+
+REFERENCE           DBSHOTTY_EXPERT_III
+LANG_ITALIAN        "Double Barreled Expert III"
+
+REFERENCE           MOSINRIFLE_MARKSMAN_I
+LANG_ITALIAN        "Mosin-Nagant Marksman I"
+
+REFERENCE           MOSINRIFLE_MARKSMAN_II
+LANG_ITALIAN        "Mosin-Nagant Marksman II"
+
+REFERENCE           MOSINRIFLE_MARKSMAN_III
+LANG_ITALIAN        "Mosin-Nagant Marksman III"
+
+REFERENCE           MOSINRIFLE_EXPERT_I
+LANG_ITALIAN        "Mosin-Nagant Expert I"
+
+REFERENCE           MOSINRIFLE_EXPERT_II
+LANG_ITALIAN        "Mosin-Nagant Expert II"
+
+REFERENCE           MOSINRIFLE_EXPERT_III
+LANG_ITALIAN        "Mosin-Nagant Expert III"
+
+REFERENCE           SPRINGFIELD_MARKSMAN_I
+LANG_ITALIAN        "Springfield Marksman I"
+
+REFERENCE           SPRINGFIELD_MARKSMAN_II
+LANG_ITALIAN        "Springfield Marksman II"
+
+REFERENCE           SPRINGFIELD_MARKSMAN_III
+LANG_ITALIAN        "Springfield Marksman III"
+
+REFERENCE           SPRINGFIELD_EXPERT_I
+LANG_ITALIAN        "Springfield Expert I"
+
+REFERENCE           SPRINGFIELD_EXPERT_II
+LANG_ITALIAN        "Springfield Expert II"
+
+REFERENCE           SPRINGFIELD_EXPERT_III
+LANG_ITALIAN        "Springfield Expert III"
+
+REFERENCE           KAR98K_MARKSMAN_I
+LANG_ITALIAN        "Kar98k Marksman I"
+
+REFERENCE           KAR98K_MARKSMAN_II
+LANG_ITALIAN        "Kar98k Marksman II"
+
+REFERENCE           KAR98K_MARKSMAN_III
+LANG_ITALIAN        "Kar98k Marksman III"
+
+REFERENCE           KAR98K_EXPERT_I
+LANG_ITALIAN        "Kar98k Expert I"
+
+REFERENCE           KAR98K_EXPERT_II
+LANG_ITALIAN        "Kar98k Expert II"
+
+REFERENCE           KAR98K_EXPERT_III
+LANG_ITALIAN        "Kar98k Expert III"
+
+REFERENCE           TYPE99RIFLE_MARKSMAN_I
+LANG_ITALIAN        "Arisaka Marksman I"
+
+REFERENCE           TYPE99RIFLE_MARKSMAN_II
+LANG_ITALIAN        "Arisaka Marksman II"
+
+REFERENCE           TYPE99RIFLE_MARKSMAN_III
+LANG_ITALIAN        "Arisaka Marksman III"
+
+REFERENCE           TYPE99RIFLE_EXPERT_I
+LANG_ITALIAN        "Arisaka Expert I"
+
+REFERENCE           TYPE99RIFLE_EXPERT_II
+LANG_ITALIAN        "Arisaka Expert II"
+
+REFERENCE           TYPE99RIFLE_EXPERT_III
+LANG_ITALIAN        "Arisaka Expert III"
+
+REFERENCE           PTRS41_MARKSMAN_I
+LANG_ITALIAN        "PTRS-41 Marksman I"
+
+REFERENCE           PTRS41_MARKSMAN_II
+LANG_ITALIAN        "PTRS-41 Marksman II"
+
+REFERENCE           PTRS41_MARKSMAN_III
+LANG_ITALIAN        "PTRS-41 Marksman III"
+
+REFERENCE           PTRS41_EXPERT_I
+LANG_ITALIAN        "PTRS-41 Expert I"
+
+REFERENCE           PTRS41_EXPERT_II
+LANG_ITALIAN        "PTRS-41 Expert II"
+
+REFERENCE           PTRS41_EXPERT_III
+LANG_ITALIAN        "PTRS-41 Expert III"
+
+REFERENCE           LUPRA_MARKSMAN
+LANG_ITALIAN        "Sawed-Off Shotgun"
+
+REFERENCE           LUPRA_EXPERT_I
+LANG_ITALIAN        "Sawed-Off Shotgun Expert I"
+
+REFERENCE           LUPRA_EXPERT_II
+LANG_ITALIAN        "Sawed-Off Shotgun Expert II"
+
+REFERENCE           LUPRA_EXPERT_III
+LANG_ITALIAN        "Sawed-Off Shotgun Expert III"
+
+REFERENCE           PISTOL_MARKSMAN_I
+LANG_ITALIAN        "Pistol Marksman I"
+
+REFERENCE           PISTOL_MARKSMAN_II
+LANG_ITALIAN        "Pistol Marksman II"
+
+REFERENCE           PISTOL_MARKSMAN_III
+LANG_ITALIAN        "Pistol Marksman III"
+
+REFERENCE           PISTOL_EXPERT_I
+LANG_ITALIAN        "Pistol Expert I"
+
+REFERENCE           PISTOL_EXPERT_II
+LANG_ITALIAN        "Pistol Expert II"
+
+REFERENCE           PISTOL_EXPERT_III
+LANG_ITALIAN        "Pistol Expert III"
+
+REFERENCE           ASSAULT_EXPERT_I
+LANG_ITALIAN        "Rifle Expert I"
+
+REFERENCE           ASSAULT_EXPERT_II
+LANG_ITALIAN        "Rifle Expert II"
+
+REFERENCE           ASSAULT_EXPERT_III
+LANG_ITALIAN        "Rifle Expert III"
+
+REFERENCE           SMG_EXPERT_I
+LANG_ITALIAN        "SMG Expert I"
+
+REFERENCE           SMG_EXPERT_II
+LANG_ITALIAN        "SMG Expert II"
+
+REFERENCE           SMG_EXPERT_III
+LANG_ITALIAN        "SMG Expert III"
+
+REFERENCE           LMG_EXPERT_I
+LANG_ITALIAN        "LMG Expert I"
+
+REFERENCE           LMG_EXPERT_II
+LANG_ITALIAN        "LMG Expert II"
+
+REFERENCE           LMG_EXPERT_III
+LANG_ITALIAN        "LMG Expert III"
+
+REFERENCE           HMG_EXPERT_I
+LANG_ITALIAN        "HMG Expert I"
+
+REFERENCE           HMG_EXPERT_II
+LANG_ITALIAN        "HMG Expert II"
+
+REFERENCE           HMG_EXPERT_III
+LANG_ITALIAN        "HMG Expert III"
+
+REFERENCE           BOLT_EXPERT_I
+LANG_ITALIAN        "Bolt Action Expert I"
+
+REFERENCE           BOLT_EXPERT_II
+LANG_ITALIAN        "Bolt Action Expert II"
+
+REFERENCE           BOLT_EXPERT_III
+LANG_ITALIAN        "Bolt Action Expert III"
+
+REFERENCE           DONE
+LANG_ITALIAN        "Done"
+
+
+ENDMARKER
+
+
