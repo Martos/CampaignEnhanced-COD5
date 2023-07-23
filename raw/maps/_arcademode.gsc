@@ -28,7 +28,7 @@ main()
 	
 	precachestring( &"SCRIPT_AM_MISSION_SCORE" );	
  	precachestring( &"SCRIPT_AM_ROUND_BONUS" );	
-	
+
 	precacheShader( "damage_feedback" );
 	
 	precacheShader( "specialty_juggernaut_zombies" );
@@ -848,6 +848,82 @@ arcademode_death( mod, hit_location, hit_origin, player, enemy, uberKillingMachi
 	level thread updatePlayers();
 }
 
+challengeNotify(weapName, tier) {
+	tierOffset = int(tablelookup("mp/weaponchallengetable.csv",1,weapName,2));
+	if(!isdefined(tierOffset))
+		return;
+
+	if(!isdefined(tier))
+		return;
+	
+	switch(tierOffset) {
+		case 501:
+			switch(tier) {
+				case 1:
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_G43_MARKSMAN_I");
+					break;
+				case 2:
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_G43_MARKSMAN_II");
+					break;
+				case 3:
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_G43_MARKSMAN_III");
+					break;
+			}
+			break;
+		case 521:
+			switch(tier) {
+				case 1:
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_THOMPSON_MARKSMAN_I");
+					break;
+				case 2:
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_THOMPSON_MARKSMAN_II");
+					break;
+				case 3:
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_THOMPSON_MARKSMAN_III");
+					break;
+			}
+			break;
+		case 525:
+			switch(tier) {
+				case 1:
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_MP40_MARKSMAN_I");
+					break;
+				case 2:
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_MP40_MARKSMAN_II");
+					break;
+				case 3:
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_MP40_MARKSMAN_III");
+					break;
+			}
+			break;
+		case 527:
+			switch(tier) {
+				case 1:
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_PPSH_MARKSMAN_I");
+					break;
+				case 2:
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_PPSH_MARKSMAN_II");
+					break;
+				case 3:
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_PPSH_MARKSMAN_III");
+					break;
+			}
+		case 523:
+			switch(tier) {
+				case 1:
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_TYPE100SMG_MARKSMAN_I");
+					break;
+				case 2:
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_TYPE100SMG_MARKSMAN_II");
+					break;
+				case 3:
+					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_TYPE100SMG_MARKSMAN_III");
+					break;
+			}
+	}
+
+}
+
 challengeWatcher(hit_location) {
 	if ( !IsPlayer( self ) ) {
 		return;
@@ -871,34 +947,6 @@ challengeWatcher(hit_location) {
 		challengesSummary = 0;
 	}
 
-	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,1));
-	
-	//self iPrintLn(tablelookup("mp/challengetable_tier3.csv",0,1,2));
-	
-	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,3));
-	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,4));
-	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,5));
-	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,6));
-	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,7));
-	
-	//self iPrintLn(tablelookup("mp/challengetable_tier3.csv",0,1,8));
-	
-	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,9));
-	//self iPrintLn(tablelookup("mp/challengetable_tier3.csv",0,1,10));
-	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,11));
-	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,12));
-	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,13));
-	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,14));
-	//self iPrintLn(tablelookup("mp/challengetable_tier2.csv",0,1,15));
-/*
-	self iPrintLn(tablelookup("mp/challengetable_tier3.csv",0,1,2) + " " + tablelookup("mp/challengetable_tier3.csv",0,1,8));
-	self iPrintLn(tablelookup("mp/challengetable_tier3.csv",0,2,2) + " " + tablelookup("mp/challengetable_tier3.csv",0,2,8));
-	self iPrintLn(tablelookup("mp/challengetable_tier3.csv",0,3,2) + " " + tablelookup("mp/challengetable_tier3.csv",0,3,8));
-	
-	self iPrintLn(tablelookup("mp/challengetable_tier3.csv",0,4,2) + " " + tablelookup("mp/challengetable_tier3.csv",0,4,8));
-	self iPrintLn(tablelookup("mp/challengetable_tier3.csv",0,5,2) + " " + tablelookup("mp/challengetable_tier3.csv",0,5,8));
-	self iPrintLn(tablelookup("mp/challengetable_tier3.csv",0,7,2) + " " + tablelookup("mp/challengetable_tier3.csv",0,7,8));
-	*/
 	if(!isdefined(currentTierStatCheckKill))
 		return;
 	
@@ -919,8 +967,8 @@ challengeWatcher(hit_location) {
 				currentKillStats += 1;
 				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,4)), currentKillStats);
 				if(currentKillStats >= targetKill) {
+					challengeNotify(weapName, 1);
 					currentTierStatCheckKill += 1;
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_"+tablelookup("mp/challengetable_tier2.csv",0,1,8));
 					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,2)), currentTierStatCheckKill);
 					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,6)), 196611);
 					self thread updatePlusScoreHUD( 100 );
@@ -940,8 +988,8 @@ challengeWatcher(hit_location) {
 				currentKillStats += 1;
 				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,4)), currentKillStats);
 				if(currentKillStats >= targetKill) {
+					challengeNotify(weapName, 2);
 					currentTierStatCheckKill += 1;
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_"+tablelookup("mp/challengetable_tier2.csv",0,2,8));
 					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,2)), currentTierStatCheckKill);
 					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,6)), 458759);
 					self thread updatePlusScoreHUD( 500 );
@@ -965,8 +1013,8 @@ challengeWatcher(hit_location) {
 					
 				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,4)), currentKillStats);
 				if(currentKillStats >= targetKill) {
+					challengeNotify(weapName, 3);
 					currentTierStatCheckKill += 1;
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_"+tablelookup("mp/challengetable_tier2.csv",0,3,8));
 					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,2)), currentTierStatCheckKill);
 					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,6)), 589839);
 					self thread updatePlusScoreHUD( 1000 );
@@ -989,7 +1037,7 @@ challengeWatcher(hit_location) {
 				self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,4)), currentKillStats);
 				if(currentKillStats >= targetKill) {
 					currentTierStatCheckKill = 255;
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_"+tablelookup("mp/challengetable_tier2.csv",0,3,8));
+					self thread maps\_challenges_coop::challengeNotify(&""+tablelookup("mp/challengetable_tier2.csv",0,3,8));
 					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,2)), currentTierStatCheckKill);
 					self setStat(int(tablelookup("mp/weaponchallengetable.csv",1,weapName,6)), 983055);
 					self thread updatePlusScoreHUD( 1500 );
