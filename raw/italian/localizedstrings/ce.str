@@ -21,7 +21,7 @@ REFERENCE			CE_CLASS_SELECTED
 LANG_ITALIAN		"Classe selezionata: "
 
 REFERENCE			CE_TITLE
-LANG_ITALIAN		"Campaign Enhanced"
+LANG_ITALIAN		"CAMPAIGN ENHANCED"
 
 REFERENCE			MOTD
 LANG_ITALIAN		"Benvenuti in Campaign Enhanced \n github.com/Martos/CampaignEnhanced-COD5"
@@ -50,7 +50,10 @@ LANG_ITALIAN		"x3 PE"
 REFERENCE			4X_XP_RATE
 LANG_ITALIAN		"x4 PE"
 
-REFERENCE           CE_OPTIONS_BUTTON
+REFERENCE           OPTIONS_TITLE
+LANG_ITALIAN        "OPZIONI CAMPAIGN ENHANCED"
+
+REFERENCE           OPTIONS_BUTTON
 LANG_ITALIAN        "C.E. OPZIONI"
 
 REFERENCE           T4M_INSTALLED_STATUS_OK
@@ -58,5 +61,26 @@ LANG_ITALIAN        "T4M Installato"
 
 REFERENCE           T4M_INSTALLED_STATUS_KO
 LANG_ITALIAN        "T4M Non Installato"
+
+REFERENCE           OPTIONS_FULLSCREEN
+LANG_ITALIAN        "Schermo intero"
+
+REFERENCE           OPTIONS_HIDE_XPBAR
+LANG_ITALIAN        "Nascondi barra PE"
+
+REFERENCE           OPTIONS_DISABLE_HITMARKER
+LANG_ITALIAN        "Disattiva indicatore colpi"
+
+REFERENCE           OPTIONS_HIDE_SCORE
+LANG_ITALIAN        "Nascondi punteggio giocatore"
+
+REFERENCE           OPTIONS_ENABLE_XENON
+LANG_ITALIAN        "Attiva HUD Xbox 360 (sperimentale)"
+
+REFERENCE           OPTIONS_NOTE_PATCH
+LANG_ITALIAN        "Note Patch"
+
+REFERENCE           OPTIONS_FOV
+LANG_ITALIAN        "Campo visivo"
 
 ENDMARKER
