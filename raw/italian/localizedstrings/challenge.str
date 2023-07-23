@@ -197,22 +197,22 @@ REFERENCE           THOMPSON_EXPERT_III
 LANG_ITALIAN        "Thompson Expert III"
 
 REFERENCE           GET_25_KILLS_WITH_THIS
-LANG_ITALIAN        "Get 25 kills with this weapon. (Phase 1 of 3)"
+LANG_ITALIAN        "Ottieni 25 uccisioni con quest'arma. (Fase 1 di 3)"
 
 REFERENCE           GET_75_KILLS_WITH_THIS
-LANG_ITALIAN        "Get 75 kills with this weapon. (Phase 2 of 3)"
+LANG_ITALIAN        "Ottieni 75 uccisioni con quest'arma. (Fase 2 di 3)"
 
 REFERENCE           GET_150_KILLS_WITH_THIS
-LANG_ITALIAN        "Get 150 kills with this weapon. (Phase 3 of 3)"
+LANG_ITALIAN        "Ottieni 150 uccisioni con quest'arma. (Fase 3 di 3)"
 
 REFERENCE           GET_25_HEAD_SHOTS_WITH
-LANG_ITALIAN        "Get 25 head shots with this weapon. (Phase 1 of 3)"
+LANG_ITALIAN        "Ottieni 25 colpi alla testa con quest'arma. (Fase 1 di 3)"
 
 REFERENCE           GET_75_HEAD_SHOTS_WITH
-LANG_ITALIAN        "Get 75 head shots with this weapon. (Phase 2 of 3)"
+LANG_ITALIAN        "Ottieni 75 colpi alla testa con quest'arma. (Fase 2 di 3)"
 
 REFERENCE           GET_150_HEAD_SHOTS_WITH
-LANG_ITALIAN        "Get 150 head shots with this weapon. (Phase 3 of 3)"
+LANG_ITALIAN        "Ottieni 150 colpi alla testa con quest'arma. (Fase 3 di 3)"
 
 REFERENCE           TYPE100SMG_MARKSMAN_I
 LANG_ITALIAN        "Type 100 Marksman I"
@@ -602,7 +602,7 @@ REFERENCE           BOLT_EXPERT_III
 LANG_ITALIAN        "Bolt Action Expert III"
 
 REFERENCE           DONE
-LANG_ITALIAN        "Done"
+LANG_ITALIAN        "Fatto"
 
 
 ENDMARKER

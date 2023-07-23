@@ -44,7 +44,7 @@ CHOICE_DBUTTON_VIS( 7, "@PLATFORM_DEFAULT_SYSTEM_SETTINGS_CAP", 1; )
 #else // #ifdef PC_INGAME
 CHOICE_BUTTON( 7, "@PLATFORM_DEFAULT_SYSTEM_SETTINGS_CAP", LOCAL_CLOSE_ALL open options_graphics_defaults )
 #endif // #ifdef PC_INGAME
-CHOICE_BUTTON( 8, "C.E. OPTIONS", LOCAL_CLOSE_ALL open options_ce )
+CHOICE_BUTTON( 8, "@CE_OPTIONS_BUTTON", LOCAL_CLOSE_ALL open options_ce )
 CHOICE_BUTTON( 9, "@MENU_CONTROLS_CAP", LOCAL_CLOSE_ALL open options_controls_new_pc; close options_new_pc )
 
 #undef		CHOICE_SIZE_X

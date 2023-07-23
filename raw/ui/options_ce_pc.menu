@@ -73,7 +73,7 @@
 		
 		itemDef
 		{
-			text 			"T4M Installed."
+			text 			"@CE_T4M_INSTALLED_STATUS_OK"
 			forecolor		0 1 0 1
 			style			WINDOW_STYLE_FILLED
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
@@ -86,7 +86,7 @@
 		
 		itemDef
 		{
-			text 			"T4M Not Installed."
+			text 			"@CE_T4M_INSTALLED_STATUS_KO"
 			forecolor		1 0 0 1
 			style			WINDOW_STYLE_FILLED
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
