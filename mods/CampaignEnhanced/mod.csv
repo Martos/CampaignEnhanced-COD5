@@ -1,6 +1,5 @@
 ignore,code_post_gfx
-localize,ce,,
-localize,challenge,,
+include,ce_languages
 include,ce_weapons
 include,ce_materials
 include,ce_scripts

@@ -165,8 +165,8 @@ itemDef
 	rect			0 -200 540 4 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
 	exp				rect W( dvarInt("xenon_xpbar_front_w") * ((stat(2301)-stat(2351))/(stat(2352)-stat(2351))) );
 	exp				rect X(SAFEAREA_X_OFFSET)
-	exp 			rect Y( (-SAFEAREA_Y_OFFSET) + (1) )
-	exp				rect H(XPBAR_WIDTH-2)
+	exp 			rect Y( (-SAFEAREA_Y_OFFSET) + (2) )
+	exp				rect H(XPBAR_WIDTH-3)
 	origin			0 0
 	background		"scorebar_fadein"
 	forecolor		1 0.8 0.4 XPBAR_ALPHA
@@ -194,8 +194,8 @@ itemDef
 	rect			0 -200 540 4 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
 	exp				rect W( dvarInt("xenon_xpbar_front_wide_w") * ((stat(2301)-stat(2351))/(stat(2352)-stat(2351))) );
 	exp				rect X(SAFEAREA_X_OFFSET)
-	exp 			rect Y( (-SAFEAREA_Y_OFFSET) + (1) )
-	exp				rect H(XPBAR_WIDTH-2)
+	exp 			rect Y( (-SAFEAREA_Y_OFFSET) + (2) )
+	exp				rect H(XPBAR_WIDTH-3)
 	origin			0 0
 	background		"scorebar_fadein"
 	forecolor		1 0.8 0.4 XPBAR_ALPHA

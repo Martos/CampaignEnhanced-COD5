@@ -181,7 +181,7 @@
 		
 		//CHOICE_BUTTON_VIS_NOHI( 4, "@MPUI_END_GAME_CAP", open popup_endgame, when( dvarbool( sv_running ) ) )
 		//CHOICE_BUTTON_VIS_NOHI( 4, "@MPUI_LEAVE_GAME_CAP", open popup_leavegame, when( !dvarbool( sv_running ) ) )
-		CHOICE_BUTTON_VIS( 3, "@CLOSE", close self;, 1 )
+		CHOICE_BUTTON_VIS( 3, "@MENU_QUIT", close self;, 1 )
 		
 		// ====================== player stats =========================
 		

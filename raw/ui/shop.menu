@@ -5,11 +5,16 @@
 #define CHOICE_Y_START			40
 
 #define CHOICE_GROUP			"main"
-#define CHOICE_SEP_1			4
+#define CHOICE_SEP_1			5
 
 #define STYLE_PC	1
 #include "ui_mp/menustyle.inc"
 #include "ui/choices_setup_common.menu"
+
+#define LOGO_START_X			-300
+#define LOGO_START_Y			-160
+
+#define BALANCE_ORIGIN_Y		40
 
 #define ORIGIN_STATUS			390 20
 #define CUSTOM_CLASS_LOCKED_DESC	305 32
@@ -21,20 +26,35 @@
 #define SHOP_RAYGUN_SPEED 20000
 
 #define SHOP_AMMO \
+		play "cha_ching"; \
 		scriptMenuResponse "buy_ammo" \
 		close self; \
 		
 #define SHOP_RAYGUN \
+		play "cha_ching"; \
 		scriptMenuResponse "buy_raygun" \
+		close self; \
+
+#define SHOP_XP \
+		play "cha_ching"; \
+		scriptMenuResponse "buy_xp" \
 		close self; \
 		
 #define SHOP_JUGGERNOG \
+		play "cha_ching"; \
 		scriptMenuResponse "buy_juggernog" \
 		close self; \
 
 #define SHOP_SPEED \
+		play "cha_ching"; \
 		scriptMenuResponse "buy_speed" \
 		close self; \
+
+#define CHANGE_DESC(price) \
+		setLocalVarString shop_price_desc price \
+
+#define RESET_DESC \
+		setLocalVarString shop_price_desc "" \
 
 {
 	menuDef
@@ -46,28 +66,19 @@
 		visible			1
 		onOpen
 		{
-			
+			setLocalVarString shop_price_desc "";
 		}
 		onClose
 		{
 			setdvar ui_ce_shop "0";
+			setLocalVarString shop_price_desc "";
 		}
 		onEsc
 		{
 			setdvar ui_ce_shop "0";
+			setLocalVarString shop_price_desc "";
 			close self;
 		}
-		/*
-		itemDef
-		{
-			rect			LOGO_START_X LOGO_START_Y 256 64 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_BOTTOM
-			forecolor		1 1 1 1
-			style			WINDOW_STYLE_SHADER
-			background		"logo_cod2"
-			visible			when( !localVarBool( ui_hideBack ) );
-			decoration
-		}
-		*/
 		
 		// background overlay
 		#define PC_INGAME	1
@@ -82,24 +93,90 @@
 		
 		CHOICE_MENU_TITLE( "Shop" )
 
-		CHOICE_BUTTON_VIS( 1, "Reload Ammo", SHOP_AMMO, when( !localvarBool( ui_hideBack ) && stat(2302) >= SHOP_AMMO_PRICE ) )
-		CHOICE_DBUTTON_VIS( 1, "Reload Ammo", when( !localvarBool( ui_hideBack ) && stat(2302) < SHOP_AMMO_PRICE ) )
+		itemDef	
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			(CHOICE_X_START + 15) 320 10 10 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP
+			origin			-12 6
+			background		"ui_arrow_right"
+			forecolor		1 1 1 1
+			visible			when( !localVarBool( ui_hideBack ) );
+			decoration
+		}
+
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			(CHOICE_X_START + 15) 320 10 10 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP
+			origin			0 19
+			forecolor		MENU_FONT_COLOR2
+			exp				text( localVarString( shop_price_desc ) );
+			textfont		UI_FONT_NORMAL
+			textscale		TEXTSIZE_SMALL
+			visible 		when ( 1 );
+			decoration
+		}
+
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			visible			0
+			rect			ORIGIN_STATUS 0 0
+			origin			0 BALANCE_ORIGIN_Y
+			forecolor		MENU_FONT_COLOR2
+			exp				text( "@SHOP_BALANCE" );
+			textfont		UI_FONT_NORMAL
+			textscale		TEXTSIZE_SMALL
+			visible 		when ( 1 );
+			decoration
+		}
+
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			visible			0
+			rect			ORIGIN_STATUS 0 0
+			origin			50 BALANCE_ORIGIN_Y
+			forecolor		1 0.9 0.5 1
+			exp				text( stat(2302) );
+			textfont		UI_FONT_NORMAL
+			textscale		TEXTSIZE_SMALL
+			visible 		when ( 1 );
+			decoration
+		}
+
+		itemDef
+		{
+			rect			LOGO_START_X LOGO_START_Y 256 64 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_BOTTOM
+			forecolor		1 1 1 1
+			style			WINDOW_STYLE_SHADER
+			background		"logo_cod2"
+			visible			when( !localVarBool( ui_hideBack ) );
+			decoration
+		}
+
+		CHOICE_BUTTON_FOCUS_VIS( 1, "@SHOP_AMMO", SHOP_AMMO, CHANGE_DESC(SHOP_AMMO_PRICE), RESET_DESC, when( !localvarBool( ui_hideBack ) && stat(2302) >= SHOP_AMMO_PRICE ) )
+		CHOICE_DBUTTON_VIS( 1, "@SHOP_AMMO", when( !localvarBool( ui_hideBack ) && stat(2302) < SHOP_AMMO_PRICE ) )
 		CHOICE_LOCKEDICON_VIS( 1, "specialty_locked", when( !localvarBool( ui_hideBack ) && stat(2302) < SHOP_AMMO_PRICE ) )
 		
-		CHOICE_BUTTON_VIS( 2, "Increase Armor", SHOP_JUGGERNOG, when( !localvarBool( ui_hideBack ) && stat(2302) >= SHOP_JUGGERNOG_PRICE ) )
-		CHOICE_DBUTTON_VIS( 2, "Increase Armor", when( !localvarBool( ui_hideBack ) && stat(2302) < SHOP_JUGGERNOG_PRICE ) )
+		CHOICE_BUTTON_FOCUS_VIS( 2, "@SHOP_JUGGERNOG", SHOP_JUGGERNOG, CHANGE_DESC(SHOP_JUGGERNOG_PRICE), RESET_DESC, when( !localvarBool( ui_hideBack ) && stat(2302) >= SHOP_JUGGERNOG_PRICE ) )
+		CHOICE_DBUTTON_VIS( 2, "@SHOP_JUGGERNOG", when( !localvarBool( ui_hideBack ) && stat(2302) < SHOP_JUGGERNOG_PRICE ) )
 		CHOICE_LOCKEDICON_VIS( 2, "specialty_locked", when( !localvarBool( ui_hideBack ) && stat(2302) < SHOP_JUGGERNOG_PRICE ) )
 		
-		CHOICE_BUTTON_VIS( 3, "Increase Reload Speed", SHOP_SPEED, when( !localvarBool( ui_hideBack ) && stat(2302) >= SHOP_SPEED_PRICE ) )
-		CHOICE_DBUTTON_VIS( 3, "Increase Reload Speed", when( !localvarBool( ui_hideBack ) && stat(2302) < SHOP_SPEED_PRICE ) )
+		CHOICE_BUTTON_FOCUS_VIS( 3, "@SHOP_SPEEDCOLA", SHOP_SPEED, CHANGE_DESC(SHOP_SPEED_PRICE), RESET_DESC, when( !localvarBool( ui_hideBack ) && stat(2302) >= SHOP_SPEED_PRICE ) )
+		CHOICE_DBUTTON_VIS( 3, "@SHOP_SPEEDCOLA", when( !localvarBool( ui_hideBack ) && stat(2302) < SHOP_SPEED_PRICE ) )
 		CHOICE_LOCKEDICON_VIS( 3, "specialty_locked", when( !localvarBool( ui_hideBack ) && stat(2302) < SHOP_SPEED_PRICE ) )
 		
-		CHOICE_BUTTON_VIS( 4, "Special", SHOP_RAYGUN, when( !localvarBool( ui_hideBack ) && stat(2302) >= SHOP_RAYGUN_SPEED ) )
-		CHOICE_DBUTTON_VIS( 4, "Special", when( !localvarBool( ui_hideBack ) && stat(2302) < SHOP_RAYGUN_SPEED ) )
+		CHOICE_BUTTON_FOCUS_VIS( 4, "@SHOP_SPECIAL", SHOP_RAYGUN, CHANGE_DESC(SHOP_RAYGUN_SPEED), RESET_DESC, when( !localvarBool( ui_hideBack ) && stat(2302) >= SHOP_RAYGUN_SPEED ) )
+		CHOICE_DBUTTON_VIS( 4, "@SHOP_SPECIAL", when( !localvarBool( ui_hideBack ) && stat(2302) < SHOP_RAYGUN_SPEED ) )
 		CHOICE_LOCKEDICON_VIS( 4, "specialty_locked", when( !localvarBool( ui_hideBack ) && stat(2302) < SHOP_RAYGUN_SPEED ) )
+
+		CHOICE_BUTTON_FOCUS_VIS( 5, "XP", SHOP_XP, CHANGE_DESC(SHOP_RAYGUN_SPEED), RESET_DESC, when( !localvarBool( ui_hideBack ) ) )
+		CHOICE_DBUTTON_VIS( 5, "XP", when( 0 ) )
+		CHOICE_LOCKEDICON_VIS( 5, "specialty_locked", when( 0 ) )
 		
 		CHOICE_SEPARATOR_VIS( CHOICE_SEP_1, when( !localvarBool( ui_hideBack ) ) )
 		
-		CHOICE_BUTTON_VIS( 5, "@CLOSE", close self;, 1 )
+		CHOICE_BUTTON_VIS( 6, "@MENU_QUIT", close self;, 1 )
 	}
 }
