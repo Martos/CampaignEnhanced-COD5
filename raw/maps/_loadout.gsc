@@ -85,6 +85,8 @@ init_loadout()
 	
 	PrecacheItem( "tabun_gas" );
 	PrecacheItem( "signal_flare" );
+
+	PrecacheItem( "mp40_special" );
 	
 	// Precache shop models
 	// PrecacheModel("static_peleliu_wood_ammo_box_char");
