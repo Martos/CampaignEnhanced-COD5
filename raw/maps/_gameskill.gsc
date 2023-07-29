@@ -663,6 +663,13 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		//DEBUG: Player positizion on map
 		setdvar("ce_show_position", "0");
 		players[i] thread PrintPlayerPosition();
+/*
+		flag_set( "arcademode_ending_complete" );
+		level_index = level.missionSettings maps\_endmission::get_level_index( level.script ); 
+		level.arcadeMode_success = true;
+		level thread maps\_arcadeMode::arcadeMode_ends( level_index ); 
+		flag_wait( "arcademode_ending_complete" ); 
+*/
 	}
 }
 
@@ -683,8 +690,8 @@ spawnShops() {
 		case "ber2":
 			spawnPoints = (-1156.88, -2385.88, 856.125);
 			anglePoints = (0, -270, 0);
-			secondSpawnPoints = (850.912, -73.1902, -432.875);
-			secondAnglePoints = (0, -90, 0);
+			secondSpawnPoints = (834.197, 88.6863, -463.875);
+			secondAnglePoints = (0, -335, 0);
 			break;
 		case "oki3":
 			spawnPoints = (3932.2, 5198.82, -818.639);
@@ -765,13 +772,11 @@ open_second_shop_trigger() {
 PrintPlayerPosition() {
 	self endon("disconnect");
 
-	trig = GetEnt(self.target, "targetname");
-
-	trig waittill("trigger");
-	while(1)
-	{
-		if(GetDvarInt("ce_show_position") == 1) {
-			self iprintlnbold(self.origin);
+	while(1) {
+		if(isplayer(self)) {
+			if(GetDvarInt("ce_show_position") == 1) {
+				self iprintlnbold(self.origin);
+			}
 		}
 		wait(1);
 	}
@@ -815,7 +820,6 @@ MenuResponses() {
 		if(menu == game["menu_shop"]) {
 			if(response == "buy_ammo") {
 				self setStat(2302, self getStat(2302) - SHOP_AMMO_PRICE);
-				self playlocalsound("cha_ching");
 				
 				weapons = self GetWeaponsList(); 
 				for( i = 0 ; i < weapons.size ; i++ )
@@ -824,17 +828,21 @@ MenuResponses() {
 				}
 			}
 			if(response == "buy_raygun") {
-				self playlocalsound("cha_ching");
-				
 				self GiveWeapon("ray_gun");
 				self GiveMaxAmmo("ray_gun");
 				self SwitchToWeapon("ray_gun");
+			}
+			if(response == "buy_xp") {
+				self setStat(2301, 153940);	//XP
+				self setStat(252, 64);	//RANK
+				self setStat(2351, 5270);
+				self setStat(2352, 148680);
+				self setStat(2326, 0);	//PRESTIGE
 			}
 			if(response == "buy_juggernog") {
 				self setStat(2302, self getStat(2302) - SHOP_JUGGERNOG_PRICE);
 				
 				self SetPerk( "specialty_armorvest" );
-				self playlocalsound("cha_ching");
 				
 				self setblur(4, 0.1);
 				wait(0.1);
@@ -846,7 +854,6 @@ MenuResponses() {
 				self setStat(2302, self getStat(2302) - SHOP_SPEED_PRICE);
 				
 				self SetPerk( "specialty_fastreload" );
-				self playlocalsound("cha_ching");
 				
 				self setblur(4, 0.1);
 				wait(0.1);

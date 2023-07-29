@@ -141,4 +141,4 @@
 
 #define CAN_RANK_UP	(stat(252) < MAX_RANK || stat(2326) < MAX_PRESTIGE)
 
-#define CE_VERSION "0.92.c84033"
+#define CE_VERSION "0.92.2a4897"
