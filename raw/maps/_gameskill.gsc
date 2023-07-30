@@ -32,8 +32,8 @@ adjust_xenon_hud()
 
 			setdvar( "xenon_xpbar_back_w", "560" );
 			setdvar( "xenon_xpbar_back_wide_w", "560" );
-			setdvar( "xenon_xpbar_front_w", "541" );
-			setdvar( "xenon_xpbar_front_wide_w", "541" );
+			setdvar( "xenon_xpbar_front_w", "552" );
+			setdvar( "xenon_xpbar_front_wide_w", "552" );
 
 			setdvar( "xenon_score_x", "-140" );
 			setdvar( "xenon_score_y", "-135" );
