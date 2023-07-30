@@ -14,7 +14,7 @@ CONFIG              "C:\cod5\cod\cod5\bin\StringEd.cfg"
 FILENOTES           ""
 
 REFERENCE           BALANCE
-LANG_ITALIAN        "Bilancio: "
+LANG_ITALIAN        "Crediti: "
 
 REFERENCE           AMMO
 LANG_ITALIAN        "Ricarica le munizioni"

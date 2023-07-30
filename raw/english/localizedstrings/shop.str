@@ -14,7 +14,7 @@ CONFIG              "C:\cod5\cod\cod5\bin\StringEd.cfg"
 FILENOTES           ""
 
 REFERENCE           BALANCE
-LANG_ENGLISH        "Balance: "
+LANG_ENGLISH        "Cr: "
 
 REFERENCE           AMMO
 LANG_ENGLISH        "Reload all ammo"
