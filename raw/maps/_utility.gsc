@@ -9033,13 +9033,15 @@ zombieMode() {
 
 hitMarker() {
 	hud_damagefeedback = newHudElem();
-	hud_damagefeedback.alignX = "center";
-	hud_damagefeedback.alignY = "middle";
+	//hud_damagefeedback.alignX = "center";
+	//hud_damagefeedback.alignY = "middle";
 	hud_damagefeedback.horzAlign = "center";
 	hud_damagefeedback.vertAlign = "middle";
 	hud_damagefeedback.alpha = 0;
 	hud_damagefeedback.archived = true;
-	hud_damagefeedback setShader( "damage_feedback", 24, 24 );
+	hud_damagefeedback.x = -11;
+	hud_damagefeedback.y = 6;
+	hud_damagefeedback setShader( "damage_feedback", 24, 48 );
 	
 	players = GetPlayers();
 	players[0] playlocalsound( "MP_hit_alert" );
