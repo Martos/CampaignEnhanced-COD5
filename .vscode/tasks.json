@@ -104,7 +104,8 @@
             "dependsOn": [
                 "UPDATE VERSION",
                 "SYNC FAST",
-                "COMPILE"
+                "COMPILE",
+                "RUN_GAME"
             ]
         }
     ]
