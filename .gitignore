@@ -1,8 +1,6 @@
 mods/CampaignEnhanced/weapons/sp/Weapon FX Cleaner LOG.txt
 *.exe
 *.DS_Store
-*.bat
 *.dll
 /dist
-.vscode
-*.js
+.env
