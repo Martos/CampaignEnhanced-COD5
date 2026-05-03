@@ -141,4 +141,6 @@
 
 #define CAN_RANK_UP	(stat(252) < MAX_RANK || stat(2326) < MAX_PRESTIGE)
 
-#define CE_VERSION "DEV 0.92.742e1c"
+#define XENON_UI_ENABLED (dvarbool( "ui_ce_xenon_hud" ) == 1)
+
+#define CE_VERSION "DEV 0.92.2b5c98"

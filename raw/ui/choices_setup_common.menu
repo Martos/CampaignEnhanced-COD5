@@ -616,6 +616,7 @@
 #define CHOICE_BUTTON_VIS( itemIndex, textArg, actionArg, visArg ) \
 		CHOICE_BUTTON_BG( itemIndex, visArg ) \
 		CHOICE_HIGHLIGHT( itemIndex, 1 ) \
+		CHOICE_XENON_BUTTON(itemIndex, 1) \
 		CHOICE_BUTTON_VIS_NOHI( itemIndex, textArg, actionArg, visArg )
 		
 #define CHOICE_BUTTON_VIS_ADV( itemIndex, textArg, actionArg, visArg, vis ) \
@@ -900,6 +901,16 @@
 			rect			(CHOICE_X( itemIndex ) - CHOICE_SIZE_Y ) CHOICE_Y( itemIndex ) CHOICE_SIZE_Y CHOICE_SIZE_Y CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN \
 			exp				material( imageArg ) \
 			visible			visArg ; \
+			decoration \
+		}
+
+#define CHOICE_XENON_BUTTON( itemIndex, visArg ) \
+		itemDef \
+		{ \
+			style			WINDOW_STYLE_SHADER \
+			rect			(CHOICE_X( itemIndex ) - 5 ) CHOICE_Y( itemIndex ) CHOICE_SIZE_Y CHOICE_SIZE_Y CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN \
+			exp				material( "ui_button_xenon_3d_a_32x32" ) \
+			visible			when( localVarInt( ui_highlight ) == itemIndex && localVarString( ui_choicegroup ) == CHOICE_GROUP && XENON_UI_ENABLED && visArg )\
 			decoration \
 		}
 
