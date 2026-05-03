@@ -143,4 +143,4 @@
 
 #define XENON_UI_ENABLED (dvarbool( "cg_drawGamepadHUD" ) == 1)
 
-#define CE_VERSION "DEV 0.92.1ef327"
+#define CE_VERSION "DEV 0.92.d461e3"
