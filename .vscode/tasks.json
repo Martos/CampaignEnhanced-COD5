@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "COMPILE_ITALIAN",
+            "label": "COMPILE",
             "type": "shell",
             "command": "${workspaceFolder}\\CAMPAIGN_ENHANCED_BUILD.bat",
             "presentation": {
@@ -104,7 +104,7 @@
             "dependsOn": [
                 "UPDATE VERSION",
                 "SYNC FAST",
-                "COMPILE_ITALIAN"
+                "COMPILE"
             ]
         }
     ]
