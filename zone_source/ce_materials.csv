@@ -1,6 +1,7 @@
 # C.E Materials Lists
 
 material,line_vertical
+
 material,weapon_m8_white_smoke_cac
 material,weapon_m8_white_smoke
 material,weapon_fraggrenade_cac
@@ -43,6 +44,7 @@ material,weapon_30cal
 material,weapon_ptrs41
 material,weapon_shotgun4
 material,weapon_double_barreled_shotgun
+
 material,weapon_attachment_flash
 material,weapon_attachment_silencer
 material,weapon_attachment_bigammo
@@ -56,12 +58,12 @@ material,weapon_attachment_telescopic_russian
 material,weapon_attachment_acog
 material,weapon_attachment_sawoff
 material,weapon_attachment_grip
+
 material,scorebar_zom_1
+
 material,specialty_locked
 material,specialty_locked_big
 material,specialty_locked_challenge
-material,mtl_weapon_mp_type100_metal
-material,mtl_weapon_mp_type100_wood
 
 material,specialty_juggernaut_zombies
 material,specialty_fastreload_zombies
