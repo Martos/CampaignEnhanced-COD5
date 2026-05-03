@@ -27,6 +27,8 @@
 		{ \
 			style			WINDOW_STYLE_SHADER \
 			rect			TICKER_WIDTH_WS( segID ) \
+			exp				rect W(151 * dvarfloat("safeArea_horizontal")) \
+			exp				rect X(segID * (85 * dvarfloat("safeArea_horizontal"))) \
 			origin			0 0 \
 			background		"hud_xpticker480ws" \
 			forecolor		1 1 1 HUD_FOREGROUND_ALPHA \
