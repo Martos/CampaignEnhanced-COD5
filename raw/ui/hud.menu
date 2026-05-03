@@ -1241,43 +1241,23 @@ menuDef
 		itemDef
 		{
 			style			WINDOW_STYLE_SHADER
-			rect			0 0 640 8 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
-			origin			0 0
-			background		"white"
-			forecolor		0 0 0 0.25
-			visible			when( !dvarInt( "wideScreen" ) && !dvarbool("ui_ce_xenon_hud") );
-			decoration
-		}
-		itemDef
-		{
-			style			WINDOW_STYLE_SHADER
-			rect			0 2 540 4 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
-			exp				rect W( 640 * ((stat(2301)-stat(2351))/(stat(2352)-stat(2351))) );
-			origin			0 0
-			background		"scorebar_fadein"
-			forecolor		1 0.8 0.4 HUD_ALPHA
-			visible			when( !dvarInt( "wideScreen" ) && !dvarbool("ui_ce_xenon_hud") );
-			decoration
-		}
-		itemDef
-		{
-			style			WINDOW_STYLE_SHADER
 			rect			0 0 854 8 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp 			rect W( ( ( ( 640 + ( 213.333 * dvarbool( "widescreen" ) ) ) * dvarfloat("safeArea_horizontal") ) ) )
 			origin			0 0
 			background		"white"
 			forecolor		0 0 0 0.25
-			visible			when( dvarInt( "wideScreen" ) && !dvarbool("ui_ce_xenon_hud") );
+			visible			when( !dvarbool("ui_ce_xenon_hud") );
 			decoration
 		}
 		itemDef
 		{
 			style			WINDOW_STYLE_SHADER
 			rect			0 2 720 4 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
-			exp				rect W( 854 * ((stat(2301)-stat(2351))/(stat(2352)-stat(2351))) );
+			exp				rect W( ( ( ( ( 640 + ( 213.333 * dvarbool( "widescreen" ) ) ) * dvarfloat("safeArea_horizontal") ) ) ) * ((stat(2301)-stat(2351))/(stat(2352)-stat(2351))) );
 			origin			0 0
 			background		"scorebar_fadein"
 			forecolor		1 0.8 0.4 HUD_FOREGROUND_ALPHA
-			visible			when( dvarInt( "wideScreen" ) && !dvarbool("ui_ce_xenon_hud") );
+			visible			when( !dvarbool("ui_ce_xenon_hud") );
 			decoration
 		}
 
