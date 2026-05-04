@@ -3,122 +3,6 @@
 #include common_scripts\utility;
 #include maps\_hud_util;
 
-adjust_xenon_hud()
-{
-	if( getdvar("ui_ce_xenon_hud") != "1" ) {
-		setdvar( "xenon_compass_x", "0" );
-		setdvar( "xenon_compass_y", "145" );
-		setdvar( "xenon_score_x", "-103" );
-		setdvar( "xenon_score_y", "-81" );
-		return;
-	}
-	
-	switch(getdvar("r_mode")) {
-		case "640x480":
-		case "800x600":
-		case "1024x768":
-		case "1152x864":
-		case "1280x960":
-		case "1400x1050":
-		case "1440x1080":
-			setdvar( "xenon_compass_x", "15" );
-			setdvar( "xenon_compass_y", "185" );
-			setdvar( "xenon_weapinfo_x", "28" );
-			setdvar( "xenon_weapinfo_y", "45" );
-			
-			setdvar( "xenon_xpbar_thiker_x", "56" );
-			setdvar( "xenon_xpbar_thiker_wide_x", "64" );
-			setdvar( "xenon_xpbar_thiker_extra", "2");
-
-			setdvar( "xenon_xpbar_back_w", "560" );
-			setdvar( "xenon_xpbar_back_wide_w", "560" );
-			setdvar( "xenon_xpbar_front_w", "552" );
-			setdvar( "xenon_xpbar_front_wide_w", "552" );
-
-			setdvar( "xenon_score_x", "-140" );
-			setdvar( "xenon_score_y", "-135" );
-			break;
-		case "1280x720":
-			setdvar( "xenon_compass_x", "15" );
-			setdvar( "xenon_compass_y", "185" );
-			setdvar( "xenon_weapinfo_x", "28" );
-			setdvar( "xenon_weapinfo_y", "45" );
-			
-			setdvar( "xenon_xpbar_thiker_x", "57" );
-			setdvar( "xenon_xpbar_thiker_wide_x", "86" );
-			setdvar( "xenon_xpbar_thiker_extra", "2");
-
-			setdvar( "xenon_xpbar_back_w", "560" );
-			setdvar( "xenon_xpbar_back_wide_w", "688" );
-			setdvar( "xenon_xpbar_front_w", "541" );
-			setdvar( "xenon_xpbar_front_wide_w", "664" );
-			break;
-		case "1280x800":
-			setdvar( "xenon_compass_x", "15" );
-			setdvar( "xenon_compass_y", "185" );
-			setdvar( "xenon_weapinfo_x", "28" );
-			setdvar( "xenon_weapinfo_y", "45" );
-			
-			setdvar( "xenon_xpbar_thiker_x", "57" );
-			setdvar( "xenon_xpbar_thiker_wide_x", "86" );
-			setdvar( "xenon_xpbar_thiker_extra", "2");
-
-			setdvar( "xenon_xpbar_back_w", "560" );
-			setdvar( "xenon_xpbar_back_wide_w", "688" );
-			setdvar( "xenon_xpbar_front_w", "541" );
-			setdvar( "xenon_xpbar_front_wide_w", "664" );
-			break;
-		case "1366x768":
-			setdvar( "xenon_compass_x", "15" );
-			setdvar( "xenon_compass_y", "185" );
-			setdvar( "xenon_weapinfo_x", "28" );
-			setdvar( "xenon_weapinfo_y", "45" );
-			
-			setdvar( "xenon_xpbar_thiker_x", "57" );
-			setdvar( "xenon_xpbar_thiker_wide_x", "86" );
-			setdvar( "xenon_xpbar_thiker_extra", "1");
-
-			setdvar( "xenon_xpbar_back_w", "560" );
-			setdvar( "xenon_xpbar_back_wide_w", "774" );
-			setdvar( "xenon_xpbar_front_w", "541" );
-			setdvar( "xenon_xpbar_front_wide_w", "744" );
-			break;
-		case "1920x1080":
-			setdvar( "xenon_compass_x", "15" );
-			setdvar( "xenon_compass_y", "185" );
-			setdvar( "xenon_weapinfo_x", "28" );
-			setdvar( "xenon_weapinfo_y", "45" );
-			
-			setdvar( "xenon_xpbar_thiker_x", "57" );
-			setdvar( "xenon_xpbar_thiker_wide_x", "77" );
-			setdvar( "xenon_xpbar_thiker_extra", "2");
-
-			setdvar( "xenon_xpbar_back_w", "773.5" );
-			setdvar( "xenon_xpbar_back_wide_w", "773.5" );
-			setdvar( "xenon_xpbar_front_w", "746" );
-			setdvar( "xenon_xpbar_front_wide_w", "746" );
-			break;
-		default:
-			setdvar( "xenon_compass_x", "30" );
-			setdvar( "xenon_compass_y", "125" );
-			setdvar( "xenon_weapinfo_x", "0" );
-			setdvar( "xenon_weapinfo_y", "0" );
-			
-			setdvar( "xenon_xpbar_thiker_x", "64" );
-			setdvar( "xenon_xpbar_thiker_wide_x", "85" );
-			setdvar( "xenon_xpbar_thiker_extra", "2");
-
-			setdvar( "xenon_xpbar_back_w", "560" );
-			setdvar( "xenon_xpbar_back_wide_w", "560" );
-			setdvar( "xenon_xpbar_front_w", "541" );
-			setdvar( "xenon_xpbar_front_wide_w", "541" );
-
-			setdvar( "xenon_score_x", "-103" );
-			setdvar( "xenon_score_y", "-81" );
-			break;
-	}
-}
-
 // this script handles all major global gameskill considerations
 setSkill( reset, skill_override )
 {	
@@ -633,7 +517,6 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 	players = get_players();
 	for( i = 0; i < players.size; i++ )
 	{
-		players[i] adjust_xenon_hud();
 	
 		players[i].threatbias = int( [[ difficulty_func ]]( "threatbias", current_frac ) );
 		setdvar("ui_cac_ingame", "1");
@@ -644,6 +527,14 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		setdvar("ce_show_sp", "0");
 		setdvar("ce_show_be", "0");
 		setdvar("ce_show_re", "0");
+
+		if (GetDvarInt("cg_drawGamepadHUD", 0) == 1) {
+			players[i] setClientDvar("safeArea_vertical", "0.85");
+			players[i] setClientDvar("safeArea_horizontal", "0.85");
+		} else {
+			players[i] setClientDvar("safeArea_vertical", "1");
+			players[i] setClientDvar("safeArea_horizontal", "1");
+		}
 		
 		players[i] spawnShops();
 		
@@ -662,6 +553,7 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		
 		//DEBUG: Player positizion on map
 		setdvar("ce_show_position", "0");
+		setdvar("ce_rotation", "0");
 		players[i] thread PrintPlayerPosition();
 /*
 		flag_set( "arcademode_ending_complete" );
@@ -682,16 +574,16 @@ spawnShops() {
 	
 	switch(mapName) {
 		case "mak":
-			spawnPoints = (-10096.5, -19022.9, 90.1032);
-			anglePoints = (0, 0, 0);
-			secondSpawnPoints = (-7024.82, -15494.8, 560.86);
+			spawnPoints = (-9981, -19066, 69);
+			anglePoints = (0, 180, 0);
+			secondSpawnPoints = (-7064, -15523, 479);
 			secondAnglePoints = (0, -90, 0);
 			break;
 		case "ber2":
 			spawnPoints = (-1156.88, -2385.88, 856.125);
-			anglePoints = (0, -270, 0);
+			anglePoints = (0, 90, 0);
 			secondSpawnPoints = (834.197, 88.6863, -463.875);
-			secondAnglePoints = (0, -335, 0);
+			secondAnglePoints = (0, 25, 0);
 			break;
 		case "oki3":
 			spawnPoints = (3932.2, 5198.82, -818.639);
@@ -776,6 +668,14 @@ PrintPlayerPosition() {
 		if(isplayer(self)) {
 			if(GetDvarInt("ce_show_position") == 1) {
 				self iprintlnbold(self.origin);
+				self iprintlnbold(self.angles);
+
+				shop = getent("first_shop","targetname");
+				//shop MoveTo( (-1156.88, -2385.88, 856.125), .5, .05, .05 );
+				shop RotateTo( (0, GetDvarInt("ce_rotation"), 0), .05 );
+
+				second_shop = getent("second_shop","targetname");
+				second_shop RotateTo( (0, GetDvarInt("ce_rotation"), 0), .05 );
 			}
 		}
 		wait(1);

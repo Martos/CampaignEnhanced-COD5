@@ -102,6 +102,7 @@ itemDef { \
 				uiScript openMenuOnDvar "ui_skipMainLockout" 1 "main_text"
 			#else
 				open main_text;
+				//open credits_menu;
 				uiScript openMainMenuPlayerProfileScriptCallback;
 				uiScript stopRefresh;
 			#endif
@@ -114,18 +115,211 @@ itemDef { \
 		}
 	}
 	
-    // This menu is called to devmap into credits because devmapping from
-    // main_text will give main the focus and unlock all the controllers.
-    // Having this menu do the devmap prevents main from getting focus.
 	menuDef 
 	{
 		name			credits_menu
-		fullScreen		1				
+		fullScreen		0				
 		rect			0 0 640 480				// Size and position of the menu
-		focusColor		COLOR_FOCUSED	// Menu focus color for text and items
+		focusColor		1 1 1 0.85				// Menu focus color for text and items
 		onOpen
+		{ 
+			execondvarintvalue cg_drawGamepadHUD 1 "set cl_bypassMouseInput 1"; 
+
+			setdvar safeArea_vertical 1.0;
+			exec "setfromdvar cg_draw2D cg_draw2D_ui"; // reset
+
+			execondvarintvalue dvar_init 0 "exec init_remastered"; 
+			execondvarintvalue cg_drawGamepadHUD 1 "set cg_scoreboardFont 3"; 
+			execondvarintvalue cg_drawGamepadHUD 0 "set cg_scoreboardFont 0"; 
+			execondvarintvalue cg_drawGamepadHUD 1 "set cg_scoreboardTextOffset 0.64"; 
+			execondvarintvalue cg_drawGamepadHUD 0 "set cg_scoreboardTextOffset 0.6"; 
+			execondvarintvalue cg_drawGamepadHUD 1 "set cg_scoreboardWidth 550"; 
+			execondvarintvalue cg_drawGamepadHUD 0 "set cg_scoreboardWidth 510"; 
+			execondvarintvalue cg_drawGamepadHUD 1 "set cg_scoreboardPingGraph 1"; 
+			execondvarintvalue cg_drawGamepadHUD 0 "set cg_scoreboardPingGraph 0"; 
+			execondvarintvalue cg_drawGamepadHUD 1 "set cg_overheadNamesFont 3"; 
+			execondvarintvalue cg_drawGamepadHUD 0 "set cg_overheadNamesFont 6"; 
+			execondvarintvalue cg_drawGamepadHUD 0 "set playerSpectatingHide 0"; 
+			execondvarintvalue cg_drawGamepadHUD 1 "set playerSpectatingHide 1"; 
+
+			//execondvarintvalue cg_drawGamepadHUD 1 "set safeArea_vertical 0.85";
+			//execondvarintvalue cg_drawGamepadHUD 1 "set safeArea_horizontal 0.85";
+
+			execOnDvarFloatValue ui_smallfont 0.25 "set ui_smallfont 0"; 
+			setdvar cg_scoreboardPingWidth "0.025";
+
+			setfocus sp;
+			execnow "ui_cinematic bink_front_end_screen_home 3"
+/*#if COOP_EPD
+			uiScript openMenuOnDvar "ui_epd_disclaimer" 0 "epd_disclaimer";
+#endif*/
+		}
+		onClose
 		{
-            execnow "map credits";
+//			close main_lockout;
+//			open main_text;
+		}
+		onESC 
+		{
+//			ingameclose main;
+				execnow "ui_cinematic front_end_sp 3"
+				play "mouse_click";
+				close credits_menu;
+				setdvar ui_skipMainLockout "1";
+				
+				exec "set cl_bypassMouseInput 0";
+
+				open main_text;
+		}
+		onFocus
+		{
+			execnow "AcceptInputFromAllControls"
+		}
+		
+//#ifdef PS3
+		execKeyInt BUTTON_START
+		{
+				execnow "ui_cinematic front_end_sp 3"
+				play "mouse_click";
+				close credits_menu;
+				setdvar ui_skipMainLockout "1";
+
+				exec "set cl_bypassMouseInput 0";
+
+				open main_text;
+
+		}
+//#endif // PS3
+
+
+//#if !COOP_EPD
+		#undef FOG_SCROLL_TIME
+		#define FOG_SCROLL_TIME 40000
+
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			-107 0 1708 480
+			exp				rect X((-107) - ((float(milliseconds() % FOG_SCROLL_TIME) / FOG_SCROLL_TIME) * (854)))
+			background		"animbg_fogscrollthin"
+			forecolor		.37 .15 .07 1
+			visible			1
+			decoration
+		}
+
+		#include "ui/bg.inc" // border should cover up fog, but not cover up text
+
+		#undef FOOTNOTE_RECT
+		#define FOOTNOTE_RECT( x, y )			x y 640 182 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER
+		CHOICE_FOOTNOTE( "@MENU_LEGAL_LINE", -140, 182 )
+
+		itemDef	
+		{
+			rect			-250 -120 512 128 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER
+			origin			0 0
+			forecolor		1 1 1 1
+			style			WINDOW_STYLE_SHADER
+			background		"logo_cod2"
+			decoration
+			visible			1
+		}
+
+//#endif // #if !COOP_EPD
+
+
+		itemDef
+		{
+			text 			"@MENU_PRESS_START" 
+			rect			-60 50 120 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER
+
+			textstyle		ITEM_TEXTSTYLE_BLINK
+
+			forecolor		1 1 1 0.85
+			textalign		ITEM_ALIGN_MIDDLE_CENTER
+			textfont		CHOICE_TEXTFONT
+
+			visible 		when(dvarInt( "cg_drawGamepadHUD" ) == 1 )
+			decoration
+		}
+
+		itemDef
+		{
+			text 			"@REMASTERED_PRESS_ENTER" 
+			rect			-60 50 120 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER
+
+			textstyle		ITEM_TEXTSTYLE_BLINK
+
+			forecolor		1 1 1 0.85
+			textalign		ITEM_ALIGN_MIDDLE_CENTER
+			textfont		CHOICE_TEXTFONT
+
+			visible 		when(dvarInt( "cg_drawGamepadHUD" ) != 1 )
+			decoration
+		}
+
+
+		itemDef // real button patched to be fullscreen, text handled sep
+		{
+			name			sp
+			//text			"@MENU_PRESS_START"
+			type			ITEM_TYPE_BUTTON
+			rect			0 0 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+
+//			rect			-60 50 120 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER
+			forecolor		1 1 1 0.85
+			textalign		ITEM_ALIGN_MIDDLE_CENTER
+			textfont		CHOICE_TEXTFONT
+			visible			1
+			action 
+			{
+//#if !COOP_EPD
+				execnow "ui_cinematic front_end_sp 3"
+//#endif // #if !COOP_EPD
+				play "mouse_click";
+				close main_lockout;
+				setdvar ui_skipMainLockout "1";
+//#if !COOP_EPD
+				exec "set cl_bypassMouseInput 0";
+
+				open main_text;
+/*#else
+                // main_text
+                //  onOpen
+                CLEARUIHINT
+                
+                setdvar ui_version_show "0";
+                execnow "Updatedvarsfromprofile";*/
+//#if !COOP_EPD
+              //  execnow "select_save_device";
+//#endif // #if !COOP_EPD
+
+/*                profilehide levelselect_noprofile;
+                profileshow levelselect;
+                profilehide newgame_noprofile;
+                profileshow newgame;
+
+                //open main_online
+
+    		  	// main_online
+                //  onFocus
+			    exec "endsplitscreensignin";
+
+                //  xbox live menu item
+                exec "xsigninlive";
+                exec "systemlink 0";
+                exec "splitscreen 0";
+                exec "onlinegame 1";
+                exec "exec "XBOXLIVE_MP_CFG;
+                exec "party_maxplayers 9";
+                exec "xblive_privatematch 0";
+                exec "xblive_rankedmatch 0";
+                exec "party_timerVisible 0";
+                exec "xstartprivateparty";
+                setdvar ui_mptype "0";
+                exec "set ui_gametype cmp; set ui_mapname ber2"
+                open menu_xboxlive;*/
+//#endif // #if !COOP_EPD
+            }
 		}
 	}
 

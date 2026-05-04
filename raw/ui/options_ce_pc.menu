@@ -53,6 +53,9 @@
 			//execOnDvarIntValue ui_zfeather 0 "set r_zfeather 0;set r_depthPrepassModels 0";	// off
 			//execOnDvarIntValue ui_zfeather 1 "set r_zfeather 1;set r_depthPrepassModels 0";	// world
 			//execOnDvarIntValue ui_zfeather 2 "set r_zfeather 1;set r_depthPrepassModels 1";	// everything
+
+			execOnDvarIntValue cg_drawGamepadHUD 0 "set safeArea_vertical 1;set safeArea_horizontal 1";
+			execOnDvarIntValue cg_drawGamepadHUD 1 "set safeArea_vertical 0.85;set safeArea_horizontal 0.85";
 		}
 		onESC
 		{
@@ -68,7 +71,7 @@
 		CHOICE_DVARYESNO_VIS( 24, "@CE_OPTIONS_DISABLE_HITMARKER", ui_ce_hide_marker, ;, when(1); )
 		CHOICE_DVARYESNO_VIS( 25, "@CE_OPTIONS_HIDE_SCORE", ui_ce_hide_score_hud, ;, when(1); )
 		CHOICE_DVARSLIDER( 26, "@CE_OPTIONS_FOV", cg_fov, 65, 65, 90, ; )
-		CHOICE_DVARYESNO_VIS( 27, "@CE_OPTIONS_ENABLE_XENON", ui_ce_xenon_hud, ;, when(dvarint(sv_running)==0); )
+		CHOICE_DVARYESNO_VIS( 27, "@CE_OPTIONS_ENABLE_XENON", cg_drawGamepadHUD, ;, when(1); )
 		CHOICE_BUTTON_VIS( 30, "@CE_OPTIONS_NOTE_PATCH", open popmenu_ce_patchnotes;, when(dvarint(sv_running)==0); )
 		
 		itemDef

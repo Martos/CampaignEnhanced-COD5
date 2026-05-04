@@ -20,7 +20,7 @@
 			origin			0 0 \
 			background		"hud_xpticker480" \
 			forecolor		1 1 1 HUD_FOREGROUND_ALPHA \
-			visible			when( !dvarInt( "wideScreen" ) && !dvarbool("ui_ce_xenon_hud") ); \
+			visible			when( !dvarInt( "wideScreen" ) ); \
 			decoration \
 		} \
 		itemDef \
@@ -32,7 +32,7 @@
 			origin			0 0 \
 			background		"hud_xpticker480ws" \
 			forecolor		1 1 1 HUD_FOREGROUND_ALPHA \
-			visible			when( dvarInt( "wideScreen" ) && !dvarbool("ui_ce_xenon_hud") ); \
+			visible			when( dvarInt( "wideScreen" ) ); \
 			decoration \
 		}
 
@@ -1248,7 +1248,7 @@ menuDef
 			origin			0 0
 			background		"white"
 			forecolor		0 0 0 0.25
-			visible			when( !dvarbool("ui_ce_xenon_hud") );
+			visible			when( 1 );
 			decoration
 		}
 		itemDef
@@ -1259,7 +1259,7 @@ menuDef
 			origin			0 0
 			background		"scorebar_fadein"
 			forecolor		1 0.8 0.4 HUD_FOREGROUND_ALPHA
-			visible			when( !dvarbool("ui_ce_xenon_hud") );
+			visible			when( 1 );
 			decoration
 		}
 
