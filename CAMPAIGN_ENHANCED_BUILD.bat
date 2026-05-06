@@ -23,6 +23,7 @@ cd "%CODWAW_PATH%\mods\CampaignEnhanced"
 
 "%CODWAW_PATH%\bin\7za.exe" a "%CODWAW_PATH%\mods\CampaignEnhanced\CampaignEnhanced.iwd" -tzip -r "%CODWAW_PATH%\mods\CampaignEnhanced\sound"
 "%CODWAW_PATH%\bin\7za.exe" a "%CODWAW_PATH%\mods\CampaignEnhanced\CampaignEnhanced.iwd" -tzip -r "%CODWAW_PATH%\mods\CampaignEnhanced\weapons"
+"%CODWAW_PATH%\bin\7za.exe" a "%CODWAW_PATH%\mods\CampaignEnhanced\CampaignEnhanced.iwd" -tzip -r "%CODWAW_PATH%\mods\CampaignEnhanced\materials"
 
 mkdir %WORKDIR_PATH%\dist
 mkdir %WORKDIR_PATH%\dist\%LANGUAGE%
