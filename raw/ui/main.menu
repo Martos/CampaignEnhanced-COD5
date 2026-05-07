@@ -364,17 +364,6 @@ itemDef { \
 			//Force write to config file
 			exec "seta ce_welcome 1";
 			exec "seta ce_welcome 0";
-			
-			exec "seta xenon_compass_y 125"
-			exec "seta xenon_compass_x 30"
-			exec "seta xenon_weapinfo_x 0"
-			exec "seta xenon_weapinfo_y 0"
-			exec "seta xenon_xpbar_thiker_x 64"
-			exec "seta xenon_xpbar_thiker_wide_x 85"
-			exec "seta xenon_xpbar_back_w 560"
-			exec "seta xenon_xpbar_back_wide_w 770"
-			exec "seta xenon_xpbar_front_w 541"
-			exec "seta xenon_xpbar_front_wide_w 743"
 
 			uiScript openmenuondvar ui_sp_unlock 1 "popmenu_sp_unlock";
 			uiScript openmenuondvar ce_welcome 1 "popmenu_ce_welcome";

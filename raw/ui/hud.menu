@@ -393,36 +393,13 @@ menuDef
 	{
 		name			"weaponinfo"
 		rect			0 0 0 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_BOTTOM
-		exp				rect X(-dvarInt(xenon_weapinfo_x))
-		exp				rect Y(-dvarInt(xenon_weapinfo_y))
 		fullScreen		0
 		visible when ( !SUBTITLES_ACTIVE && CHAPLIN_CHEAT_OFF && dvarBool( ammoCounterHide ) == 0 && dvarBool( hud_missionFailed ) == 0 && !flashbanged() && !ui_active() && dvarint( ui_hud_hardcore ) == 0 );
 
-/*		itemDef
-		{
-			name			"ammoCounterBackground"
-			rect			(WEAPINFO_X) WEAPINFO_Y 170 42
-			forecolor		1 1 1 1
-			ownerdraw		CG_PLAYER_WEAPON_BACKGROUND
-			background		"hud_ammocounterback"
-			visible			1
-			decoration
-		}
-
-		itemDef
-		{
-			name			"weaponIcon"
-			rect			(WEAPINFO_X +122) (WEAPINFO_Y +5) 24 24
-			forecolor		1 1 1 1
-			ownerdraw		CG_PLAYER_WEAPON_PRIMARY_ICON
-			visible			1
-			decoration
-		}
-*/
 		itemDef
 		{
 			name			"clipGraphic"
-			rect			(WEAPINFO_X +116) (WEAPINFO_Y +56) 1 1
+			rect			(WEAPINFO_X +111) (WEAPINFO_Y +56) 1 1
 			forecolor		1 1 1 HUD_ALPHA
 			ownerdraw		CG_PLAYER_WEAPON_AMMO_CLIP_GRAPHIC
 			visible			1
@@ -479,7 +456,7 @@ menuDef
 		itemDef
 		{
 			name			"ammostock"
-			rect			(WEAPINFO_X +126) (WEAPINFO_Y +64) 25 25
+			rect			(WEAPINFO_X +115) (WEAPINFO_Y +64) 25 25
 			textscale		TEXTSIZE_SMALL
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
 			textfont		UI_FONT_OBJECTIVE
@@ -488,20 +465,7 @@ menuDef
 			visible			1
 			decoration
 		}
-/*
-		itemDef
-		{
-			name			"weapname"
-			rect			(WEAPINFO_X -115) (WEAPINFO_Y +20) 290 40
-			textstyle		ITEM_TEXTSTYLE_SHADOWED
-			textscale		TEXTSIZE_SMALL
-			textfont		UI_FONT_OBJECTIVE
-			forecolor		1 1 1 HUD_FOREGROUND_ALPHA
-			ownerdraw		CG_PLAYER_WEAPON_NAME
-			visible when ( dvarBool( hiDef ) == 1 );
-			decoration
-		}
-*/
+
 		itemDef
 		{
 			name			"weapname_lowdef"
@@ -647,8 +611,6 @@ menuDef
 		//visible 0
  	   	visible when  ( dvarBool( compass ) && !issplitscreen() && !dvarBool( cl_paused ) && !ui_active() && dvarint( ui_hud_hardcore )==0 );
 		rect -15 -145 COMPASS_SIZE COMPASS_SIZE HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
-		exp rect X( dvarInt(xenon_compass_x) )
-		exp rect Y( -dvarInt(xenon_compass_y) )
 
 // MikeD (10/16/2007): New RoundCompass
 		itemDef
