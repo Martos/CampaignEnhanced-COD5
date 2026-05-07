@@ -1,36 +1,36 @@
 const fs = require('fs');
+const path = require('path');
 
-MAJOR_VERSION = "DEV 0.92";
+const filePath = path.join(__dirname, 'raw\\ui\\menudef.h');
 
-filecontent = []
-async function main() {
-    require('child_process').exec('git rev-parse HEAD', function(err, stdout) {
-        fs.readFile('raw\\ui\\menudef.h', 'utf-8', function(err, data) {
-            if (err) throw err;
-    
-            const arr = data.toString().replace(/\r\n/g,'\n').split('\n');
-            if(arr[arr.length-1] == "")
-                arr.pop();
+function incrementVersion() {
+    try {
 
-            let newVersionLine = `#define CE_VERSION "${MAJOR_VERSION}.${stdout.substring(0,6).trim()}"`;
+        const data = fs.readFileSync(filePath, 'utf8');
+        const regex = /(#define\s+CE_VERSION\s+"DEV\s+)(\d+)\.(\d+)\.(\d+)(")/;
+        const match = data.match(regex);
 
-            arr[arr.length-1] = newVersionLine;
+        if (match) {
+            const prefix = match[1];
+            const major = match[2];
+            const minor = match[3];
+            const patch = parseInt(match[4], 10);
+            const suffix = match[5];
 
-            filecontent = arr;
-            write(`${MAJOR_VERSION}.${stdout.substring(0,6).trim()}`);
-        });
-    });
+            const newPatch = patch + 1;
+            const newVersionLine = `${prefix}${major}.${minor}.${newPatch}${suffix}`;
+
+            const updatedData = data.replace(regex, newVersionLine);
+
+            fs.writeFileSync(filePath, updatedData, 'utf8');
+
+            console.log(`Set version: ${newVersionLine}`);
+        } else {
+            console.error("File not found");
+        }
+    } catch (err) {
+        console.error(`Error: ${err.message}`);
+    }
 }
 
-function write(version) {
-    const file = fs.createWriteStream('raw\\ui\\menudef.h');
-    file.on('error', (err) => {});
-    filecontent.forEach((v) => {
-        file.write(v + '\n');
-    });
-    file.end();
-
-    console.log("Updated to: " + version);
-}
-
-main();
+incrementVersion();
