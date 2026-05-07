@@ -15,6 +15,6 @@ if exist .env (
 
 cd "%CODWAW_PATH%\"
 
-START "" CoDWaW_LanFixed.exe +set fs_game "mods/CampaignEnhanced" +set r_fullscreen 0 +set r_mode "1280x720" +set developer 2 +set ui_showList 1 +exec "default_controller.cfg"
+START "" CoDWaW_LanFixed.exe +set fs_game "mods/CampaignEnhanced" +set r_fullscreen 0 +set r_mode "1280x720" +set developer 2 +set ui_showList 1 +exec "default_controller.cfg" +devmap oki3 +set developeruser 1
 
 exit /b
