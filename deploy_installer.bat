@@ -1,4 +1,15 @@
 @echo off
+setlocal enabledelayedexpansion
+
+if exist .env (
+    for /f "tokens=*" %%i in (.env) do (
+        set "%%i"
+    )
+) else (
+    echo Errore: .env not found.
+    pause
+    exit /b
+)
 
 echo Copy files ..
 
@@ -14,7 +25,5 @@ rmdir /Q /S CampaignEnhanced
 del /Q d3d9.dll
 
 echo Done.
-
-pause
 
 exit /b
