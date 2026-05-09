@@ -28,6 +28,8 @@ mkdir %WORKDIR_PATH%\dist\%LANGUAGE%\CampaignEnhanced
 copy /Y "%CODWAW_PATH%\zone\%LANGUAGE%\mod.ff" "%WORKDIR_PATH%\dist\%LANGUAGE%\CampaignEnhanced"
 copy /Y "%CODWAW_PATH%\mods\CampaignEnhanced\CampaignEnhanced.iwd" "%WORKDIR_PATH%\dist\%LANGUAGE%\CampaignEnhanced"
 copy /Y "%CODWAW_PATH%\mods\CampaignEnhanced\mod.arena" "%WORKDIR_PATH%\dist\%LANGUAGE%\CampaignEnhanced"
+
+rmdir /s /q "%localappdata%\Activision\CodWaW\mods\CampaignEnhanced"
 Xcopy %WORKDIR_PATH%\dist\%LANGUAGE%\CampaignEnhanced %localappdata%\Activision\CodWaW\mods\CampaignEnhanced /Y /E /H /C /I
 
 exit /b
