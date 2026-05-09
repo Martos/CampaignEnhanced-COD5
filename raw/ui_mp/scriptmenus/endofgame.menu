@@ -93,7 +93,7 @@
 		
 		// ------------------ TREE TITLE ------------------
 		
-		CHOICE_MENU_TITLE( "Dashboard" )	
+		CHOICE_MENU_TITLE( "@CE_DASHBOARD" )	
 		
 		// ------------------------ lobby status ----------------------------
 		itemDef

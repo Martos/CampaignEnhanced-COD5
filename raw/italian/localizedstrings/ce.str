@@ -83,4 +83,7 @@ LANG_ITALIAN        "Note Patch"
 REFERENCE           OPTIONS_FOV
 LANG_ITALIAN        "Campo visivo"
 
+REFERENCE           DASHBOARD
+LANG_ITALIAN        "DASHBOARD"
+
 ENDMARKER

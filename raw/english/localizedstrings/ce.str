@@ -83,4 +83,7 @@ LANG_ENGLISH        "Patch Notes"
 REFERENCE           OPTIONS_FOV
 LANG_ENGLISH        "Campo Fov"
 
+REFERENCE           DASHBOARD
+LANG_ENGLISH        "DASHBOARD"
+
 ENDMARKER
