@@ -535,6 +535,13 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 			players[i] setClientDvar("safeArea_vertical", "1");
 			players[i] setClientDvar("safeArea_horizontal", "1");
 		}
+
+		// Fix barra xp vuota con player a livello 1
+		checkLevelMaxXP = players[i] statGet( "maxxp" );
+		if (checkLevelMaxXP == 0) {
+			players[i] statSet( "maxxp", 30 );
+			players[i] iprintlnbold(players[i] statGet( "maxxp" ));
+		}
 		
 		players[i] spawnShops();
 		
