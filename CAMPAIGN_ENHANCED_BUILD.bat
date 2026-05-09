@@ -19,11 +19,7 @@ cd "%CODWAW_PATH%\bin"
 
 linker_pc.exe -nopause -language %LANGUAGE% -moddir CampaignEnhanced mod
 
-cd "%CODWAW_PATH%\mods\CampaignEnhanced"
-
-"%CODWAW_PATH%\bin\7za.exe" a "%CODWAW_PATH%\mods\CampaignEnhanced\CampaignEnhanced.iwd" -tzip -r "%CODWAW_PATH%\mods\CampaignEnhanced\sound"
-"%CODWAW_PATH%\bin\7za.exe" a "%CODWAW_PATH%\mods\CampaignEnhanced\CampaignEnhanced.iwd" -tzip -r "%CODWAW_PATH%\mods\CampaignEnhanced\weapons"
-"%CODWAW_PATH%\bin\7za.exe" a "%CODWAW_PATH%\mods\CampaignEnhanced\CampaignEnhanced.iwd" -tzip -r "%CODWAW_PATH%\mods\CampaignEnhanced\materials"
+"%CODWAW_PATH%\bin\7za.exe" a -tzip "%CODWAW_PATH%\mods\CampaignEnhanced\CampaignEnhanced.iwd" "%CODWAW_PATH%\mods\CampaignEnhanced\sound" "%CODWAW_PATH%\mods\CampaignEnhanced\weapons"
 
 mkdir %WORKDIR_PATH%\dist
 mkdir %WORKDIR_PATH%\dist\%LANGUAGE%
