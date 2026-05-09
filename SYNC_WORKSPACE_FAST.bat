@@ -11,21 +11,12 @@ if exist .env (
     exit /b
 )
 
-rmdir /s /q "%CODWAW_PATH%\mods\CampaignEnhanced\weapons\"
-rmdir /s /q "%CODWAW_PATH%\mods\CampaignEnhanced\sound\"
-rmdir /s /q "%CODWAW_PATH%\mods\CampaignEnhanced\materials\"
-
-del "%CODWAW_PATH%\mods\CampaignEnhanced\CampaignEnhanced.iwd"
-del "%CODWAW_PATH%\mods\CampaignEnhanced\mod.csv"
-del "%CODWAW_PATH%\mods\CampaignEnhanced\mod.arena"
+rmdir /s /q "%CODWAW_PATH%\mods\CampaignEnhanced"
+mkdir "%CODWAW_PATH%\mods\CampaignEnhanced"
 
 xcopy %WORKDIR_PATH%\raw\*.* "%CODWAW_PATH%\raw\" /Y /E /H /C /I
 xcopy %WORKDIR_PATH%\zone_source\*.* "%CODWAW_PATH%\zone_source\" /Y /E /H /C /I
-xcopy %WORKDIR_PATH%\mods\CampaignEnhanced\weapons\*.* "%CODWAW_PATH%\mods\CampaignEnhanced\weapons\" /Y /E /H /C /I
-xcopy %WORKDIR_PATH%\mods\CampaignEnhanced\sound\*.* "%CODWAW_PATH%\mods\CampaignEnhanced\sound\" /Y /E /H /C /I
-xcopy %WORKDIR_PATH%\mods\CampaignEnhanced\materials\*.* "%CODWAW_PATH%\mods\CampaignEnhanced\materials\" /Y /E /H /C /I
-
-copy /Y "%WORKDIR_PATH%\mods\CampaignEnhanced\mod.csv" "%CODWAW_PATH%\mods\CampaignEnhanced"
-copy /Y "%WORKDIR_PATH%\mods\CampaignEnhanced\mod.arena" "%CODWAW_PATH%\mods\CampaignEnhanced"
+xcopy %WORKDIR_PATH%\source_data\*.* "%CODWAW_PATH%\source_data\" /Y /E /H /C /I
+xcopy %WORKDIR_PATH%\mods\CampaignEnhanced\*.* "%CODWAW_PATH%\mods\CampaignEnhanced\" /Y /E /H /C /I
 
 exit /b
