@@ -2141,6 +2141,39 @@ get_closest_2_mg(mg)
 
 fake_surrender_guys()
 {
+	if (flag("oki3_surv_enabled")) {
+		getent("use_mortars_courtyard","targetname") trigger_off();
+		getent("start_final_defend","script_noteworthy") trigger_off();//("trigger");
+		trigger_wait("spawn_feigning_guys","targetname");
+		getent("enter_courtyard","targetname") trigger_off();//("trigger");
+		
+		axis = getaiarray("axis");
+		for(i=0;i<axis.size;i++)
+		{
+			axis[i] bloody_death();
+		}
+
+		level.last_hero = level.sarge;
+		level.last_hero set_force_color("o");
+		level.last_hero.grenadeawareness = 1;
+		level.last_hero.ignoreall = false;
+		level.last_hero setcandamage(true);
+		level.last_hero.goalradius = 512;
+
+		setmusicstate("COURTYARD_A");
+
+		warp_players_to_courtyard();
+
+		autosave_by_name("courtyard_death");
+		battlechatter_on("allies");
+		battlechatter_on("axis");
+
+		wait(5);
+		level thread start_courtyard_ambush(0);
+
+		return;
+	}
+
 	getent("use_mortars_courtyard","targetname") trigger_off();
 	getent("start_final_defend","script_noteworthy") trigger_off();//("trigger");
 	trigger_wait("spawn_feigning_guys","targetname");
