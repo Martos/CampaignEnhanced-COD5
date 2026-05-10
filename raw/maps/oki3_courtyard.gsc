@@ -78,8 +78,10 @@ courtyard_objectives()
 	level thread monitor_volume_for_enemies("drop_volume","drop_secured","enter_courtyard");
 	level waittill("drop_secured");
 
-	objective_state(6,"done");
-	objective_add(7,"current",&"OKI3_OBJ8_A");
+	if (!flag("oki3_surv_enabled")) {
+		objective_state(6,"done");
+		objective_add(7,"current",&"OKI3_OBJ8_A");
+	}
 	
 	//getent("enter_courtyard","targetname") notify("trigger");
 	
@@ -981,48 +983,79 @@ north_mg_gunner()
 
 courtyard_castle_spawners()
 {
-	if (flag("oki3_surv_enabled")) return;
+	if (flag("oki3_surv_enabled")) {
+		wait(10);
+		level thread courtyard_prespawn_smoke(850,900,"building5_smoke");
+		
+		wait(3);	
+		getent("defend_south","targetname") notify("trigger");
 
-	level waittill("building1_destroyed");
-	wait(10);
-	level thread courtyard_prespawn_smoke(850,900,"building5_smoke");
-	wait(3);	
-	getent("defend_south","targetname") notify("trigger");		
-	wait(10);
-	
-	thread spawn_banzai_wave( (8481, -5723, 104) );
-	playsoundatposition("japanese_yell_left",(9055,-3704,85));
-	playsoundatposition("japanese_yell_right",(8760,-5864,104)); 
-	
-	//thread banzai_wave_spawner_think("south","stop_castle_spawners");
-	
-	level thread front_line_spawner_think();
-	
-	//doors on the castle open
-	level thread open_door("se_door1","r",true,"se_door1_trig");
-	level thread open_door("se_door2","r",false,"se_door2_trig");
-	//level thread open_door("ne_door1","r",false,"ne_door1_trig");
-	level thread open_door("ne_door2","r",true,"ne_door2_trig");
-	
-	
-	level thread squad_manager_think("sf_spawn","southeast_front_spawners","stop_castle_spawners","southeast_front_threshold","southeast_front",true,true,true);
-	level thread squad_manager_think("sb_spawn","southeast_back_spawners","stop_castle_spawners","southeast_back_threshold","southeast_back",true,true,true);
-	
-	level thread maps\oki3_squad_manager::manage_spawners("southeast_front",8,10,"stop_castle_spawners",.5, ::spawnfunc_front_line,3,undefined,"sf_spawn");
-	level thread maps\oki3_squad_manager::manage_spawners("southeast_back",5,9,"stop_back",.5, ::spawnfunc_rear_support,3,undefined,"sb_spawn");
-	level thread maps\oki3_squad_manager::manage_spawners("castle_back_sniper",1,2,"stop_castle_spawners",.5,undefined,5);
-	
-	// magic grenades rain down on the players if they don't complete their objective in a timely manner
-	//only do this in co-op	to prevent exploiting arcademode
-//	players = get_players();
-//	if(players.count > 1)
-//	{
-		level thread magic_grenades_from_hell();
-//	}	
-	
-	wait(10);
-	level notify("nag_castle");
-	level.nag_castle = true;
+		wait(10);
+		thread spawn_banzai_wave( (8481, -5723, 104) );
+		playsoundatposition("japanese_yell_left",(9055,-3704,85));
+		playsoundatposition("japanese_yell_right",(8760,-5864,104));
+
+		level thread front_line_spawner_think();
+
+		level thread open_door("se_door1","r",true,"se_door1_trig");
+		level thread open_door("se_door2","r",false,"se_door2_trig");
+		level thread open_door("ne_door2","r",true,"ne_door2_trig");
+		
+		level thread squad_manager_think("sf_spawn","southeast_front_spawners","stop_castle_spawners","southeast_front_threshold","southeast_front",true,true,true);
+		level thread squad_manager_think("sb_spawn","southeast_back_spawners","stop_castle_spawners","southeast_back_threshold","southeast_back",true,true,true);
+		
+		level thread maps\oki3_squad_manager::manage_spawners("southeast_front",8,10,"stop_castle_spawners",.5, ::spawnfunc_front_line,3,undefined,"sf_spawn");
+		level thread maps\oki3_squad_manager::manage_spawners("southeast_back",5,9,"stop_back",.5, ::spawnfunc_rear_support,3,undefined,"sb_spawn");
+		level thread maps\oki3_squad_manager::manage_spawners("castle_back_sniper",1,2,"stop_castle_spawners",.5,undefined,5);
+		
+		wait(10);
+		level notify("nag_castle");
+		level.nag_castle = true;
+
+	} else {
+
+		level waittill("building1_destroyed");
+		wait(10);
+		level thread courtyard_prespawn_smoke(850,900,"building5_smoke");
+		wait(3);	
+		getent("defend_south","targetname") notify("trigger");		
+		wait(10);
+		
+		thread spawn_banzai_wave( (8481, -5723, 104) );
+		playsoundatposition("japanese_yell_left",(9055,-3704,85));
+		playsoundatposition("japanese_yell_right",(8760,-5864,104)); 
+		
+		//thread banzai_wave_spawner_think("south","stop_castle_spawners");
+		
+		level thread front_line_spawner_think();
+		
+		//doors on the castle open
+		level thread open_door("se_door1","r",true,"se_door1_trig");
+		level thread open_door("se_door2","r",false,"se_door2_trig");
+		//level thread open_door("ne_door1","r",false,"ne_door1_trig");
+		level thread open_door("ne_door2","r",true,"ne_door2_trig");
+		
+		
+		level thread squad_manager_think("sf_spawn","southeast_front_spawners","stop_castle_spawners","southeast_front_threshold","southeast_front",true,true,true);
+		level thread squad_manager_think("sb_spawn","southeast_back_spawners","stop_castle_spawners","southeast_back_threshold","southeast_back",true,true,true);
+		
+		level thread maps\oki3_squad_manager::manage_spawners("southeast_front",8,10,"stop_castle_spawners",.5, ::spawnfunc_front_line,3,undefined,"sf_spawn");
+		level thread maps\oki3_squad_manager::manage_spawners("southeast_back",5,9,"stop_back",.5, ::spawnfunc_rear_support,3,undefined,"sb_spawn");
+		level thread maps\oki3_squad_manager::manage_spawners("castle_back_sniper",1,2,"stop_castle_spawners",.5,undefined,5);
+		
+		// magic grenades rain down on the players if they don't complete their objective in a timely manner
+		//only do this in co-op	to prevent exploiting arcademode
+	//	players = get_players();
+	//	if(players.count > 1)
+	//	{
+			level thread magic_grenades_from_hell();
+	//	}	
+		
+		wait(10);
+		level notify("nag_castle");
+		level.nag_castle = true;
+		
+	}
 	
 }
 
