@@ -59,8 +59,11 @@ courtyard_upstairs_dialog()
 
 courtyard_objectives()
 {
-	
-	objective_add(6,"current",&"OKI3_OBJ1");
+	if (!flag("oki3_surv_enabled"))
+		objective_add(6,"current",&"OKI3_OBJ1");
+	else
+		objective_add(6,"current","SURV FLAG");
+
 	objective_position(6,(8203, -2236, 157));
 	getent("planter_door_end","targetname") notify("trigger");
 	
@@ -856,16 +859,18 @@ courtyard_north_spawners()
 	//peel off groups of guys to banzai charge the players
 	level thread front_line_spawner_think();
 	
-	//handles the dialogue regarding targets being hit/missed
-	level thread airstrike_radio_dialogue();
-	
-	//gives each player the airstrike weapon
-	players = get_players();
-	array_thread(players,::give_air_strike);
-	
-	//wait some time then spawn in the MG guy
-	wait(15);
-	simple_spawn("north_MG_gunner",::north_mg_gunner);
+	if (!flag("oki3_surv_enabled")) {
+		//handles the dialogue regarding targets being hit/missed
+		level thread airstrike_radio_dialogue();
+		
+		//gives each player the airstrike weapon
+		players = get_players();
+		array_thread(players,::give_air_strike);
+		
+		//wait some time then spawn in the MG guy
+		wait(15);
+		simple_spawn("north_MG_gunner",::north_mg_gunner);
+	}
 	
 	//make sure the magic grenades are stopped
 	level notify("stop_grenades");
@@ -880,7 +885,9 @@ courtyard_north_spawners()
 //	players = get_players();
 //	if(players.count > 1)
 //	{
+	if (!flag("oki3_surv_enabled")) {
 		level thread magic_grenades_from_hell();
+	}
 //	}
 	
 	//wait till the building is destroyed	, update objectives and shut down spanwers
@@ -974,6 +981,8 @@ north_mg_gunner()
 
 courtyard_castle_spawners()
 {
+	if (flag("oki3_surv_enabled")) return;
+
 	level waittill("building1_destroyed");
 	wait(10);
 	level thread courtyard_prespawn_smoke(850,900,"building5_smoke");

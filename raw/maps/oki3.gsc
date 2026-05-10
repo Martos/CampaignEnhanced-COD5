@@ -210,6 +210,8 @@ init_supply_drops()
 
 init_flags()
 {
+	flag_init("oki3_surv_enabled");
+
 	flag_init("set_low_ammo");
 	flag_init("explosives_taken");
 	flag_init("bunker_destroyed");
@@ -252,12 +254,17 @@ initialize the start points
 init_starts()
 {
 	
-	default_start( ::start_outside_castle );	
+	if ( getdvar( "oki3_surv" ) == "1" )
+		default_start( ::start_in_courtyard_infinite);
+	else
+		default_start(::start_outside_castle);
+
 	add_start( "mortar_pits", ::start_by_mortar_pits,&"OKI3_STARTS_MORTARPITS" );	
 	add_start("planters",::start_by_planters, &"OKI3_STARTS_PLANTERS");
 	add_start("ambush",::start_ambush, &"OKI3_STARTS_AMBUSH");
 	add_start("planters_end",::start_planters_end,&"OKI3_STARTS_PLANTERS_END");
 	add_start("courtyard",::start_in_courtyard,&"OKI3_STARTS_COURTYARD");
+	add_start("courtyard_infinite",::start_in_courtyard_infinite,&"OKI3_STARTS_COURTYARD");
 	add_start("outro",::start_at_outro,&"OKI3_STARTS_OUTRO");
 	//add_start("castle_explode",::start_castle_explode,&"OKI3_STARTS_EXPLODE");
 
@@ -733,6 +740,11 @@ start_ambush()
 	
 }
 
+start_in_courtyard_infinite()
+{
+	flag_set("oki3_surv_enabled");
+	start_in_courtyard();
+}
 
 start_in_courtyard()
 {

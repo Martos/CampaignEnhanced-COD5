@@ -369,6 +369,8 @@ PREPROC_TEXT_DRAW_ALIGNED( ORIGIN_CHEATS_INDICATOR 100 20 HORIZONTAL_ALIGN_CENTE
 		LOCAL_MAP_SELECTION( 15,	"@MENU_LEVEL_BER3",   	"ber3"		,"@MENU_LEVEL_DESC_BER3",		0,		exec "set ui_load_index 13", exec "set ui_gametype cmp";exec "set cg_ScoresColor_Player 0.76 0 0 1" )
 		LOCAL_MAP_SELECTION( 16,	"@MENU_LEVEL_BER3B",   	"ber3b" 	,"@MENU_LEVEL_DESC_BER3B",		0,		exec "set ui_load_index 14", exec "set ui_gametype cmp";exec "set cg_ScoresColor_Player 0.76 0 0 1" )
 
+		LOCAL_MAP_SELECTION( 18,	"SURV", 	"oki3" 		,"@MENU_LEVEL_DESC_OKI3",		0,		exec "set ui_load_index 12", exec "set ui_gametype cmp";exec "set cg_ScoresColor_Player 0 0.3 0.76 1";exec "set oki3_surv 1" )
+		
 		LOCAL_DIFFICULTY_WIDGET
 
 		// --------- button ----------
