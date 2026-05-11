@@ -850,78 +850,17 @@ arcademode_death( mod, hit_location, hit_origin, player, enemy, uberKillingMachi
 
 challengeNotify(weapName, tier) {
 	tierOffset = int(tablelookup("mp/weaponchallengetable.csv",1,weapName,2));
+
 	if(!isdefined(tierOffset))
 		return;
 
 	if(!isdefined(tier))
 		return;
-	
-	switch(tierOffset) {
-		case 501:
-			switch(tier) {
-				case 1:
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_G43_MARKSMAN_I");
-					break;
-				case 2:
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_G43_MARKSMAN_II");
-					break;
-				case 3:
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_G43_MARKSMAN_III");
-					break;
-			}
-			break;
-		case 521:
-			switch(tier) {
-				case 1:
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_THOMPSON_MARKSMAN_I");
-					break;
-				case 2:
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_THOMPSON_MARKSMAN_II");
-					break;
-				case 3:
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_THOMPSON_MARKSMAN_III");
-					break;
-			}
-			break;
-		case 525:
-			switch(tier) {
-				case 1:
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_MP40_MARKSMAN_I");
-					break;
-				case 2:
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_MP40_MARKSMAN_II");
-					break;
-				case 3:
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_MP40_MARKSMAN_III");
-					break;
-			}
-			break;
-		case 527:
-			switch(tier) {
-				case 1:
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_PPSH_MARKSMAN_I");
-					break;
-				case 2:
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_PPSH_MARKSMAN_II");
-					break;
-				case 3:
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_PPSH_MARKSMAN_III");
-					break;
-			}
-		case 523:
-			switch(tier) {
-				case 1:
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_TYPE100SMG_MARKSMAN_I");
-					break;
-				case 2:
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_TYPE100SMG_MARKSMAN_II");
-					break;
-				case 3:
-					self thread maps\_challenges_coop::challengeNotify(&"CHALLENGE_TYPE100SMG_MARKSMAN_III");
-					break;
-			}
-	}
 
+	challengeTable = tablelookup("mp/weaponchallengetable.csv",1,weapName,7);
+	challengeString = tableLookupIString(challengeTable,2,tierOffset,8);
+
+	self thread maps\_challenges_coop::challengeNotify(challengeString);
 }
 
 challengeWatcher(hit_location) {
