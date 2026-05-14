@@ -13,9 +13,6 @@ VERSION             "1"
 CONFIG              "C:\cod5\cod\cod5\bin\StringEd.cfg"
 FILENOTES           ""
 
-REFERENCE           WIN_1_HARDCORE_TEAM_DEATHMATCH
-LANG_ENGLISH        "Win 1 hardcore Team Deathmatch. (Phase 1 of 3)"
-
 REFERENCE           ASSAULT
 LANG_ENGLISH        "RIFLES"
 
