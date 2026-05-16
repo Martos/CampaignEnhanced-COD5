@@ -66,6 +66,14 @@ _nextmission()
 	{
 		//CODER MOD: TKeegan
 		//process challanges in arcade mode are processed int the arcadeMode_ends() method
+
+		//maps\_challenges_coop::doMissionCallback( "levelEnd", level_index );
+		//maps\_hud_message::waitTillNotifiesDone();
+
+		level.arcadeMode_success = true;
+		level thread maps\_arcadeMode::arcadeMode_ends( level_index ); 
+		flag_wait( "arcademode_ending_complete" ); 
+
 		maps\_challenges_coop::doMissionCallback( "levelEnd", level_index );
 		maps\_hud_message::waitTillNotifiesDone();
 	}

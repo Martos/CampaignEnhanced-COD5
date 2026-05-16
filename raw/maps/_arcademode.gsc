@@ -1693,15 +1693,11 @@ arcadeMode_ends( level_index )
 		
 		players[i].hud_scoreplusupdate notify ( "arcademode_complete" );
 		players[i].hud_scoreminusupdate notify ( "arcademode_complete" );
-				
-		players[i].hud_scoreplusupdate destroy();
-		players[i].hud_scoreminusupdate destroy();
-		players[i].hud_scoremulti destroy();
 		
 		players[i] setClientDvars( "ui_hud_hardcore", 1 );
-	}	
+	}
 	
-	fadeToBlack = NewHudElem(); 
+/* 	fadeToBlack = NewHudElem(); 
 	fadeToBlack.x = 0; 
 	fadeToBlack.y = 0;
 	fadeToBlack.alpha = 0;
@@ -1711,23 +1707,31 @@ arcadeMode_ends( level_index )
 	fadeToBlack.sort = 50; 
 	fadeToBlack SetShader( "black", 640, 480 ); 	
 	fadeToBlack FadeOverTime( 2.0 );
-	fadeToBlack.alpha = 1; 
+	fadeToBlack.alpha = 1;  */
 		     	
-	mission_bonus( level_index );
+	// mission_bonus( level_index );
 		
 	if( isDefined( level.nextmission_cleanup ) ) 
     {
     	level thread [[level.nextmission_cleanup]]();
     }	
 	
-	arcademode_upload_highscore();
+	//arcademode_upload_highscore();
 	
-	fadeToBlack FadeOverTime( 2.0 );
-	fadeToBlack.alpha = 0; 
+/* 	fadeToBlack FadeOverTime( 2.0 );
+	fadeToBlack.alpha = 0;  */
 	
 	for( i = 0; i < players.size; i++)
 	{
 		players[i] spawnIntermission();
+
+		wait(3.0);
+		players[i] thread updatePlusScoreHUD( 500 );
+
+		wait(6.0);
+		players[i].hud_scoreplusupdate destroy();
+		players[i].hud_scoreminusupdate destroy();
+		players[i].hud_scoremulti destroy();
 	}
 			
 	wait(6.0);
@@ -1771,7 +1775,7 @@ spawnIntermission()
 	self.psoffsettime = 0; 
 	self.friendlydamage = undefined; 
 	
-		iPrintLn("INTERMISSION");
+	iPrintLn("INTERMISSION");
 	
 	self default_onSpawnIntermission();
 	self setDepthOfField( 0, 128, 512, 4000, 6, 1.8 ); 
@@ -2028,7 +2032,7 @@ mission_bonus( level_index )
 		}
 	}
 	
-	setsaveddvar( "missionsuccessbar", "1" );
+	setsaveddvar( "missionsuccessbar", "0" );
 		
 	maps\_challenges_coop::doMissionCallback( "levelEnd", level_index );
 	
