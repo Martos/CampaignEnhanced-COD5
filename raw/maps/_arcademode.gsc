@@ -1725,6 +1725,31 @@ arcadeMode_ends( level_index )
 	{
 		players[i] spawnIntermission();
 
+		outcomeTitle = undefined;
+		outcomeTitle = createFontString( "objective", 10 );
+		outcomeTitle setPoint( "TOP", undefined, 0, 30 );
+		outcomeTitle.glowAlpha = 1;
+		outcomeTitle.hideWhenInMenu = false;
+		outcomeTitle.archived = false;
+
+		outcomeText = undefined;
+		outcomeText = createFontString( "objective", 2.0 );
+		outcomeText setParent( outcomeTitle );
+		outcomeText setPoint( "TOP", "BOTTOM", 0, 0 );
+		outcomeText.glowAlpha = 1;
+		outcomeText.hideWhenInMenu = false;
+		outcomeText.archived = false;
+
+		matchBonus = undefined;
+		matchBonus = createFontString( "objective", 2.0 );
+		matchBonus setParent( outcomeText );
+		matchBonus setPoint( "TOP", "BOTTOM", 0, 70 + (10 * 3) + 0 );
+		matchBonus.glowAlpha = 1;
+		matchBonus.hideWhenInMenu = false;
+		matchBonus.archived = false;
+		matchBonus.label = "Bonus partita: ";
+		matchBonus setValue( 500 );
+
 		wait(3.0);
 		players[i] thread updatePlusScoreHUD( 500 );
 
