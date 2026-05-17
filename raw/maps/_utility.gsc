@@ -9055,8 +9055,7 @@ hitMarker() {
 
 coopGame()
 {
-	//return (( getdvar( "systemlink" ) == "1" ) || (getdvar( "onlinegame" ) == "1" ) || IsSplitScreen() );
-	return true;
+	return (( getdvar( "systemlink" ) == "1" ) || (getdvar( "onlinegame" ) == "1" ) || IsSplitScreen() );
 //	players = GetPlayers();
 //	return ( players.size > 1);
 }
