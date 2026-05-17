@@ -51,10 +51,7 @@ setSkill( reset, skill_override )
 	}
 
 	level.gameSkill = getdvarint( "g_gameskill" );
-	if ( isdefined( skill_override ) )
-		level.gameSkill = skill_override;
 	setdvar( "saved_gameskill", level.gameSkill );
-
 
 	switch (level.gameSkill)
 	{
@@ -69,6 +66,11 @@ setSkill( reset, skill_override )
 			break;
 		case 3:
 			setdvar ("currentDifficulty", "veteran");	
+			break;
+		default:
+			level.gameSkill = 1;
+			setdvar( "saved_gameskill", 1 );
+			setdvar ("currentDifficulty", "normal");
 			break;
 	}
 	
