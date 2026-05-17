@@ -11,7 +11,7 @@
 ;--------------------------------
 ;General
 
-  !define PRODUCT_VERSION "0.92.119.0"
+  !define PRODUCT_VERSION "0.92.120.0"
 
   Name "Campaign Enhanced"
   OutFile "Campaign Enhanced Setup.exe"
