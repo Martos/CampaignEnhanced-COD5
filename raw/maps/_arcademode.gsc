@@ -1729,6 +1729,7 @@ arcadeMode_ends( level_index )
 	{
 		players[i] spawnIntermission();
 
+		// TODO: Con questi valori, il bonus e' di solo 25. Adeguare correttamente i tempi totali e di gioco
 		winnerScale = 2;
 		spm = players[i] maps\_challenges_coop::getSPM();
 		gameLength = 60;
