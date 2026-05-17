@@ -1720,6 +1720,10 @@ arcadeMode_ends( level_index )
 	
 /* 	fadeToBlack FadeOverTime( 2.0 );
 	fadeToBlack.alpha = 0;  */
+
+	outcomeTitle = undefined;
+	outcomeText = undefined;
+	matchBonus = undefined;
 	
 	for( i = 0; i < players.size; i++)
 	{
@@ -1731,14 +1735,12 @@ arcadeMode_ends( level_index )
 		totalTimePlayed = 60;
 		xpBonusVal = int( (winnerScale * ((gameLength/60) * spm)) * (totalTimePlayed / gameLength) );
 
-		outcomeTitle = undefined;
 		outcomeTitle = createFontString( "objective", 10 );
 		outcomeTitle setPoint( "TOP", undefined, 0, 30 );
 		outcomeTitle.glowAlpha = 1;
 		outcomeTitle.hideWhenInMenu = false;
 		outcomeTitle.archived = false;
 
-		outcomeText = undefined;
 		outcomeText = createFontString( "objective", 2.0 );
 		outcomeText setParent( outcomeTitle );
 		outcomeText setPoint( "TOP", "BOTTOM", 0, 0 );
@@ -1746,7 +1748,6 @@ arcadeMode_ends( level_index )
 		outcomeText.hideWhenInMenu = false;
 		outcomeText.archived = false;
 
-		matchBonus = undefined;
 		matchBonus = createFontString( "objective", 2.0 );
 		matchBonus setParent( outcomeText );
 		matchBonus setPoint( "TOP", "BOTTOM", 0, 70 + (10 * 3) + 0 );
@@ -1758,11 +1759,6 @@ arcadeMode_ends( level_index )
 
 		wait(3.0);
 		players[i] thread updatePlusScoreHUD( xpBonusVal );
-
-		wait(6.0);
-		players[i].hud_scoreplusupdate destroy();
-		players[i].hud_scoreminusupdate destroy();
-		players[i].hud_scoremulti destroy();
 	}
 			
 	wait(6.0);
@@ -1773,6 +1769,19 @@ arcadeMode_ends( level_index )
 	for( i = 0; i < players.size; i++)
 	{
 		players[i] setClientDvars( "ui_hud_hardcore", 0 );
+
+		players[i].hud_scoreplusupdate destroy();
+		players[i].hud_scoreminusupdate destroy();
+		players[i].hud_scoremulti destroy();
+
+		if (isDefined(matchBonus))
+			matchBonus destroy();
+
+		if (isDefined(outcomeText))
+			outcomeText destroy();
+
+		if (isDefined(outcomeTitle))
+			outcomeTitle destroy();
 	}	
 	
 	flag_set( "arcademode_ending_complete" );
@@ -1804,9 +1813,7 @@ spawnIntermission()
 	self.killcamentity = -1; 
 	self.archivetime = 0; 
 	self.psoffsettime = 0; 
-	self.friendlydamage = undefined; 
-	
-	iPrintLn("INTERMISSION");
+	self.friendlydamage = undefined;
 	
 	self default_onSpawnIntermission();
 	self setDepthOfField( 0, 128, 512, 4000, 6, 1.8 ); 
