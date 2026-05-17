@@ -564,13 +564,13 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 		setdvar("ce_show_position", "0");
 		setdvar("ce_rotation", "0");
 		players[i] thread PrintPlayerPosition();
-/*
-		flag_set( "arcademode_ending_complete" );
-		level_index = level.missionSettings maps\_endmission::get_level_index( level.script ); 
-		level.arcadeMode_success = true;
-		level thread maps\_arcadeMode::arcadeMode_ends( level_index ); 
-		flag_wait( "arcademode_ending_complete" ); 
-*/
+
+		// Scoreboard colors
+		if (level.campaign == "russian") {
+			players[i] setClientDvar("cg_ScoresColor_Player", "0.76 0 0 1");
+		} else {
+			players[i] setClientDvar("cg_ScoresColor_Player", "0 0.3 0.76 1");
+		}
 	}
 }
 
