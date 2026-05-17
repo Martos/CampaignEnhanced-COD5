@@ -829,6 +829,12 @@ resetChallengeProgress( baseName, progress )
 	}
 }
 
+getSPM()
+{
+	rankLevel = (self getRank() % 71) + 1;
+	return 3 + (rankLevel * 0.5);
+}
+
 giveRankXP( type, value, levelEnd )
 {
 	self endon("disconnect");

@@ -1725,6 +1725,12 @@ arcadeMode_ends( level_index )
 	{
 		players[i] spawnIntermission();
 
+		winnerScale = 2;
+		spm = players[i] maps\_challenges_coop::getSPM();
+		gameLength = 60;
+		totalTimePlayed = 60;
+		xpBonusVal = int( (winnerScale * ((gameLength/60) * spm)) * (totalTimePlayed / gameLength) );
+
 		outcomeTitle = undefined;
 		outcomeTitle = createFontString( "objective", 10 );
 		outcomeTitle setPoint( "TOP", undefined, 0, 30 );
@@ -1748,10 +1754,10 @@ arcadeMode_ends( level_index )
 		matchBonus.hideWhenInMenu = false;
 		matchBonus.archived = false;
 		matchBonus.label = "Bonus partita: ";
-		matchBonus setValue( 500 );
+		matchBonus setValue( xpBonusVal );
 
 		wait(3.0);
-		players[i] thread updatePlusScoreHUD( 500 );
+		players[i] thread updatePlusScoreHUD( xpBonusVal );
 
 		wait(6.0);
 		players[i].hud_scoreplusupdate destroy();
