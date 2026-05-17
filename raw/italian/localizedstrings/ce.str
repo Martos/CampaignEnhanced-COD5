@@ -86,4 +86,7 @@ LANG_ITALIAN        "Campo visivo"
 REFERENCE           DASHBOARD
 LANG_ITALIAN        "DASHBOARD"
 
+REFERENCE           GAME_BONUS
+LANG_ITALIAN        "Bonus Partita: "
+
 ENDMARKER

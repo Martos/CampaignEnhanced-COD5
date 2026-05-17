@@ -1753,7 +1753,7 @@ arcadeMode_ends( level_index )
 		matchBonus.glowAlpha = 1;
 		matchBonus.hideWhenInMenu = false;
 		matchBonus.archived = false;
-		matchBonus.label = "Bonus partita: ";
+		matchBonus.label = &"CE_GAME_BONUS";
 		matchBonus setValue( xpBonusVal );
 
 		wait(3.0);

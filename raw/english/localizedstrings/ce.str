@@ -86,4 +86,7 @@ LANG_ENGLISH        "Campo Fov"
 REFERENCE           DASHBOARD
 LANG_ENGLISH        "DASHBOARD"
 
+REFERENCE           GAME_BONUS
+LANG_ENGLISH        "Match Bonus: "
+
 ENDMARKER
