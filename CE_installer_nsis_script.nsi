@@ -11,6 +11,8 @@
 ;--------------------------------
 ;General
 
+  !define PRODUCT_VERSION "0.92.119.0"
+
   Name "Campaign Enhanced"
   OutFile "Campaign Enhanced Setup.exe"
   Unicode True
@@ -20,6 +22,17 @@
   InstallDirRegKey HKLM "SOFTWARE\WOW6432Node\Activision\Call of Duty WAW" "installpath"
 
   Var /GLOBAL InstDirB
+
+;--------------------------------
+;Version Information Metadata (Windows File Properties)
+
+  VIProductVersion "${PRODUCT_VERSION}"
+  VIAddVersionKey "FileVersion" "${PRODUCT_VERSION}"
+  VIAddVersionKey "ProductVersion" "${PRODUCT_VERSION}"
+  VIAddVersionKey "ProductName" "Campaign Enhanced"
+  VIAddVersionKey "FileDescription" "Installer for Call of Duty: WaW Campaign Enhanced Mod"
+  VIAddVersionKey "CompanyName" "Martos"
+  VIAddVersionKey "LegalCopyright" ""
 
 ;--------------------------------
 ;Interface Settings
