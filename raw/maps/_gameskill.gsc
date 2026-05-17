@@ -1,18 +1,16 @@
 #include maps\_utility;
 #include animscripts\utility;
 #include common_scripts\utility;
-#include maps\_hud_util;
-
 // this script handles all major global gameskill considerations
 setSkill( reset, skill_override )
 {	
 	self maps\_arcademode::arcademode_dvar_init();
 	self maps\_challenges_coop::rank_init();
-	
-	level.onlineGame = true;
-	level.cheating = false;
-	
-	setdvar( "ui_unlock_report", "1" );
+	// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
+	/#
+	if( getdebugdvar( "replay_debug" ) == "1" )
+		println("File: _gameskill.gsc. Function: setSkill()\n");
+	#/
 	
 	if ( !isdefined( level.script ) )
 		level.script = tolower( getdvar( "mapname" ) );
@@ -21,6 +19,11 @@ setSkill( reset, skill_override )
 	{
 		if ( isdefined( level.gameSkill ) )
 		{
+			// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
+			/#
+			if( getdebugdvar( "replay_debug" ) == "1" )
+				println("File: _gameskill.gsc. Function: setSkill() - COMPLETE EARLY\n");
+			#/
 			return;
 		}
 	
@@ -48,10 +51,17 @@ setSkill( reset, skill_override )
 		level.difficultyString[ "normal" ] = &"GAMESKILL_NORMAL";
 		level.difficultyString[ "hardened" ] = &"GAMESKILL_HARDENED";
 		level.difficultyString[ "veteran" ] = &"GAMESKILL_VETERAN";
+//		thread update_skill_on_change();
+		/#
+		thread playerHealthDebug();
+		#/ 
 	}
 
 	level.gameSkill = getdvarint( "g_gameskill" );
+	if ( isdefined( skill_override ) )
+		level.gameSkill = skill_override;
 	setdvar( "saved_gameskill", level.gameSkill );
+
 
 	switch (level.gameSkill)
 	{
@@ -74,12 +84,7 @@ setSkill( reset, skill_override )
 			break;
 	}
 	
-	setdvar("psx", 0);
-	setdvar("psa", 0);
-	setdvar("psk", 0);
-	setdvar("psh", 0);
-
-	setdvar( "ce_cheats", 0 );
+// 	createprintchannel( "script_autodifficulty" );
 	
 	if ( getdvar( "autodifficulty_playerDeathTimer" ) == "" )
 		setdvar( "autodifficulty_playerDeathTimer", 0 );
@@ -506,7 +511,6 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 	Precachemenu(game["endofgame"]);
 	Precachemenu(game["popup_ingame"]);
 	Precachemenu(game["menu_shop"]);
-	
 	// waittill the flag is defined, then check for it
 	while (!isdefined (level.flag) || !isdefined(level.flag[ "all_players_connected" ]))
 	{
@@ -519,1090 +523,9 @@ apply_threat_bias_to_all_players(difficulty_func, current_frac)
 	players = get_players();
 	for( i = 0; i < players.size; i++ )
 	{
-	
 		players[i].threatbias = int( [[ difficulty_func ]]( "threatbias", current_frac ) );
-		setdvar("ui_cac_ingame", "1");
-		setdvar("ui_ce_shop", "0");
-		setdvar("ui_customclass_selected", "999");
-		setdvar("ui_showEndOfGame", "1");
-		setdvar("ce_show_jug", "0");
-		setdvar("ce_show_sp", "0");
-		setdvar("ce_show_be", "0");
-		setdvar("ce_show_re", "0");
-
-		if (GetDvarInt("cg_drawGamepadHUD", 0) == 1) {
-			players[i] setClientDvar("safeArea_vertical", "0.85");
-			players[i] setClientDvar("safeArea_horizontal", "0.85");
-		} else {
-			players[i] setClientDvar("safeArea_vertical", "1");
-			players[i] setClientDvar("safeArea_horizontal", "1");
-		}
-
-		// Fix barra xp vuota con player a livello 1
-		checkLevelMaxXP = players[i] statGet( "maxxp" );
-		if (checkLevelMaxXP == 0) {
-			players[i] statSet( "maxxp", 30 );
-			players[i] iprintlnbold(players[i] statGet( "maxxp" ));
-		}
-		
-		players[i] spawnShops();
-		
-		//players[i] thread unlockAllChallengesMP();
-		
-		players[i] thread watchPlayerCheats();
-		
-		players[i] openMenu( "endofgame" );
-		players[i] thread classSelectionThread();
-		
-		players[i] thread MenuResponses();
-		
-		players[i] thread TimePlayed();
-		
-		players[i] thread PatchPlayerScore();
-		
-		//DEBUG: Player positizion on map
-		setdvar("ce_show_position", "0");
-		setdvar("ce_rotation", "0");
-		players[i] thread PrintPlayerPosition();
-
-		// Scoreboard colors
-		if (level.campaign == "russian") {
-			players[i] setClientDvar("cg_ScoresColor_Player", "0.76 0 0 1");
-		} else {
-			players[i] setClientDvar("cg_ScoresColor_Player", "0 0.3 0.76 1");
-		}
+		maps\campaign_enhanced::init();
 	}
-}
-
-spawnShops() {
-	spawnPoints = (0, 0, 0);
-	anglePoints = (0, 0, 0);
-	secondSpawnPoints = (0, 0, 0);
-	secondAnglePoints = (0, 0, 0);
-	mapName = getdvar("mapname");
-	
-	switch(mapName) {
-		case "mak":
-			spawnPoints = (-9981, -19066, 69);
-			anglePoints = (0, 180, 0);
-			secondSpawnPoints = (-7064, -15523, 479);
-			secondAnglePoints = (0, -90, 0);
-			break;
-		case "ber2":
-			spawnPoints = (-1156.88, -2385.88, 856.125);
-			anglePoints = (0, 90, 0);
-			secondSpawnPoints = (834.197, 88.6863, -463.875);
-			secondAnglePoints = (0, 25, 0);
-			break;
-		case "oki3":
-			spawnPoints = (3932.2, 5198.82, -818.639);
-			break;
-		default: 
-			spawnPoints = (0, 0, 0);
-			break;
-	}
-	
-	first_shop = spawn("script_model", spawnPoints);
-	first_shop setmodel("zombie_vending_doubletap_on");
-	first_shop setcontents(1);
-	first_shop.targetname = "first_shop";
-	first_shop.angles = anglePoints;
-	first_shop solid();
-	
-	second_shop = spawn("script_model", secondSpawnPoints);
-	second_shop setmodel("zombie_vending_doubletap_on");
-	second_shop setcontents(1);
-	second_shop.targetname = "second_shop";
-	second_shop.angles = secondAnglePoints;
-	second_shop solid();
-
-	level thread open_shop_trigger();
-	level thread open_second_shop_trigger();
-}
-
-open_shop_trigger() {
-	self endon("disconnect");
-	
-	first_shop_entity = getent("first_shop","targetname");
-	flagtrig = Spawn("trigger_radius", first_shop_entity.origin, 0, 64, 200);
-
-	flagtrig sethintstring("Press F to open Shop");
-	flagtrig SetCursorHint("HINT_NOICON");
-	
-	players = get_players();
-
-	while(1)
-	{
-		flagtrig waittill( "trigger", who );
-		
-		if(IsPlayer(players[0])) {
-			if(players[0] UseButtonPressed()) {
-				players[0] openMenu( "menu_shop" );
-			}
-		}
-
-		wait(0.1);
-	}
-}
-
-open_second_shop_trigger() {
-	self endon("disconnect");
-	
-	second_shop_entity = getent("second_shop","targetname");
-	flagtrig = Spawn("trigger_radius", second_shop_entity.origin, 0, 64, 200);
-
-	flagtrig sethintstring("Press F to open Shop");
-	flagtrig SetCursorHint("HINT_NOICON");
-	
-	players = get_players();
-
-	while(1)
-	{
-		flagtrig waittill( "trigger", who );
-		
-		if(IsPlayer(players[0])) {
-			if(players[0] UseButtonPressed()) {
-				players[0] openMenu( "menu_shop" );
-			}
-		}
-
-		wait(0.1);
-	}
-}
-
-PrintPlayerPosition() {
-	self endon("disconnect");
-
-	while(1) {
-		if(isplayer(self)) {
-			if(GetDvarInt("ce_show_position") == 1) {
-				self iprintlnbold(self.origin);
-				self iprintlnbold(self.angles);
-
-				shop = getent("first_shop","targetname");
-				//shop MoveTo( (-1156.88, -2385.88, 856.125), .5, .05, .05 );
-				shop RotateTo( (0, GetDvarInt("ce_rotation"), 0), .05 );
-
-				second_shop = getent("second_shop","targetname");
-				second_shop RotateTo( (0, GetDvarInt("ce_rotation"), 0), .05 );
-			}
-		}
-		wait(1);
-	}
-}
-
-PatchPlayerScore() {
-	self endon("disconnect");
-	
-	while(1) {
-		wait(0.05);
-		
-		self.score = self getStat(2302);
-		self.totalScore = self getStat(2302);
-	}
-}
-
-TimePlayed()
-{
-	self endon("disconnect");
-	
-	while(1)
-	{
-		wait(1);
-		self maps\_challenges_coop::statAdd("time_played_total", 1);
-		
-		secondsPlayed = self maps\_challenges_coop::statGet("time_played_total");
-		self setStat(2311, secondsPlayed);
-	}
-}
-
-MenuResponses() {
-	self endon("disconnect");
-	
-	SHOP_AMMO_PRICE = 500;
-	SHOP_JUGGERNOG_PRICE = 2500;
-	SHOP_SPEED_PRICE = 3000;
-	SHOP_RAYGUN_SPEED = 20000;
-	
-	while(1) {
-		self waittill("menuresponse",menu,response);
-		if(menu == game["menu_shop"]) {
-			if(response == "buy_ammo") {
-				self setStat(2302, self getStat(2302) - SHOP_AMMO_PRICE);
-				
-				weapons = self GetWeaponsList(); 
-				for( i = 0 ; i < weapons.size ; i++ )
-				{				
-					self GiveMaxAmmo(weapons[i]);
-				}
-			}
-			if(response == "buy_raygun") {
-				self GiveWeapon("ray_gun");
-				self GiveMaxAmmo("ray_gun");
-				self SwitchToWeapon("ray_gun");
-			}
-			if(response == "buy_xp") {
-				self setStat(2301, 153940);	//XP
-				self setStat(252, 64);	//RANK
-				self setStat(2351, 5270);
-				self setStat(2352, 148680);
-				self setStat(2326, 0);	//PRESTIGE
-			}
-			if(response == "buy_juggernog") {
-				self setStat(2302, self getStat(2302) - SHOP_JUGGERNOG_PRICE);
-				
-				self SetPerk( "specialty_armorvest" );
-				
-				self setblur(4, 0.1);
-				wait(0.1);
-				self setblur(0, 0.1);
-				
-				setdvar("ce_show_jug", "1");
-			}
-			if(response == "buy_speed") {
-				self setStat(2302, self getStat(2302) - SHOP_SPEED_PRICE);
-				
-				self SetPerk( "specialty_fastreload" );
-				
-				self setblur(4, 0.1);
-				wait(0.1);
-				self setblur(0, 0.1);
-				
-				setdvar("ce_show_sp", "1");
-			}
-		}
-		if(menu == game["endofgame"]) {
-			if(response == "ceSelectedClass") {
-				
-				level notify( "closed_cac" );
-				
-				if(GetDvarInt("ce_change_prestige") == 1) {
-					//self iprintlnbold("PRESTIGE: " + self getStat(2326));
-					currentPrestige = self getStat(2326);
-					if(self checkPrestigeAvailable() == true) {
-						currentPrestige = currentPrestige + 1;
-
-						//Reset stats
-						self thread profileStatsReset(currentPrestige);
-						
-						//Sblocchi arma
-						self thread weaponsUnlocksReset();
-						
-						self thread	maps\_challenges_coop::updateRankAnnounceHUD();
-					}
-					setdvar("ce_change_prestige", "0");
-				}
-				
-				//self iprintlnbold("CLASS: " + getdvar("ui_customclass_selected"));
-				
-				switch(GetDvarInt("ui_customclass_selected")) {
-					case 6:
-						self customClassLogic(0);
-						break;
-					case 7:
-						self customClassLogic(10);
-						break;
-					case 8:
-						self customClassLogic(20);
-						break;
-					case 9:
-						self customClassLogic(30);
-						break;
-					case 10:
-						self customClassLogic(40);
-						break;
-					default:
-						//No class selected, use standard weapons instead
-						break;
-					
-				}
-			}
-		}
-	}	
-}
-
-profileStatsReset(currentPrestige) {
-	//Crea una classe
-	self setStat(260, 0);
-	
-	self setStat(2301, 0);
-	self setStat(252, 0);
-	self setStat(2351, 0);
-	self setStat(2352, 30);
-	
-	self setStat(2326, currentPrestige);
-}
-
-weaponsUnlocksReset() {
-	self setStat(3000, 0);
-	self setStat(3001, 0);
-	self setStat(3002, 0);
-	self setStat(3010, 0);
-	self setStat(3020, 0);
-	self setStat(3060, 0);
-	self setStat(3062, 0);
-	self setStat(3070, 0);
-	self setStat(3080, 0);
-	self setStat(3082, 0);
-	self setStat(3021, 0);
-	self setStat(3011, 0);
-	self setStat(3042, 0);
-	self setStat(3083, 0);
-	self setStat(3022, 0);
-	self setStat(3003, 0);
-	self setStat(3061, 0);
-	self setStat(3091, 0);
-	self setStat(3012, 0);
-	self setStat(3071, 0);
-	self setStat(3041, 0);
-	self setStat(3024, 0);
-	self setStat(3063, 0);
-	self setStat(3081, 0);
-	self setStat(3004, 0);
-	self setStat(3013, 0);
-	self setStat(3064, 0);
-	self setStat(3040, 0);
-	self setStat(3023, 0);
-	self setStat(3050, 0);
-}
-
-unlocksAllWeapons() {
-	//Stat 3010: 1	Stat 3010: 196611	Stat 3010: 458759	Stat 3010: 983055	Stat 3021: 2031647
-	self setStat(3000, 1);
-	self setStat(3001, 1);
-	self setStat(3002, 1);
-	self setStat(3010, 1);	//THOMPSON
-	self setStat(3020, 1);
-	self setStat(3060, 1);
-	self setStat(3062, 1);
-	self setStat(3070, 1);
-	self setStat(3080, 1);
-	self setStat(3082, 1);
-	self setStat(3021, 1);	//GEWHER43
-	self setStat(3011, 1);	//MP40
-	self setStat(3042, 1);
-	self setStat(3083, 1);
-	self setStat(3022, 1);
-	self setStat(3003, 1);
-	self setStat(3061, 1);
-	self setStat(3091, 1);
-	self setStat(3012, 1);
-	self setStat(3071, 1);
-	self setStat(3041, 1);
-	self setStat(3024, 1);
-	self setStat(3063, 1);
-	self setStat(3081, 1);
-	self setStat(3004, 1);
-	self setStat(3013, 1);
-	self setStat(3064, 1);
-	self setStat(3040, 1);
-	self setStat(3023, 1);
-	self setStat(3050, 1);
-}
-
-unlocksChallenges() {
-	//Gewer
-	self setStat(501, 255);		//[1 - 4]Tier - 255 Completed
-	self setStat(502, 255);
-	self setStat(2501, 150);
-	self setStat(2502, 150);
-	//svt40
-	self setStat(503, 255);
-	self setStat(504, 255);
-	self setStat(2503, 100);
-	self setStat(2504, 150);
-	//m1garand
-	self setStat(505, 255);
-	self setStat(506, 255);
-	self setStat(2505, 150);
-	self setStat(2506, 150);
-	//m1ai
-	self setStat(507, 255);
-	self setStat(508, 255);
-	self setStat(2507, 150);
-	self setStat(2508, 150);
-	//stg44
-	self setStat(509, 255);
-	self setStat(510, 255);
-	self setStat(2509, 100);
-	self setStat(2510, 150);
-	//thompson
-	self setStat(521, 255);
-	self setStat(522, 255);
-	self setStat(2521, 150);
-	self setStat(2522, 150);
-	//type100
-	self setStat(523, 255);
-	self setStat(524, 255);
-	self setStat(2523, 150);
-	self setStat(2524, 150);
-	//mp40
-	self setStat(525, 1);
-	self setStat(526, 1);
-	self setStat(2525, 150);
-	self setStat(2526, 150);
-	//ppsh
-	self setStat(527, 255);
-	self setStat(528, 255);
-	self setStat(2527, 75);
-	self setStat(2528, 150);
-	//type99
-	self setStat(541, 255);
-	self setStat(542, 255);
-	self setStat(2541, 150);
-	self setStat(2542, 150);
-	//trenchgun
-	self setStat(561, 255);
-	self setStat(562, 255);
-	self setStat(2561, 150);
-	self setStat(2562, 150);
-	//mosin-nagant
-	self setStat(581, 255);
-	self setStat(582, 255);
-	self setStat(2581, 150);
-	self setStat(2582, 150);
-	//springfield
-	self setStat(583, 255);
-	self setStat(584, 255);
-	self setStat(2583, 150);
-	self setStat(2584, 150);
-	//kar98k
-	self setStat(585, 255);
-	self setStat(586, 255);
-	self setStat(2585, 150);
-	self setStat(2586, 150);
-	//arisaka
-	self setStat(587, 255);
-	self setStat(588, 255);
-	self setStat(2587, 150);
-	self setStat(2588, 150);
-	
-	slot = 1;
-	//self iprintlnbold("CHALLENGE PROGRESS " + slot + ":" + int( tablelookup( "mp/challengeTable_tier3.csv", 1, slot, 3 ) ) );
-}
-
-customClassLogic(offset) {
-	if(!isplayer(self))
-		return;
-	
-	if(!isdefined(offset))
-		return;
-	
-	self TakeAllWeapons();
-	
-	cac_selected_primary = self getStat(offset + 201);
-	cac_primary_grenade = self getStat(offset + 200);
-	cac_special_grenade = self getStat(offset + 208);
-
-	switch(cac_primary_grenade) {
-		case 100:
-			setdvar("ce_gameskill_primary_grenade", "fraggrenade");
-			break;
-		case 101:
-			setdvar("ce_gameskill_primary_grenade", "molotov");
-			break;
-		case 104:
-			setdvar("ce_gameskill_primary_grenade", "stick_grenade");
-			break;
-		default:
-			setdvar("ce_gameskill_primary_grenade", "fraggrenade");
-			break;
-	}
-
-	switch(cac_special_grenade) {
-		case 102:
-			setdvar("ce_gameskill_special_grenade", "m8_white_smoke");
-			break;
-		case 103:
-			setdvar("ce_gameskill_special_grenade", "tabun_gas");
-			break;
-		case 105:
-			setdvar("ce_gameskill_special_grenade", "signal_flare");
-			break;
-		default:
-			setdvar("ce_gameskill_special_grenade", "m8_white_smoke");
-			break;
-	}
-	
-	if(cac_selected_primary == 12) {
-		setdvar("ce_gameskill_weap_test", "type100_smg");
-	} else {
-		setdvar("ce_gameskill_weap_test", ""+tablelookup("mp/statsTable.csv", 0, cac_selected_primary, 4));
-	}
-	
-	cac_selected_attachment = self getStat(offset + 202);
-	
-	// If is ppsh
-	if(cac_selected_primary == 13) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "aperture");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "single");
-				break;
-		}
-	} else if(cac_selected_primary == 21) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "silenced");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "aperture");
-				break;
-			case 3:
-				setdvar("ce_gameskill_weap_attachment", "telescopic");
-				break;
-			case 4:
-				setdvar("ce_gameskill_weap_attachment", "gl");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	} else if(cac_selected_primary == 22) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "flash");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "bayonet");
-				break;
-			case 3:
-				setdvar("ce_gameskill_weap_attachment", "gl");
-				break;
-			case 4:
-				setdvar("ce_gameskill_weap_attachment", "scoped");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	} else if(cac_selected_primary == 20 || cac_selected_primary == 24) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "flash");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "aperture");
-				break;
-			case 3:
-				setdvar("ce_gameskill_weap_attachment", "telescopic");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	} else if(cac_selected_primary == 23) {	// If is m1carbine
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "flash");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "aperture");
-				break;
-			case 3:
-				setdvar("ce_gameskill_weap_attachment", "bayonet");
-				break;
-			case 4:
-				setdvar("ce_gameskill_weap_attachment", "bigammo");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	} else if(cac_selected_primary == 40 || cac_selected_primary == 41 || cac_selected_primary == 42) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "bipod");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	} else if(cac_selected_primary == 80) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "bipod");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "bayonet");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	} else if(cac_selected_primary == 81) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "bipod");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "telescopic");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	} else if(cac_selected_primary == 83 || cac_selected_primary == 82) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "bipod");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	} else if(cac_selected_primary == 60 || cac_selected_primary == 61 || cac_selected_primary == 62 || cac_selected_primary == 63 || cac_selected_primary == 64) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "scoped");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "bayonet");
-				break;
-			case 3:
-				setdvar("ce_gameskill_weap_attachment", "gl");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-		//PTRS-41 No attachments
-		if(cac_selected_primary == 64) {
-			cac_selected_attachment = 0;
-			setdvar("ce_gameskill_weap_attachment", "");
-		}
-	} else if(cac_selected_primary == 71) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "grip");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "sawoff");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	} else {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "silenced");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "aperture");
-				break;
-			case 3:
-				setdvar("ce_gameskill_weap_attachment", "bigammo");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	}
-
-	
-	cac_selected_secondary = self getStat(offset + 203);
-	setdvar("ce_gameskill_weap_secondary", ""+tablelookup("mp/statsTable.csv", 0, cac_selected_secondary, 4));
-	
-	primaryWeaponString = getdvar("ce_gameskill_weap_test");
-	secondaryWeaponString = getdvar("ce_gameskill_weap_secondary");
-	primaryGrenadeString = getdvar("ce_gameskill_primary_grenade");
-	specialGrenadeString = getdvar("ce_gameskill_special_grenade");
-	
-	if(getdvar("ce_gameskill_weap_attachment") != "") {
-		primaryWeaponString = primaryWeaponString + "_" + getdvar("ce_gameskill_weap_attachment");
-	}
-	//self iprintlnbold(cac_selected_primary + "-" + cac_selected_attachment + "(" + primaryWeaponString + ")");
-	self GiveWeapon(primaryWeaponString);
-	self GiveWeapon(secondaryWeaponString);
-	self GiveWeapon(primaryGrenadeString);
-	self GiveWeapon(specialGrenadeString);
-	self GiveMaxAmmo(primaryWeaponString);
-	self SwitchToWeapon(primaryWeaponString);
-	
-	if(level.script == "pel1") {
-		self maps\_loadout::add_weapon( "rocket_barrage" );
-		self maps\_loadout::set_action_slot( 4, "weapon", "rocket_barrage" );
-	}
-}
-
-checkPrestigeAvailable() {
-	ret = false;
-	
-	if(self getStat(252) == 64 && self getStat(2301) >= 153950 && self getStat(2326) < 10) {
-		ret = true;
-	}
-	
-	//self iprintlnbold("AVAIL: " + ret);
-	//self iprintlnbold("XP: " + self getStat(2301));
-	
-	return ret;
-}
-
-unlockAllChallengesMP() {
-	//self setStat(202, 3);
-	self setStat(2301, 153950);	//XP
-	self setStat(252, 64);	//RANK
-	self setStat(2351, 5270);
-	self setStat(2352, 148680);
-	self setStat(2326, 0);	//PRESTIGE
-	
-	self setStat(260, 1);	//CLASS UNLOCK
-
-	self unlocksAllWeapons();
-	//self unlocksChallenges();
-	
-	/*
-	for(i = 501; i < 840; i++) {
-		iPrintLn("UNLOCK: " + i);
-		self setStat(i, 1);
-		wait 0.05;
-	}
-	*/
-}
-
-classSelectionThread() {
-	//self thread watchClassSelection();
-	self thread watchClassCustomization();
-}
-
-watchClassCustomization() {
-	for( ;; ) {
-		
-		level endon( "closed_cac" );
-		
-		primaryWeapon = getdvar("ce_weap_sel");
-		primaryAttachment = getdvar("ce_cac_primary_attachment");
-		sideWeapon = getdvar("ce_side_sel");
-		primaryGrenade = getdvar("ce_pg_sel");
-		specialGrenade = getdvar("ce_sp_sel");
-		
-		primaryWeaponOffset = (getdvarint("ce_cac_selected") - 300) + 201;
-		primaryWeaponAttachmentOffset = (getdvarint("ce_cac_selected") - 300) + 202;
-		sideWeaponOffset = (getdvarint("ce_cac_selected") - 300) + 203;
-		primaryGrenadeOffset = (getdvarint("ce_cac_selected") - 300) + 200;
-		specialGrenadeOffset = (getdvarint("ce_cac_selected") - 300) + 208;
-
-		switch(sideWeapon) {
-			case "colt":
-				self setStat(sideWeaponOffset, 0);
-				break;
-			case "nambu":
-				self setStat(sideWeaponOffset, 1);
-				break;
-			case "walther":
-				self setStat(sideWeaponOffset, 2);
-				break;
-			case "tokarev":
-				self setStat(sideWeaponOffset, 3);
-				break;
-			case "357magnum":
-				self setStat(sideWeaponOffset, 4);
-				break;
-		}
-
-		switch(primaryGrenade) {
-			case "molotov":
-				self setStat(primaryGrenadeOffset, 101);
-				break;
-			case "frag_grenade":
-				self setStat(primaryGrenadeOffset, 100);
-				break;
-			case "sticky_grenade":
-				self setStat(primaryGrenadeOffset, 104);
-				break;
-		}
-
-		switch(specialGrenade) {
-			case "m8_white_smoke":
-				self setStat(specialGrenadeOffset, 102);
-				break;
-			case "tabun_gas":
-				self setStat(specialGrenadeOffset, 103);
-				break;
-			case "signal_flare":
-				self setStat(specialGrenadeOffset, 105);
-				break;
-		}
-		
-		switch(primaryWeapon) {
-			case "thompson":
-				self setStat(primaryWeaponOffset, 10);
-				if(primaryAttachment == "silenced") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				}
-				else if(primaryAttachment == "aperture") {
-					self setStat(primaryWeaponAttachmentOffset, 2);
-				}
-				else if(primaryAttachment == "bigammo") {
-					self setStat(primaryWeaponAttachmentOffset, 3);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
-				break;
-			case "mp40":
-				self setStat(primaryWeaponOffset, 11);
-				if(primaryAttachment == "silenced") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				}
-				else if(primaryAttachment == "aperture") {
-					self setStat(primaryWeaponAttachmentOffset, 2);
-				}
-				else if(primaryAttachment == "bigammo") {
-					self setStat(primaryWeaponAttachmentOffset, 3);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
-				break;
-			case "type100smg":
-				self setStat(primaryWeaponOffset, 12);
-				if(primaryAttachment == "silenced") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				}
-				else if(primaryAttachment == "aperture") {
-					self setStat(primaryWeaponAttachmentOffset, 2);
-				}
-				else if(primaryAttachment == "bigammo") {
-					self setStat(primaryWeaponAttachmentOffset, 3);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
-				break;
-			case "type99lmg":
-				self setStat(primaryWeaponOffset, 80);
-				if(primaryAttachment == "bipod") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				} else if(primaryAttachment == "bayonet") {
-					self setStat(primaryWeaponAttachmentOffset, 2);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
-				break;
-			case "ppsh":
-				self setStat(primaryWeaponOffset, 13);
-				if(primaryAttachment == "aperture") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				} else if(primaryAttachment == "bigammo") {
-					self setStat(primaryWeaponAttachmentOffset, 2);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
-				break;
-			case "svt40":
-				self setStat(primaryWeaponOffset, 20);
-				if(primaryAttachment == "flash") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				} else if(primaryAttachment == "aperture") {
-					self setStat(primaryWeaponAttachmentOffset, 2);
-				} else if(primaryAttachment == "telescopic") {
-					self setStat(primaryWeaponAttachmentOffset, 3);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
-				break;
-			case "gewehr43":
-				self setStat(primaryWeaponOffset, 21);
-				if(primaryAttachment == "silenced") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				} else if(primaryAttachment == "aperture") {
-					self setStat(primaryWeaponAttachmentOffset, 2);
-				} else if(primaryAttachment == "telescopic") {
-					self setStat(primaryWeaponAttachmentOffset, 3);
-				} else if(primaryAttachment == "gl") {
-					self setStat(primaryWeaponAttachmentOffset, 4);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
-				break;
-			case "m1garand":
-				self setStat(primaryWeaponOffset, 22);
-				if(primaryAttachment == "flash") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				} else if(primaryAttachment == "bayonet") {
-					self setStat(primaryWeaponAttachmentOffset, 2);
-				} else if(primaryAttachment == "gl") {
-					self setStat(primaryWeaponAttachmentOffset, 3);
-				} else if(primaryAttachment == "scoped") {
-					self setStat(primaryWeaponAttachmentOffset, 4);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
-				break;
-			case "stg44":
-				self setStat(primaryWeaponOffset, 24);
-				if(primaryAttachment == "flash") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				} else if(primaryAttachment == "aperture") {
-					self setStat(primaryWeaponAttachmentOffset, 2);
-				} else if(primaryAttachment == "telescopic") {
-					self setStat(primaryWeaponAttachmentOffset, 3);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
-				break;
-			case "m1carbine":
-				self setStat(primaryWeaponOffset, 23);
-				if(primaryAttachment == "flash") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				} else if(primaryAttachment == "aperture") {
-					self setStat(primaryWeaponAttachmentOffset, 2);
-				} else if(primaryAttachment == "bayonet") {
-					self setStat(primaryWeaponAttachmentOffset, 3);
-				} else if(primaryAttachment == "bigammo") {
-					self setStat(primaryWeaponAttachmentOffset, 4);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
-				break;
-			case "bar":
-				self setStat(primaryWeaponOffset, 82);
-				if(primaryAttachment == "bipod") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
-				break;
-			case "fg42":
-				self setStat(primaryWeaponOffset, 81);
-				if(primaryAttachment == "bipod") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
-				break;
-			case "dp28":
-				self setStat(primaryWeaponOffset, 83);
-				if(primaryAttachment == "bipod") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				} else if(primaryAttachment == "telescopic") {
-					self setStat(primaryWeaponAttachmentOffset, 2);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
-				break;
-			case "springfield":
-				self setStat(primaryWeaponOffset, 60);
-				if(primaryAttachment == "scoped") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				} else if(primaryAttachment == "bayonet") {
-					self setStat(primaryWeaponAttachmentOffset, 2);
-				} else if(primaryAttachment == "gl") {
-					self setStat(primaryWeaponAttachmentOffset, 3);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
-				break;
-			case "mosinrifle":
-				self setStat(primaryWeaponOffset, 61);
-				if(primaryAttachment == "scoped") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				} else if(primaryAttachment == "bayonet") {
-					self setStat(primaryWeaponAttachmentOffset, 2);
-				} else if(primaryAttachment == "gl") {
-					self setStat(primaryWeaponAttachmentOffset, 3);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
-				break;
-			case "type99rifle":
-				self setStat(primaryWeaponOffset, 62);
-				if(primaryAttachment == "scoped") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				} else if(primaryAttachment == "bayonet") {
-					self setStat(primaryWeaponAttachmentOffset, 2);
-				} else if(primaryAttachment == "gl") {
-					self setStat(primaryWeaponAttachmentOffset, 3);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
-				break;
-			case "kar98k":
-				self setStat(primaryWeaponOffset, 63);
-				if(primaryAttachment == "scoped") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				} else if(primaryAttachment == "bayonet") {
-					self setStat(primaryWeaponAttachmentOffset, 2);
-				} else if(primaryAttachment == "gl") {
-					self setStat(primaryWeaponAttachmentOffset, 3);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
-				break;
-			case "shotgun":
-				self setStat(primaryWeaponOffset, 70);
-				break;
-			case "doublebarreledshotgun":
-				self setStat(primaryWeaponOffset, 71);
-				if(primaryAttachment == "grip") {
-					self setStat(primaryWeaponAttachmentOffset, 1);
-				} else if(primaryAttachment == "sawoff") {
-					self setStat(primaryWeaponAttachmentOffset, 2);
-				} else {
-					self setStat(primaryWeaponAttachmentOffset, 0);
-				}
-				break;
-			case "ptrs41":
-				self setStat(primaryWeaponOffset, 64);
-				self setStat(primaryWeaponAttachmentOffset, 0);
-				break;
-		}
-		
-		wait 0.05;
-	}
-}
-
-watchPlayerCheats() {
-
-	level endon( "death" );
-	level endon( "disconnect" );
-
-	for( ;; ) {
-
-		if ( IsGodMode( self ) ) {
-			level.cheating = true;
-		}
-
-		if( getDvarInt( "sf_use_ignoreammo" ) > 0 )
-		{
-			level.cheating = true;
-		}
-		
-		if( getDvarInt("player_sustainAmmo") > 0 )
-		{
-			level.cheating = true;
-		}
-			
-		if( getDvarInt( "revive_trigger_radius") > 60 )
-		{
-			level.cheating = true;
-		}
-			
-		if( getDvarInt( "g_speed" ) > 190)
-		{
-			level.cheating = true;
-		}
-		
-		if( getDvarInt( "g_gravity" ) != 800 )
-		{
-			level.cheating = true;
-		}
-
-		if(level.cheating == true && getdvarint("ce_cheats") == 0) {
-			setdvar( "ce_cheats", 1 );
-		}
-
-		wait 0.05;
-	}
-}
-
-set_switch_weapon( weapon_name )
-{
-	level.player_switchweapon = weapon_name;
 }
 
 coop_damage_and_accuracy_scaling( difficulty_func, current_frac )
@@ -1795,6 +718,161 @@ pain_protection_check()
 	return true;
 }
 
+ /#
+playerHealthDebug()
+{
+	// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
+	if( getdebugdvar( "replay_debug" ) == "1" )
+		println("File: _gameskill.gsc. Function: playerHealthDebug()\n");
+	
+	// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
+	if( getdebugdvar( "replay_debug" ) == "1" )
+		println("File: _gameskill.gsc. Function: playerHealthDebug() - WAIT FINISHED\n");
+	
+	if ( getdvar( "scr_health_debug" ) == "" )
+		setdvar( "scr_health_debug", "0" );
+
+	waittillframeend; // for init to finish
+	
+	while ( 1 )
+	{
+		// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
+		if( getdebugdvar( "replay_debug" ) == "1" )
+			println("File: _gameskill.gsc. Function: playerHealthDebug() - INNER LOOP START\n");
+	
+		while ( 1 )
+		{
+			// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
+			if( getdebugdvar( "replay_debug" ) == "1" )
+				println("File: _gameskill.gsc. Function: playerHealthDebug() - INNER INNER LOOP 1 START\n");
+			
+			if ( getdebugdvar( "scr_health_debug" ) != "0" )
+				break;
+			wait .5;
+			
+			// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
+			if( getdebugdvar( "replay_debug" ) == "1" )
+				println("File: _gameskill.gsc. Function: playerHealthDebug() - INNER INNER LOOP 1 STOP\n");
+		}
+		thread printHealthDebug();
+		while ( 1 )
+		{
+			// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
+			if( getdebugdvar( "replay_debug" ) == "1" )
+				println("File: _gameskill.gsc. Function: playerHealthDebug() - INNER INNER LOOP 2 START\n");
+			
+			if ( getdebugdvar( "scr_health_debug" ) == "0" )
+				break;
+			wait .5;
+			
+			// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
+			if( getdebugdvar( "replay_debug" ) == "1" )
+				println("File: _gameskill.gsc. Function: playerHealthDebug() - INNER INNER LOOP 2 STOP\n");
+		}
+		level notify( "stop_printing_grenade_timers" );
+		destroyHealthDebug();
+		
+		// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
+		if( getdebugdvar( "replay_debug" ) == "1" )
+				println("File: _gameskill.gsc. Function: playerHealthDebug() - INNER LOOP STOP\n");
+	}
+	
+	// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
+	if( getdebugdvar( "replay_debug" ) == "1" )
+		println("File: _gameskill.gsc. Function: playerHealthDebug() - COMPLETE\n");
+}
+
+printHealthDebug()
+{
+	level notify( "stop_printing_health_bars" );
+	level endon( "stop_printing_health_bars" );
+	
+	x = 40;
+	y = 40;
+	
+	level.healthBarHudElems = [];
+	
+	level.healthBarKeys[ 0 ] = "Health";
+	level.healthBarKeys[ 1 ] = "No Hit Time";
+	level.healthBarKeys[ 2 ] = "No Die Time";
+	
+	if ( !isDefined( level.playerInvulTimeEnd ) )
+		level.playerInvulTimeEnd = 0;
+	if ( !isDefined( level.player_deathInvulnerableTimeout ) )
+		level.player_deathInvulnerableTimeout = 0;
+	
+	for ( i = 0; i < level.healthBarKeys.size; i++ )
+	{
+		key = level.healthBarKeys[ i ];
+		
+		textelem = newHudElem();
+		textelem.x = x;
+		textelem.y = y;
+		textelem.alignX = "left";
+		textelem.alignY = "top";
+		textelem.horzAlign = "fullscreen";
+		textelem.vertAlign = "fullscreen";
+		textelem setText( key );
+		
+		bar = newHudElem();
+		bar.x = x + 80;
+		bar.y = y + 2;
+		bar.alignX = "left";
+		bar.alignY = "top";
+		bar.horzAlign = "fullscreen";
+		bar.vertAlign = "fullscreen";
+		bar setshader( "black", 1, 8 );
+		
+		textelem.bar = bar;
+		textelem.key = key;
+		
+		y += 10;
+		
+		level.healthBarHudElems[ key ] = textelem;
+	}
+	
+	while ( 1 )
+	{
+		wait .05;
+		
+		// CODER_MOD - JamesS fix for coop
+		players = get_players();
+		
+		for ( i = 0; i < level.healthBarKeys.size && players.size > 0; i++ )
+		{
+			key = level.healthBarKeys[ i ];
+			
+			player = players[0];
+			
+			width = 0;
+			if ( i == 0 )
+				width = player.health / player.maxhealth * 300;
+			else if ( i == 1 )
+				width = ( level.playerInvulTimeEnd - gettime() ) / 1000 * 40;
+			else if ( i == 2 )
+				width = ( level.player_deathInvulnerableTimeout - gettime() ) / 1000 * 40;
+			
+			width = int( max( width, 1 ) );
+			
+			bar = level.healthBarHudElems[ key ].bar;
+			bar setShader( "black", width, 8 );
+		}
+	}
+}
+
+destroyHealthDebug()
+{
+	if ( !isdefined( level.healthBarHudElems ) )
+		return;
+	for ( i = 0; i < level.healthBarKeys.size; i++ )
+	{
+		level.healthBarHudElems[ level.healthBarKeys[ i ] ].bar destroy();
+		level.healthBarHudElems[ level.healthBarKeys[ i ] ] destroy();
+	}
+}
+#/ 
+
+
 // this is run on each enemy AI.
 axisAccuracyControl()
 {
@@ -1813,6 +891,16 @@ alliesAccuracyControl()
 		
 	self coop_allies_accuracy_scaler();
 }
+
+/*
+alliesAccuracyControl()
+{
+	self endon( "long_death" );
+	self endon( "death" );
+	
+// 	self simpleAccuracyControl();
+}
+*/
 
 set_accuracy_based_on_situation()
 {
@@ -2026,8 +1114,9 @@ playerHurtcheck()
 		self.hurtAgain = true;
 		self.damagePoint = point;
 		self.damageAttacker = attacker;
-		//iPrintLn("HURT KILLSTREAK RESET");
+
 		maps\_arcademode::arcademode_kill_streak_reset(true);
+
 // MikeD (8/7/2007): New player_burned effect.
 		if( IsDefined (mod) && mod == "MOD_BURNED" )
 		{
@@ -2036,9 +1125,94 @@ playerHurtcheck()
 	}
 }
 
+/*draw_player_health_packets()
+{
+	packets = [];
+	red = ( 1, 0, 0 );
+	orange = ( 1, 0.5, 0 );
+	green = ( 0, 1, 0 );
+	
+	for ( i = 0; i < 3; i++ )
+	{
+		overlay = newHudElem();
+		overlay.x = 5 + 20 * i;
+		overlay.y = 20;
+		overlay setshader( "white", 16, 16 );
+		overlay.alignX = "left";
+		overlay.alignY = "top";
+		overlay.alpha = 1;
+		overlay.color = ( 0, 1, 0 );
+		packets[ packets.size ] = overlay;
+	}
+	
+	for ( ;; )
+	{
+		level waittill( "update_health_packets" );
+		if ( flag( "player_has_red_flashing_overlay" ) )
+		{
+			packetBase = 1;
+			for ( i = 0; i < packetBase; i++ )
+			{
+				packets[ i ] fadeOverTime( 0.5 );
+				packets[ i ].alpha = 1;
+				packets[ i ].color = red;
+			}
+
+			for ( i = packetBase; i < 3; i++ )
+			{
+				packets[ i ] fadeOverTime( 0.5 );
+				packets[ i ].alpha = 0;
+				packets[ i ].color = red;
+			}
+			
+			flag_waitopen( "player_has_red_flashing_overlay" );
+		}
+		
+		packetBase = level.player_health_packets;
+		if ( packetBase <= 0 )
+			packetBase = 0;
+		
+		color = red; 
+		if ( packetBase == 2 )
+			color = orange;
+		if ( packetBase == 3 )
+			color = green;
+			
+		for ( i = 0; i < packetBase; i++ )
+		{
+			packets[ i ] fadeOverTime( 0.5 );
+			packets[ i ].alpha = 1;
+			packets[ i ].color = color;
+		}
+			
+		for ( i = packetBase; i < 3; i++ )
+		{
+			packets[ i ] fadeOverTime( 0.5 );
+			packets[ i ].alpha = 0;
+			packets[ i ].color = red;
+		}
+	}
+}*/
+
 player_health_packets()
 {
-
+// MikeD (12/15/2007): Doesn't actually do anything... change_player_health_packets is commented out, that's the only funcion
+// that did something
+//	// CODER_MOD
+//	// Austin (5/29/07): restore these they were clobbered during the integrate
+//	self endon ("death");
+//	self endon ("disconnect");
+//
+// // 	thread draw_player_health_packets();
+//	level.player_health_packets = 3;
+//	for( ;; )
+//	{
+//		// CODER_MOD
+//		// Austin (5/29/07): restore these flags as player flags, these changes were clobbered during the integrate
+//		self player_flag_wait( "player_has_red_flashing_overlay" );
+// // 		change_player_health_packets( - 1 );
+//		self player_flag_waitopen( "player_has_red_flashing_overlay" );
+//	}
 }
 
 playerHealthRegen()
@@ -2294,11 +1468,92 @@ reduceTakeCoverWarnings()
 		{
 			takeCoverWarnings -- ;
 			setdvar( "takeCoverWarnings", takeCoverWarnings );
+			 /#DebugTakeCoverWarnings();#/ 
 		}
 	}
 	
 	//prof_end( "reduceTakeCoverWarnings" );
 }
+
+ /#
+DebugTakeCoverWarnings()
+{
+	if ( getdvar( "scr_debugtakecover" ) == "" )
+		setdvar( "scr_debugtakecover", "0" );
+	if ( getdebugdvar( "scr_debugtakecover" ) == "1" )
+	{
+		iprintln( "Warnings remaining: ", getdebugdvarint( "takeCoverWarnings" ) - 3 );
+	}
+}
+#/ 
+
+ /#
+logHit( newhealth, invulTime )
+{
+	/* if ( !isdefined( level.hitlog ) )
+	{
+		level.hitlog = [];
+		thread showHitLog();
+	}
+	
+	data = spawnstruct();
+	data.regen = false;
+	data.time = gettime();
+	data.health = newhealth / self.maxhealth;
+	data.invulTime = invulTime;
+	
+	level.hitlog[ level.hitlog.size ] = data;*/ 
+}
+
+logRegen( newhealth )
+{
+	/* if ( !isdefined( level.hitlog ) )
+	{
+		level.hitlog = [];
+		thread showHitLog();
+	}
+	
+	data = spawnstruct();
+	data.regen = true;
+	data.time = gettime();
+	data.health = newhealth / self.maxhealth;
+	
+	level.hitlog[ level.hitlog.size ] = data;*/ 
+}
+
+showHitLog()
+{
+	 /* self waittill( "death" );
+	
+	println( "" );
+	println( "^3Hit Log:" );
+	
+	prevhealth = 1;
+	prevtime = 0;
+	for ( i = 0; i < level.hitlog.size; i++ )
+	{
+		timepassed = ( level.hitlog[ i ].time - prevtime ) / 1000;
+		healthlost = prevhealth - level.hitlog[ i ].health;
+		println( "^0[ " + timepassed + " seconds passed ]" );
+		if ( level.hitlog[ i ].regen )
+		{
+			println( "^0Regen at time ^3" + level.hitlog[ i ].time / 1000 + "^0 for ^3" + -1 * healthlost + "^0 damage. Health is now " + level.hitlog[ i ].health );
+		}
+		else
+		{
+			damage = healthlost;
+			if ( damage == 0 )
+				damage = "unknown";
+			println( "^0Hit at time ^3" + level.hitlog[ i ].time / 1000 + "^0 for ^3" + damage + "^0 damage; invul for ^3" + level.hitlog[ i ].invulTime + "^0 seconds. Health is now " + level.hitlog[ i ].health );
+		}
+		
+		prevtime = level.hitlog[ i ].time;
+		prevhealth = level.hitlog[ i ].health;
+	}
+	
+	println( "" );*/ 
+}
+#/ 
 
 playerInvul( timer )
 {
@@ -2824,6 +2079,7 @@ setTakeCoverWarnings()
 		// takeCoverWarnings is 3 more than the number of warnings we want to occur.
 		setdvar( "takeCoverWarnings", 3 + 6 );
 	}
+	 /#DebugTakeCoverWarnings();#/ 
 }
 
 increment_take_cover_warnings_on_death()
@@ -2850,23 +2106,607 @@ increment_take_cover_warnings_on_death()
 	warnings = getdvarint( "takeCoverWarnings" );
 	if ( warnings < 10 )
 		setdvar( "takeCoverWarnings", warnings + 1 );
+	 /#DebugTakeCoverWarnings();#/ 
+}
+
+// MikeD (12/15/2007): IW abandoned the auto-adjust feature, however, we can use it for stats?
+//auto_adjust_difficulty_player_positioner()
+//{
+//	org = level.player.origin;
+//// 	thread debug_message( ".", org, 6 );
+//	wait( 5 );
+//	if ( autospot_is_close_to_player( org ) )
+//		level.autoAdjust_playerSpots[ level.autoAdjust_playerSpots.size ] = org;
+//}
+
+// MikeD (12/15/2007): IW abandoned the auto-adjust feature, however, we can use it for stats?
+//autospot_is_close_to_player( org )
+//{
+//	return distanceSquared( level.player.origin, org ) < ( 140 * 140 );
+//}
+
+// MikeD (12/15/2007): IW abandoned the auto-adjust feature, however, we can use it for stats?
+//auto_adjust_difficulty_player_movement_check()
+//{
+//	level.autoAdjust_playerSpots = [];
+//	self.movedRecently = true;
+//	wait( 1 );// for lvl start precaching of debug strings
+//	
+//	for ( ;; )
+//	{
+//		thread auto_adjust_difficulty_player_positioner();
+//		self.movedRecently = true;
+//		newSpots = [];
+//		start = level.autoAdjust_playerSpots.size - 5;
+//		if ( start < 0 )
+//			start = 0;
+//			
+//		for ( i = start; i < level.autoAdjust_playerSpots.size;i++ )
+//		{
+//			if ( !autospot_is_close_to_player( level.autoAdjust_playerSpots[ i ] ) )
+//				continue;
+//				
+//			newSpots[ newSpots.size ] = level.autoAdjust_playerSpots[ i ];
+//			self.movedRecently = false;
+//		 // 	thread debug_message( "!", newSpots[ newSpots.size - 1 ], 1 );
+//		}
+//		
+//		level.autoAdjust_playerSpots = newSpots;
+//		
+//		wait( 1 );
+//	}
+//}
+
+
+// MikeD (12/15/2007): IW abandoned the auto-adjust feature, however, we can use it for stats?
+//auto_adjust_difficulty_track_player_death()
+//{
+//	 // reduce the difficulty timer when you die
+//	self waittill( "death" );
+//	num = getdvarint( "autodifficulty_playerDeathTimer" );
+//	num -= 60;
+//	setdvar( "autodifficulty_playerDeathTimer", num );
+//// 	scriptPrintln( "script_autodifficulty", "Set deathtimer to " + num );
+//}
+
+// MikeD (12/15/2007): IW abandoned the auto-adjust feature, however, we can use it for stats?
+//auto_adjust_difficulty_track_player_shots()
+//{
+//	 // reduce the "time spent alive" by the time between shots fired if there has been significant time between shots
+//	lastShotTime = gettime();
+//	for ( ;; )
+//	{
+//		if ( self attackButtonPressed() )
+//			lastShotTime = gettime();
+//			
+//		level.timeBetweenShots = gettime() - lastShotTime;
+//		wait( 0.05 );
+//		 /* 
+//		if ( lastShotTime < 10000 )
+//			continue;
+//
+//		playerDeathTimer = getcvarint( "playerDeathTimer" );
+//		playerDeathTimer = int( playerDeathTimer - lastShotTime * 0.001 );
+//		setcvar( "playerDeathTimer", playerDeathTimer );
+//		 */ 
+//	}
+//}
+
+
+// MikeD (12/15/2007): Note called anywhere
+//hud_debug_add_frac( msg, num )
+//{
+//	hud_debug_add_display( msg, num * 100, true );
+//}
+
+hud_debug_add( msg, num )
+{
+	hud_debug_add_display( msg, num, false );
+}
+
+// MikeD (12/15/2007): Not called anywhere
+//hud_debug_clear()
+//{
+//	level.hudNum = 0;
+//	if ( isdefined( level.hudDebugNum ) )
+//	{
+//		for ( i = 0;i < level.hudDebugNum.size;i++ )
+//			level.hudDebugNum[ i ] destroy();	
+//	}
+//	
+//	level.hudDebugNum = [];
+//}
+
+hud_debug_add_message( msg )
+{
+	if ( !isdefined( level.hudMsgShare ) )
+		level.hudMsgShare = [];
+	if ( !isdefined( level.hudMsgShare[ msg ] ) )
+	{
+		hud = newHudElem();
+		hud.x = level.debugLeft;
+		hud.y = level.debugHeight + level.hudNum * 15;
+		hud.foreground = 1;
+		hud.sort = 100;
+		hud.alpha = 1.0;
+		hud.alignX = "left";
+		hud.horzAlign = "left";
+		hud.fontScale = 1.0;
+		hud setText( msg );
+		level.hudMsgShare[ msg ] = true;
+	}
+}
+
+hud_debug_add_display( msg, num, isfloat )
+{
+	hud_debug_add_message( msg );
+			
+	num = int( num );
+	negative = false;
+	if ( num < 0 )
+	{
+		negative = true;
+		num *= -1;
+	}
+
+	thousands = 0;
+	hundreds = 0;
+	tens = 0;
+	ones = 0;
+	while ( num >= 10000 )
+		num -= 10000;
+	
+	while ( num >= 1000 )
+	{
+		num -= 1000;
+		thousands++ ;
+	}
+	while ( num >= 100 )
+	{
+		num -= 100;
+		hundreds++ ;
+	}
+	while ( num >= 10 )
+	{
+		num -= 10;
+		tens++ ;
+	}
+	while ( num >= 1 )
+	{
+		num -= 1;
+		ones++ ;
+	}
+	
+	offset = 0;
+	offsetSize = 10;
+	if ( thousands > 0 )
+	{
+		hud_debug_add_num( thousands, offset );
+		offset += offsetSize;
+		hud_debug_add_num( hundreds, offset );
+		offset += offsetSize;
+		hud_debug_add_num( tens, offset );
+		offset += offsetSize;
+		hud_debug_add_num( ones, offset );
+		offset += offsetSize;
+	}
+	else
+	if ( hundreds > 0 || isFloat )
+	{
+		hud_debug_add_num( hundreds, offset );
+		offset += offsetSize;
+		hud_debug_add_num( tens, offset );
+		offset += offsetSize;
+		hud_debug_add_num( ones, offset );
+		offset += offsetSize;
+	}
+	else
+	if ( tens > 0 )
+	{
+		hud_debug_add_num( tens, offset );
+		offset += offsetSize;
+		hud_debug_add_num( ones, offset );
+		offset += offsetSize;
+	}
+	else
+	{
+		hud_debug_add_num( ones, offset );
+		offset += offsetSize;
+	}
+
+	if ( isFloat )
+	{
+		decimalHud = newHudElem();
+		decimalHud.x = 204.5;
+		decimalHud.y = level.debugHeight + level.hudNum * 15;
+		decimalHud.foreground = 1;
+		decimalHud.sort = 100;
+		decimalHud.alpha = 1.0;
+		decimalHud.alignX = "left";
+		decimalHud.horzAlign = "left";
+		decimalHud.fontScale = 1.0;
+		decimalHud setText( "." );
+		level.hudDebugNum[ level.hudDebugNum.size ] = decimalHud;
+	}
+
+	if ( negative )
+	{
+		negativeHud = newHudElem();
+		negativeHud.x = 195.5;
+		negativeHud.y = level.debugHeight + level.hudNum * 15;
+		negativeHud.foreground = 1;
+		negativeHud.sort = 100;
+		negativeHud.alpha = 1.0;
+		negativeHud.alignX = "left";
+		negativeHud.horzAlign = "left";
+		negativeHud.fontScale = 1.0;
+		negativeHud setText( " - " );
+		level.hudDebugNum[ level.hudNum ] = negativeHud;
+	}
+	
+// 	level.hudDebugNum[ level.hudNum ] = hud;
+	level.hudNum++ ;
+}
+
+hud_debug_add_string( msg, msg2 )
+{
+	hud_debug_add_message( msg );
+	hud_debug_add_second_string( msg2, 0 );
+	level.hudNum++ ;
+}
+
+hud_debug_add_num( num, offset )
+{
+	hud = newHudElem();
+	hud.x = 200 + offset * 0.65;
+	hud.y = level.debugHeight + level.hudNum * 15;
+	hud.foreground = 1;
+	hud.sort = 100;
+	hud.alpha = 1.0;
+	hud.alignX = "left";
+	hud.horzAlign = "left";
+	hud.fontScale = 1.0;
+	hud setText( num + "" );
+	level.hudDebugNum[ level.hudDebugNum.size ] = hud;
+}
+
+hud_debug_add_second_string( num, offset )
+{
+	hud = newHudElem();
+	hud.x = 200 + offset * 0.65;
+	hud.y = level.debugHeight + level.hudNum * 15;
+	hud.foreground = 1;
+	hud.sort = 100;
+	hud.alpha = 1.0;
+	hud.alignX = "left";
+	hud.horzAlign = "left";
+	hud.fontScale = 1.0;
+	hud setText( num );
+	level.hudDebugNum[ level.hudDebugNum.size ] = hud;
 }
 
 aa_init_stats()
 {
-
+//	/#
+//	if ( getdvar( "createfx" ) == "on" )
+//		return;
+//	if ( getdvar( "r_reflectionProbeGenerate" ) == "1" )
+//	{
+//		return;
+//	}	
+//	#/
+//	//prof_begin( "aa_init_stats" );
+//
+//	level.sp_stat_tracking_func = maps\_gameskill::auto_adjust_new_zone;
+//	
+//	setdvar( "aa_player_kills", "0" );
+//	setdvar( "aa_enemy_deaths", "0" );
+//	setdvar( "aa_enemy_damage_taken", "0" );
+//	setdvar( "aa_player_damage_taken", "0" );
+//	setdvar( "aa_player_damage_dealt", "0" );
+//	setdvar( "aa_ads_damage_dealt", "0" );
+//	setdvar( "aa_time_tracking", "0" );
+//	setdvar( "aa_deaths", "0" );
+//	
+//	setdvar( "player_cheated", 0 );
+//	
+//	level.auto_adjust_results = [];
+//	flag_set( "auto_adjust_initialized" );
+//
+//	flag_init( "aa_main_" + level.script );
+//	flag_set( "aa_main_" + level.script );
+//
+//	//prof_end( "aa_init_stats" );
 }
+
+//aa_player_init_stats()
+//{
+//	/#
+//	if ( getdvar( "createfx" ) == "on" )
+//		return;
+//	if ( getdvar( "r_reflectionProbeGenerate" ) == "1" )
+//	{
+//		return;
+//	}	
+//	#/
+//	//prof_begin( "aa_init_stats" );
+//
+//	self thread aa_time_tracking();
+//	self thread aa_player_health_tracking();
+//	self thread aa_player_ads_tracking();
+//}
 
 command_used( cmd )
 {
+	//prof_begin( "command_used" );
+	
 	binding = getKeyBinding( cmd );
 	if ( binding[ "count" ] <= 0 )
 	{
+		//prof_end( "command_used" );
 		return false;
 	}
-
+//		
+//	for ( i = 1; i < binding[ "count" ] + 1; i++ )
+//	{
+//		if ( level.player buttonpressed( binding[ "key" + i ] ) )
+//		{
+//			//prof_end( "command_used" );
+//			return true;
+//		}
+//	}
+	
+	//prof_end( "command_used" );
 	return false;
 }
+
+// MikeD (12/15/2007): IW abandoned the auto-adjust feature, however, we can use it for stats?
+//aa_time_tracking()
+//{
+//	/#
+//	if ( getdvar( "createfx" ) != "" )
+//		return;
+//	#/
+//	waittillframeend; // so level.start_point is defined
+//	for ( ;; )
+//	{
+//		//prof_begin( "aa_time_tracking" );
+//		
+//		aa_add_event_float( "aa_time_tracking", 0.2 );
+//		/#
+//		if ( IsGodMode( level.player ) || level.start_point != "default" || getdvar( "timescale" ) != "1" )
+//		{
+//			setdvar( "player_cheated", 1 );
+//		}
+//		#/
+//		/*
+//		level.sprint_key = getKeyBinding( "+breath_sprint" );
+//		sprinting = false;
+//		sprinting = command_used( "+sprint" );
+//		if ( !sprinting )
+//		{
+//			sprinting = command_used( "+breath_sprint" );
+//		}
+//		if ( sprinting )
+//		{
+//			aa_add_event_float( "aa_sprint_time", 0.2 );
+//		}
+//		*/
+//		wait( 0.2 );
+//	}	
+//}
+
+// MikeD (12/15/2007): IW abandoned the auto-adjust feature, however, we can use it for stats?
+//aa_player_ads_tracking()
+//{
+//	self endon( "death" );
+//	self endon( "disconnect" );
+//	self.player_ads_time = 0;
+//	for ( ;; )
+//	{
+//		if ( isADS( self ) )
+//		{
+//			self.player_ads_time = gettime();
+//			while ( isADS( self ) )
+//			{
+//				wait( 0.05 );
+//			}
+//			continue;
+//		}
+//		wait( 0.05 );
+//	}
+//}
+
+// MikeD (12/15/2007): IW abandoned the auto-adjust feature, however, we can use it for stats?
+//aa_player_health_tracking()
+//{
+//	for ( ;; )
+//	{
+//		self waittill( "damage", amount );
+//		aa_add_event( "aa_player_damage_taken", amount );
+//		if ( !isalive( self ) )
+//		{
+//			aa_add_event( "aa_deaths", 1 );
+//			return;
+//		}
+//	}
+//}
+
+// MikeD (12/15/2007): IW abandoned the auto-adjust feature, however, we can use it for stats?
+//auto_adjust_new_zone( zone )
+//{
+//
+//		
+//	/#
+//	if ( getdvar( "createfx" ) == "on" )
+//		return;
+//	#/
+//	if ( !isdefined( level.auto_adjust_flags ) )
+//	{
+//		level.auto_adjust_flags = [];
+//	}
+//	
+//	flag_wait( "auto_adjust_initialized" );
+//
+//	//prof_begin( "auto_adjust_new_zone" );
+//		
+//	level.auto_adjust_results[ zone ] = [];
+//	level.auto_adjust_flags[ zone ] = 0;
+//	flag_wait( zone );
+//
+//	//prof_begin( "auto_adjust_new_zone" );
+//
+//	// already processing this zone?
+//	if ( getdvar( "aa_zone" + zone ) == "" )
+//	{
+//		setdvar( "aa_zone" + zone, "on" );
+//		level.auto_adjust_flags[ zone ] = 1;
+//		aa_update_flags();
+//	
+//		setdvar( "start_time" + zone, getdvar( "aa_time_tracking" ) );
+//		
+//		// measure always
+//		setdvar( "starting_player_kills" + zone, getdvar( "aa_player_kills" ) );
+//		setdvar( "starting_deaths" + zone, getdvar( "aa_deaths" ) );
+//		setdvar( "starting_ads_damage_dealt" + zone, getdvar( "aa_ads_damage_dealt" ) );
+//		setdvar( "starting_player_damage_dealt" + zone, getdvar( "aa_player_damage_dealt" ) );
+//		setdvar( "starting_player_damage_taken" + zone, getdvar( "aa_player_damage_taken" ) );
+//		setdvar( "starting_enemy_damage_taken" + zone, getdvar( "aa_enemy_damage_taken" ) );
+//		setdvar( "starting_enemy_deaths" + zone, getdvar( "aa_enemy_deaths" ) );
+//	}
+//	else
+//	{
+//		if ( getdvar( "aa_zone" + zone ) == "done" )
+//		{
+//			//prof_end( "auto_adjust_new_zone" );
+//			return;
+//		}
+//	}
+//
+//	//prof_end( "auto_adjust_new_zone" );
+//	flag_waitopen( zone );
+//	auto_adust_zone_complete( zone );
+//}
+
+// MikeD (12/15/2007): IW abandoned the auto-adjust feature, however, we can use it for stats?
+//auto_adust_zone_complete( zone )
+//{
+//	//prof_begin( "auto_adust_zone_complete" );
+//
+//	setdvar( "aa_zone" + zone, "done" );
+//	
+//	start_time = getdvarfloat( "start_time" + zone );
+//	starting_player_kills = getdvarint( "starting_player_kills" + zone );
+//	starting_enemy_deaths = getdvarint( "aa_enemy_deaths" + zone );
+//	starting_enemy_damage_taken = getdvarint( "aa_enemy_damage_taken" + zone );
+//	starting_player_damage_taken = getdvarint( "aa_player_damage_taken" + zone );
+//	starting_player_damage_dealt = getdvarint( "aa_player_damage_dealt" + zone );
+//	starting_ads_damage_dealt = getdvarint( "aa_ads_damage_dealt" + zone );
+//	starting_deaths = getdvarint( "aa_deaths" + zone );
+//	level.auto_adjust_flags[ zone ] = 0;
+//	aa_update_flags();
+//
+//	total_time = getdvarfloat( "aa_time_tracking" ) - start_time;
+//	total_player_kills = getdvarint( "aa_player_kills" ) - starting_player_kills;
+//	total_enemy_deaths = getdvarint( "aa_enemy_deaths" ) - starting_enemy_deaths;
+//
+//	player_kill_ratio = 0;
+//	if ( total_enemy_deaths > 0 )
+//	{
+//		player_kill_ratio = total_player_kills / total_enemy_deaths;
+//		player_kill_ratio *= 100;
+//		player_kill_ratio = int( player_kill_ratio );
+//	}
+//	
+//	total_enemy_damage_taken = getdvarint( "aa_enemy_damage_taken" ) - starting_enemy_damage_taken;
+//	total_player_damage_dealt = getdvarint( "aa_player_damage_dealt" ) - starting_player_damage_dealt;
+//	player_damage_dealt_ratio = 0;
+//	player_damage_dealt_per_minute = 0;
+//	if ( total_enemy_damage_taken > 0 && total_time > 0 )
+//	{
+//		player_damage_dealt_ratio = total_player_damage_dealt / total_enemy_damage_taken;
+//		player_damage_dealt_ratio *= 100;
+//		player_damage_dealt_ratio = int( player_damage_dealt_ratio );
+//
+//		player_damage_dealt_per_minute = total_player_damage_dealt / total_time;
+//		player_damage_dealt_per_minute = player_damage_dealt_per_minute * 60;
+//		player_damage_dealt_per_minute = int( player_damage_dealt_per_minute );
+//	}
+//
+//	total_ads_damage_dealt = getdvarint( "aa_ads_damage_dealt" ) - starting_ads_damage_dealt;
+//	player_ads_damage_ratio = 0;
+//	if ( total_player_damage_dealt > 0 )
+//	{
+//		player_ads_damage_ratio = total_ads_damage_dealt / total_player_damage_dealt;
+//		player_ads_damage_ratio *= 100;
+//		player_ads_damage_ratio = int( player_ads_damage_ratio );
+//	}
+//		
+//	
+//	total_player_damage_taken = getdvarint( "aa_player_damage_taken" ) - starting_player_damage_taken;
+//	
+//	player_damage_taken_ratio = 0;
+//	if ( total_time > 0 )
+//	{
+//		player_damage_taken_ratio = total_player_damage_taken / total_time;
+//	}
+//	
+//	player_damage_taken_per_minute = player_damage_taken_ratio * 60;
+//	player_damage_taken_per_minute = int( player_damage_taken_per_minute );
+//
+//	
+//	total_deaths = getdvarint( "aa_deaths" ) - starting_deaths;
+//	
+//	aa_array = [];
+//	aa_array[ "player_damage_taken_per_minute" ] = player_damage_taken_per_minute;
+//	aa_array[ "player_damage_dealt_per_minute" ] = player_damage_dealt_per_minute;
+//	aa_array[ "minutes" ] = total_time / 60;
+//	aa_array[ "deaths" ] = total_deaths;
+//	aa_array[ "gameskill" ] = level.gameskill;
+//	
+//	level.auto_adjust_results[ zone ] = aa_array;
+//
+//	msg = "Completed AA sequence: ";
+//	/#
+//	if ( getdvar( "player_cheated" ) == "1" )
+//	{
+//		msg = "Cheated in AA sequence: ";
+//	}
+//	#/
+//	
+//	msg += level.script + " / " + zone;
+//	keys = getarraykeys( aa_array );
+////	array_levelthread( keys, ::aa_print_vals, aa_array );
+//	
+//	for ( i = 0; i < keys.size; i++ )
+//	{
+//		msg = msg + ", " + keys[ i ] + ": " + aa_array[ keys[ i ] ];
+//	}
+//
+//	logstring( msg );
+//	println( "^6" + msg );
+//	
+//	//prof_end( "auto_adust_zone_complete" );
+//}
+
+// MikeD (12/15/2007): IW abandoned the auto-adjust feature, however, we can use it for stats?
+//aa_print_vals( key, aa_array )
+//{
+//	logstring( key + ": " + aa_array[ key ] );
+//	println( "^6" + key + ": " + aa_array[ key ] );
+//}
+
+/*
+aa_print_vals( key, aa_array, file )
+{
+	fprintln( file, key + ": " + aa_array[ key ] );
+}
+*/
+
+// MikeD (12/15/2007): IW abandoned the auto-adjust feature, however, we can use it for stats?
+//aa_update_flags()
+//{
+//}
 
  //MikeD (12/15/2007): IW abandoned the auto-adjust feature, however, we can use it for stats?
  // SCRIPTER_MOD: JesseS (4/14/2008): Added back in for Arcade mode
@@ -2892,7 +2732,7 @@ return_false( attacker )
 player_attacker( attacker )
 {
 	hitMarker();
-	
+
 	if ( [[ level.custom_player_attacker ]]( attacker ) )
 		return true;
 	
@@ -2961,7 +2801,6 @@ auto_adjust_enemy_died( ai, amount, attacker, type, point )
 			
 			// CODER MOD: TOMMY K - 07/30/08
 			arcademode_assignpoints( "arcademode_score_assist", player );
-			//add_fake_xp(2);
 			attacker thread maps\_damagefeedback::updateDamageFeedback();
 		}
 		ai.attackers = [];
@@ -3001,9 +2840,7 @@ auto_adjust_enemy_died( ai, amount, attacker, type, point )
 	}
 	
 	attacker.kills++;
-	
-	//add_fake_xp(5);
-	
+
 	damage_location = undefined;
 	if( IsDefined( ai ) )	
 	{
@@ -3031,8 +2868,6 @@ auto_adjust_enemy_died( ai, amount, attacker, type, point )
 	
 	aa_add_event( "aa_player_kills", 1 );
 	
-	flag_set( "arcademode_ending_complete" );
-
 	//prof_end( "auto_adjust_enemy_died" );
 }
 
@@ -3147,6 +2982,105 @@ add_fractional_data_point( name, frac, val )
 	
 	//prof_end( "add_fractional_data_point" );
 }
+
+// MikeD (12/15/2007): IW abandoned the auto-adjust feature, however, we can use it for stats?
+//update_skill_on_change()
+//{
+//	waittillframeend; // for everything to be defined	
+//	for ( ;; )
+//	{
+//		lowest_current_skill = getdvarint( "saved_gameskill" );
+//		gameskill = getdvarint( "g_gameskill" );
+//		if ( gameskill < lowest_current_skill )
+//			lowest_current_skill = gameskill;
+//			
+//		if ( lowest_current_skill < level.gameskill )
+//		{
+//			setSkill( true, lowest_current_skill );
+//		}
+//		
+//		wait( 2 );
+//	}
+//}
+
+
+// SCRIPTER_MOD: JesseS (6/4/200):  added co-op health scalar
+//coop_maxhealth_scalar_watcher()
+//{
+//	// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
+//	/#
+//	if( getdebugdvar( "replay_debug" ) == "1" )
+//		println("File: _gameskill.gsc. Function: coop_maxhealth_scalar_watcher()\n");
+//	#/
+//	
+//	level waittill ("load main complete");
+//	
+//	// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
+//	/#
+//	if( getdebugdvar( "replay_debug" ) == "1" )
+//		println("File: _gameskill.gsc. Function: coop_maxhealth_scalar_watcher() - LOAD MAIN COMPLETE\n");
+//	#/
+//	
+//	if( getdvarint( "coop_difficulty_scaling" ) == 0 )
+//		return;
+//	
+//	players_in_game = 0;
+//	set_max_health_for_all_players = false;
+//	
+//	while (1)
+//	{
+//		// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
+//		/#
+//		if( getdebugdvar( "replay_debug" ) == "1" )
+//			println("File: _gameskill.gsc. Function: coop_maxhealth_scalar_watcher() - INNER LOOP START\n");
+//		#/
+//		
+//		players = get_players();
+//		
+//		if (players_in_game != players.size)
+//		{
+//			set_max_health_for_all_players = true;
+//			players_in_game = players.size;
+//		}
+//
+//		if( set_max_health_for_all_players )
+//		{
+//			healthscalar = getCoopValue( "coopMaxHealthScalar", players.size );
+//	
+//			for (i = 0; i < players.size; i++)
+//			{		
+//				if( IsDefined(healthscalar) && IsDefined(players[i].starthealth) )
+//				{
+//					old_maxhealth = players[i].maxhealth;
+//					players[i].maxhealth = int(players[i].starthealth * healthscalar);
+//					new_health = int( players[i].health * ( players[i].maxhealth / old_maxhealth ) );
+//					if (new_health > 0)
+//						players[i].health = new_health;
+//			
+//					if (players[i].health > players[i].maxhealth)
+//					{
+//						players[i].health = players[i].maxhealth;
+//					}		
+//					//println ("players[i].maxhealth = " + players[i].maxhealth + " players[i].health = " + players[i].health);	
+//				}
+//			}
+//			
+//			set_max_health_for_all_players = false;
+//		}
+//		wait (0.5);
+//		
+//		// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
+//		/#
+//		if( getdebugdvar( "replay_debug" ) == "1" )
+//			println("File: _gameskill.gsc. Function: coop_maxhealth_scalar_watcher() - INNER LOOP STOP\n");
+//		#/
+//	}
+//	// CODER_MOD: Bryce (05/08/08): Useful output for debugging replay system
+//	/#
+//	if( getdebugdvar( "replay_debug" ) == "1" )
+//		println("File: _gameskill.gsc. Function: coop_maxhealth_scalar_watcher() - COMPLETE\n");
+//	#/
+//}
 
 // updated the levelvar to lower or increase enemy accuracy
 coop_enemy_accuracy_scalar_watcher()
@@ -3395,34 +3329,3 @@ coop_set_spawner_adjustment_values( player_count )
 	}
 
 }
-
-//--------------------------------------------------------------------------
-// from _persistence.gsc in MP
-//--------------------------------------------------------------------------
-
-/*
-=============
-statGet
-
-Returns the value of the named stat
-=============
-*/
-
-statGet( dataName )
-{
-	return self getStat( int(tableLookup( "mp/playerStatsTable.csv", 1, dataName, 0 )) );
-}
-
-/*
-=============
-setStat
-
-Sets the value of the named stat
-=============
-*/
-
-statSet( dataName, value )
-{
-	self setStat( int(tableLookup( "mp/playerStatsTable.csv", 1, dataName, 0 )), value );	
-}
-
