@@ -1279,7 +1279,7 @@ updatePlusScoreHUD( amount )
 	self notify( "update_plus_score" );
 	self endon( "update_plus_score" );
 
-	if(getDvarInt("ce_cheats") == 1) {
+	if(level.cheating) {
 		return;
 	}
 

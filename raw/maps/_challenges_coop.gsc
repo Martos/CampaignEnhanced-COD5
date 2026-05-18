@@ -839,7 +839,7 @@ giveRankXP( type, value, levelEnd )
 {
 	self endon("disconnect");
 
-	if(getDvarInt("ce_cheats") == 1) {
+	if(level.cheating) {
 		return;
 	}
 
