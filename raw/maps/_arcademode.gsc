@@ -1730,11 +1730,12 @@ arcadeMode_ends( level_index )
 		players[i] spawnIntermission();
 
 		// TODO: Con questi valori, il bonus e' di solo 25. Adeguare correttamente i tempi totali e di gioco
-		winnerScale = 2;
+		winnerScale = level.gameSkill + 1;
 		spm = players[i] maps\_challenges_coop::getSPM();
-		gameLength = 60;
-		totalTimePlayed = 60;
-		xpBonusVal = int( (winnerScale * ((gameLength/60) * spm)) * (totalTimePlayed / gameLength) );
+		playerKills = players[i].kills;
+		playerDeaths = players[i].downs + 1;
+		playerRank = players[i].rank;
+		xpBonusVal = int( (winnerScale * (playerKills * (playerKills / playerDeaths)) / 5) + playerRank * winnerScale );
 
 		outcomeTitle = createFontString( "objective", 10 );
 		outcomeTitle setPoint( "TOP", undefined, 0, 30 );
