@@ -19,7 +19,8 @@
             "group": {
                 "kind": "build",
                 "isDefault": false
-            }
+            },
+            "hide": true
         },
         {
             "label": "CREATE_INSTALLER",
@@ -55,7 +56,8 @@
             "group": {
                 "kind": "build",
                 "isDefault": false
-            }
+            },
+            "hide": true
         },
         {
             "label": "SYNC FAST",
@@ -73,7 +75,8 @@
             "group": {
                 "kind": "build",
                 "isDefault": false
-            }
+            },
+            "hide": true
         },
         {
             "label": "UPDATE VERSION",
@@ -91,7 +94,8 @@
             "group": {
                 "kind": "build",
                 "isDefault": false
-            }
+            },
+            "hide": true
         },
         {
             "label": "SYNC AND BUILD AND RUN GAME",
