@@ -94,7 +94,7 @@
             }
         },
         {
-            "label": "SYNC AND BUILD",
+            "label": "SYNC AND BUILD AND RUN GAME",
             "type": "shell",
             "dependsOrder": "sequence",
             "group": {
@@ -106,6 +106,20 @@
                 "SYNC FAST",
                 "COMPILE",
                 "RUN_GAME"
+            ]
+        },
+        {
+            "label": "SYNC AND BUILD ONLY",
+            "type": "shell",
+            "dependsOrder": "sequence",
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "dependsOn": [
+                "UPDATE VERSION",
+                "SYNC FAST",
+                "COMPILE"
             ]
         }
     ]
