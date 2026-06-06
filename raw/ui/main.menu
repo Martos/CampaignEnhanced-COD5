@@ -122,15 +122,16 @@ itemDef { \
 		rect			0 0 640 480				// Size and position of the menu
 		focusColor		1 1 1 0.85				// Menu focus color for text and items
 		onOpen
-		{ 
-			execondvarintvalue cg_drawGamepadHUD 1 "set cl_bypassMouseInput 1"; 
+		{
+			execondvarintvalue cg_drawGamepadHUD 1 "set cl_bypassMouseInput 1";
+			execondvarintvalue cg_drawGamepadHUD 1 "exec default_controller.cfg";
 
 			setdvar safeArea_vertical 1.0;
 			exec "setfromdvar cg_draw2D cg_draw2D_ui"; // reset
 
-			execondvarintvalue dvar_init 0 "exec init_remastered"; 
-			execondvarintvalue cg_drawGamepadHUD 1 "set cg_scoreboardFont 3"; 
-			execondvarintvalue cg_drawGamepadHUD 0 "set cg_scoreboardFont 0"; 
+			execondvarintvalue dvar_init 0 "exec init_remastered";
+			execondvarintvalue cg_drawGamepadHUD 1 "set cg_scoreboardFont 3";
+			execondvarintvalue cg_drawGamepadHUD 0 "set cg_scoreboardFont 0";
 			execondvarintvalue cg_drawGamepadHUD 1 "set cg_scoreboardTextOffset 0.64"; 
 			execondvarintvalue cg_drawGamepadHUD 0 "set cg_scoreboardTextOffset 0.6"; 
 			execondvarintvalue cg_drawGamepadHUD 1 "set cg_scoreboardWidth 550"; 
@@ -368,6 +369,8 @@ itemDef { \
 			uiScript openmenuondvar ui_sp_unlock 1 "popmenu_sp_unlock";
 			uiScript openmenuondvar ce_welcome 1 "popmenu_ce_welcome";
 			uiScript openmenuondvar ui_unlock_report 1 "popup_unlock";
+
+			execondvarintvalue cg_drawGamepadHUD 1 "exec default_controller.cfg";
 		}
 		onFocus
 		{
