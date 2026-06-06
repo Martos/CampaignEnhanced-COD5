@@ -1,13 +1,17 @@
 ignore,code_post_gfx
+
 include,ce_languages
 include,ce_weapons
 include,ce_materials
 include,ce_scripts
 include,ce_models
+
 stringtable,mp/challengetable.csv
 stringtable,mp/weaponchallengetable.csv
+
 menufile,ui/menus.txt
 menufile,ui/hud.txt
 menufile,ui/ingame.txt
+
 sound,common,,all_sp
 sound,weapons,,all_sp
