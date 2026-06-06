@@ -89,4 +89,31 @@ LANG_ENGLISH        "DASHBOARD"
 REFERENCE           GAME_BONUS
 LANG_ENGLISH        "Match Bonus: "
 
+REFERENCE           CTRL_FLIP
+LANG_ENGLISH        "Trigger Buttons"
+
+REFERENCE           CTRL_FLIPPED
+LANG_ENGLISH        "Flipped"
+
+REFERENCE           LOW
+LANG_ENGLISH        "1 (Low)"
+
+REFERENCE           MED
+LANG_ENGLISH        "2 (Medium)"
+
+REFERENCE           HI
+LANG_ENGLISH        "4 (High)"
+
+REFERENCE           V_HI
+LANG_ENGLISH        "7 (Very High)"
+
+REFERENCE           INSANE
+LANG_ENGLISH        "10 (Insane)"
+
+REFERENCE           SCOREBOARD
+LANG_ENGLISH        "Scoreboard"
+
+REFERENCE           CONTROLLER
+LANG_ENGLISH        "Gamepad"
+
 ENDMARKER

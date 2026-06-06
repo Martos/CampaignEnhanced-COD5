@@ -1185,7 +1185,8 @@
 #define CHOICE_SCRIPTS_ACTION( itemIndex, actionArg ) \
 	CHOICE_SCRIPTS_ALL( itemIndex, actionArg, ;, ; )
 
-
+#define CHOICE_DVARSTRINGLIST_FOCUS_VIS( itemIndex, textArg, dvarArg, strListArg, actionArg, onFocusArg, leaveFocusArg, visArg ) \
+	CHOICE_DVARLIST_FOCUS_VIS( itemIndex, textArg, dvarArg, ITEM_TYPE_MULTI, dvarStrList strListArg, actionArg, onFocusArg, leaveFocusArg, visArg )
 
 #define CHOICE_SCRIPTS_ALL( itemIndex, actionArg, onFocusArg, leaveFocusArg ) \
 			onFocus \

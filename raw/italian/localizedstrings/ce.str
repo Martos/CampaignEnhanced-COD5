@@ -89,4 +89,31 @@ LANG_ITALIAN        "DASHBOARD"
 REFERENCE           GAME_BONUS
 LANG_ITALIAN        "Bonus Partita: "
 
+REFERENCE           CTRL_FLIP
+LANG_ITALIAN        "Pulsanti Dorsali"
+
+REFERENCE           CTRL_FLIPPED
+LANG_ITALIAN        "Invertito"
+
+REFERENCE           LOW
+LANG_ITALIAN        "1 (Basso)"
+
+REFERENCE           MED
+LANG_ITALIAN        "2 (Medio)"
+
+REFERENCE           HI
+LANG_ITALIAN        "4 (Alto)"
+
+REFERENCE           V_HI
+LANG_ITALIAN        "7 (Molto Alto)"
+
+REFERENCE           INSANE
+LANG_ITALIAN        "10 (Altissimo)"
+
+REFERENCE           SCOREBOARD
+LANG_ITALIAN        "Punteggio"
+
+REFERENCE           CONTROLLER
+LANG_ITALIAN        "Gamepad"
+
 ENDMARKER
