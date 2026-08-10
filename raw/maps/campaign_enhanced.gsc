@@ -78,6 +78,99 @@ dvars_init() {
     setdvar( "ui_unlock_report", "1" );
 }
 
+precache_items() {
+	PrecacheItem( "thompson" );
+	PrecacheItem( "thompson_aperture" );
+	PrecacheItem( "thompson_silenced" );
+	PrecacheItem( "thompson_bigammo" );
+	PrecacheItem( "mp40" );
+	PrecacheItem( "mp40_aperture" );
+	PrecacheItem( "mp40_silenced" );
+	PrecacheItem( "mp40_bigammo" );
+	PrecacheItem( "ppsh" );
+	PrecacheItem( "ppsh_single" );
+	PrecacheItem( "ppsh_aperture" );
+	PrecacheItem( "type100smg" );
+	PrecacheItem( "type100_smg" );
+	PrecacheItem( "type100smg_aperture" );
+	PrecacheItem( "type100smg_bigammo" );
+	PrecacheItem( "type100smg_silenced" );
+	
+	PrecacheItem( "m1carbine" );
+	PrecacheItem( "m1carbine_flash" );
+	PrecacheItem( "m1carbine_aperture" );
+	PrecacheItem( "m1carbine_bayonet" );
+	PrecacheItem( "svt40" );
+	PrecacheItem( "svt40_aperture" );
+	PrecacheItem( "svt40_telescopic" );
+	PrecacheItem( "svt40_flash" );
+	PrecacheItem( "gewehr43" );
+	PrecacheItem( "gewehr43_aperture" );
+	PrecacheItem( "gewehr43_telescopic" );
+	PrecacheItem( "gewehr43_gl" );
+	PrecacheItem( "stg44" );
+	PrecacheItem( "stg44_aperture" );
+	PrecacheItem( "stg44_telescopic" );
+	PrecacheItem( "stg44_flash" );
+
+	PrecacheItem( "springfield" );
+	PrecacheItem( "springfield_scoped" );
+	PrecacheItem( "springfield_bayonet");
+	PrecacheItem( "springfield_gl");
+	PrecacheItem( "m1garand" );
+	PrecacheItem( "m1garand_gl" );
+	PrecacheItem( "m1garand_bayonet" );
+	PrecacheItem( "m1garand_scoped" );
+	PrecacheItem( "m1garand_flash" );
+	PrecacheItem( "type99rifle" );
+	PrecacheItem( "type99rifle_scoped" );
+	PrecacheItem( "type99rifle_bayonet" );
+	PrecacheItem( "mosinrifle" );
+	PrecacheItem( "mosinrifle_scoped" );
+	PrecacheItem( "mosinrifle_bayonet" );
+	PrecacheItem( "mosinrifle_gl" );
+	PrecacheItem( "kar98k" );
+	PrecacheItem( "kar98k_scoped" );
+	PrecacheItem( "kar98k_gl" );
+	PrecacheItem( "kar98k_bayonet" );
+	PrecacheItem( "ptrs41" );
+	
+	PrecacheItem( "bar" );
+	PrecacheItem( "bar_bipod" );
+	PrecacheItem( "30cal" );
+	PrecacheItem( "mg42" );
+	PrecacheItem( "fg42" );
+	PrecacheItem( "fg42_telescopic" );
+	PrecacheItem( "dp28" );
+	PrecacheItem( "dp28_bipod" );
+	PrecacheItem( "type99lmg" );
+	PrecacheItem( "type99lmg_bipod" );
+	
+	PrecacheItem( "shotgun" );
+	PrecacheItem( "doublebarreledshotgun" );
+	PrecacheItem( "doublebarreledshotgun_grip" );
+	PrecacheItem( "doublebarreledshotgun_sawoff" );
+
+	PrecacheItem( "colt" );
+	PrecacheItem( "nambu" );
+	PrecacheItem( "walther" );
+	PrecacheItem( "tokarev" );
+	PrecacheItem( "sw_357" );
+	PrecacheItem( "357magnum" );
+
+	PrecacheItem( "ray_gun" );
+	
+	PrecacheItem( "stick_grenade" );
+	PrecacheItem( "tabun_gas" );
+	PrecacheItem( "signal_flare" );
+
+	PrecacheItem( "mp40_special" );
+
+	// Precache shop models
+	// PrecacheModel("static_peleliu_wood_ammo_box_char");
+	PrecacheModel("zombie_vending_doubletap_on");
+}
+
 spawnShops() {
 	spawnPoints = (0, 0, 0);
 	anglePoints = (0, 0, 0);
@@ -587,250 +680,137 @@ PatchPlayerScore() {
 }
 
 customClassLogic(offset) {
-	if(!isplayer(self))
+	if ( !isPlayer( self ) || !isDefined( offset ) ) {
 		return;
-	
-	if(!isdefined(offset))
-		return;
-	
+	}
+
 	self TakeAllWeapons();
-	
-	cac_selected_primary = self getStat(offset + 201);
-	cac_primary_grenade = self getStat(offset + 200);
-	cac_special_grenade = self getStat(offset + 208);
 
-	switch(cac_primary_grenade) {
-		case 100:
-			setdvar("ce_gameskill_primary_grenade", "fraggrenade");
-			break;
-		case 101:
-			setdvar("ce_gameskill_primary_grenade", "molotov");
-			break;
-		case 104:
-			setdvar("ce_gameskill_primary_grenade", "stick_grenade");
-			break;
-		default:
-			setdvar("ce_gameskill_primary_grenade", "fraggrenade");
-			break;
+	cac_selected_primary    = self getStat( offset + 201 );
+	cac_primary_grenade     = self getStat( offset + 200 );
+	cac_special_grenade     = self getStat( offset + 208 );
+	cac_selected_attachment = self getStat( offset + 202 );
+	cac_selected_secondary  = self getStat( offset + 203 );
+
+	// 1. MAPPATURA GRANATE PRIMARIE E SPECIALI
+	primaryGrenadeString = "fraggrenade";
+	if ( cac_primary_grenade == 101 ) {
+		primaryGrenadeString = "molotov";
+	} else if ( cac_primary_grenade == 104 ) {
+		primaryGrenadeString = "stick_grenade";
 	}
 
-	switch(cac_special_grenade) {
-		case 102:
-			setdvar("ce_gameskill_special_grenade", "m8_white_smoke");
-			break;
-		case 103:
-			setdvar("ce_gameskill_special_grenade", "tabun_gas");
-			break;
-		case 105:
-			setdvar("ce_gameskill_special_grenade", "signal_flare");
-			break;
-		default:
-			setdvar("ce_gameskill_special_grenade", "m8_white_smoke");
-			break;
+	specialGrenadeString = "m8_white_smoke";
+	if ( cac_special_grenade == 103 ) {
+		specialGrenadeString = "tabun_gas";
+	} else if ( cac_special_grenade == 105 ) {
+		specialGrenadeString = "signal_flare";
 	}
-	
-	if(cac_selected_primary == 12) {
-		setdvar("ce_gameskill_weap_test", "type100_smg");
+
+	setDvar( "ce_gameskill_primary_grenade", primaryGrenadeString );
+	setDvar( "ce_gameskill_special_grenade", specialGrenadeString );
+
+	// 2. MAPPATURA ARMA PRIMARIA
+	if ( cac_selected_primary == 12 ) {
+		primaryWeaponString = "type100_smg";
 	} else {
-		setdvar("ce_gameskill_weap_test", ""+tablelookup("mp/statsTable.csv", 0, cac_selected_primary, 4));
+		primaryWeaponString = tablelookup( "mp/statsTable.csv", 0, cac_selected_primary, 4 );
 	}
+
+	// 3. MAPPATURA ACCESSORI (Nativa CoD WaW)
+	attachmentString = "";
 	
-	cac_selected_attachment = self getStat(offset + 202);
-	
-	// If is ppsh
-	if(cac_selected_primary == 13) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "aperture");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "single");
-				break;
+	if ( cac_selected_attachment > 0 ) {
+		attList = [];
+
+		if ( cac_selected_primary == 13 ) { // PPSh-41
+			attList[1] = "aperture";
+			attList[2] = "";
+			attList[0] = "single"; // Default se indice diverso
+		} 
+		else if ( cac_selected_primary == 21 ) {
+			attList[1] = "silenced";
+			attList[2] = "aperture";
+			attList[3] = "telescopic";
+			attList[4] = "gl";
+		} 
+		else if ( cac_selected_primary == 22 ) {
+			attList[1] = "flash";
+			attList[2] = "bayonet";
+			attList[3] = "gl";
+			attList[4] = "scoped";
+		} 
+		else if ( cac_selected_primary == 20 || cac_selected_primary == 24 ) {
+			attList[1] = "flash";
+			attList[2] = "aperture";
+			attList[3] = "telescopic";
+		} 
+		else if ( cac_selected_primary == 23 ) { // M1 Carbine
+			attList[1] = "flash";
+			attList[2] = "aperture";
+			attList[3] = "bayonet";
+			attList[4] = "bigammo";
+		} 
+		else if ( cac_selected_primary >= 40 && cac_selected_primary <= 42 ) {
+			attList[1] = "bipod";
+		} 
+		else if ( cac_selected_primary == 80 ) {
+			attList[1] = "bipod";
+			attList[2] = "bayonet";
+		} 
+		else if ( cac_selected_primary == 81 ) {
+			attList[1] = "bipod";
+			attList[2] = "telescopic";
+		} 
+		else if ( cac_selected_primary == 82 || cac_selected_primary == 83 ) {
+			attList[1] = "bipod";
+		} 
+		else if ( cac_selected_primary >= 60 && cac_selected_primary <= 63 ) {
+			attList[1] = "scoped";
+			attList[2] = "bayonet";
+			attList[3] = "gl";
+		} 
+		else if ( cac_selected_primary == 64 ) { // PTRS-41 (nessun accessorio)
+			attList[1] = "";
+		} 
+		else if ( cac_selected_primary == 71 ) {
+			attList[1] = "grip";
+			attList[2] = "sawoff";
+		} 
+		else { // Default fallback per altre armi (es. SMG generiche)
+			attList[1] = "silenced";
+			attList[2] = "aperture";
+			attList[3] = "bigammo";
 		}
-	} else if(cac_selected_primary == 21) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "silenced");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "aperture");
-				break;
-			case 3:
-				setdvar("ce_gameskill_weap_attachment", "telescopic");
-				break;
-			case 4:
-				setdvar("ce_gameskill_weap_attachment", "gl");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	} else if(cac_selected_primary == 22) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "flash");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "bayonet");
-				break;
-			case 3:
-				setdvar("ce_gameskill_weap_attachment", "gl");
-				break;
-			case 4:
-				setdvar("ce_gameskill_weap_attachment", "scoped");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	} else if(cac_selected_primary == 20 || cac_selected_primary == 24) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "flash");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "aperture");
-				break;
-			case 3:
-				setdvar("ce_gameskill_weap_attachment", "telescopic");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	} else if(cac_selected_primary == 23) {	// If is m1carbine
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "flash");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "aperture");
-				break;
-			case 3:
-				setdvar("ce_gameskill_weap_attachment", "bayonet");
-				break;
-			case 4:
-				setdvar("ce_gameskill_weap_attachment", "bigammo");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	} else if(cac_selected_primary == 40 || cac_selected_primary == 41 || cac_selected_primary == 42) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "bipod");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	} else if(cac_selected_primary == 80) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "bipod");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "bayonet");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	} else if(cac_selected_primary == 81) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "bipod");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "telescopic");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	} else if(cac_selected_primary == 83 || cac_selected_primary == 82) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "bipod");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	} else if(cac_selected_primary == 60 || cac_selected_primary == 61 || cac_selected_primary == 62 || cac_selected_primary == 63 || cac_selected_primary == 64) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "scoped");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "bayonet");
-				break;
-			case 3:
-				setdvar("ce_gameskill_weap_attachment", "gl");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-		//PTRS-41 No attachments
-		if(cac_selected_primary == 64) {
-			cac_selected_attachment = 0;
-			setdvar("ce_gameskill_weap_attachment", "");
-		}
-	} else if(cac_selected_primary == 71) {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "grip");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "sawoff");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
-		}
-	} else {
-		switch(cac_selected_attachment) {
-			case 1:
-				setdvar("ce_gameskill_weap_attachment", "silenced");
-				break;
-			case 2:
-				setdvar("ce_gameskill_weap_attachment", "aperture");
-				break;
-			case 3:
-				setdvar("ce_gameskill_weap_attachment", "bigammo");
-				break;
-			default:
-				setdvar("ce_gameskill_weap_attachment", "");
-				break;
+
+		if ( isDefined( attList[cac_selected_attachment] ) ) {
+			attachmentString = attList[cac_selected_attachment];
+		} else if ( isDefined( attList[0] ) ) {
+			attachmentString = attList[0];
 		}
 	}
 
-	
-	cac_selected_secondary = self getStat(offset + 203);
-	setdvar("ce_gameskill_weap_secondary", ""+tablelookup("mp/statsTable.csv", 0, cac_selected_secondary, 4));
-	
-	primaryWeaponString = getdvar("ce_gameskill_weap_test");
-	secondaryWeaponString = getdvar("ce_gameskill_weap_secondary");
-	primaryGrenadeString = getdvar("ce_gameskill_primary_grenade");
-	specialGrenadeString = getdvar("ce_gameskill_special_grenade");
-	
-	if(getdvar("ce_gameskill_weap_attachment") != "") {
-		primaryWeaponString = primaryWeaponString + "_" + getdvar("ce_gameskill_weap_attachment");
+	setDvar( "ce_gameskill_weap_attachment", attachmentString );
+	setDvar( "ce_gameskill_weap_test", primaryWeaponString );
+
+	if ( attachmentString != "" ) {
+		primaryWeaponString = primaryWeaponString + "_" + attachmentString;
 	}
-	//self iprintlnbold(cac_selected_primary + "-" + cac_selected_attachment + "(" + primaryWeaponString + ")");
-	self GiveWeapon(primaryWeaponString);
-	self GiveWeapon(secondaryWeaponString);
-	self GiveWeapon(primaryGrenadeString);
-	self GiveWeapon(specialGrenadeString);
-	self GiveMaxAmmo(primaryWeaponString);
-	self SwitchToWeapon(primaryWeaponString);
+
+	// 4. ARMA SECONDARIA
+	secondaryWeaponString = tablelookup( "mp/statsTable.csv", 0, cac_selected_secondary, 4 );
+	setDvar( "ce_gameskill_weap_secondary", secondaryWeaponString );
+
+	// 5. ASSEGNAZIONE EQUIPAGGIAMENTO
+	self GiveWeapon( primaryWeaponString );
+	self GiveWeapon( secondaryWeaponString );
+	self GiveWeapon( primaryGrenadeString );
+	self GiveWeapon( specialGrenadeString );
 	
-	if(level.script == "pel1") {
+	self GiveMaxAmmo( primaryWeaponString );
+	self SwitchToWeapon( primaryWeaponString );
+
+	if ( isDefined( level.script ) && level.script == "pel1" ) {
 		self maps\_loadout::add_weapon( "rocket_barrage" );
 		self maps\_loadout::set_action_slot( 4, "weapon", "rocket_barrage" );
 	}
