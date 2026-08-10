@@ -544,6 +544,22 @@ watchClassCustomization() {
 				self setStat(primaryWeaponOffset, 64);
 				self setStat(primaryWeaponAttachmentOffset, 0);
 				break;
+			case "mg42":
+				self setStat(primaryWeaponOffset, 41);
+				if(primaryAttachment == "bipod") {
+					self setStat(primaryWeaponAttachmentOffset, 1);
+				} else {
+					self setStat(primaryWeaponAttachmentOffset, 0);
+				}
+				break;
+			case "30cal":
+				self setStat(primaryWeaponOffset, 40);
+				if(primaryAttachment == "bipod") {
+					self setStat(primaryWeaponAttachmentOffset, 1);
+				} else {
+					self setStat(primaryWeaponAttachmentOffset, 0);
+				}
+				break;
 		}
 		
 		wait 0.05;
