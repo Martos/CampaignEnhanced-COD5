@@ -60,10 +60,6 @@ debug_utils() {
 }
 
 dvars_init() {
-    setdvar("psx", 0);
-	setdvar("psa", 0);
-	setdvar("psk", 0);
-	setdvar("psh", 0);
 	setdvar("ce_cheats", 0);
 
     setdvar("ui_cac_ingame", "1");
