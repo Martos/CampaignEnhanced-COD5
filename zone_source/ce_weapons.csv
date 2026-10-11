@@ -88,3 +88,9 @@ weapon,sp/tabun_gas
 weapon,sp/signal_flare
 weapon,sp/stick_grenade
 weapon,sp/mp40_special
+
+# Perks
+weapon,sp/zombie_perk_bottle_jugg
+weapon,sp/zombie_perk_bottle_doubletap
+weapon,sp/zombie_perk_bottle_sleight
+weapon,sp/zombie_perk_bottle_revive

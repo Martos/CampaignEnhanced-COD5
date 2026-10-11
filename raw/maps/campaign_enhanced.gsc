@@ -164,7 +164,10 @@ precache_items() {
 
 	// Precache shop models
 	// PrecacheModel("static_peleliu_wood_ammo_box_char");
-	PrecacheModel("zombie_vending_doubletap_on");
+
+	PrecacheItem("zombie_perk_bottle_jugg");
+	PrecacheItem("zombie_perk_bottle_doubletap");
+	PrecacheModel("zombie_vending_doubletap_sumpf_on");
 }
 
 spawnShops() {
@@ -196,14 +199,14 @@ spawnShops() {
 	}
 	
 	first_shop = spawn("script_model", spawnPoints);
-	first_shop setmodel("zombie_vending_doubletap_on");
+	first_shop setmodel("zombie_vending_doubletap_sumpf_on");
 	first_shop setcontents(1);
 	first_shop.targetname = "first_shop";
 	first_shop.angles = anglePoints;
 	first_shop solid();
 	
 	second_shop = spawn("script_model", secondSpawnPoints);
-	second_shop setmodel("zombie_vending_doubletap_on");
+	second_shop setmodel("zombie_vending_doubletap_sumpf_on");
 	second_shop setcontents(1);
 	second_shop.targetname = "second_shop";
 	second_shop.angles = secondAnglePoints;
@@ -596,8 +599,17 @@ MenuResponses() {
 			}
 			if(response == "buy_juggernog") {
 				self setStat(2302, self getStat(2302) - SHOP_JUGGERNOG_PRICE);
-				
-				self SetPerk( "specialty_armorvest" );
+
+				perk = "specialty_armorvest";
+
+				gun = self perk_give_bottle_begin( perk );
+				self.is_drinking = 1;
+				self waittill_any( "fake_death", "death", "player_downed", "weapon_change_complete" );
+
+				self perk_give_bottle_end( gun, perk );
+				self.is_drinking = undefined;
+
+				self SetPerk( perk );
 				
 				self setblur(4, 0.1);
 				wait(0.1);
@@ -1263,4 +1275,111 @@ Sets the value of the named stat
 statSet( dataName, value )
 {
 	self setStat( int(tableLookup( "mp/playerStatsTable.csv", 1, dataName, 0 )), value );	
+}
+
+perk_give_bottle_begin( perk )
+{
+	self DisableOffhandWeapons();
+	self DisableWeaponCycling();
+
+	self AllowLean( false );
+	self AllowAds( false );
+	self AllowSprint( false );
+	self AllowProne( false );		
+	self AllowMelee( false );
+
+	wait( 0.05 );
+
+	if ( self GetStance() == "prone" )
+	{
+		self SetStance( "crouch" );
+	}
+
+	gun = self GetCurrentWeapon();
+	weapon = "";
+
+	switch( perk )
+	{
+	case "specialty_armorvest":
+		weapon = "zombie_perk_bottle_jugg";
+		break;
+
+	case "specialty_quickrevive":
+		weapon = "zombie_perk_bottle_revive";
+		break;
+
+	case "specialty_fastreload":
+		weapon = "zombie_perk_bottle_sleight";
+		break;
+
+	case "specialty_rof":
+		weapon = "zombie_perk_bottle_doubletap";
+		break;
+	}
+
+	self GiveWeapon( weapon );
+	self SwitchToWeapon( weapon );
+
+	return gun;
+}
+
+
+perk_give_bottle_end( gun, perk )
+{
+	assert( gun != "zombie_perk_bottle_doubletap" );
+	assert( gun != "zombie_perk_bottle_revive" );
+	assert( gun != "zombie_perk_bottle_jugg" );
+	assert( gun != "zombie_perk_bottle_sleight" );
+	assert( gun != "syrette" );
+
+	self EnableOffhandWeapons();
+	self EnableWeaponCycling();
+
+	self AllowLean( true );
+	self AllowAds( true );
+	self AllowSprint( true );
+	self AllowProne( true );		
+	self AllowMelee( true );
+	weapon = "";
+	switch( perk )
+	{
+	case "specialty_armorvest":
+		weapon = "zombie_perk_bottle_jugg";
+		break;
+
+	case "specialty_quickrevive":
+		weapon = "zombie_perk_bottle_revive";
+		break;
+
+	case "specialty_fastreload":
+		weapon = "zombie_perk_bottle_sleight";
+		break;
+
+	case "specialty_rof":
+		weapon = "zombie_perk_bottle_doubletap";
+		break;
+	}
+
+	// TODO: race condition?
+	if ( self maps\_laststand::player_is_in_laststand() )
+	{
+		self TakeWeapon(weapon);
+		return;
+	}
+
+	if ( gun != "none" && gun != "mine_bouncing_betty" )
+	{
+		self SwitchToWeapon( gun );
+	}
+	else 
+	{
+		// try to switch to first primary weapon
+		primaryWeapons = self GetWeaponsListPrimaries();
+		if( IsDefined( primaryWeapons ) && primaryWeapons.size > 0 )
+		{
+			self SwitchToWeapon( primaryWeapons[0] );
+		}
+	}
+
+	self TakeWeapon(weapon);
 }
