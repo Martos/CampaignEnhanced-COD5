@@ -599,32 +599,17 @@ MenuResponses() {
 			}
 			if(response == "buy_juggernog") {
 				self setStat(2302, self getStat(2302) - SHOP_JUGGERNOG_PRICE);
-
 				perk = "specialty_armorvest";
 
-				gun = self perk_give_bottle_begin( perk );
-				self.is_drinking = 1;
-				self waittill_any( "fake_death", "death", "player_downed", "weapon_change_complete" );
-
-				self perk_give_bottle_end( gun, perk );
-				self.is_drinking = undefined;
-
-				self SetPerk( perk );
-				
-				self setblur(4, 0.1);
-				wait(0.1);
-				self setblur(0, 0.1);
+				self givePerk(perk);
 				
 				setdvar("ce_show_jug", "1");
 			}
 			if(response == "buy_speed") {
 				self setStat(2302, self getStat(2302) - SHOP_SPEED_PRICE);
-				
-				self SetPerk( "specialty_fastreload" );
-				
-				self setblur(4, 0.1);
-				wait(0.1);
-				self setblur(0, 0.1);
+				perk = "specialty_fastreload";
+
+				self givePerk(perk);
 				
 				setdvar("ce_show_sp", "1");
 			}
@@ -677,6 +662,21 @@ MenuResponses() {
 			}
 		}
 	}	
+}
+
+givePerk(perk) {
+	gun = self perk_give_bottle_begin( perk );
+	self.is_drinking = 1;
+	self waittill_any( "fake_death", "death", "player_downed", "weapon_change_complete" );
+
+	self perk_give_bottle_end( gun, perk );
+	self.is_drinking = undefined;
+
+	self SetPerk( perk );
+	
+	self setblur(4, 0.1);
+	wait(0.1);
+	self setblur(0, 0.1);
 }
 
 TimePlayed() {
