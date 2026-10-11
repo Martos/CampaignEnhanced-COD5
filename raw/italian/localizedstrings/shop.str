@@ -14,7 +14,7 @@ CONFIG              "C:\cod5\cod\cod5\bin\StringEd.cfg"
 FILENOTES           ""
 
 REFERENCE           TITLE
-LANG_ENGLISH        "Negozio"
+LANG_ITALIAN        "Negozio"
 
 REFERENCE           AMMO
 LANG_ITALIAN        "Ricarica le munizioni"
