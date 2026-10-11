@@ -17,9 +17,14 @@ class App:
         self.log_area.pack(expand=True, fill=tk.BOTH, padx=20, pady=10)
         self.log_area.config(state=tk.DISABLED)
 
+        self.log_area.tag_config("error", foreground="red")
+
     def log(self, message):
         self.log_area.config(state=tk.NORMAL)
-        self.log_area.insert(tk.END, message + "\n")
+        if "error" in message.lower():
+            self.log_area.insert(tk.END, message + "\n", "error")
+        else:
+            self.log_area.insert(tk.END, message + "\n")
         self.log_area.see(tk.END)
         self.log_area.config(state=tk.DISABLED)
 
