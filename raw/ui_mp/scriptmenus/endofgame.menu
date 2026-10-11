@@ -132,7 +132,7 @@
 			textscale		TEXTSIZE_SMALL
 			visible 		when ( 1 );
 			decoration
-		}CHOOSE_CLASS
+		}
 		itemDef
 		{
 			name			intermission_timer_countdown
@@ -194,7 +194,7 @@
 		
 		// ====================== player stats =========================
 		
-		//#include "ui_mp/player_info.inc"
+		// #include "ui_mp/player_info.inc"
 	}
 	
 	#include "ui_mp/popupstyle.inc"	
