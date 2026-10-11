@@ -21,7 +21,7 @@ REFERENCE			CE_CLASS_SELECTED
 LANG_ENGLISH		"Class selected: "
 
 REFERENCE			CE_TITLE
-LANG_ENGLISH		"Campaign Enhanced"
+LANG_ENGLISH		"CAMPAIGN ENHANCED"
 
 REFERENCE			MOTD
 LANG_ENGLISH		"Welcome on Campaign Enhanced \n github.com/Martos/CampaignEnhanced-COD5"
@@ -115,5 +115,8 @@ LANG_ENGLISH        "Scoreboard"
 
 REFERENCE           CONTROLLER
 LANG_ENGLISH        "Gamepad"
+
+REFERENCE           NULL
+LANG_ENGLISH        ""
 
 ENDMARKER

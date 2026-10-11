@@ -116,4 +116,7 @@ LANG_ITALIAN        "Punteggio"
 REFERENCE           CONTROLLER
 LANG_ITALIAN        "Gamepad"
 
+REFERENCE           NULL
+LANG_ITALIAN        ""
+
 ENDMARKER
