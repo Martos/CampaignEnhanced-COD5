@@ -91,7 +91,7 @@
 		
 		#define CLEARUIHINT	exec "set ui_hint_text @MP_NULL"
 		
-		CHOICE_MENU_TITLE( "Shop" )
+		CHOICE_MENU_TITLE( "@SHOP_TITLE" )
 
 		itemDef	
 		{
@@ -124,7 +124,7 @@
 			rect			ORIGIN_STATUS 0 0
 			origin			0 BALANCE_ORIGIN_Y
 			forecolor		MENU_FONT_COLOR2
-			exp				text( "@SHOP_BALANCE" );
+			exp				text( "@MPUI_SCORE_PRE" );
 			textfont		UI_FONT_NORMAL
 			textscale		TEXTSIZE_SMALL
 			visible 		when ( 1 );
@@ -136,7 +136,7 @@
 			type			ITEM_TYPE_TEXT
 			visible			0
 			rect			ORIGIN_STATUS 0 0
-			origin			50 BALANCE_ORIGIN_Y
+			origin			75 BALANCE_ORIGIN_Y
 			forecolor		1 0.9 0.5 1
 			exp				text( stat(2302) );
 			textfont		UI_FONT_NORMAL

@@ -13,8 +13,8 @@ VERSION             "1"
 CONFIG              "C:\cod5\cod\cod5\bin\StringEd.cfg"
 FILENOTES           ""
 
-REFERENCE           BALANCE
-LANG_ITALIAN        "Crediti: "
+REFERENCE           TITLE
+LANG_ENGLISH        "Negozio"
 
 REFERENCE           AMMO
 LANG_ITALIAN        "Ricarica le munizioni"

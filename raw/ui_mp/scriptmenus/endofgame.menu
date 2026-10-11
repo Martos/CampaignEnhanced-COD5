@@ -1,6 +1,9 @@
 #include "ui/menudef.h"
 #include "ui_mp/common_macro.inc"
 
+#define LOGO_START_X			-300
+#define LOGO_START_Y			-160
+
 #define CHOICE_X_START			30
 #define CHOICE_Y_START			40
 
@@ -135,7 +138,16 @@
 			textscale		TEXTSIZE_SMALL
 			visible 		when ( 1 );
 			decoration
-		}	
+		}
+		itemDef
+		{
+			rect			LOGO_START_X LOGO_START_Y 256 64 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_BOTTOM
+			forecolor		1 1 1 1
+			style			WINDOW_STYLE_SHADER
+			background		"logo_cod2"
+			visible			when( !localVarBool( ui_hideBack ) );
+			decoration
+		}
 		
 		// ------------------ buttons ---------------------
 		#define BACK_OPEN ;
@@ -163,24 +175,13 @@
 		CHOICE_DBUTTON_VIS( 1, "@MPUI_CHOOSE_CLASS", when( !localvarBool( ui_hideBack ) && stat(252) < 3 ) )
 		CHOICE_LOCKEDICON_VIS( 1, "specialty_locked", when( !localvarBool( ui_hideBack ) && stat(252) < 3 ) )
 
-		CHOICE_BUTTON_FOCUS_VIS_ADV( 2, "@MPUI_CREATE_A_CLASS", SETUP_ACTION_CREATEACLASS, exec "set ui_hint_text @MPUI_DESC_CREATE_A_CLASS", CLEARUIHINT, when( !localvarBool( ui_hideBack ) && stat( 260 ) >= 1 ), !localvarBool( ui_hideBack ) && stat( 260 ) >= 1 )
-		CHOICE_BUTTON_FOCUS_VIS_NOHI( 2, "", ;, exec "set ui_hint_text @MPUI_DESC_CREATE_A_CLASS_LOCKED", CLEARUIHINT, when(!localvarBool( ui_hideBack ) && stat( 260 ) < 1 ) )
+		CHOICE_BUTTON_VIS( 2, "@MPUI_CREATE_A_CLASS", SETUP_ACTION_CREATEACLASS, when( !localvarBool( ui_hideBack ) && stat( 260 ) >= 1 ) )
 		CHOICE_DBUTTON_VIS( 2, "@MPUI_CREATE_A_CLASS", when( !localvarBool( ui_hideBack ) && stat( 260 ) < 1 ) )
+		CHOICE_LOCKEDICON_VIS( 2, "specialty_locked", when( !localvarBool( ui_hideBack ) && stat( 260 ) < 1 ) )
 		CHOICE_NEWICON_VIS( 2, "specialty_new", when( !localvarBool( ui_hideBack ) && ANY_NEW_CAC ) )
-		
-		/*
-		CHOICE_BUTTON_FOCUS_VIS_ADV( 3, "@MPUI_PRESTIGE_MODE", SETUP_ACTION_PRESTIGEMODE, ;, CLEARUIHINT, when( !localvarBool( ui_hideBack ) && stat(2301) >= 153950 && stat(2326) < 10 ), !localvarBool( ui_hideBack ) )
-		CHOICE_BUTTON_FOCUS_VIS_NOHI( 3, "", ;, exec "set ui_hint_text @MPUI_DESC_PRESTIGE2; set ui_show_arrow 1", CLEARUIHINT, when( !localvarBool( ui_hideBack ) && stat(2301) < 153950 ) )
-		CHOICE_DBUTTON_VIS( 3, "@MPUI_PRESTIGE_MODE", when( !localvarBool( ui_hideBack ) && stat(2301) < 153950 ) )
-		CHOICE_NEWICON_VIS( 2, "specialty_new", when( !localvarBool( ui_hideBack ) && stat(2301) >= 153950 && stat(2326) < 10) )
-		*/
-
-		//CHOICE_BUTTON_VIS( 4, "@MENU_SCOREBOARD", close self;, when( !localvarBool( ui_hideBack ) ) )
 	
 		CHOICE_SEPARATOR_VIS( CHOICE_SEP_1, when( !localvarBool( ui_hideBack ) ) )
 		
-		//CHOICE_BUTTON_VIS_NOHI( 4, "@MPUI_END_GAME_CAP", open popup_endgame, when( dvarbool( sv_running ) ) )
-		//CHOICE_BUTTON_VIS_NOHI( 4, "@MPUI_LEAVE_GAME_CAP", open popup_leavegame, when( !dvarbool( sv_running ) ) )
 		CHOICE_BUTTON_VIS( 3, "@MENU_CONTINUE", close self;, 1 )
 		
 		// ====================== player stats =========================
