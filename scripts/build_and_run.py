@@ -6,8 +6,6 @@ from tkinter import scrolledtext, messagebox
 
 class App:
     def __init__(self, root):
-        self.runGameVar = tk.IntVar()
-
         self.root = root
         self.root.title("Campaign Enhanced Builder")
         self.root.geometry("1000x550")
@@ -25,7 +23,11 @@ class App:
 
         self.incVerVar = tk.IntVar()
         c2 = tk.Checkbutton(frame, text='Inc version', variable=self.incVerVar, onvalue=1, offvalue=0)
-        c2.pack(side=tk.LEFT)
+        c2.pack(side=tk.LEFT, padx=(0, 10))
+
+        self.runBatVar = tk.IntVar()
+        c3 = tk.Checkbutton(frame, text='Create installer', variable=self.runBatVar, onvalue=1, offvalue=0)
+        c3.pack(side=tk.LEFT)
 
         self.log_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, font=("Consolas", 10))
         self.log_area.pack(expand=True, fill=tk.BOTH, padx=20, pady=10)
@@ -152,8 +154,17 @@ class App:
                 self.log(f"Avvio gioco: {cmd_game}")
                 self.run_command_with_output(cmd_game)
 
+            # --- STEP 4: deploy_installer ---
+            if self.runBatVar.get() == 1:
+                self.log("\n--- 4. deploy_installer ---")
+                dep_installer_dir = os.path.join(workdir_path, "scripts", "deploy_installer.bat")
+                if os.path.exists(dep_installer_dir):
+                    self.log(f"Deploy installer")
+                    self.run_command_with_output(f'call "{dep_installer_dir}"')
+                else:
+                    self.log(f"Attenzione: File {dep_installer_dir} non trovato nella directory corrente.")
+
             self.log("\n=== PROCESSO COMPLETATO CON SUCCESSO! ===")
-            # messagebox.showinfo("Completato", "Tutti i processi sono stati eseguiti con successo!")
         except Exception as e:
             self.log(f"ERRORE: {str(e)}")
             messagebox.showerror("Errore", str(e))
