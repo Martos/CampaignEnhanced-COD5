@@ -85,7 +85,8 @@ class App:
 
             if self.incVerVar.get() == 1:
                 self.log("\n--- INC VER ---")
-                self.run_command_with_output(f'node .\setVersion.js')
+                node_dir = os.path.join(workdir_path, "scripts")
+                self.run_command_with_output(f'node "{node_dir}"\setVersion.js')
 
             # --- STEP 1: SYNC_WORKSPACE_FAST ---
             self.log("\n--- 1. SYNC_WORKSPACE_FAST ---")
