@@ -29,6 +29,10 @@ class App:
         c3 = tk.Checkbutton(frame, text='Create installer', variable=self.runBatVar, onvalue=1, offvalue=0)
         c3.pack(side=tk.LEFT)
 
+        self.enableLog = tk.IntVar()
+        c3 = tk.Checkbutton(frame, text='Logs', variable=self.enableLog, onvalue=1, offvalue=0)
+        c3.pack(side=tk.LEFT)
+
         self.log_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, font=("Consolas", 10))
         self.log_area.pack(expand=True, fill=tk.BOTH, padx=20, pady=10)
         self.log_area.config(state=tk.DISABLED)
@@ -57,6 +61,11 @@ class App:
         thread.start()
 
     def run_command_with_output(self, cmd):
+        if self.enableLog.get() == 0:
+            process = subprocess.Popen(cmd, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+            process.wait()
+            return process.returncode
+
         process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding='utf-8', errors='ignore')
         for line in process.stdout:
             self.log(line.rstrip())
