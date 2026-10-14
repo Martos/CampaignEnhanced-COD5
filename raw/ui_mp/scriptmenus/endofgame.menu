@@ -10,6 +10,9 @@
 #define CHOICE_GROUP			"main"
 #define CHOICE_SEP_1			2
 
+#undef SECTION_X_OFFSET_CLASS
+#define SECTION_X_OFFSET_CLASS	(SECTION_X_OFFSET+108)
+
 #define STYLE_PC	1
 #include "ui_mp/menustyle.inc"
 #include "ui/choices_setup_common.menu"
@@ -35,6 +38,45 @@
 		decoration \
 	} \
 	PREPROC_SHADER_DRAW_ALIGNED_VIS( (SECTION_X_OFFSET-14) 27 10 10 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, CHOICE_ORIGIN( itemIndex ), "ui_arrow_right", 1 1 1 0.4, 0, 1, 1 1 1 1, when( visArg ) )
+
+#undef HINT_TEXT_CLASS
+#define HINT_TEXT_CLASS( itemIndex, titleArg, visArg ) \
+	itemDef \
+	{ \
+		type			ITEM_TYPE_TEXT \
+		rect			SECTION_X_OFFSET 0 230 64 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN \
+		origin			CHOICE_ORIGIN( itemIndex ) \
+		forecolor		CE_COLOR_TITLE \
+		exp				text( "@CE_CLASS_SELECTED" );\
+		textstyle 		ITEM_TEXTSTYLE_SHADOWED \
+		textfont		CHOICE_TEXTFONT \
+		textscale		TEXTSIZE_SMALL \
+		textstyle		CHOICE_TEXTSTYLE \
+		textAlign		ITEM_ALIGN_MIDDLE_LEFT \
+		textAlignX		SECTION_TEXT_OFFSET_X \
+		visible 		visArg \
+		autowrapped \
+		decoration \
+	} \
+	itemDef \
+	{ \
+		type			ITEM_TYPE_TEXT \
+		rect 			SECTION_X_OFFSET_CLASS 0 230 64 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN \
+		origin			CHOICE_ORIGIN( itemIndex ) \
+		forecolor		CE_COLOR_TITLE \
+		exp				text( titleArg );\
+		textstyle 		ITEM_TEXTSTYLE_SHADOWED \
+		textfont		CHOICE_TEXTFONT \
+		textscale		TEXTSIZE_SMALL \
+		textstyle		CHOICE_TEXTSTYLE \
+		textAlign		ITEM_ALIGN_MIDDLE_LEFT \
+		textAlignX		SECTION_TEXT_OFFSET_X \
+		visible 		visArg \
+		autowrapped \
+		decoration \
+	} \
+	PREPROC_SHADER_DRAW_ALIGNED_VIS( (SECTION_X_OFFSET-14) 27 10 10 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, CHOICE_ORIGIN( itemIndex ), "ui_arrow_right", 1 1 1 0.4, 0, 1, 1 1 1 1, when( visArg ) )
+
 
 // ============= init dvars ==============
 /*
@@ -96,7 +138,7 @@
 		onOpen
 		{ 
 			//STAT_UPDATE
-			setdvar ui_customclass_selected_name "Default";
+			setdvar ui_customclass_selected_name "@CE_NO_CLASS_SELECTED";
 		}
 		onClose
 		{
@@ -113,40 +155,9 @@
 		#include "ui_mp/overlaybg.inc"
 		BACKGROUND_BLACK_LETTERBOX_BLURWORLD( 1.0 )
 		OVERLAY_BACKGROUND
-
 		
-		// ------------------ TREE TITLE ------------------
+		CHOICE_MENU_TITLE("@CE_DASHBOARD")
 		
-		CHOICE_MENU_TITLE( "@CE_DASHBOARD" )	
-		
-		// ------------------------ lobby status ----------------------------
-		itemDef
-		{
-			type			ITEM_TYPE_TEXT
-			visible			0
-			rect			ORIGIN_STATUS 0 0
-			origin			0 0
-			forecolor		MENU_FONT_COLOR2
-			exp				text( dvarString( ui_customclass_selected_name ) )
-			textfont		UI_FONT_NORMAL
-			textscale		TEXTSIZE_SMALL
-			visible 		when ( 1 );
-			decoration
-		}
-		itemDef
-		{
-			name			intermission_timer_countdown
-			type			ITEM_TYPE_TEXT
-			visible			0
-			rect			ORIGIN_STATUS 0 0
-			origin			-85 0
-			forecolor		MENU_FONT_COLOR2
-			exp				text( "Class selected:" );
-			textfont		UI_FONT_NORMAL
-			textscale		TEXTSIZE_SMALL
-			visible 		when ( 1 );
-			decoration
-		}
 		itemDef
 		{
 			rect			LOGO_START_X LOGO_START_Y 256 64 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_BOTTOM
@@ -190,6 +201,7 @@
 		
 		CHOICE_BUTTON_VIS( 3, "@MENU_CONTINUE", close self;, 1 )
 
+		HINT_TEXT_CLASS( 5, dvarString( "ui_customclass_selected_name" ), 1 )
 		HINT_TEXT( 6, dvarString( "ui_hint_text" ), 1 )
 		
 		// ====================== player stats =========================
@@ -212,37 +224,6 @@
 	#undef NEW_Y_OFFSET			
 	#define NEW_Y_OFFSET	(0-2)
 	
-	//#include "ui_mp/cacpopup.inc"
-	//CAC_POPUP( "pc_cac_popup_ingame", CAC_POPUP_X, CAC_POPUP_Y )
-	
-/*	menuDef
-	{
-		name			"press_esc_hint"	
-		rect			0 0 640 480
-
-		itemDef
-		{
-			style			WINDOW_STYLE_SHADER
-			rect			0 3 640 18 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_TOP
-			origin			0 4
-			background		"line_horizontal_scorebar"
-			forecolor		0 0 0 0.5
-			visible			1
-			decoration
-		}
-		
-		itemDef 
-		{
-			rect		0 22 1 1 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_TOP
-			origin		0 4
-			exp text	"Press ESC for Create a Class and Challenges";
-			textfont	UI_FONT_NORMAL
-			textscale	TEXTSIZE_SMALL
-			textalign	ITEM_ALIGN_CENTER
-			textstyle	ITEM_TEXTSTYLE_SHADOWEDMORE
-			visible 	1
-			decoration 
-		}		
-	}
-*/
+	// #include "ui_mp/cacpopup.inc"
+	// CAC_POPUP( "pc_cac_popup_ingame", CAC_POPUP_X, CAC_POPUP_Y )
 }
