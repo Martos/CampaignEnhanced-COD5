@@ -6,12 +6,17 @@ from tkinter import scrolledtext, messagebox
 
 class App:
     def __init__(self, root):
+        self.runGameVar = tk.IntVar()
+
         self.root = root
         self.root.title("Campaign Enhanced Builder")
         self.root.geometry("1000x550")
 
         self.run_btn = tk.Button(root, text="Build", font=("Arial", 11, "bold"), bg="#4CAF50", fg="white", command=self.start_process_thread)
         self.run_btn.pack(pady=10, fill=tk.X, padx=20)
+
+        c1 = tk.Checkbutton(root, text='Run game',variable=self.runGameVar, onvalue=1, offvalue=0, command={})
+        c1.pack(anchor='w', padx=20)
 
         self.log_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, font=("Consolas", 10))
         self.log_area.pack(expand=True, fill=tk.BOTH, padx=20, pady=10)
@@ -126,11 +131,12 @@ class App:
             xcopy(dist_lang, appdata_mod)
 
             # --- STEP 3: RUN_GAME ---
-            self.log("\n--- 3. RUN_GAME ---")
-            game_exe = os.path.join(codwaw_path, "CoDWaW_LanFixed.exe")
-            cmd_game = f'{linker_disk} && cd /d "{codwaw_path}" && START "" "{game_exe}" +set fs_game "mods/CampaignEnhanced" +set r_fullscreen 0 +set r_mode "1280x720" +set developer 2 +set ui_showList 1 +exec "default_controller.cfg" +devmap oki3 +set developeruser 1 +set logfile 1'
-            self.log(f"Avvio gioco: {cmd_game}")
-            self.run_command_with_output(cmd_game)
+            if self.runGameVar.get() == 1:
+                self.log("\n--- 3. RUN_GAME ---")
+                game_exe = os.path.join(codwaw_path, "CoDWaW_LanFixed.exe")
+                cmd_game = f'{linker_disk} && cd /d "{codwaw_path}" && START "" "{game_exe}" +set fs_game "mods/CampaignEnhanced" +set r_fullscreen 0 +set r_mode "1280x720" +set developer 2 +set ui_showList 1 +exec "default_controller.cfg" +devmap oki3 +set developeruser 1 +set logfile 1'
+                self.log(f"Avvio gioco: {cmd_game}")
+                self.run_command_with_output(cmd_game)
 
             self.log("\n=== PROCESSO COMPLETATO CON SUCCESSO! ===")
             # messagebox.showinfo("Completato", "Tutti i processi sono stati eseguiti con successo!")
