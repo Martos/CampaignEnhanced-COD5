@@ -11,12 +11,21 @@ class App:
         self.root = root
         self.root.title("Campaign Enhanced Builder")
         self.root.geometry("1000x550")
+        self.root.resizable(False, False)
 
         self.run_btn = tk.Button(root, text="Build", font=("Arial", 11, "bold"), bg="#4CAF50", fg="white", command=self.start_process_thread)
         self.run_btn.pack(pady=10, fill=tk.X, padx=20)
 
-        c1 = tk.Checkbutton(root, text='Run game',variable=self.runGameVar, onvalue=1, offvalue=0, command={})
-        c1.pack(anchor='w', padx=20)
+        frame = tk.Frame(root)
+        frame.pack(anchor='w', padx=20, pady=0)
+
+        self.runGameVar = tk.IntVar()
+        c1 = tk.Checkbutton(frame, text='Run game', variable=self.runGameVar, onvalue=1, offvalue=0)
+        c1.pack(side=tk.LEFT, padx=(0, 10))
+
+        self.incVerVar = tk.IntVar()
+        c2 = tk.Checkbutton(frame, text='Inc version', variable=self.incVerVar, onvalue=1, offvalue=0)
+        c2.pack(side=tk.LEFT)
 
         self.log_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, font=("Consolas", 10))
         self.log_area.pack(expand=True, fill=tk.BOTH, padx=20, pady=10)
@@ -73,6 +82,10 @@ class App:
             linker_disk = env_vars.get("LINKER_DISK_PATH", "C:")
             language = env_vars.get("LANGUAGE", "english")
             localappdata = os.environ.get("LOCALAPPDATA", "")
+
+            if self.incVerVar.get() == 1:
+                self.log("\n--- INC VER ---")
+                self.run_command_with_output(f'node .\setVersion.js')
 
             # --- STEP 1: SYNC_WORKSPACE_FAST ---
             self.log("\n--- 1. SYNC_WORKSPACE_FAST ---")
