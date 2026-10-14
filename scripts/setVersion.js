@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const filePath = path.join(__dirname, 'raw\\ui\\menudef.h');
-const nsisPath = path.join(__dirname, 'CE_installer_nsis_script.nsi');
+const filePath = path.join(__dirname, '..\\raw\\ui\\menudef.h');
+const nsisPath = path.join(__dirname, '..\\CE_installer_nsis_script.nsi');
 
 function updateNsisVersion(major, minor, patch) {
     try {

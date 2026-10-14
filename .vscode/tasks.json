@@ -6,7 +6,7 @@
         {
             "label": "COMPILE",
             "type": "shell",
-            "command": "${workspaceFolder}\\CAMPAIGN_ENHANCED_BUILD.bat",
+            "command": "${workspaceFolder}\\scripts\\CAMPAIGN_ENHANCED_BUILD.bat",
             "presentation": {
                 "echo": true,
                 "reveal": "always",
@@ -25,7 +25,7 @@
         {
             "label": "CREATE_INSTALLER",
             "type": "shell",
-            "command": "${workspaceFolder}\\deploy_installer.bat",
+            "command": "${workspaceFolder}\\scripts\\deploy_installer.bat",
             "presentation": {
                 "echo": true,
                 "reveal": "always",
@@ -43,7 +43,7 @@
         {
             "label": "RUN_GAME",
             "type": "shell",
-            "command": "${workspaceFolder}\\RUN_GAME.bat",
+            "command": "${workspaceFolder}\\scripts\\RUN_GAME.bat",
             "presentation": {
                 "echo": true,
                 "reveal": "always",
@@ -62,7 +62,7 @@
         {
             "label": "SYNC FAST",
             "type": "shell",
-            "command": "${workspaceFolder}\\SYNC_WORKSPACE_FAST.bat",
+            "command": "${workspaceFolder}\\scripts\\SYNC_WORKSPACE_FAST.bat",
             "presentation": {
                 "echo": true,
                 "reveal": "always",
@@ -81,7 +81,7 @@
         {
             "label": "UPDATE VERSION",
             "type": "shell",
-            "command": "${workspaceFolder}\\update_version.bat",
+            "command": "${workspaceFolder}\\scripts\\update_version.bat",
             "presentation": {
                 "echo": true,
                 "reveal": "always",
