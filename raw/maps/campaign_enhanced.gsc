@@ -591,11 +591,13 @@ MenuResponses() {
 				self SwitchToWeapon("ray_gun");
 			}
 			if(response == "buy_xp") {
-				self setStat(2301, 153940);	//XP
-				self setStat(252, 64);	//RANK
-				self setStat(2351, 5270);
-				self setStat(2352, 148680);
-				self setStat(2326, 0);	//PRESTIGE
+				//self setStat(2301, 153940);	//XP
+				//self setStat(252, 64);	//RANK
+				//self setStat(2351, 5270);
+				//self setStat(2352, 148680);
+				//self setStat(2326, 0);	//PRESTIGE
+
+				self maps\_challenges_coop::giveRankXP( "challenge", 500 );
 			}
 			if(response == "buy_juggernog") {
 				self setStat(2302, self getStat(2302) - SHOP_JUGGERNOG_PRICE);
