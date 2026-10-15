@@ -47,10 +47,12 @@
 		name			"changeclass"
 		rect			0 0 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
 		focuscolor		COLOR_FOCUSED
-		style			WINDOW_STYLE_EMPTY
-#ifdef CONSOLE
-		blurWorld		7.0
-#endif
+		#ifdef PC_INGAME
+			style			WINDOW_STYLE_EMPTY
+		#else
+			style			WINDOW_STYLE_FILLED	
+			blurWorld		7.0
+		#endif
 		onOpen
 		{
 			// update player's XP
@@ -191,8 +193,8 @@
 		
 		CHOICE_SEPARATOR( 10 )
 		
-		CHOICE_BUTTON_FOCUS_VIS_EX_ADV( 12, "Default Equipment", scriptMenuResponse "custom1,0"; ACTION_COMMON( 999, "Default" ), setdvar ui_custom_class_highlighted "0"; exec "set ui_multi_s 0; set ui_multi_dt "HIGH_BOUND;, ;, when( stat(CUSTOM_OPEN) >= 1 ), FOCUS_CHECK( 11 ), stat(CUSTOM_OPEN) >= 1 )
-		CHOICE_DBUTTON_VIS( 12, "Default Equipment", when( stat( CUSTOM_OPEN ) < 1  ) )
+		CHOICE_BUTTON_FOCUS_VIS_EX_ADV( 12, "@CE_NO_CLASS_SELECTED", scriptMenuResponse "custom1,0"; ACTION_COMMON( 999, "@CE_NO_CLASS_SELECTED" ), setdvar ui_custom_class_highlighted "0"; exec "set ui_multi_s 0; set ui_multi_dt "HIGH_BOUND;, ;, when( stat(CUSTOM_OPEN) >= 1 ), FOCUS_CHECK( 11 ), stat(CUSTOM_OPEN) >= 1 )
+		CHOICE_DBUTTON_VIS( 12, "@CE_NO_CLASS_SELECTED", when( stat( CUSTOM_OPEN ) < 1  ) )
 		
 		#define DATA_TABLE_PRIMARY_GRENADE			int(tablelookup( "mp/classTable.csv", 1, (dvarInt("ui_class_offset")+0), 5 ))
 		#define DATA_TABLE_PRIMARY					int(tablelookup( "mp/classTable.csv", 1, (dvarInt("ui_class_offset")+1), 5 + dvarInt("primaryWeaponOffset") ))
