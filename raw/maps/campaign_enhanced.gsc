@@ -62,6 +62,7 @@ debug_utils() {
 dvars_init() {
 	setdvar("ce_cheats", 0);
 
+	setdvar("ui_ce_show_def_cac", "0");
     setdvar("ui_cac_ingame", "1");
     setdvar("ui_ce_shop", "0");
     setdvar("ui_customclass_selected", "999");

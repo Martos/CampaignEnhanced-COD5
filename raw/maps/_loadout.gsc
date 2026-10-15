@@ -106,6 +106,9 @@ init_models_and_variables_loadout()
 		set_player_viewmodel( "viewmodel_usa_raider_arms" );
 		set_player_interactive_hands( "viewmodel_usa_raider_player" );
 
+		setdvar("ce_weapon_primary", "");
+		setdvar("ce_weapon_secondary", "weapon_nambu");
+
 		level.campaign = "american";		 
 		return;
 	}
@@ -127,6 +130,9 @@ init_models_and_variables_loadout()
 		// CODER MOD (Austin & Sumeet 11/3/07)
 		// Fix bugs #1056 & #1057 with co-op players having no weapon selected
 		set_switch_weapon( "m1garand_bayonet" );
+
+		setdvar("ce_weapon_primary", "weapon_m1garand");
+		setdvar("ce_weapon_secondary", "weapon_colt");
 
 		level.campaign = "american";
 		return;
@@ -150,6 +156,9 @@ init_models_and_variables_loadout()
 		set_player_viewmodel( "viewmodel_usa_marine_arms");
 		set_player_interactive_hands( "viewmodel_usa_marine_player" );
 
+		setdvar("ce_weapon_primary", "weapon_thompson");
+		setdvar("ce_weapon_secondary", "weapon_colt");
+
 		level.campaign = "american";
 		return;
 	}
@@ -168,6 +177,9 @@ init_models_and_variables_loadout()
 
 		set_player_viewmodel( "viewmodel_usa_marine_arms");
 		set_player_interactive_hands( "viewmodel_usa_marine_player");
+
+		setdvar("ce_weapon_primary", "weapon_30cal");
+		setdvar("ce_weapon_secondary", "weapon_colt");
 
 		level.campaign = "american";
 		return;
@@ -206,6 +218,9 @@ init_models_and_variables_loadout()
 		set_player_viewmodel( "viewmodel_usa_marine_arms");
 		set_player_interactive_hands( "viewmodel_usa_marine_player" );
 
+		setdvar("ce_weapon_primary", "weapon_bar");
+		setdvar("ce_weapon_secondary", "weapon_colt");
+
 		level.campaign = "american";
 		return;
 	}
@@ -224,6 +239,9 @@ init_models_and_variables_loadout()
 		set_laststand_pistol( "tokarev" );
 
 		set_player_viewmodel( "viewmodel_rus_guard_arms");
+
+		setdvar("ce_weapon_primary", "weapon_mosin_rifle");
+		setdvar("ce_weapon_secondary", "weapon_tokarev");
 
 		level.campaign = "russian";
 		return;
@@ -258,6 +276,9 @@ init_models_and_variables_loadout()
 
 		set_player_viewmodel( "viewmodel_rus_guard_arms");
 
+		setdvar("ce_weapon_primary", "weapon_mosin_rifle");
+		setdvar("ce_weapon_secondary", "weapon_tokarev");
+
 		level.campaign = "russian";
 		return;
 	}
@@ -273,6 +294,9 @@ init_models_and_variables_loadout()
 		set_laststand_pistol( "tokarev" );
 
 		set_player_viewmodel( "viewmodel_rus_guard_arms");
+
+		setdvar("ce_weapon_primary", "weapon_mosin_rifle");
+		setdvar("ce_weapon_secondary", "weapon_tokarev");
 
 		level.campaign = "russian";
 		return;
@@ -292,6 +316,9 @@ init_models_and_variables_loadout()
 
 		set_player_viewmodel( "viewmodel_rus_guard_arms");
 
+		setdvar("ce_weapon_primary", "weapon_ppsh");
+		setdvar("ce_weapon_secondary", "weapon_tokarev");
+
 		level.campaign = "russian";
 		return;
 	}
@@ -305,6 +332,9 @@ init_models_and_variables_loadout()
 
 		set_player_viewmodel( "viewmodel_rus_guard_arms");
 		set_player_interactive_hands( "viewmodel_rus_guard_player" );
+
+		setdvar("ce_weapon_primary", "weapon_mosin_rifle");
+		setdvar("ce_weapon_secondary", "weapon_tokarev");
 
 		level.campaign = "russian";
 		return;
@@ -324,6 +354,10 @@ init_models_and_variables_loadout()
 		set_laststand_pistol( "tokarev" );
 
 		set_player_viewmodel("viewmodel_rus_guard_arms");
+
+		setdvar("ce_weapon_primary", "weapon_ppsh");
+		setdvar("ce_weapon_secondary", "weapon_tokarev");
+
 		level.campaign = "russian";
 		return;
 	}
@@ -340,6 +374,9 @@ init_models_and_variables_loadout()
 		set_laststand_pistol( "tokarev" );
 
 		set_player_viewmodel( "viewmodel_rus_guard_arms");
+
+		setdvar("ce_weapon_primary", "weapon_svt40");
+		setdvar("ce_weapon_secondary", "weapon_tokarev");
 
 		level.campaign = "russian";
 		return;
@@ -363,6 +400,9 @@ init_models_and_variables_loadout()
 		set_player_viewmodel( "viewmodel_usa_marinewet_rolledup_arms");
 		set_player_interactive_hands( "viewmodel_usa_marinewet_rolledup_player" ); // Uncomment this if you want "interactive" hands for Banzai
 
+		setdvar("ce_weapon_primary", "weapon_thompson");
+		setdvar("ce_weapon_secondary", "weapon_colt");
+
 		level.campaign = "american";
 		return;
 	}
@@ -375,6 +415,9 @@ init_models_and_variables_loadout()
 		set_laststand_pistol( "colt" );
 
 		set_player_viewmodel( "viewmodel_usa_marine_arms");
+
+		setdvar("ce_weapon_primary", "weapon_m1garand");
+		setdvar("ce_weapon_secondary", "weapon_colt");
 
 		level.campaign = "american";
 		return;
@@ -394,6 +437,9 @@ init_models_and_variables_loadout()
 		set_player_viewmodel( "viewmodel_usa_marine_arms");
 		set_player_interactive_hands( "viewmodel_usa_marine_player" );
 
+		setdvar("ce_weapon_primary", "weapon_m1garand");
+		setdvar("ce_weapon_secondary", "weapon_colt");
+
 		level.campaign = "american";
 		return;
 	}
@@ -411,6 +457,9 @@ init_models_and_variables_loadout()
 		set_laststand_pistol( "colt" );
 
 		set_player_viewmodel( "viewmodel_usa_marine_arms");
+
+		setdvar("ce_weapon_primary", "weapon_m1garand");
+		setdvar("ce_weapon_secondary", "weapon_colt");
 
 		level.campaign = "american";
 		return;

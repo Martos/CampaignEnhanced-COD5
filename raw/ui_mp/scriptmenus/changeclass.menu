@@ -193,7 +193,7 @@
 		
 		CHOICE_SEPARATOR( 10 )
 		
-		CHOICE_BUTTON_FOCUS_VIS_EX_ADV( 12, "@CE_NO_CLASS_SELECTED", scriptMenuResponse "custom1,0"; ACTION_COMMON( 999, "@CE_NO_CLASS_SELECTED" ), setdvar ui_custom_class_highlighted "0"; exec "set ui_multi_s 0; set ui_multi_dt "HIGH_BOUND;, ;, when( stat(CUSTOM_OPEN) >= 1 ), FOCUS_CHECK( 11 ), stat(CUSTOM_OPEN) >= 1 )
+		CHOICE_BUTTON_FOCUS_VIS_EX_ADV( 12, "@CE_NO_CLASS_SELECTED", scriptMenuResponse "custom1,0"; ACTION_COMMON( 999, "@CE_NO_CLASS_SELECTED" ), exec "set ui_custom_class_highlighted 0; ui_ce_show_def_cac 1;"; exec "set ui_multi_s 0; set ui_multi_dt "HIGH_BOUND;, exec "set ui_ce_show_def_cac 0;" ;, when( stat(CUSTOM_OPEN) >= 1 ), FOCUS_CHECK( 11 ), stat(CUSTOM_OPEN) >= 1 )
 		CHOICE_DBUTTON_VIS( 12, "@CE_NO_CLASS_SELECTED", when( stat( CUSTOM_OPEN ) < 1  ) )
 		
 		#define DATA_TABLE_PRIMARY_GRENADE			int(tablelookup( "mp/classTable.csv", 1, (dvarInt("ui_class_offset")+0), 5 ))
@@ -258,5 +258,6 @@
 		#define HIDE_WEAPON_ATTRIBUTE		1
 		#include "ui_mp/cac_loadout.inc"
 		CAC_LOADOUT_NORMAL
+		CAC_LOADOUT_NORMAL_DEF
 	}
 }
