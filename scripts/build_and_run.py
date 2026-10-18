@@ -1,4 +1,5 @@
 import os
+import re
 import subprocess
 import threading
 import tkinter as tk
@@ -72,6 +73,61 @@ class App:
         process.wait()
         return process.returncode
 
+    # --- Logica portata da setVersion.js ---
+    def update_nsis_version(self, nsis_path, major, minor, patch):
+        try:
+            if not os.path.exists(nsis_path):
+                self.log(f"Errore: File NSIS non trovato in: {nsis_path}")
+                return
+
+            with open(nsis_path, "r", encoding="utf-8", newline="") as f:
+                nsis_data = f.read()
+
+            nsis_version = f"{major}.{minor}.{patch}.0"
+            nsis_regex = re.compile(r'(!define\s+PRODUCT_VERSION\s+")[^"]*(")')
+
+            if nsis_regex.search(nsis_data):
+                updated = nsis_regex.sub(lambda m: f"{m.group(1)}{nsis_version}{m.group(2)}", nsis_data, count=1)
+                with open(nsis_path, "w", encoding="utf-8", newline="") as f:
+                    f.write(updated)
+                self.log(f"NSIS aggiornato alla versione: {nsis_version}")
+            else:
+                self.log("Errore: impossibile trovare la stringa '!define PRODUCT_VERSION' nel file NSIS.")
+        except Exception as e:
+            self.log(f"Errore durante l'aggiornamento del file NSIS: {e}")
+
+    def increment_version(self, workdir_path):
+        menudef_path = os.path.join(workdir_path, "raw", "ui", "menudef.h")
+        nsis_path = os.path.join(workdir_path, "CE_installer_nsis_script.nsi")
+
+        try:
+            if not os.path.exists(menudef_path):
+                self.log(f"Errore: File menudef.h non trovato: {menudef_path}")
+                return
+
+            with open(menudef_path, "r", encoding="utf-8", newline="") as f:
+                data = f.read()
+
+            regex = re.compile(r'(#define\s+CE_VERSION\s+"DEV\s+)(\d+)\.(\d+)\.(\d+)(")')
+            match = regex.search(data)
+
+            if not match:
+                self.log("Errore: CE_VERSION non trovato in menudef.h")
+                return
+
+            prefix, major, minor, patch, suffix = match.groups()
+            new_patch = int(patch) + 1
+            new_version_line = f"{prefix}{major}.{minor}.{new_patch}{suffix}"
+
+            updated = regex.sub(lambda m: new_version_line, data, count=1)
+            with open(menudef_path, "w", encoding="utf-8", newline="") as f:
+                f.write(updated)
+
+            self.log(f"Versione impostata in menudef.h: {new_version_line}")
+            self.update_nsis_version(nsis_path, major, minor, new_patch)
+        except Exception as e:
+            self.log(f"Errore: {e}")
+
     def run_all_steps(self):
         try:
             self.log("=== CARICAMENTO CONFIGURAZIONE .env ===")
@@ -96,8 +152,7 @@ class App:
 
             if self.incVerVar.get() == 1:
                 self.log("\n--- INC VER ---")
-                node_dir = os.path.join(workdir_path, "scripts")
-                self.run_command_with_output(f'node "{node_dir}"\setVersion.js')
+                self.increment_version(workdir_path)
 
             # --- STEP 1: SYNC_WORKSPACE_FAST ---
             self.log("\n--- 1. SYNC_WORKSPACE_FAST ---")
