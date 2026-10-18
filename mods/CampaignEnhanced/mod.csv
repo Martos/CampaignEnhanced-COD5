@@ -16,7 +16,5 @@ menufile,ui/ingame.txt
 sound,common,,all_sp
 sound,weapons,,all_sp
 
-rawfile,default_controls_remaster.cfg
 rawfile,default_controller_unbind.cfg
-rawfile,buttons_nomad_new.cfg
 rawfile,buttons_normal.cfg
