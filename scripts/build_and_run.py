@@ -3,7 +3,24 @@ import re
 import subprocess
 import threading
 import tkinter as tk
-from tkinter import scrolledtext, messagebox
+from tkinter import ttk, scrolledtext, messagebox
+
+LANGUAGES = ["english", "italian"]
+
+
+def load_env(path=".env"):
+    """Legge il file .env e restituisce un dizionario chiave/valore."""
+    env_vars = {}
+    if not os.path.exists(path):
+        return env_vars
+    with open(path, "r", encoding="utf-8", errors="ignore") as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                key, val = line.split("=", 1)
+                env_vars[key.strip()] = val.strip()
+    return env_vars
+
 
 class App:
     def __init__(self, root):
@@ -28,11 +45,21 @@ class App:
 
         self.runBatVar = tk.IntVar()
         c3 = tk.Checkbutton(frame, text='Create installer', variable=self.runBatVar, onvalue=1, offvalue=0)
-        c3.pack(side=tk.LEFT)
+        c3.pack(side=tk.LEFT, padx=(0, 10))
 
         self.enableLog = tk.IntVar()
-        c3 = tk.Checkbutton(frame, text='Logs', variable=self.enableLog, onvalue=1, offvalue=0)
-        c3.pack(side=tk.LEFT)
+        c4 = tk.Checkbutton(frame, text='Logs', variable=self.enableLog, onvalue=1, offvalue=0)
+        c4.pack(side=tk.LEFT, padx=(0, 20))
+
+        # Selezione lingua: default = LANGUAGE configurata nel .env
+        default_language = load_env().get("LANGUAGE", "english").strip().lower()
+        if default_language not in LANGUAGES:
+            default_language = "english"
+
+        tk.Label(frame, text="Language:").pack(side=tk.LEFT, padx=(0, 5))
+        self.languageVar = tk.StringVar(value=default_language)
+        self.language_combo = ttk.Combobox(frame, textvariable=self.languageVar, values=LANGUAGES, state="readonly", width=10)
+        self.language_combo.pack(side=tk.LEFT)
 
         self.log_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, font=("Consolas", 10))
         self.log_area.pack(expand=True, fill=tk.BOTH, padx=20, pady=10)
@@ -57,6 +84,7 @@ class App:
     def start_process_thread(self):
         self.clear_logs()
         self.run_btn.config(state=tk.DISABLED)
+        self.language_combo.config(state=tk.DISABLED)
         thread = threading.Thread(target=self.run_all_steps)
         thread.daemon = True
         thread.start()
@@ -73,7 +101,6 @@ class App:
         process.wait()
         return process.returncode
 
-    # --- Logica portata da setVersion.js ---
     def update_nsis_version(self, nsis_path, major, minor, patch):
         try:
             if not os.path.exists(nsis_path):
@@ -136,19 +163,14 @@ class App:
                 messagebox.showerror("Errore", ".env non trovato.")
                 return
 
-            env_vars = {}
-            with open(".env", "r", encoding="utf-8", errors="ignore") as f:
-                for line in f:
-                    line = line.strip()
-                    if line and not line.startswith("#") and "=" in line:
-                        key, val = line.split("=", 1)
-                        env_vars[key.strip()] = val.strip()
+            env_vars = load_env()
 
             codwaw_path = env_vars.get("CODWAW_PATH", "")
             workdir_path = env_vars.get("WORKDIR_PATH", "")
             linker_disk = env_vars.get("LINKER_DISK_PATH", "C:")
-            language = env_vars.get("LANGUAGE", "english")
+            language = self.languageVar.get()
             localappdata = os.environ.get("LOCALAPPDATA", "")
+            self.log(f"Lingua selezionata: {language}")
 
             if self.incVerVar.get() == 1:
                 self.log("\n--- INC VER ---")
@@ -234,6 +256,7 @@ class App:
             messagebox.showerror("Errore", str(e))
         finally:
             self.run_btn.config(state=tk.NORMAL)
+            self.language_combo.config(state="readonly")
 
 if __name__ == "__main__":
     root = tk.Tk()
