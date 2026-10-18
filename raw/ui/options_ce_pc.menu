@@ -53,9 +53,15 @@
 			//execOnDvarIntValue ui_zfeather 0 "set r_zfeather 0;set r_depthPrepassModels 0";	// off
 			//execOnDvarIntValue ui_zfeather 1 "set r_zfeather 1;set r_depthPrepassModels 0";	// world
 			//execOnDvarIntValue ui_zfeather 2 "set r_zfeather 1;set r_depthPrepassModels 1";	// everything
+			exec default_controller_unbind;
 
 			execOnDvarIntValue cg_drawGamepadHUD 0 "set safeArea_vertical 1;set safeArea_horizontal 1";
 			execOnDvarIntValue cg_drawGamepadHUD 1 "set safeArea_vertical 0.85;set safeArea_horizontal 0.85";
+
+			execOnDvarIntValue cg_drawGamepadHUD 1 "exec default_controls_remaster.cfg";
+			execOnDvarIntValue cg_drawGamepadHUD 1 "exec buttons_normal.cfg";
+
+			execOnDvarIntValue cg_drawGamepadHUD 0 "exec default_controls.cfg";
 		}
 		onESC
 		{
