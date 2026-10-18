@@ -32,9 +32,22 @@
 #undef CHOICE_ORIGIN
 #define CHOICE_ORIGIN( itemIndex )	-267 CHOICE_Y( itemIndex ) //CHOICE_X( itemIndex ) CHOICE_Y( itemIndex )
 
+#define XENON_P_X	(-267 + CHOICE_SIZE_X - 8)
+
+#define CHOICE_XENON_BUTTON_P( itemIndex, visArg ) \
+		itemDef \
+		{ \
+			style			WINDOW_STYLE_SHADER \
+			rect			XENON_P_X CHOICE_Y( itemIndex ) CHOICE_SIZE_Y CHOICE_SIZE_Y CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN \
+			exp				material( "ui_button_xenon_3d_a_32x32" ) \
+			visible			when( localVarInt( ui_highlight ) == itemIndex && localVarString( ui_choicegroup ) == CHOICE_GROUP && XENON_UI_ENABLED && visArg ); \
+			decoration \
+		}
+
 #define CHOICE_BUTTON_P( itemIndex, textArg, nameArg, actionArg, visArg ) \
 		CHOICE_BUTTON_BG_P( itemIndex, when( visArg ); ) \
 		CHOICE_HIGHLIGHT_P( itemIndex, visArg ) \
+		CHOICE_XENON_BUTTON_P( itemIndex, visArg ) \
 		CHOICE_BUTTON_P_INTERN( itemIndex, textArg, nameArg, actionArg, when( visArg ); )
 
 #undef CHOICE_HORIZONTAL_ALIGN
@@ -300,7 +313,7 @@
 		// "restartCheckpoint"
 		CHOICE_BUTTON_P( 5, "@MENU_RESTART_CHECKPOINT", "restartCheckpoint", open "popup_checkpoint_restart_warning";, dvarBool( ui_shipping_cheats ) && dvarbool( sv_running ) )
 		
-		CHOICE_BUTTON_P( 6, "SHOP", ;, open "menu_shop", dvarbool( sv_running ))
+		// CHOICE_BUTTON_P( 6, "SHOP", ;, open "menu_shop", dvarbool( sv_running ))
 
 /*
 // "difficulty"
