@@ -17,6 +17,7 @@ Campaign Enhanced is a campaign modificator aiming to extend feature of an exist
 - [x] Options page
 - [x] Scoreboard (T4M Feature)
 - [x] In-Game Shop and Upgrades
+- [x] XBOX 360 Controller support for menus and game
 
 ## Next Release
 
@@ -27,6 +28,9 @@ Campaign Enhanced is a campaign modificator aiming to extend feature of an exist
 - Call of Duty World at War
 - LAN Fixed executables
 - T4M-Enhanced [download](https://github.com/Martos/T4M-Enhanced.git)
+
+## Credits
+- JBShady for Xbox 360 controller support [COD5-Remastered](https://github.com/JBShady/COD5-Remastered)
 
 ## In Game Screens (old)
 | <img src="screens/1.png?raw=true" width="800" height="600" /> |
