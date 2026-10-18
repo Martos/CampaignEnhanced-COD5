@@ -123,6 +123,21 @@ class App:
         except Exception as e:
             self.log(f"Errore durante l'aggiornamento del file NSIS: {e}")
 
+    def get_commit_hash(self, workdir_path):
+        """Commit hash or None"""
+        try:
+            result = subprocess.run(
+                ["git", "rev-parse", "--short", "HEAD"],
+                cwd=workdir_path, capture_output=True, text=True, encoding="utf-8", errors="ignore"
+            )
+            commit = result.stdout.strip()
+            if result.returncode == 0 and commit:
+                return commit
+            self.log(f"Attenzione: impossibile leggere il commit git ({result.stderr.strip()})")
+        except Exception as e:
+            self.log(f"Attenzione: git non disponibile ({e})")
+        return None
+
     def increment_version(self, workdir_path):
         menudef_path = os.path.join(workdir_path, "raw", "ui", "menudef.h")
         nsis_path = os.path.join(workdir_path, "CE_installer_nsis_script.nsi")
@@ -135,16 +150,19 @@ class App:
             with open(menudef_path, "r", encoding="utf-8", newline="") as f:
                 data = f.read()
 
-            regex = re.compile(r'(#define\s+CE_VERSION\s+"DEV\s+)(\d+)\.(\d+)\.(\d+)(")')
+            regex = re.compile(r'(#define\s+CE_VERSION\s+"DEV\s+)(\d+)\.(\d+)\.(\d+)([^"]*)(")')
             match = regex.search(data)
 
             if not match:
                 self.log("Errore: CE_VERSION non trovato in menudef.h")
                 return
 
-            prefix, major, minor, patch, suffix = match.groups()
+            prefix, major, minor, patch, _old_commit, suffix = match.groups()
             new_patch = int(patch) + 1
-            new_version_line = f"{prefix}{major}.{minor}.{new_patch}{suffix}"
+
+            commit = self.get_commit_hash(workdir_path)
+            commit_part = f" ({commit})" if commit else ""
+            new_version_line = f"{prefix}{major}.{minor}.{new_patch}{commit_part}{suffix}"
 
             updated = regex.sub(lambda m: new_version_line, data, count=1)
             with open(menudef_path, "w", encoding="utf-8", newline="") as f:
